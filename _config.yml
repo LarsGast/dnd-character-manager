@@ -30,6 +30,7 @@ header_pages:
   - index.md
   - Campaigns.md
   - Characters.md
+  - Locations.md
 
 # Exclude from processing.
 # The following items will not be processed, by default.
