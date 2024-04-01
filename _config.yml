@@ -19,7 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 title: DnD Wiki
-github_username:  LarsGast
+github_username: LarsGast
 
 # Build settings
 theme: minima
