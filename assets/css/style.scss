@@ -8,6 +8,13 @@
     // border: 1px solid red !important;
 }
 
+// Regular sized images are too large.
+img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+}
+
 .no-style-list {
     list-style-type: none;
     margin: 0;
