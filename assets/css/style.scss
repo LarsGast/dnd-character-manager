@@ -4,8 +4,15 @@
 @import "{{ site.theme }}";
 
 /* DEBUG MODE */
+/* SHOULD NEVER BE ON IN PRODUCTION */
 * {
     // border: 1px solid red !important;
+}
+
+/* DEBUG MODE */
+/* SHOULD ALWAYS BE ON IN PRODUCTION */
+.invisible {
+    display: none;
 }
 
 // Regular sized images are too large.

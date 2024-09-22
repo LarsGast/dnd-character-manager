@@ -21,10 +21,6 @@
 title: DnD Wiki
 github_username: LarsGast
 
-# Show all invisible content on the site
-# WARNING: SHOULD NEVER BE TRUE ON PRODUCTION
-showInvisible: false
-
 # Build settings
 theme: minima
 plugins:
