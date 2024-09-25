@@ -11,8 +11,9 @@
 
 /* DEBUG MODE */
 /* SHOULD ALWAYS BE ON IN PRODUCTION */
-.invisible {
-    display: none;
+.unpublished {
+    display: none !important;
+    background-color: pink;
 }
 
 // Regular sized images are too large.
