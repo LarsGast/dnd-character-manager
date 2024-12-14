@@ -98,6 +98,10 @@ img {
     &.tavern::before {
         content: "\f7b6";
     }
+
+    &.question::before {
+        content: "\3f";
+    }
     
     &.with-party::before {
         content: "\f6bb"; 
