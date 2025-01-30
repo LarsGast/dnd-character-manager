@@ -26,6 +26,7 @@ img {
 .no-style-list {
     list-style-type: none;
     margin: 0;
+    margin-bottom: 15px;
 }
 
 .no-style-link-group {
@@ -146,8 +147,6 @@ img {
 /* Abilityscores for player character page */
 #ability-scores-container {
 
-    padding-bottom: 20px;
-
     ul {
         display: flex;
         flex-direction: row;
@@ -182,23 +181,30 @@ img {
     }
 }
 
-/* Skills section for PC page */
-#skills-container {
-    ul {
-        column-count: 3;
+/* Proficiencies list for PC page */
+.proficiencies-list {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
 
-        border: 2px solid black;
-        border-radius: 10px;
-        padding: 5px;
-
-        @media screen and (max-width: 740px) {
-            column-count: 2;
-        }
-
-        @media screen and (max-width: 510px) {
-            column-count: 1;
-        }
+    /* Override .three-columns-list and .two-columns-list below */
+    @media screen and (max-width: 510px) {
+        column-count: 1 !important;
     }
+}
+
+/* For displaying three columns */
+.three-columns-list {
+    column-count: 3;
+
+    @media screen and (max-width: 740px) {
+        column-count: 2;
+    }
+}
+
+/* For displaying two columns */
+.two-columns-list {
+    column-count: 2;
 }
 
 /* Summary styling */

@@ -111,7 +111,21 @@ permalink: /pc-builder/
 
 <section id="skills-container">
     <h2>Skills</h2>
-    <ul class="no-style-list" id="skills-list"></ul>
+    <ul class="no-style-list proficiencies-list three-columns-list" id="skills-list"></ul>
+</section>
+
+<section id="equipment-proficiencies-container">
+    <details>
+        <summary><h2>Equipment proficiencies</h2></summary>
+        <details>
+            <summary><h3>Weapons</h3></summary>
+            <div id="weapon-proficiencies-container"></div>
+        </details>
+        <details>
+            <summary><h3>Armor</h3></summary>
+            <div id="armor-proficiencies-container"></div>
+        </details>
+    </details>
 </section>
 
 <section id="notes-container">
@@ -120,16 +134,11 @@ permalink: /pc-builder/
 </section>
 
 <script type="module">
-    import { fillGenericInfoElements } from "{{ '/assets/js/player-character/build/generic-info.js' | relative_url }}";
-    import { fillSkillsList } from "{{ '/assets/js/player-character/build/skills.js' | relative_url }}";
+    import { buildPage } from "{{ '/assets/js/player-character/build/build-page.js' | relative_url }}";
     import { initPage } from "{{ '/assets/js/player-character/init/init-page.js' | relative_url }}";
-
-    const genericInfoPromise = fillGenericInfoElements();
 
     window.skills = {{ site.data.skills | jsonify }};
 
-    fillSkillsList({{ site.data.skills | jsonify }});
-
-    await genericInfoPromise;
+    await buildPage();
     initPage();
 </script>

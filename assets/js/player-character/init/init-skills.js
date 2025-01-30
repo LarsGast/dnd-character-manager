@@ -1,4 +1,13 @@
-import { isProficientInSkill, isExpertInSkill, getSkillModifier, enableOrDisableProficiencyCheckbox, updateSkillModifier, enableOrDisableExpertiseCheckbox, saveNewProficiencies, saveNewExpertises } from "../util.js";
+import { 
+    isProficientInSkill,
+    isExpertInSkill,
+    getSkillModifier,
+    enableOrDisableProficiencyCheckbox,
+    updateSkillModifier,
+    enableOrDisableExpertiseCheckbox,
+    saveNewSkillProficiencies,
+    saveNewSkillExpertises
+} from "../util.js";
 
 /**
  * Initialize all elements for the skills on the PC builder page.
@@ -45,7 +54,7 @@ const initProficiencyCheckbox = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 const changeProficiency = function(skill, add) {
-    saveNewProficiencies(skill.name, add);
+    saveNewSkillProficiencies(skill.name, add);
     enableOrDisableExpertiseCheckbox(skill.name);
     updateSkillModifier(skill);
 }
@@ -71,7 +80,7 @@ const initExpertiseCheckbox = function(skill) {
  * @param {boolean} add Wether the expertise is added or removed.
  */
 const changeExpertise = function(skill, add) {
-    saveNewExpertises(skill.name, add);
+    saveNewSkillExpertises(skill.name, add);
     enableOrDisableProficiencyCheckbox(skill.name);
     updateSkillModifier(skill);
 }
