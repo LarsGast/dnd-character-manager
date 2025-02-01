@@ -47,12 +47,7 @@ permalink: /pc-builder/
                 </ul>
             </li>
             <li>
-                Proficiencies in
-                <ul>
-                    <li>Wapens</li>
-                    <li>Armor</li>
-                    <li>Items</li>
-                </ul>
+                Proficiencies in items
             </li>
         </ul>
     </details>
