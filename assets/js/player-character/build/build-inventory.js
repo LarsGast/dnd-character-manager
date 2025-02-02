@@ -1,4 +1,4 @@
-import { getAllMartialMeleeWeaponsAsync, getAllMartialRangedWeaponsAsync, getAllSimpleMeleeWeaponsAsync, getAllSimpleRangedWeaponsAsync } from "../api.js";
+import { getAllHeavyArmorAsync, getAllLightArmorAsync, getAllMartialMeleeWeaponsAsync, getAllMartialRangedWeaponsAsync, getAllMediumArmorAsync, getAllSimpleMeleeWeaponsAsync, getAllSimpleRangedWeaponsAsync } from "../api.js";
 import { getEmptyOption } from "../util.js";
 
 /**
@@ -6,6 +6,7 @@ import { getEmptyOption } from "../util.js";
  */
 export const buildInventory = async function() {
     await buildWeaponSelect();
+    await buildArmorSelect();
 }
 
 /**
@@ -16,29 +17,42 @@ const buildWeaponSelect = async function() {
     const select = document.getElementById('weapon-select');
 
     select.appendChild(getEmptyOption());
-    select.appendChild(getWeaponOptionGroup("Simple Melee", await getAllSimpleMeleeWeaponsAsync()));
-    select.appendChild(getWeaponOptionGroup("Martial Melee", await getAllMartialMeleeWeaponsAsync()));
-    select.appendChild(getWeaponOptionGroup("Simple Ranged", await getAllSimpleRangedWeaponsAsync()));
-    select.appendChild(getWeaponOptionGroup("Martial Ranged", await getAllMartialRangedWeaponsAsync()));
+    select.appendChild(getSelectOptionGroup("Simple Melee", await getAllSimpleMeleeWeaponsAsync()));
+    select.appendChild(getSelectOptionGroup("Martial Melee", await getAllMartialMeleeWeaponsAsync()));
+    select.appendChild(getSelectOptionGroup("Simple Ranged", await getAllSimpleRangedWeaponsAsync()));
+    select.appendChild(getSelectOptionGroup("Martial Ranged", await getAllMartialRangedWeaponsAsync()));
 }
 
 /**
- * Get a single option group to divide the different weapon type.
+ * Build the armor part of the inventory section.
+ * Add all the armor to the dropdown so the user can pick any supported armor.
+ */
+const buildArmorSelect = async function() {
+    const select = document.getElementById('armor-select');
+
+    select.appendChild(getEmptyOption());
+    select.appendChild(getSelectOptionGroup("Light", await getAllLightArmorAsync()));
+    select.appendChild(getSelectOptionGroup("Medium", await getAllMediumArmorAsync()));
+    select.appendChild(getSelectOptionGroup("Heavy", await getAllHeavyArmorAsync()));
+}
+
+/**
+ * Get a single option group to divide the different equipment types.
  * @param {string} optgroupLabel Name of this group.
- * @param {object[]} weapons Full weapon objects.
+ * @param {object[]} equipmentList Full equipment objects.
  * @returns 
  */
-const getWeaponOptionGroup = function(optgroupLabel, weapons) {
+const getSelectOptionGroup = function(optgroupLabel, equipmentList) {
     const optgroup = document.createElement('optgroup');
 
     optgroup.label = optgroupLabel;
 
-    weapons.forEach(weapon => {
+    equipmentList.forEach(equipment => {
         const option = document.createElement('option');
 
         // Add the index as the value so we can find it later.
-        option.value = weapon.index;
-        option.textContent = weapon.name;
+        option.value = equipment.index;
+        option.textContent = equipment.name;
 
         optgroup.appendChild(option);
     });

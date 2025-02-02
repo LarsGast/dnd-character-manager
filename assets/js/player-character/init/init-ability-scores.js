@@ -1,5 +1,6 @@
 import { getPlayerCharacterProperty } from "../../local-storage-util.js";
 import { getAbilityScoreModifier, limitAbilityScore, saveAbilityScore, updateAbilityScoreModifier, updateAllSkillModifiers } from "../util.js";
+import { updateAllArmorModifiersAsync } from "./inventory/init-armor.js";
 import { updateAllWeaponModifiers } from "./inventory/init-weapons.js";
 
 /**
@@ -34,8 +35,8 @@ const initAbilityScoreInputField = function(abilityName) {
     const inputField = document.getElementById(`${abilityName}_i`);
 
     inputField.value = getPlayerCharacterProperty(abilityName);
-    inputField.onchange = function() {
-        changeAbilityScore(abilityName, this.value);
+    inputField.onchange = async function() {
+        await changeAbilityScore(abilityName, this.value);
     };
 }
 
@@ -44,7 +45,7 @@ const initAbilityScoreInputField = function(abilityName) {
  * @param {string} abilityName 
  * @param {number} abilityScore 
  */
-const changeAbilityScore = function(abilityName, abilityScore) {
+const changeAbilityScore = async function(abilityName, abilityScore) {
     if (abilityScore < 1 || abilityScore > 30) {
         limitAbilityScore(abilityName, abilityScore);
         return;
@@ -53,6 +54,7 @@ const changeAbilityScore = function(abilityName, abilityScore) {
     updateAbilityScoreModifier(abilityName);
     updateAllSkillModifiers();
     updateAllWeaponModifiers();
+    await updateAllArmorModifiersAsync();
 }
 
 /**

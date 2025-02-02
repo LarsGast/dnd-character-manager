@@ -1,3 +1,4 @@
+import { initArmor } from "./inventory/init-armor.js";
 import { initWeapons } from "./inventory/init-weapons.js"
 
 /**
@@ -5,4 +6,5 @@ import { initWeapons } from "./inventory/init-weapons.js"
  */
 export const initInventory = async function() {
     await initWeapons();
+    await initArmor();
 }

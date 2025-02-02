@@ -121,6 +121,16 @@ export const getAllMartialRangedWeaponNamesAsync = async function() {
 }
 
 /**
+ * Get all light armor in the SRD.
+ * @returns {string[]}
+ */
+export const getAllLightArmorAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/light-armor`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
+}
+
+/**
  * Get all light armor names in the SRD.
  * @returns {string[]}
  */
@@ -131,6 +141,16 @@ export const getAllLightArmorNamesAsync = async function() {
 }
 
 /**
+ * Get all medium armor in the SRD.
+ * @returns {string[]}
+ */
+export const getAllMediumArmorAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/medium-armor`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
+}
+
+/**
  * Get all medium armor names in the SRD.
  * @returns {string[]}
  */
@@ -138,6 +158,16 @@ export const getAllMediumArmorNamesAsync = async function() {
     const url = `${baseUrl}/api/equipment-categories/medium-armor`;
     const json = await getApiDataAsync(url);
     return json.equipment.map(result => result.name);
+}
+
+/**
+ * Get all heavy armor in the SRD.
+ * @returns {string[]}
+ */
+export const getAllHeavyArmorAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/heavy-armor`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
 }
 
 /**
