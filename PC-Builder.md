@@ -38,8 +38,6 @@ permalink: /pc-builder/
             <li>
                 Inventory, onderverdeeld in
                 <ul>
-                    <li>Wapens</li>
-                    <li>Armor</li>
                     <li>Magische items</li>
                     <li>Potions</li>
                     <li>Goud</li>
