@@ -1,6 +1,7 @@
 import { getPlayerCharacterProperty } from "../../../local-storage-util.js";
 import { getAllClassNamesAsync } from "../../api.js"
 import { getEmptyOption, getSelectOption, limitClassLevel, updateAllSkillModifiers, updateClasses } from "../../util.js";
+import { updateAllWeaponModifiers } from "../inventory/init-weapons.js";
 
 /**
  * Init the class and level property.
@@ -144,4 +145,5 @@ const changeLevelInput = function() {
     limitClassLevel();
     updateClasses();
     updateAllSkillModifiers();
+    updateAllWeaponModifiers();
 }

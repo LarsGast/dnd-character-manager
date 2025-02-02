@@ -61,6 +61,7 @@ export const getEmptyOption = function() {
 
     const emptyOption = document.createElement('option');
 
+    emptyOption.value = "empty";
     emptyOption.disabled = true;
     emptyOption.selected = true;
     emptyOption.textContent = "-- Select an option --";

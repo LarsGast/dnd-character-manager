@@ -1,4 +1,5 @@
 import { isProficientInArmor, isProficientInWeapon, saveNewArmorProficiencies, saveNewWeaponProficiencies } from "../util.js";
+import { updateAllWeaponModifiers } from "./inventory/init-weapons.js";
 
 /**
  * Initialize all elements for the equipment proficiencies on the PC builder page.
@@ -31,6 +32,7 @@ const initWeaponProficiencyListItem = function(weaponProficiencyItem) {
     weaponProficiencyCheckbox.checked = isProficientInWeapon(weaponProficiencyLabel.textContent);
     weaponProficiencyCheckbox.onchange = function () {
         saveNewWeaponProficiencies(weaponProficiencyLabel.textContent, this.checked);
+        updateAllWeaponModifiers();
     };
 }
 

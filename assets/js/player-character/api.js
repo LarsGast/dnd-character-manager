@@ -41,6 +41,16 @@ export const getAllAlignmentNamesAsync = async function() {
 }
 
 /**
+ * Get all simple melee weapons in the SRD.
+ * @returns {object[]}
+ */
+export const getAllSimpleMeleeWeaponsAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/simple-melee-weapons`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
+}
+
+/**
  * Get all simple melee weapon names in the SRD.
  * @returns {string[]}
  */
@@ -48,6 +58,16 @@ export const getAllSimpleMeleeWeaponNamesAsync = async function() {
     const url = `${baseUrl}/api/equipment-categories/simple-melee-weapons`;
     const json = await getApiDataAsync(url);
     return json.equipment.map(result => result.name);
+}
+
+/**
+ * Get all martial melee weapons in the SRD.
+ * @returns {object[]}
+ */
+export const getAllMartialMeleeWeaponsAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/martial-melee-weapons`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
 }
 
 /**
@@ -61,6 +81,16 @@ export const getAllMartialMeleeWeaponNamesAsync = async function() {
 }
 
 /**
+ * Get all simple ranged weapons in the SRD.
+ * @returns {object[]}
+ */
+export const getAllSimpleRangedWeaponsAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/simple-ranged-weapons`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
+}
+
+/**
  * Get all simple ranged weapon names in the SRD.
  * @returns {string[]}
  */
@@ -68,6 +98,16 @@ export const getAllSimpleRangedWeaponNamesAsync = async function() {
     const url = `${baseUrl}/api/equipment-categories/simple-ranged-weapons`;
     const json = await getApiDataAsync(url);
     return json.equipment.map(result => result.name);
+}
+
+/**
+ * Get all martial ranged weapons in the SRD.
+ * @returns {object[]}
+ */
+export const getAllMartialRangedWeaponsAsync = async function() {
+    const url = `${baseUrl}/api/equipment-categories/martial-ranged-weapons`;
+    const json = await getApiDataAsync(url);
+    return json.equipment;
 }
 
 /**
@@ -118,6 +158,17 @@ export const getAllShieldNamesAsync = async function() {
     const url = `${baseUrl}/api/equipment-categories/shields`;
     const json = await getApiDataAsync(url);
     return json.equipment.map(result => result.name);
+}
+
+/**
+ * Get a single equipment object from the SRD.
+ * @param {string} equipmentIndex Name as specified as index in the API.
+ * @returns {object} Full JSON object of the equipment piece.
+ */
+export const getEquipmentObjectAsync = async function(equipmentIndex) {
+    const url = `${baseUrl}/api/equipment/${equipmentIndex}`;
+    const json = await getApiDataAsync(url);
+    return json;
 }
 
 /**

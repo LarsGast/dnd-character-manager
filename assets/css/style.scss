@@ -23,6 +23,16 @@ img {
     object-fit: contain;
 }
 
+// Make tables scrollable horizontally.
+.table-container {
+    overflow-x: auto;
+}
+
+// Remove margin set by Jekyll Minima.
+table {
+    margin-bottom: 0;
+}
+
 .no-style-list {
     list-style-type: none;
     margin: 0;
@@ -217,6 +227,13 @@ summary {
     /* Marker same size as an h3*/
     &::marker {
         font-size: 26px;
+    }
+}
+
+/* For adding a plus (+) sign to positive numbers without editing the value itself */
+.expressive-positive-number {
+    &::before {
+        content: "+";
     }
 }
 

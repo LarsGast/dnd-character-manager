@@ -1,5 +1,6 @@
 import { getPlayerCharacterProperty } from "../../local-storage-util.js";
 import { getAbilityScoreModifier, limitAbilityScore, saveAbilityScore, updateAbilityScoreModifier, updateAllSkillModifiers } from "../util.js";
+import { updateAllWeaponModifiers } from "./inventory/init-weapons.js";
 
 /**
  * Initialize all elements for the ability scores on the PC builder page.
@@ -51,6 +52,7 @@ const changeAbilityScore = function(abilityName, abilityScore) {
     saveAbilityScore(abilityName);
     updateAbilityScoreModifier(abilityName);
     updateAllSkillModifiers();
+    updateAllWeaponModifiers();
 }
 
 /**
