@@ -129,6 +129,7 @@ const getNewRow = function(weapon, ability = null) {
     tr.appendChild(getNewDamageCell(weapon, ability));
     tr.appendChild(getNewDamageTypeCell(weapon));
     tr.appendChild(getNewRangeCell(weapon));
+    tr.appendChild(getNewWeightCell(weapon));
     tr.appendChild(getNewButtonsCell(weapon));
 
     return tr;
@@ -264,6 +265,19 @@ const getNewRangeCell = function(weapon) {
     }
 
     td.textContent = rangeText;
+
+    return td;
+}
+
+/**
+ * Get a new cell for the "Weight" column.
+ * @param {object} weapon Full weapon object.
+ * @returns {HTMLTableCellElement}
+ */
+const getNewWeightCell = function(weapon) {
+    const td = getNewCell("weight");
+
+    td.textContent = weapon.weight;
 
     return td;
 }

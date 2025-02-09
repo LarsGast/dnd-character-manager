@@ -125,6 +125,7 @@ const getNewRow = function(armor) {
     tr.appendChild(getNewDisadvantageOnStealthCell(armor));
     tr.appendChild(getNewArmorClassCell(armor));
     tr.appendChild(getNewEffectiveArmorClassCell(armor));
+    tr.appendChild(getNewWeightCell(armor));
     tr.appendChild(getNewButtonsCell(armor));
 
     return tr;
@@ -212,6 +213,19 @@ const getNewArmorClassCell = function(armor) {
  */
 const getNewEffectiveArmorClassCell = function(armor) {
     const td = getNewCell("effective-armor-class");
+
+    return td;
+}
+
+/**
+ * Get a new cell for the "Weight" column.
+ * @param {object} armor Full armor object.
+ * @returns {HTMLTableCellElement}
+ */
+const getNewWeightCell = function(armor) {
+    const td = getNewCell("weight");
+
+    td.textContent = armor.weight;
 
     return td;
 }

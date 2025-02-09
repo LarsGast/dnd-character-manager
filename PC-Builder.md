@@ -137,6 +137,7 @@ permalink: /pc-builder/
                         <th id="weapon_damage">Damage</th>
                         <th id="weapon_damage-type">Damage type</th>
                         <th id="weapon_range">Range</th>
+                        <th id="weapon_weight">Weight</th>
                         <th id="weapon_buttons">Buttons</th>
                     </tr>
                 </thead>
@@ -157,6 +158,7 @@ permalink: /pc-builder/
                         <th id="armor_disadvantage-on-stealth">Stealth</th>
                         <th id="armor_armor-class">Armor class</th>
                         <th id="armor_effective-armor-class">Effective armor class</th>
+                        <th id="armor_weight">Weight</th>
                         <th id="armor_buttons">Buttons</th>
                     </tr>
                 </thead>
