@@ -154,6 +154,67 @@ table {
     }
 }
 
+/* Styling dialogs (modals, popups) */
+dialog {
+
+    // Generic styling
+    width: 80%;
+    max-width: calc(0.8 * (800px - (30px * 2)));
+    &:not(#reset-dialog) {
+        height: 50vh;
+    }
+
+    /* Wrapper for all content within a dialog element. */
+    .dialog-content {
+
+        height: 100%;
+        width: 100%;
+
+        // To dynamically grow the textarea within.
+        display: flex;
+        flex-direction: column;
+
+        /* Close button for the modal */
+        .close {
+
+            // To put it in the top right position of the modal content.
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        /* Other buttons in the dialog */
+        .reset,
+        .copy,
+        .download,
+        .import {
+
+            // Prevent stretching caused by flex.
+            align-self: start;
+        }
+
+        .reset {
+
+            // As a warning.
+            background-color: red;
+        }
+
+        /* "Preview" label */
+        label {
+            float: right;
+        }
+
+        /* Textarea within the modal content. */
+        /* To display the export and import data. */
+        textarea {
+
+            // To grow to the size of the modal content.
+            flex-grow: 1;
+        }
+    }
+}
+
 /* Abilityscores for player character page */
 #ability-scores-container {
 

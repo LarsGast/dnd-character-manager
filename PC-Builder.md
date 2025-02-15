@@ -49,7 +49,12 @@ permalink: /pc-builder/
             </li>
         </ul>
     </details>
-    
+</section>
+
+<section id="export-import-container">
+    <button id="reset-button" type="button">Reset</button>
+    <button id="export-button" type="button">Export</button>
+    <button id="import-button" type="button">Import</button>
 </section>
 
 <section id="generic-info-container">
@@ -173,6 +178,45 @@ permalink: /pc-builder/
     <h2>Notes</h2>
     <textarea id="notes"></textarea>
 </section>
+
+<div id="dialogs">
+    <dialog id="reset-dialog">
+        <div class="dialog-content">
+            <button class="close" type="button">Close</button>
+            <h2>Reset PC</h2>
+            <p>By resetting the PC, you will set the page to the same state it was when you loaded the page for the first time. All data will be removed and default values will be assigned to each property.</p>
+            <p><strong>Warning: resetting the page will remove all data. Export the data first to create a backup if you do not want to lose any data.</strong></p>
+            <button class="reset" type="button">Reset</button>
+        </div>
+    </dialog>
+    <dialog id="export-dialog">
+        <div class="dialog-content">
+            <button class="close" type="button">Close</button>
+            <h2>Export PC</h2>
+            <p>Use this window to download all information needed to build the PC Builder page. You can use this feature to save backups, move characters between devices, and more.</p>
+            <p>Use the <code>Import</code> button to import the information into the page using the resulting JSON file from this export.</p>
+            <div>
+                <button class="download" type="button">Download</button>
+                <label for="export-preview">Preview</label>
+            </div>
+            <textarea id="export-preview" disabled></textarea>
+        </div>
+    </dialog>
+    <dialog id="import-dialog">
+        <div class="dialog-content">
+            <button class="close" type="button">Close</button>
+            <h2>Import PC</h2>
+            <p>Use this window to import all information needed to build the PC Builder page. Only the data provided by an export should be used while importing. Using anything else may result in loss of data. Create a backup of the current data by exporting it before importing new data to prevent overwriting existing data.</p>
+            <p>Select a JSON file below, then press the <code>Import</code> button to import the data.</p>
+            <div>
+                <button class="import" type="button" disabled>Import</button>
+                <input class="load" type="file"/>
+                <label for="import-preview">Preview</label>
+            </div>
+            <textarea id="import-preview" disabled></textarea>
+        </div>
+    </dialog>
+</div>
 
 <script type="module">
     import { buildPage } from "{{ '/assets/js/player-character/build/build-page.js' | relative_url }}";

@@ -111,7 +111,7 @@ const initClassSelection = function() {
     const classes = getPlayerCharacterProperty("classes");
     const addClassButton = document.getElementById('class-and-level_b');
 
-    if (classes === null || classes.length === 0){
+    if (classes.length === 0){
         addClassButton.onclick();
         return;
     }

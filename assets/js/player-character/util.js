@@ -61,7 +61,7 @@ export const getEmptyOption = function() {
 
     const emptyOption = document.createElement('option');
 
-    emptyOption.value = "empty";
+    emptyOption.value = null;
     emptyOption.disabled = true;
     emptyOption.selected = true;
     emptyOption.textContent = "-- Select an option --";
@@ -150,7 +150,7 @@ export const getProficiencyModifier = function() {
 
     const classes = getPlayerCharacterProperty("classes");
 
-    if (classes == null || classes.length === 0) {
+    if (classes.length === 0) {
         return 0;
     }
 
@@ -186,7 +186,7 @@ export const getAbbreviationOfAbility = function(abilityName) {
  * @returns {boolean}
  */
 export const isProficientInSkill = function(skillName) {
-    const proficiencies = getPlayerCharacterProperty("proficiencies") || [];
+    const proficiencies = getPlayerCharacterProperty("proficiencies");
     return proficiencies.includes(skillName);
 }
 
@@ -196,7 +196,7 @@ export const isProficientInSkill = function(skillName) {
  * @returns {boolean}
  */
 export const isExpertInSkill = function(skillName) {
-    const expertises = getPlayerCharacterProperty("expertises") || [];
+    const expertises = getPlayerCharacterProperty("expertises");
     return expertises.includes(skillName);
 }
 
@@ -206,7 +206,7 @@ export const isExpertInSkill = function(skillName) {
  * @returns {boolean}
  */
 export const isProficientInWeapon = function(weaponName) {
-    const proficiencies = getPlayerCharacterProperty("weapon_proficiencies") || [];
+    const proficiencies = getPlayerCharacterProperty("weapon_proficiencies");
     return proficiencies.includes(weaponName);
 }
 
@@ -216,7 +216,7 @@ export const isProficientInWeapon = function(weaponName) {
  * @returns {boolean}
  */
 export const isProficientInArmor = function(armorName) {
-    const proficiencies = getPlayerCharacterProperty("armor_proficiencies") || [];
+    const proficiencies = getPlayerCharacterProperty("armor_proficiencies");
     return proficiencies.includes(armorName);
 }
 
@@ -248,7 +248,7 @@ export const getSkillModifier = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewSkillProficiencies = function(skillName, add) {
-    const proficiencies = getPlayerCharacterProperty("proficiencies") || [];
+    const proficiencies = getPlayerCharacterProperty("proficiencies");
 
     if (add === true) {
         if (!proficiencies.includes(skillName)) {
@@ -271,7 +271,7 @@ export const saveNewSkillProficiencies = function(skillName, add) {
  * @param {boolean} add Wether the expertise is added or removed.
  */
 export const saveNewSkillExpertises = function(skillName, add) {
-    const expertise = getPlayerCharacterProperty("expertises") || [];
+    const expertise = getPlayerCharacterProperty("expertises");
 
     if (add === true) {
         if (!expertise.includes(skillName)) {
@@ -334,7 +334,7 @@ export const updateSkillModifier = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewWeaponProficiencies = function(weaponName, add) {
-    const weaponProficiencies = getPlayerCharacterProperty("weapon_proficiencies") || [];
+    const weaponProficiencies = getPlayerCharacterProperty("weapon_proficiencies");
 
     if (add === true) {
         if (!weaponProficiencies.includes(weaponName)) {
@@ -357,7 +357,7 @@ export const saveNewWeaponProficiencies = function(weaponName, add) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewArmorProficiencies = function(armorName, add) {
-    const armorProficiencies = getPlayerCharacterProperty("armor_proficiencies") || [];
+    const armorProficiencies = getPlayerCharacterProperty("armor_proficiencies");
 
     if (add === true) {
         if (!armorProficiencies.includes(armorName)) {

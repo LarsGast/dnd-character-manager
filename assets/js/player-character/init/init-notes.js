@@ -6,7 +6,7 @@ import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../lo
 export const initNotes = function() {
     const textArea = document.getElementById('notes');
 
-    textArea.value = getPlayerCharacterProperty("notes") ?? '';
+    textArea.value = getPlayerCharacterProperty("notes");
     textArea.onchange = function() {
         setPlayerCharacterProperty("notes", this.value);
     };

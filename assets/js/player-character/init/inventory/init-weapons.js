@@ -55,7 +55,7 @@ const saveWeaponInventory = function() {
  */
 const initWeaponTable = async function() {
 
-    const weapons = getPlayerCharacterProperty("inventory_weapons") || [];
+    const weapons = getPlayerCharacterProperty("inventory_weapons");
 
     for (const weapon of weapons) {
         const weaponFromApi = await getEquipmentObjectAsync(weapon.index);
@@ -90,7 +90,7 @@ const initAddWeaponButton = function() {
 
         // Disable button until a weapon is chosen again.
         addWeaponButton.disabled = true;
-        weaponSelect.value = "empty" ;
+        weaponSelect.value = null ;
 
         saveWeaponInventory();
     };
