@@ -28,7 +28,6 @@ permalink: /pc-builder/
             Naast de componenten die je al op deze pagina ziet, zijn er plannen voor uitbreidingen. Hieronder zie je een lijst met een aantal geplande onderdelen. Als je zelf voorstellen hebt over uitbreidingen, hoor ik dit graag.
         </p>
         <ul>
-            <li>Import-export functionaliteit voor de data</li>
             <li>HP, AC, initiative, en speed</li>
             <li>Saving throws</li>
             <li>Race features</li>
