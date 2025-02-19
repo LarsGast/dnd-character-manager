@@ -1,5 +1,5 @@
 import { getPlayerCharacterProperty } from "../../../local-storage-util.js";
-import { getAllClassNamesAsync } from "../../api.js"
+import { ApiCategory, getApiResultsAsync } from "../../api.js"
 import { getEmptyOption, getSelectOption, limitClassLevel, updateAllSkillModifiers, updateClasses } from "../../util.js";
 import { updateAllWeaponModifiers } from "../inventory/init-weapons.js";
 
@@ -47,14 +47,14 @@ const getClassListItem = async function() {
  * @returns {HTMLSelectElement}
  */
 const getClassSelect = async function() {
-    const allClassNames = await getAllClassNamesAsync();
+    const allClasses = await getApiResultsAsync(ApiCategory.Classes);
 
     const select = document.createElement('select');
 
     select.appendChild(getEmptyOption());
 
-    allClassNames.forEach(className => {
-        select.appendChild(getSelectOption(className));
+    allClasses.results.forEach(classObject => {
+        select.appendChild(getSelectOption(classObject.name, classObject.index));
     });
 
     select.onchange = function() {
@@ -93,12 +93,12 @@ const getRemoveClassButton = function() {
     button.type = "button";
     button.textContent = "Remove class";
 
-    button.onclick = function() {
+    button.onclick = async function() {
         const parent = this.parentElement;
         parent.remove();
 
         changeClassSelect();
-        changeLevelInput();
+        await changeLevelInput();
     }
 
     return button;
@@ -124,7 +124,7 @@ const initClassSelection = function() {
         const li = classList.lastChild;
 
         const select = li.getElementsByTagName('select')[0];
-        select.value = classObject.name;
+        select.value = classObject.index;
 
         const input = li.getElementsByTagName('input')[0];
         input.value = classObject.level;
@@ -141,9 +141,9 @@ const changeClassSelect = function() {
 /**
  * Handle the change of a class level input.
  */
-const changeLevelInput = function() {
+const changeLevelInput = async function() {
     limitClassLevel();
     updateClasses();
-    updateAllSkillModifiers();
+    await updateAllSkillModifiers();
     updateAllWeaponModifiers();
 }

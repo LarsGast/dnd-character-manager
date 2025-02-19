@@ -73,35 +73,35 @@ permalink: /pc-builder/
 <section id="ability-scores-container">
     <h2>Ability Scores</h2>
     <ul class="no-style-list" id="ability-scores-list">
-    <li id="strength">
+        <li id="str">
             <span>STR</span>
-            <span id="strength_m"></span>
-            <input id="strength_i" type="number" min="1" max="30"/>
+            <span id="str_m"></span>
+            <input id="str_i" type="number" min="1" max="30"/>
         </li>
-        <li id="dexterity">
+        <li id="dex">
             <span>DEX</span>
-            <span id="dexterity_m"></span>
-            <input id="dexterity_i" type="number" min="1" max="30"/>
+            <span id="dex_m"></span>
+            <input id="dex_i" type="number" min="1" max="30"/>
         </li>
-        <li id="constitution">
+        <li id="con">
             <span>CON</span>
-            <span id="constitution_m"></span>
-            <input id="constitution_i" type="number" min="1" max="30"/>
+            <span id="con_m"></span>
+            <input id="con_i" type="number" min="1" max="30"/>
         </li>
-        <li id="intelligence">
+        <li id="int">
             <span>INT</span>
-            <span id="intelligence_m"></span>
-            <input id="intelligence_i" type="number" min="1" max="30"/>
+            <span id="int_m"></span>
+            <input id="int_i" type="number" min="1" max="30"/>
         </li>
-        <li id="wisdom">
+        <li id="wis">
             <span>WIS</span>
-            <span id="wisdom_m"></span>
-            <input id="wisdom_i" type="number" min="1" max="30"/>
+            <span id="wis_m"></span>
+            <input id="wis_i" type="number" min="1" max="30"/>
         </li>
-        <li id="charisma">
+        <li id="cha">
             <span>CHA</span>
-            <span id="charisma_m"></span>
-            <input id="charisma_i" type="number" min="1" max="30"/>
+            <span id="cha_m"></span>
+            <input id="cha_i" type="number" min="1" max="30"/>
         </li>
     </ul>
 </section>
@@ -218,11 +218,6 @@ permalink: /pc-builder/
 </div>
 
 <script type="module">
-    import { buildPage } from "{{ '/assets/js/player-character/build/build-page.js' | relative_url }}";
-    import { initPage } from "{{ '/assets/js/player-character/init/init-page.js' | relative_url }}";
-
-    window.skills = {{ site.data.skills | jsonify }};
-
-    await buildPage();
-    await initPage();
+    import { loadPage } from "{{ '/assets/js/player-character/load-page.js' | relative_url }}";
+    await loadPage();
 </script>

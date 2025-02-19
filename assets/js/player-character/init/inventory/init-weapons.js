@@ -1,5 +1,5 @@
 import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
-import { getEquipmentObjectAsync } from "../../api.js";
+import { ApiCategory, getApiResultsAsync } from "../../api.js";
 import { getAbilityScoreModifier, getProficiencyModifier, isProficientInWeapon } from "../../util.js";
 
 /**
@@ -57,8 +57,8 @@ const initWeaponTable = async function() {
 
     const weapons = getPlayerCharacterProperty("inventory_weapons");
 
-    for (const weapon of weapons) {
-        const weaponFromApi = await getEquipmentObjectAsync(weapon.index);
+    for (const weapon of weapons) {        
+        const weaponFromApi = await getApiResultsAsync(ApiCategory.Equipment, weapon.index);
         addWeaponRow(weaponFromApi, weapon.ability);
     }
 }
@@ -84,7 +84,7 @@ const initAddWeaponButton = function() {
 
     addWeaponButton.onclick = async () => {
         const weaponSelect = document.getElementById('weapon-select');
-        const weapon = await getEquipmentObjectAsync(weaponSelect.value);
+        const weapon = await getApiResultsAsync(ApiCategory.Equipment, weaponSelect.value);
 
         addWeaponRow(weapon);
 
@@ -166,11 +166,11 @@ const getNewAbilityCell = function(weapon, ability = null) {
         const select = document.createElement('select');
 
         const strengthOption = document.createElement('option');
-        strengthOption.value = "strength";
+        strengthOption.value = "str";
         strengthOption.textContent = "STR";
         
         const dexterityOption = document.createElement('option');
-        dexterityOption.value = "dexterity";
+        dexterityOption.value = "dex";
         dexterityOption.textContent = "DEX";
     
         select.appendChild(strengthOption);
@@ -191,11 +191,11 @@ const getNewAbilityCell = function(weapon, ability = null) {
         td.appendChild(select);
     }
     // There can only be one element in the list here.
-    else if (abilities.includes("strength")) {
+    else if (abilities.includes("str")) {
         const span = document.createElement('span');
 
         span.textContent = "STR";
-        span.dataset.ability = "strength";
+        span.dataset.ability = "str";
 
         td.appendChild(span);
     }
@@ -204,7 +204,7 @@ const getNewAbilityCell = function(weapon, ability = null) {
         const span = document.createElement('span');
 
         span.textContent = "DEX";
-        span.dataset.ability = "dexterity";
+        span.dataset.ability = "dex";
 
         td.appendChild(span);
     }
@@ -321,19 +321,19 @@ const getNewCell = function(headerName) {
 /**
  * Get all possible abilities this weapon could use according to the SRD.
  * @param {object} weapon Full weapon object.
- * @returns {string[]} Either ["strength"], ["dexterity"], or ["strength", "dexterity"].
+ * @returns {string[]} Either ["str"], ["dex"], or ["str", "dex"].
  */
 const getWeaponAbilities = function(weapon) {
 
     if (weapon.weapon_range === "Ranged") {
-        return ["dexterity"];
+        return ["dex"];
     }
 
     if (weapon.properties.some(prop => prop.index === "finesse")) {
-        return ["strength", "dexterity"];
+        return ["str", "dex"];
     }
 
-    return ["strength"];
+    return ["str"];
 }
 
 /**

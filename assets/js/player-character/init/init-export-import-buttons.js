@@ -1,4 +1,5 @@
 import { getDefaultPlayerCharacter, getPlayerCharacter, getPlayerCharacterProperty, savePlayerCharacter } from "../../local-storage-util.js";
+import { updateCharacter } from "../update-character.js";
 
 /**
  * Initialize all export and import functionality.
@@ -162,8 +163,8 @@ const initLoadFileForImportButton = function(dialog) {
             const importButton = dialog.querySelector('.import');
 
             try {
-                var content = JSON.parse(readerEvent.target.result);
-                textArea.value = JSON.stringify(content, null, 2);
+                var playerCharacter = JSON.parse(readerEvent.target.result);
+                textArea.value = JSON.stringify(playerCharacter, null, 2);
                 importButton.removeAttribute("disabled");
             }
             catch {
@@ -184,7 +185,13 @@ const initImportButton = function(dialog) {
 
     importButton.onclick = () => {
         const textArea = dialog.querySelector('textarea');
-        savePlayerCharacter(JSON.parse(textArea.value));
+
+        const playerCharacter = JSON.parse(textArea.value);
+
+        // Update the character to the current version.
+        updateCharacter(playerCharacter);
+
+        savePlayerCharacter(playerCharacter);
         window.location.reload();
     }
 }

@@ -1,13 +1,4 @@
-import { 
-    getAllSimpleMeleeWeaponNamesAsync, 
-    getAllMartialMeleeWeaponNamesAsync, 
-    getAllSimpleRangedWeaponNamesAsync, 
-    getAllMartialRangedWeaponNamesAsync, 
-    getAllLightArmorNamesAsync,
-    getAllMediumArmorNamesAsync,
-    getAllHeavyArmorNamesAsync,
-    getAllShieldNamesAsync
-} from "../api.js";
+import { ApiCategory, getApiResultsAsync, EquipmentCategoryIndex } from "../api.js";
 import { getProficiencyCheckbox } from "../util.js";
 
 /**
@@ -24,10 +15,10 @@ export const buildEquipmentProficiencies = async function() {
 const fillWeaponProficienciesList = async function() {
     const div = document.getElementById('weapon-proficiencies-container');
 
-    div.appendChild(getProficienciesContainer("Simple Melee", await getAllSimpleMeleeWeaponNamesAsync()));
-    div.appendChild(getProficienciesContainer("Martial Melee", await getAllMartialMeleeWeaponNamesAsync()));
-    div.appendChild(getProficienciesContainer("Simple Ranged", await getAllSimpleRangedWeaponNamesAsync()));
-    div.appendChild(getProficienciesContainer("Martial Ranged", await getAllMartialRangedWeaponNamesAsync()));
+    div.appendChild(await getProficienciesContainer("Simple Melee", EquipmentCategoryIndex.SimpleMeleeWeapons));
+    div.appendChild(await getProficienciesContainer("Martial Melee", EquipmentCategoryIndex.MartialMeleeWeapons));
+    div.appendChild(await getProficienciesContainer("Simple Ranged", EquipmentCategoryIndex.SimpleRangedWeapons));
+    div.appendChild(await getProficienciesContainer("Martial Ranged", EquipmentCategoryIndex.MartialRangedWeapons));
 }
 
 /**
@@ -36,23 +27,23 @@ const fillWeaponProficienciesList = async function() {
 const fillArmorProficienciesList = async function() {
     const div = document.getElementById('armor-proficiencies-container');
 
-    div.appendChild(getProficienciesContainer("Light", await getAllLightArmorNamesAsync()));
-    div.appendChild(getProficienciesContainer("Medium", await getAllMediumArmorNamesAsync()));
-    div.appendChild(getProficienciesContainer("Heavy", await getAllHeavyArmorNamesAsync()));
-    div.appendChild(getProficienciesContainer("Shields", await getAllShieldNamesAsync()));
+    div.appendChild(await getProficienciesContainer("Light", EquipmentCategoryIndex.LightArmor));
+    div.appendChild(await getProficienciesContainer("Medium", EquipmentCategoryIndex.MediumArmor));
+    div.appendChild(await getProficienciesContainer("Heavy", EquipmentCategoryIndex.HeavyArmor));
+    div.appendChild(await getProficienciesContainer("Shields", EquipmentCategoryIndex.Shields));
 }
 
 /**
  * Get a single proficiencies container div for displaying a group of proficiencies.
  * @param {string} title To display above the list as an h4 element.
- * @param {string[]} itemNames The list of names that contains each proficiency that the container should house.
- * @returns {HTMLDivElement}
+ * @param {EquipmentCategoryIndex} equipmentCategoryIndex The index of the category, for getting data from the API.
+ * @returns {Promise<HTMLDivElement>}
  */
-const getProficienciesContainer = function(title, itemNames) {
+const getProficienciesContainer = async function(title, equipmentCategoryIndex) {
     const div = document.createElement('div');
 
     div.appendChild(getProficienciesContainerHeader(title));
-    div.appendChild(getProficienciesContainerBody(itemNames));
+    div.appendChild(await getProficienciesContainerBody(equipmentCategoryIndex));
 
     return div
 }
@@ -72,18 +63,20 @@ const getProficienciesContainerHeader = function(title) {
 
 /**
  * Gets the body of a proficiencies container.
- * @param {string[]} itemNames 
- * @returns {HTMLUListElement}
+ * @param {EquipmentCategoryIndex} equipmentCategoryIndex The index of the category, for getting data from the API.
+ * @returns {Promise<HTMLUListElement>}
  */
-const getProficienciesContainerBody = function(itemNames) {
+const getProficienciesContainerBody = async function(equipmentCategoryIndex) {
     const ul = document.createElement('ul');
+
+    const results = await getApiResultsAsync(ApiCategory.EquipmentCategories, equipmentCategoryIndex);
 
     ul.classList.add('no-style-list');
     ul.classList.add('proficiencies-list');
-    ul.classList.add(getNumberOfColumnsClassName(itemNames));
+    ul.classList.add(getNumberOfColumnsClassName(results.equipment.length));
 
-    itemNames.forEach(itemName => {
-        ul.appendChild(getProficiencyItem(itemName));
+    results.equipment.forEach(equipment => {
+        ul.appendChild(getProficiencyItem(equipment));
     })
 
     return ul;
@@ -91,29 +84,29 @@ const getProficienciesContainerBody = function(itemNames) {
 
 /**
  * Get the appropriate "number of columns" class name.
- * @param {string[]} itemNames 
+ * @param {number} listLength 
  * @returns {string}
  */
-const getNumberOfColumnsClassName = function(itemNames) {
-    if (itemNames.length >= 9) {
+const getNumberOfColumnsClassName = function(listLength) {
+    if (listLength >= 9) {
         return 'three-columns-list';
     }
 
-    if (itemNames.length >= 4) {
+    if (listLength >= 4) {
         return 'two-columns-list';
     }
 }
 
 /**
  * Get a single li item to indicate proficiency.
- * @param {string} equipmentName 
+ * @param {JSON} equipment Full equipment object from the SRD API.
  * @returns {HTMLLIElement}
  */
-const getProficiencyItem = function(equipmentName) {
+const getProficiencyItem = function(equipment) {
     const li = document.createElement('li');
 
-    li.appendChild(getProficiencyCheckbox(equipmentName));
-    li.appendChild(getEquipmentLabel(equipmentName));
+    li.appendChild(getProficiencyCheckbox(equipment.index));
+    li.appendChild(getEquipmentLabel(equipment.name, equipment.index));
 
     return li;
 }
@@ -121,13 +114,14 @@ const getProficiencyItem = function(equipmentName) {
 /**
  * Get the label element that belongs to the given equipment.
  * @param {string} equipmentName 
+ * @param {string} checkboxIndex 
  * @returns {HTMLLabelElement}
  */
-const getEquipmentLabel = function(equipmentName) {
+const getEquipmentLabel = function(equipmentName, checkboxIndex) {
     const label = document.createElement('label');
 
     label.textContent = equipmentName;
-    label.htmlFor = getProficiencyCheckbox(equipmentName).id;
+    label.htmlFor = getProficiencyCheckbox(checkboxIndex).id;
 
     return label;
 }

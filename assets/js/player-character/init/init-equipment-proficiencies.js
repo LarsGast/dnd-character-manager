@@ -27,11 +27,11 @@ const initWeaponProficiencies = function() {
 const initWeaponProficiencyListItem = function(weaponProficiencyItem) {
 
     const weaponProficiencyCheckbox = weaponProficiencyItem.querySelector('input');
-    const weaponProficiencyLabel = weaponProficiencyItem.querySelector('label'); 
+    const weaponIndex = weaponProficiencyCheckbox.id.replace("_p", "");
 
-    weaponProficiencyCheckbox.checked = isProficientInWeapon(weaponProficiencyLabel.textContent);
+    weaponProficiencyCheckbox.checked = isProficientInWeapon(weaponIndex);
     weaponProficiencyCheckbox.onchange = function () {
-        saveNewWeaponProficiencies(weaponProficiencyLabel.textContent, this.checked);
+        saveNewWeaponProficiencies(weaponIndex, this.checked);
         updateAllWeaponModifiers();
     };
 }
@@ -54,10 +54,10 @@ const initArmorProficiencies = function() {
 const initArmorProficiencyListItem = function(armorProficiencyItem) {
 
     const armorProficiencyCheckbox = armorProficiencyItem.querySelector('input');
-    const armorProficiencyLabel = armorProficiencyItem.querySelector('label'); 
+    const weaponIndex = armorProficiencyCheckbox.id.replace("_p", "");
 
-    armorProficiencyCheckbox.checked = isProficientInArmor(armorProficiencyLabel.textContent);
+    armorProficiencyCheckbox.checked = isProficientInArmor(weaponIndex);
     armorProficiencyCheckbox.onchange = function () {
-        saveNewArmorProficiencies(armorProficiencyLabel.textContent, this.checked);
+        saveNewArmorProficiencies(weaponIndex, this.checked);
     };
 }

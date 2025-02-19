@@ -1,4 +1,4 @@
-import { getAllHeavyArmorAsync, getAllLightArmorAsync, getAllMartialMeleeWeaponsAsync, getAllMartialRangedWeaponsAsync, getAllMediumArmorAsync, getAllSimpleMeleeWeaponsAsync, getAllSimpleRangedWeaponsAsync } from "../api.js";
+import { ApiCategory, EquipmentCategoryIndex, getApiResultsAsync } from "../api.js";
 import { getEmptyOption } from "../util.js";
 
 /**
@@ -17,10 +17,10 @@ const buildWeaponSelect = async function() {
     const select = document.getElementById('weapon-select');
 
     select.appendChild(getEmptyOption());
-    select.appendChild(getSelectOptionGroup("Simple Melee", await getAllSimpleMeleeWeaponsAsync()));
-    select.appendChild(getSelectOptionGroup("Martial Melee", await getAllMartialMeleeWeaponsAsync()));
-    select.appendChild(getSelectOptionGroup("Simple Ranged", await getAllSimpleRangedWeaponsAsync()));
-    select.appendChild(getSelectOptionGroup("Martial Ranged", await getAllMartialRangedWeaponsAsync()));
+    select.appendChild(await getSelectOptionGroup("Simple Melee", EquipmentCategoryIndex.SimpleMeleeWeapons));
+    select.appendChild(await getSelectOptionGroup("Martial Melee", EquipmentCategoryIndex.MartialMeleeWeapons));
+    select.appendChild(await getSelectOptionGroup("Simple Ranged", EquipmentCategoryIndex.SimpleRangedWeapons));
+    select.appendChild(await getSelectOptionGroup("Martial Ranged", EquipmentCategoryIndex.MartialRangedWeapons));
 }
 
 /**
@@ -31,23 +31,25 @@ const buildArmorSelect = async function() {
     const select = document.getElementById('armor-select');
 
     select.appendChild(getEmptyOption());
-    select.appendChild(getSelectOptionGroup("Light", await getAllLightArmorAsync()));
-    select.appendChild(getSelectOptionGroup("Medium", await getAllMediumArmorAsync()));
-    select.appendChild(getSelectOptionGroup("Heavy", await getAllHeavyArmorAsync()));
+    select.appendChild(await getSelectOptionGroup("Light", EquipmentCategoryIndex.LightArmor));
+    select.appendChild(await getSelectOptionGroup("Medium", EquipmentCategoryIndex.MediumArmor));
+    select.appendChild(await getSelectOptionGroup("Heavy", EquipmentCategoryIndex.HeavyArmor));
 }
 
 /**
  * Get a single option group to divide the different equipment types.
  * @param {string} optgroupLabel Name of this group.
- * @param {object[]} equipmentList Full equipment objects.
- * @returns 
+ * @param {EquipmentCategoryIndex} equipmentCategoryIndex The index of the category, for getting data from the API.
+ * @returns {Promise<HTMLOptGroupElement}
  */
-const getSelectOptionGroup = function(optgroupLabel, equipmentList) {
+const getSelectOptionGroup = async function(optgroupLabel, equipmentCategoryIndex) {
     const optgroup = document.createElement('optgroup');
 
     optgroup.label = optgroupLabel;
 
-    equipmentList.forEach(equipment => {
+    const results = await getApiResultsAsync(ApiCategory.EquipmentCategories, equipmentCategoryIndex);
+
+    results.equipment.forEach(equipment => {
         const option = document.createElement('option');
 
         // Add the index as the value so we can find it later.

@@ -1,4 +1,4 @@
-import { getAllRaceNamesAsync, getAllBackgroundNamesAsync, getAllAlignmentNamesAsync } from "../api.js";
+import { getApiResultsAsync, ApiCategory } from "../api.js";
 import { getEmptyOption, getSelectOption } from "../util.js";
 
 /**
@@ -14,14 +14,14 @@ export const fillGenericInfoElements = async function() {
  * Fill the race select element.
  */
 const fillRaceSelect = async function() {
-    const allRaceNames = await getAllRaceNamesAsync();
+    const allRaces = await getApiResultsAsync(ApiCategory.Races);
 
     const select = document.getElementById("race_s");
 
     select.appendChild(getEmptyOption());
 
-    allRaceNames.forEach(raceName => {
-        select.appendChild(getSelectOption(raceName));
+    allRaces.results.forEach(race => {
+        select.appendChild(getSelectOption(race.name, race.index));
     });
 }
 
@@ -29,14 +29,14 @@ const fillRaceSelect = async function() {
  * Fill the background select element.
  */
 const fillBackgroundSelect = async function() {
-    const allBackgroundNames = await getAllBackgroundNamesAsync();
+    const allBackgrounds = await getApiResultsAsync(ApiCategory.Backgrounds);
 
     const select = document.getElementById("background_s");
 
     select.appendChild(getEmptyOption());
 
-    allBackgroundNames.forEach(backgroundName => {
-        select.appendChild(getSelectOption(backgroundName));
+    allBackgrounds.results.forEach(background => {
+        select.appendChild(getSelectOption(background.name, background.index));
     });
 }
 
@@ -44,13 +44,13 @@ const fillBackgroundSelect = async function() {
  * Fill the alignment select element.
  */
 const fillAlignmentSelect = async function() {
-    const allAlignmentNames = await getAllAlignmentNamesAsync();
+    const allAlignments = await getApiResultsAsync(ApiCategory.Alignments);
 
     const select = document.getElementById("alignment_s");
 
     select.appendChild(getEmptyOption());
 
-    allAlignmentNames.forEach(backgroundName => {
-        select.appendChild(getSelectOption(backgroundName));
+    allAlignments.results.forEach(alignment => {
+        select.appendChild(getSelectOption(alignment.name, alignment.index));
     });
 }

@@ -20,50 +20,50 @@ export const initAbilityScores = function() {
  */
 const initAbilityScoreItem = function(abilityScoreItem) {
 
-    const abilityName = abilityScoreItem.id;
+    const abilityIndex = abilityScoreItem.id;
 
-    initAbilityScoreInputField(abilityName);
-    initAbilityScoreModifierSpan(abilityName);
+    initAbilityScoreInputField(abilityIndex);
+    initAbilityScoreModifierSpan(abilityIndex);
 }
 
 /**
  * Initialize the input field of the given ability.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  */
-const initAbilityScoreInputField = function(abilityName) {
+const initAbilityScoreInputField = function(abilityIndex) {
 
-    const inputField = document.getElementById(`${abilityName}_i`);
+    const inputField = document.getElementById(`${abilityIndex}_i`);
 
-    inputField.value = getPlayerCharacterProperty(abilityName);
+    inputField.value = getPlayerCharacterProperty(abilityIndex);
     inputField.onchange = async function() {
-        await changeAbilityScore(abilityName, this.value);
+        await changeAbilityScore(abilityIndex, this.value);
     };
 }
 
 /**
  * Change the score of the given ability.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  * @param {number} abilityScore 
  */
-const changeAbilityScore = async function(abilityName, abilityScore) {
+const changeAbilityScore = async function(abilityIndex, abilityScore) {
     if (abilityScore < 1 || abilityScore > 30) {
-        limitAbilityScore(abilityName, abilityScore);
+        limitAbilityScore(abilityIndex, abilityScore);
         return;
     }
-    saveAbilityScore(abilityName);
-    updateAbilityScoreModifier(abilityName);
-    updateAllSkillModifiers();
+    saveAbilityScore(abilityIndex);
+    updateAbilityScoreModifier(abilityIndex);
+    await updateAllSkillModifiers();
     updateAllWeaponModifiers();
     await updateAllArmorModifiersAsync();
 }
 
 /**
  * Initialize the ability score modifier span.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  */
-const initAbilityScoreModifierSpan = function(abilityName) {
+const initAbilityScoreModifierSpan = function(abilityIndex) {
 
-    const span = document.getElementById(`${abilityName}_m`);
+    const span = document.getElementById(`${abilityIndex}_m`);
 
-    span.textContent = getAbilityScoreModifier(abilityName);
+    span.textContent = getAbilityScoreModifier(abilityIndex);
 }

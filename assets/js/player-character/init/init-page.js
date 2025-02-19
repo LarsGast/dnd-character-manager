@@ -13,7 +13,7 @@ export const initPage = async function() {
     initExportImportButtons();
     initMainProperties();
     initAbilityScores();
-    initSkills();
+    await initSkills();
     initEquipmentProficiencies();
     await initInventory();
     initNotes();

@@ -1,4 +1,5 @@
 import { getPlayerCharacterProperty, setPlayerCharacterProperty } from '../local-storage-util.js';
+import { ApiCategory, getApiResultsAsync } from './api.js';
 
 /**
  * Update the classes of the PC in local storage.
@@ -22,7 +23,7 @@ const getClasses = function() {
         const input = li.getElementsByTagName('input')[0];
 
         const classObject = {
-            name: select.value,
+            index: select.value,
             level: input.value
         };
 
@@ -71,25 +72,26 @@ export const getEmptyOption = function() {
 
 /**
  * Get an option for a select element.
- * @param {string} optionValue
+ * @param {string} optionText Text that the user sees.
+ * @param {string} optionValue Hidden value/ identifier of the option.
  * @returns {HTMLOptionElement} 
  */
-export const getSelectOption = function(optionValue) {
+export const getSelectOption = function(optionText, optionValue) {
     const option = document.createElement('option');
 
-    option.value = optionValue;
-    option.textContent = optionValue;
+    option.textContent = optionText;
+    option.value = optionValue ?? optionText;
 
     return option;
 }
 
 /**
  * Ensure that each ability score is within 1 and 30.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  * @param {number} abilityScore 
  */
-export const limitAbilityScore = function(abilityName, abilityScore) {
-    const inputField = document.getElementById(`${abilityName}_i`);
+export const limitAbilityScore = function(abilityIndex, abilityScore) {
+    const inputField = document.getElementById(`${abilityIndex}_i`);
 
     if (abilityScore > 30){
         inputField.value = 30;
@@ -103,41 +105,44 @@ export const limitAbilityScore = function(abilityName, abilityScore) {
 
 /**
  * Save the given score to the given ability.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  */
-export const saveAbilityScore = function(abilityName) {
-    const abilityScore = document.getElementById(`${abilityName}_i`);
+export const saveAbilityScore = function(abilityIndex) {
+    const abilityScore = document.getElementById(`${abilityIndex}_i`);
 
-    setPlayerCharacterProperty(abilityName, abilityScore.value);
+    setPlayerCharacterProperty(abilityIndex, abilityScore.value);
 }
 
 /**
  * Update the ability score modifier for the given ability.
- * @param {string} abilityName 
+ * @param {string} abilityIndex 
  */
-export const updateAbilityScoreModifier = function(abilityName) {
-    const span = document.getElementById(`${abilityName}_m`);
+export const updateAbilityScoreModifier = function(abilityIndex) {
+    const span = document.getElementById(`${abilityIndex}_m`);
 
-    span.textContent = getAbilityScoreModifier(abilityName);
+    span.textContent = getAbilityScoreModifier(abilityIndex);
 }
 
 /**
  * Update all skill modifiers at once.
  */
-export const updateAllSkillModifiers = function() {
-    window.skills.forEach(skill => {
+export const updateAllSkillModifiers = async function() {
+    const skills = await getApiResultsAsync(ApiCategory.Skills);
+
+    for (const skillInfo of skills.results) {
+        const skill = await getApiResultsAsync(ApiCategory.Skills, skillInfo.index);
         updateSkillModifier(skill);
-    });
+    }
 }
 
 /**
  * Get the ability score modifier from an ability score.
- * @param {string} abilityName
+ * @param {string} abilityIndex
  * @returns {number}
  */
-export const getAbilityScoreModifier = function(abilityName) {
+export const getAbilityScoreModifier = function(abilityIndex) {
 
-    const abilityScore = getPlayerCharacterProperty(abilityName);
+    const abilityScore = getPlayerCharacterProperty(abilityIndex);
 
     return Math.floor((abilityScore - 10) / 2);
 }
@@ -159,45 +164,23 @@ export const getProficiencyModifier = function() {
 }
 
 /**
- * Get the abbreviated name of an ability.
- * @param {string} abilityName 
- * @returns {string} 3 letter abbreviation.
- */
-export const getAbbreviationOfAbility = function(abilityName) {
-    switch(abilityName){
-        case 'strength':
-            return 'STR';
-        case 'dexterity':
-            return 'DEX';
-        case 'constitution':
-            return 'CON';
-        case 'intelligence':
-            return 'INT';
-        case 'wisdom':
-            return 'WIS';
-        case 'charisma':
-            return 'CHA';
-    }
-}
-
-/**
  * Check if the PC is proficient in the given skill.
- * @param {string} skillName 
+ * @param {string} skillIndex 
  * @returns {boolean}
  */
-export const isProficientInSkill = function(skillName) {
+export const isProficientInSkill = function(skillIndex) {
     const proficiencies = getPlayerCharacterProperty("proficiencies");
-    return proficiencies.includes(skillName);
+    return proficiencies.includes(skillIndex);
 }
 
 /**
  * Check if the PC has expertise in the given skill.
- * @param {string} skillName 
+ * @param {string} skillIndex 
  * @returns {boolean}
  */
-export const isExpertInSkill = function(skillName) {
+export const isExpertInSkill = function(skillIndex) {
     const expertises = getPlayerCharacterProperty("expertises");
-    return expertises.includes(skillName);
+    return expertises.includes(skillIndex);
 }
 
 /**
@@ -222,20 +205,20 @@ export const isProficientInArmor = function(armorName) {
 
 /**
  * Get the modifier of the given skill for the PC in local storage.
- * @param {*} skill 
+ * @param {JSON} skill 
  * @returns {number}
  */
 export const getSkillModifier = function(skill) {
 
-    const scoreModifier = getAbilityScoreModifier(skill.abilityName);
+    const scoreModifier = getAbilityScoreModifier(skill.ability_score.index);
     const proficiencyModifier = getProficiencyModifier();
 
     let skillModifier = scoreModifier;
-    if (isProficientInSkill(skill.name)){
+    if (isProficientInSkill(skill.index)){
         skillModifier += proficiencyModifier;
     }
     
-    if (isExpertInSkill(skill.name)){
+    if (isExpertInSkill(skill.index)){
         skillModifier += proficiencyModifier;
     }
 
@@ -244,21 +227,21 @@ export const getSkillModifier = function(skill) {
 
 /**
  * Save the skill proficiency to local storage.
- * @param {string} skillName Name of the skill.
+ * @param {string} skillIndex Name of the skill.
  * @param {boolean} add Wether the proficiency is added or removed.
  */
-export const saveNewSkillProficiencies = function(skillName, add) {
+export const saveNewSkillProficiencies = function(skillIndex, add) {
     const proficiencies = getPlayerCharacterProperty("proficiencies");
 
     if (add === true) {
-        if (!proficiencies.includes(skillName)) {
-            proficiencies.push(skillName);
+        if (!proficiencies.includes(skillIndex)) {
+            proficiencies.push(skillIndex);
         }
     }
     else {
-        const skillIndex = proficiencies.indexOf(skillName);
-        if (skillIndex !== -1) {
-            proficiencies.splice(skillIndex, 1);
+        const skillArrayIndex = proficiencies.indexOf(skillIndex);
+        if (skillArrayIndex !== -1) {
+            proficiencies.splice(skillArrayIndex, 1);
         }
     }
 
@@ -267,21 +250,21 @@ export const saveNewSkillProficiencies = function(skillName, add) {
 
 /**
  * Save the skill expertise to local storage.
- * @param {string} skillName Name of the skill.
+ * @param {string} skillIndex Name of the skill.
  * @param {boolean} add Wether the expertise is added or removed.
  */
-export const saveNewSkillExpertises = function(skillName, add) {
+export const saveNewSkillExpertises = function(skillIndex, add) {
     const expertise = getPlayerCharacterProperty("expertises");
 
     if (add === true) {
-        if (!expertise.includes(skillName)) {
-            expertise.push(skillName);
+        if (!expertise.includes(skillIndex)) {
+            expertise.push(skillIndex);
         }
     }
     else {
-        const skillIndex = expertise.indexOf(skillName);
-        if (skillIndex !== -1) {
-            expertise.splice(skillIndex, 1);
+        const skillArrayIndex = expertise.indexOf(skillIndex);
+        if (skillArrayIndex !== -1) {
+            expertise.splice(skillArrayIndex, 1);
         }
     }
 
@@ -290,12 +273,12 @@ export const saveNewSkillExpertises = function(skillName, add) {
 
 /**
  * Enable or disable the expertise checkbox for the given skill based on proficiency.
- * @param {string} skillName Name of the skill.
+ * @param {string} skillIndex Name of the skill.
  */
-export const enableOrDisableExpertiseCheckbox = function(skillName) {
-    const expertiseCheckbox = document.getElementById(`${skillName}_e`);
+export const enableOrDisableExpertiseCheckbox = function(skillIndex) {
+    const expertiseCheckbox = document.getElementById(`${skillIndex}_e`);
 
-    if (isProficientInSkill(skillName)) {
+    if (isProficientInSkill(skillIndex)) {
         expertiseCheckbox.disabled = false;
     }
     else {
@@ -305,12 +288,12 @@ export const enableOrDisableExpertiseCheckbox = function(skillName) {
 
 /**
  * Enable or disable the proficiency checkbox for the given skill based on expertise.
- * @param {string} skillName Name of the skill.
+ * @param {string} skillIndex Name of the skill.
  */
-export const enableOrDisableProficiencyCheckbox = function(skillName) {
-    const proficiencyCheckbox = document.getElementById(`${skillName}_p`);
+export const enableOrDisableProficiencyCheckbox = function(skillIndex) {
+    const proficiencyCheckbox = document.getElementById(`${skillIndex}_p`);
 
-    if (isExpertInSkill(skillName)) {
+    if (isExpertInSkill(skillIndex)) {
         proficiencyCheckbox.disabled = true;
     }
     else {
@@ -323,7 +306,7 @@ export const enableOrDisableProficiencyCheckbox = function(skillName) {
  * @param {object} skill 
  */
 export const updateSkillModifier = function(skill) {
-    const span = document.getElementById(`${skill.name}_m`);
+    const span = document.getElementById(`${skill.index}_m`);
 
     span.textContent = getSkillModifier(skill);
 }
@@ -376,44 +359,44 @@ export const saveNewArmorProficiencies = function(armorName, add) {
 
 /**
  * Get the proficiency checkbox element for the given skill or equipment.
- * @param {string} proficiencyName 
+ * @param {string} proficiencyIndex 
  * @returns {HTMLInputElement}
  */
-export const getProficiencyCheckbox = function(proficiencyName) {
+export const getProficiencyCheckbox = function(proficiencyIndex) {
 
     const proficiencyCheckbox = document.createElement('input');
 
     proficiencyCheckbox.type = "checkbox";
-    proficiencyCheckbox.id = `${proficiencyName}_p`;
+    proficiencyCheckbox.id = `${proficiencyIndex}_p`;
 
     return proficiencyCheckbox;
 }
 
 /**
  * Get the expertise checkbox element for the given skill or equipment.
- * @param {string} proficiencyName 
+ * @param {string} expertiseIndex 
  * @returns {HTMLInputElement}
  */
-export const getExpertiseCheckbox = function(proficiencyName) {
+export const getExpertiseCheckbox = function(expertiseIndex) {
 
     const expertiseCheckbox = document.createElement('input');
 
     expertiseCheckbox.type = "checkbox";
-    expertiseCheckbox.id = `${proficiencyName}_e`;
+    expertiseCheckbox.id = `${expertiseIndex}_e`;
 
     return expertiseCheckbox;
 }
 
 /**
  * Get the span element for the proficiency modifier number for the given skill or equipment.
- * @param {string} proficiencyName 
+ * @param {string} proficiencyIndex 
  * @returns {HTMLSpanElement}
  */
-export const getProficiencyModifierSpan = function(proficiencyName) {
+export const getProficiencyModifierSpan = function(proficiencyIndex) {
 
     const span = document.createElement('span');
     
-    span.id = `${proficiencyName}_m`;
+    span.id = `${proficiencyIndex}_m`;
 
     return span;
 }

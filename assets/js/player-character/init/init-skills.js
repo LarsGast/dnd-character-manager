@@ -1,3 +1,4 @@
+import { ApiCategory, getApiResultsAsync } from "../api.js";
 import { 
     isProficientInSkill,
     isExpertInSkill,
@@ -12,21 +13,22 @@ import {
 /**
  * Initialize all elements for the skills on the PC builder page.
  */
-export const initSkills = function() {
+export const initSkills = async function() {
     const skillsList = document.getElementById('skills-list');
     const skillsListItems = Array.from(skillsList.children);
-    skillsListItems.forEach(skillListItem => {
-        initSkillListItem(skillListItem);
-    });
+
+    for (const skillListItem of skillsListItems) {
+        await initSkillListItem(skillListItem);
+    }
 }
 
 /**
  * Initialize a single li skill element.
  * @param {HTMLLIElement} skillListItem 
  */
-const initSkillListItem = function(skillListItem) {
+const initSkillListItem = async function(skillListItem) {
 
-    const skill = window.skills.filter(skill => skill.name === skillListItem.id)[0];
+    const skill = await getApiResultsAsync(ApiCategory.Skills, skillListItem.id)
 
     initProficiencyCheckbox(skill);
     initExpertiseCheckbox(skill);
@@ -39,10 +41,10 @@ const initSkillListItem = function(skillListItem) {
  */
 const initProficiencyCheckbox = function(skill) {
 
-    const proficiencyCheckbox = document.getElementById(`${skill.name}_p`);
+    const proficiencyCheckbox = document.getElementById(`${skill.index}_p`);
 
-    proficiencyCheckbox.checked = isProficientInSkill(skill.name);
-    proficiencyCheckbox.disabled = isExpertInSkill(skill.name);
+    proficiencyCheckbox.checked = isProficientInSkill(skill.index);
+    proficiencyCheckbox.disabled = isExpertInSkill(skill.index);
     proficiencyCheckbox.onchange = function () {
         changeProficiency(skill, this.checked);
     };
@@ -54,8 +56,8 @@ const initProficiencyCheckbox = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 const changeProficiency = function(skill, add) {
-    saveNewSkillProficiencies(skill.name, add);
-    enableOrDisableExpertiseCheckbox(skill.name);
+    saveNewSkillProficiencies(skill.index, add);
+    enableOrDisableExpertiseCheckbox(skill.index);
     updateSkillModifier(skill);
 }
 
@@ -65,10 +67,10 @@ const changeProficiency = function(skill, add) {
  */
 const initExpertiseCheckbox = function(skill) {
 
-    const expertiseCheckbox = document.getElementById(`${skill.name}_e`);
+    const expertiseCheckbox = document.getElementById(`${skill.index}_e`);
     
-    expertiseCheckbox.checked = isExpertInSkill(skill.name);
-    expertiseCheckbox.disabled = !isProficientInSkill(skill.name);
+    expertiseCheckbox.checked = isExpertInSkill(skill.index);
+    expertiseCheckbox.disabled = !isProficientInSkill(skill.index);
     expertiseCheckbox.onchange = function () {
         changeExpertise(skill, this.checked);
     };
@@ -80,8 +82,8 @@ const initExpertiseCheckbox = function(skill) {
  * @param {boolean} add Wether the expertise is added or removed.
  */
 const changeExpertise = function(skill, add) {
-    saveNewSkillExpertises(skill.name, add);
-    enableOrDisableProficiencyCheckbox(skill.name);
+    saveNewSkillExpertises(skill.index, add);
+    enableOrDisableProficiencyCheckbox(skill.index);
     updateSkillModifier(skill);
 }
 
@@ -91,7 +93,7 @@ const changeExpertise = function(skill, add) {
  */
 const initSkillModifierSpan = function(skill) {
 
-    const skillModifierSpan = document.getElementById(`${skill.name}_m`);
+    const skillModifierSpan = document.getElementById(`${skill.index}_m`);
 
     skillModifierSpan.textContent = getSkillModifier(skill);
 }
