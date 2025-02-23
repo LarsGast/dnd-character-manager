@@ -30,7 +30,6 @@ permalink: /pc-builder/
         <ul>
             <li>HP, AC, initiative, en speed</li>
             <li>Saving throws</li>
-            <li>Race features</li>
             <li>Class features</li>
             <li>Spell casting</li>
             <li>Talen</li>
@@ -65,6 +64,7 @@ permalink: /pc-builder/
             <ul id="class-and-level-list"></ul>
         </li>
         <li><label>Race: <select id="race_s"></select></label></li>
+        <li><label>Subrace: <select id="subrace_s"></select></label></li>
         <li><label>Background: <select id="background_s"></select></label></li>
         <li><label>Alignment: <select id="alignment_s"></select></label></li>
     </ul>
@@ -170,6 +170,38 @@ permalink: /pc-builder/
                 </tbody>
             </table>
         </div>
+    </details>
+</section>
+
+<section id="race-features">
+    <details>
+        <summary><h2>Race features (<span id="race_name">choose race</span>)</h2></summary>
+        <h3>Ability Bonuses</h3>
+        <ul id="race_ability_bonuses"></ul>
+        <h3>Speed</h3>
+        <p id="race_speed"></p>
+        <h3>Alignment</h3>
+        <p id="race_alignment"></p>
+        <h3>Age</h3>
+        <p id="race_age"></p>
+        <h3>Size</h3>
+        <p id="race_size"></p>
+        <h3>Languages</h3>
+        <p id="race_languages"></p>
+        <h3>Traits</h3>
+        <div id="race_traits"></div>
+    </details>
+</section>
+
+<section id="subrace-features">
+    <details>
+        <summary><h2>Subrace features (<span id="subrace_name"></span>)</h2></summary>
+        <h3>Description</h3>
+        <p id="subrace_description"></p>
+        <h3>Ability Bonuses</h3>
+        <ul id="subrace_ability_bonuses"></ul>
+        <h3>Traits</h3>
+        <div id="subrace_traits"></div>
     </details>
 </section>
 

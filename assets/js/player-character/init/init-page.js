@@ -11,7 +11,7 @@ import { initSkills } from "./init-skills.js";
  */
 export const initPage = async function() {
     initExportImportButtons();
-    initMainProperties();
+    await initMainProperties();
     initAbilityScores();
     await initSkills();
     initEquipmentProficiencies();
