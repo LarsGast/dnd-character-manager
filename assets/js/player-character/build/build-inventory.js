@@ -1,4 +1,5 @@
 import { ApiCategory, EquipmentCategoryIndex, getApiResultsAsync } from "../api.js";
+import { EquipmentCategory } from "../objects/EquipmentCategory.js";
 import { getEmptyOption } from "../util.js";
 
 /**
@@ -47,7 +48,7 @@ const getSelectOptionGroup = async function(optgroupLabel, equipmentCategoryInde
 
     optgroup.label = optgroupLabel;
 
-    const results = await getApiResultsAsync(ApiCategory.EquipmentCategories, equipmentCategoryIndex);
+    const results = await EquipmentCategory.getAsync(equipmentCategoryIndex);
 
     results.equipment.forEach(equipment => {
         const option = document.createElement('option');

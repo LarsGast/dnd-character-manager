@@ -1,4 +1,6 @@
-import { getApiResultsAsync, ApiCategory } from "../api.js";
+import { Alignment } from "../objects/Alignment.js";
+import { Background } from "../objects/Background.js";
+import { Race } from "../objects/Race.js";
 import { getEmptyOption, getSelectOption } from "../util.js";
 
 /**
@@ -14,7 +16,7 @@ export const fillGenericInfoElements = async function() {
  * Fill the race select element.
  */
 const fillRaceSelect = async function() {
-    const allRaces = await getApiResultsAsync(ApiCategory.Races);
+    const allRaces = await Race.getAllAsync();
 
     const select = document.getElementById("race_s");
 
@@ -29,7 +31,7 @@ const fillRaceSelect = async function() {
  * Fill the background select element.
  */
 const fillBackgroundSelect = async function() {
-    const allBackgrounds = await getApiResultsAsync(ApiCategory.Backgrounds);
+    const allBackgrounds = await Background.getAllAsync();
 
     const select = document.getElementById("background_s");
 
@@ -44,7 +46,7 @@ const fillBackgroundSelect = async function() {
  * Fill the alignment select element.
  */
 const fillAlignmentSelect = async function() {
-    const allAlignments = await getApiResultsAsync(ApiCategory.Alignments);
+    const allAlignments = await Alignment.getAllAsync();
 
     const select = document.getElementById("alignment_s");
 

@@ -1,4 +1,4 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 
 /**
  * Initialize the background select element.
@@ -7,8 +7,8 @@ export const initBackground = function() {
 
     const select = document.getElementById("background_s");
 
-    select.value = getPlayerCharacterProperty("background");
+    select.value = globalPlayerCharacter.background;
     select.onchange = function() {
-        setPlayerCharacterProperty("background", this.value);
+        globalPlayerCharacter.setProperty("background", this.value);
     }
 }

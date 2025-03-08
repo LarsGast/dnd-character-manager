@@ -1,17 +1,12 @@
-import { getDefaultPlayerCharacter } from "../local-storage-util.js";
+import { LATEST_PLAYER_CHARACTER_VERSION_NUMBER, PlayerCharacter } from "./objects/PlayerCharacter.js";
 import { update_version_2 } from "./update/update-version-2.js";
-
-/**
- * The current latest version of the PC blueprint.
- * This should be updated whenever a breaking change is performed on the PC blueprint.
- */
-const LATEST_VERSION_NUMBER = 2;
+import { update_version_3 } from "./update/update-version-3.js";
 
 /**
  * Update an old player character object to a new version.
  * This function should be able to convert a PC from any old version to any newer version.
  * Expand this function whenever a breaking change is performed on the PC blueprint.
- * @param {JSON} playerCharacter Full JSON object of the character.
+ * @param {PlayerCharacter} playerCharacter
  */
 export const updateCharacter = function(playerCharacter) {
 
@@ -22,7 +17,7 @@ export const updateCharacter = function(playerCharacter) {
     }
 
     // If we don't need to update, don't update.
-    if (playerCharacter.version === LATEST_VERSION_NUMBER) {
+    if (playerCharacter.version === LATEST_PLAYER_CHARACTER_VERSION_NUMBER) {
         return;
     }
 
@@ -31,6 +26,12 @@ export const updateCharacter = function(playerCharacter) {
         update_version_2(playerCharacter);
         playerCharacter.version = 2;
     }
+    
+    // Version 2 -> version 3.
+    if (playerCharacter.version === 2) {
+        update_version_3(playerCharacter);
+        playerCharacter.version = 3;
+    }
 
     // Clean the JSON object to remove unused properties and add missing properties.
     // After this, the PC object should have EXACTLY the properties needed for the PC-builder page.
@@ -38,12 +39,12 @@ export const updateCharacter = function(playerCharacter) {
 }
 
 /**
- * Clean the PC JSON so it EXACTLY has the properties needed for the PC-Builder page.
+ * Clean the PC so it EXACTLY has the properties needed for the PC-Builder page.
  * This is always based on the current version of the PC blueprint.
- * @param {JSON} playerCharacter 
+ * @param {PlayerCharacter} playerCharacter 
  */
 const cleanPlayerCharacter = function(playerCharacter) {
-    const defaultCharacter = getDefaultPlayerCharacter();
+    const defaultCharacter = PlayerCharacter.getDefault();
 
     // Remove unwanted keys
     for (const key in playerCharacter) {

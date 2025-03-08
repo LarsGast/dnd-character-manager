@@ -1,6 +1,6 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
-import { ApiCategory, getApiResultsAsync } from "../../api.js";
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 import { getAbilityScoreModifier, getProficiencyModifier, isProficientInWeapon } from "../../util.js";
+import { Weapon } from "../../objects/equipment/Weapon.js";
 
 /**
  * Init the weapons section of the inventory.
@@ -47,7 +47,7 @@ const saveWeaponInventory = function() {
         };
     })
 
-    setPlayerCharacterProperty("inventory_weapons", weapons);
+    globalPlayerCharacter.setProperty("inventoryWeapons", weapons);
 }
 
 /**
@@ -55,10 +55,10 @@ const saveWeaponInventory = function() {
  */
 const initWeaponTable = async function() {
 
-    const weapons = getPlayerCharacterProperty("inventory_weapons");
+    const weapons = globalPlayerCharacter.inventoryWeapons;
 
     for (const weapon of weapons) {        
-        const weaponFromApi = await getApiResultsAsync(ApiCategory.Equipment, weapon.index);
+        const weaponFromApi = await Weapon.getAsync(weapon.index);
         addWeaponRow(weaponFromApi, weapon.ability);
     }
 }
@@ -84,7 +84,7 @@ const initAddWeaponButton = function() {
 
     addWeaponButton.onclick = async () => {
         const weaponSelect = document.getElementById('weapon-select');
-        const weapon = await getApiResultsAsync(ApiCategory.Equipment, weaponSelect.value);
+        const weapon = await Weapon.getAsync(weaponSelect.value);
 
         addWeaponRow(weapon);
 
@@ -98,7 +98,7 @@ const initAddWeaponButton = function() {
 
 /**
  * Add a weapon row to the weapons table.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @param {string} ability Optional parameter. Required for building the initial table from storage. Used to specify the value of a dropdown.
  */
 const addWeaponRow = function(weapon, ability = null) {
@@ -115,7 +115,7 @@ const addWeaponRow = function(weapon, ability = null) {
 
 /**
  * Get a new row for the weapons table.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @param {string} ability Optional parameter. Required for building the initial table from storage. Used to specify the value of a dropdown.
  * @returns {HTMLTableRowElement}
  */
@@ -137,7 +137,7 @@ const getNewRow = function(weapon, ability = null) {
 
 /**
  * Get a new cell for the "Name" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement}
  */
 const getNewNameCell = function(weapon) {
@@ -150,7 +150,7 @@ const getNewNameCell = function(weapon) {
 
 /**
  * Get a new cell for the "Ability" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @param {string} ability Optional parameter. Required for building the initial table from storage. Used to specify the value of a dropdown.
  * @returns {HTMLTableCellElement}
  */
@@ -225,7 +225,7 @@ const getNewAttackBonusCell = function() {
 
 /**
  * Get a new cell for the "Damage" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement} Empty textContent. Will get filled in another function.
  */
 const getNewDamageCell = function(weapon) {
@@ -238,7 +238,7 @@ const getNewDamageCell = function(weapon) {
 
 /**
  * Get a new cell for the "Damage type" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement}
  */
 const getNewDamageTypeCell = function(weapon) {
@@ -251,7 +251,7 @@ const getNewDamageTypeCell = function(weapon) {
 
 /**
  * Get a new cell for the "Range" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement}
  */
 const getNewRangeCell = function(weapon) {
@@ -271,7 +271,7 @@ const getNewRangeCell = function(weapon) {
 
 /**
  * Get a new cell for the "Weight" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement}
  */
 const getNewWeightCell = function(weapon) {
@@ -284,7 +284,7 @@ const getNewWeightCell = function(weapon) {
 
 /**
  * Get a new cell for the "Buttons" column.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {HTMLTableCellElement}
  */
 const getNewButtonsCell = function() {
@@ -320,7 +320,7 @@ const getNewCell = function(headerName) {
 
 /**
  * Get all possible abilities this weapon could use according to the SRD.
- * @param {object} weapon Full weapon object.
+ * @param {Weapon} weapon Full weapon object.
  * @returns {string[]} Either ["str"], ["dex"], or ["str", "dex"].
  */
 const getWeaponAbilities = function(weapon) {

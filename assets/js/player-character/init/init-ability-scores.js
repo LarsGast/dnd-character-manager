@@ -1,4 +1,4 @@
-import { getPlayerCharacterProperty } from "../../local-storage-util.js";
+import { globalPlayerCharacter } from "../objects/PlayerCharacter.js";
 import { getAbilityScoreModifier, limitAbilityScore, saveAbilityScore, updateAbilityScoreModifier, updateAllSkillModifiers } from "../util.js";
 import { updateAllArmorModifiersAsync } from "./inventory/init-armor.js";
 import { updateAllWeaponModifiers } from "./inventory/init-weapons.js";
@@ -34,7 +34,7 @@ const initAbilityScoreInputField = function(abilityIndex) {
 
     const inputField = document.getElementById(`${abilityIndex}_i`);
 
-    inputField.value = getPlayerCharacterProperty(abilityIndex);
+    inputField.value = globalPlayerCharacter[abilityIndex];
     inputField.onchange = async function() {
         await changeAbilityScore(abilityIndex, this.value);
     };

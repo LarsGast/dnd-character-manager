@@ -1,7 +1,7 @@
-import { getPlayerCharacterProperty } from "../../../local-storage-util.js";
-import { ApiCategory, getApiResultsAsync } from "../../api.js"
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 import { getEmptyOption, getSelectOption, limitClassLevel, updateAllSkillModifiers, updateClasses } from "../../util.js";
 import { updateAllWeaponModifiers } from "../inventory/init-weapons.js";
+import { Class } from "../../objects/Class.js";
 
 /**
  * Init the class and level property.
@@ -47,7 +47,7 @@ const getClassListItem = async function() {
  * @returns {HTMLSelectElement}
  */
 const getClassSelect = async function() {
-    const allClasses = await getApiResultsAsync(ApiCategory.Classes);
+    const allClasses = await Class.getAllAsync();
 
     const select = document.createElement('select');
 
@@ -108,7 +108,7 @@ const getRemoveClassButton = function() {
  * Build the class selection section to include local storage.
  */
 const initClassSelection = function() {
-    const classes = getPlayerCharacterProperty("classes");
+    const classes = globalPlayerCharacter.classes;
     const addClassButton = document.getElementById('class-and-level_b');
 
     if (classes.length === 0){

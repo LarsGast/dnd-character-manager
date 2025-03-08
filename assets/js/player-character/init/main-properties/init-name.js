@@ -1,4 +1,4 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 
 /**
  * Initialize the name input field of the PC.
@@ -6,8 +6,8 @@ import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../..
 export const initName = function() {
     const nameInput = document.getElementById('name_i');
 
-    nameInput.value = getPlayerCharacterProperty("name");
+    nameInput.value = globalPlayerCharacter.name;
     nameInput.onchange = function() {
-        setPlayerCharacterProperty("name", this.value);
+        globalPlayerCharacter.setProperty("name", this.value);
     };
 }

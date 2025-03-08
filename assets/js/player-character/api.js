@@ -1,4 +1,4 @@
-import { addToCache, getFromCache } from "../cache.js";
+import { addToCache, getFromCache } from "./cache.js";
 
 const baseUrl = 'https://www.dnd5eapi.co/api';
 

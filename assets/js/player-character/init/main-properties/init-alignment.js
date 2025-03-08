@@ -1,4 +1,4 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 
 /**
  * Initialize the alignment select element.
@@ -7,8 +7,8 @@ export const initAlignment = function() {
 
     const select = document.getElementById("alignment_s");
 
-    select.value = getPlayerCharacterProperty("alignment");
+    select.value = globalPlayerCharacter.alignment;
     select.onchange = function() {
-        setPlayerCharacterProperty("alignment", this.value);
+        globalPlayerCharacter.setProperty("alignment", this.value);
     }
 }

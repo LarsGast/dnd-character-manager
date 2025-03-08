@@ -1,12 +1,12 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from '../local-storage-util.js';
-import { ApiCategory, getApiResultsAsync } from './api.js';
+import { globalPlayerCharacter } from './objects/PlayerCharacter.js';
+import { Skill } from './objects/Skill.js';
 
 /**
  * Update the classes of the PC in local storage.
  */
 export const updateClasses = function() {
     const classes = getClasses();
-    setPlayerCharacterProperty('classes', classes);
+    globalPlayerCharacter.setProperty('classes', classes);
 }
 
 /**
@@ -110,7 +110,7 @@ export const limitAbilityScore = function(abilityIndex, abilityScore) {
 export const saveAbilityScore = function(abilityIndex) {
     const abilityScore = document.getElementById(`${abilityIndex}_i`);
 
-    setPlayerCharacterProperty(abilityIndex, abilityScore.value);
+    globalPlayerCharacter.setProperty(abilityIndex, abilityScore.value);
 }
 
 /**
@@ -127,10 +127,10 @@ export const updateAbilityScoreModifier = function(abilityIndex) {
  * Update all skill modifiers at once.
  */
 export const updateAllSkillModifiers = async function() {
-    const skills = await getApiResultsAsync(ApiCategory.Skills);
+    const skills = await Skill.getAllAsync();
 
     for (const skillInfo of skills.results) {
-        const skill = await getApiResultsAsync(ApiCategory.Skills, skillInfo.index);
+        const skill = await Skill.getAsync(skillInfo.index);
         updateSkillModifier(skill);
     }
 }
@@ -142,7 +142,7 @@ export const updateAllSkillModifiers = async function() {
  */
 export const getAbilityScoreModifier = function(abilityIndex) {
 
-    const abilityScore = getPlayerCharacterProperty(abilityIndex);
+    const abilityScore = globalPlayerCharacter[abilityIndex];
 
     return Math.floor((abilityScore - 10) / 2);
 }
@@ -153,7 +153,7 @@ export const getAbilityScoreModifier = function(abilityIndex) {
  */
 export const getProficiencyModifier = function() {
 
-    const classes = getPlayerCharacterProperty("classes");
+    const classes = globalPlayerCharacter.classes;
 
     if (classes.length === 0) {
         return 0;
@@ -169,7 +169,7 @@ export const getProficiencyModifier = function() {
  * @returns {boolean}
  */
 export const isProficientInSkill = function(skillIndex) {
-    const proficiencies = getPlayerCharacterProperty("proficiencies");
+    const proficiencies = globalPlayerCharacter.proficiencies;
     return proficiencies.includes(skillIndex);
 }
 
@@ -179,7 +179,7 @@ export const isProficientInSkill = function(skillIndex) {
  * @returns {boolean}
  */
 export const isExpertInSkill = function(skillIndex) {
-    const expertises = getPlayerCharacterProperty("expertises");
+    const expertises = globalPlayerCharacter.expertises;
     return expertises.includes(skillIndex);
 }
 
@@ -189,7 +189,7 @@ export const isExpertInSkill = function(skillIndex) {
  * @returns {boolean}
  */
 export const isProficientInWeapon = function(weaponName) {
-    const proficiencies = getPlayerCharacterProperty("weapon_proficiencies");
+    const proficiencies = globalPlayerCharacter.weaponProficiencies;
     return proficiencies.includes(weaponName);
 }
 
@@ -199,13 +199,13 @@ export const isProficientInWeapon = function(weaponName) {
  * @returns {boolean}
  */
 export const isProficientInArmor = function(armorName) {
-    const proficiencies = getPlayerCharacterProperty("armor_proficiencies");
+    const proficiencies = globalPlayerCharacter.armorProficiencies;
     return proficiencies.includes(armorName);
 }
 
 /**
  * Get the modifier of the given skill for the PC in local storage.
- * @param {JSON} skill 
+ * @param {Skill} skill
  * @returns {number}
  */
 export const getSkillModifier = function(skill) {
@@ -231,7 +231,7 @@ export const getSkillModifier = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewSkillProficiencies = function(skillIndex, add) {
-    const proficiencies = getPlayerCharacterProperty("proficiencies");
+    const proficiencies = globalPlayerCharacter.proficiencies;
 
     if (add === true) {
         if (!proficiencies.includes(skillIndex)) {
@@ -245,7 +245,7 @@ export const saveNewSkillProficiencies = function(skillIndex, add) {
         }
     }
 
-    setPlayerCharacterProperty("proficiencies", proficiencies);
+    globalPlayerCharacter.setProperty("proficiencies", proficiencies);
 }
 
 /**
@@ -254,7 +254,7 @@ export const saveNewSkillProficiencies = function(skillIndex, add) {
  * @param {boolean} add Wether the expertise is added or removed.
  */
 export const saveNewSkillExpertises = function(skillIndex, add) {
-    const expertise = getPlayerCharacterProperty("expertises");
+    const expertise = globalPlayerCharacter.expertises;
 
     if (add === true) {
         if (!expertise.includes(skillIndex)) {
@@ -268,7 +268,7 @@ export const saveNewSkillExpertises = function(skillIndex, add) {
         }
     }
 
-    setPlayerCharacterProperty("expertises", expertise);
+    globalPlayerCharacter.setProperty("expertises", expertise);
 }
 
 /**
@@ -303,7 +303,7 @@ export const enableOrDisableProficiencyCheckbox = function(skillIndex) {
 
 /**
  * Update the modifier for the given skill.
- * @param {object} skill 
+ * @param {Skill} skill
  */
 export const updateSkillModifier = function(skill) {
     const span = document.getElementById(`${skill.index}_m`);
@@ -317,7 +317,7 @@ export const updateSkillModifier = function(skill) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewWeaponProficiencies = function(weaponName, add) {
-    const weaponProficiencies = getPlayerCharacterProperty("weapon_proficiencies");
+    const weaponProficiencies = globalPlayerCharacter.weaponProficiencies;
 
     if (add === true) {
         if (!weaponProficiencies.includes(weaponName)) {
@@ -331,7 +331,7 @@ export const saveNewWeaponProficiencies = function(weaponName, add) {
         }
     }
 
-    setPlayerCharacterProperty("weapon_proficiencies", weaponProficiencies);
+    globalPlayerCharacter.setProperty("weaponProficiencies", weaponProficiencies);
 }
 
 /**
@@ -340,7 +340,7 @@ export const saveNewWeaponProficiencies = function(weaponName, add) {
  * @param {boolean} add Wether the proficiency is added or removed.
  */
 export const saveNewArmorProficiencies = function(armorName, add) {
-    const armorProficiencies = getPlayerCharacterProperty("armor_proficiencies");
+    const armorProficiencies = globalPlayerCharacter.armorProficiencies;
 
     if (add === true) {
         if (!armorProficiencies.includes(armorName)) {
@@ -354,7 +354,7 @@ export const saveNewArmorProficiencies = function(armorName, add) {
         }
     }
 
-    setPlayerCharacterProperty("armor_proficiencies", armorProficiencies);
+    globalPlayerCharacter.setProperty("armorProficiencies", armorProficiencies);
 }
 
 /**

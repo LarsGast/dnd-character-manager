@@ -1,3 +1,5 @@
+import { PlayerCharacter } from "../objects/PlayerCharacter.js";
+
 /**
  * Update a character from version 1 to version 2. Read the individual functions for more specific information.
  * This update includes:
@@ -5,7 +7,7 @@
  *   - Indexes as specified in the 5e API are now stored instead of names
  *   - The change: rename all "name" properties to "index" and kebab-case-ify the values
  * - Abilityscores are now saved as the lower case 3-letter abbreviation instead of the full word
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 export const update_version_2 = function(playerCharacter) {
     updateClasses(playerCharacter);
@@ -24,7 +26,7 @@ export const update_version_2 = function(playerCharacter) {
  * Update the classes of the character.
  * Property `name` -> `index`.
  * Value index is now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateClasses = function(playerCharacter) {
     playerCharacter.classes = playerCharacter.classes?.map(classObject => {
@@ -47,7 +49,7 @@ const updateClass = function(oldClass) {
 /**
  * Update the race of the character.
  * Value is now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateRace = function(playerCharacter) {
     playerCharacter.race = toKebabCase(playerCharacter.race);
@@ -56,7 +58,7 @@ const updateRace = function(playerCharacter) {
 /**
  * Update the background of the character.
  * Value is now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateBackground = function(playerCharacter) {
     playerCharacter.background = toKebabCase(playerCharacter.background);
@@ -65,7 +67,7 @@ const updateBackground = function(playerCharacter) {
 /**
  * Update the alignment of the character.
  * Value is now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateAlignment = function(playerCharacter) {
     playerCharacter.alignment = toKebabCase(playerCharacter.alignment);
@@ -74,7 +76,7 @@ const updateAlignment = function(playerCharacter) {
 /**
  * Update the ability scores of the character.
  * Property names are shortened to their 3-letter abbreviation.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateAbilityScores = function(playerCharacter) {
     playerCharacter.str = playerCharacter.strength;
@@ -95,7 +97,7 @@ const updateAbilityScores = function(playerCharacter) {
 /**
  * Update the skill proficiencies of the character.
  * Values are now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateProficiencies = function(playerCharacter) {
     playerCharacter.proficiencies = playerCharacter.proficiencies?.map(proficiency => {
@@ -106,7 +108,7 @@ const updateProficiencies = function(playerCharacter) {
 /**
  * Update the skill expertises of the character.
  * Values are now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateExpertises = function(playerCharacter) {
     playerCharacter.expertises = playerCharacter.expertises?.map(expertise => {
@@ -117,7 +119,7 @@ const updateExpertises = function(playerCharacter) {
 /**
  * Update the weapon proficiencies of the character.
  * Values are now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateWeaponProficiencies = function(playerCharacter) {
     playerCharacter.weapon_proficiencies = playerCharacter.weapon_proficiencies?.map(proficiency => {
@@ -128,7 +130,7 @@ const updateWeaponProficiencies = function(playerCharacter) {
 /**
  * Update the armor proficiencies of the character.
  * Values are now kebab-case.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateArmorProficiencies = function(playerCharacter) {
     playerCharacter.armor_proficiencies = playerCharacter.armor_proficiencies?.map(proficiency => {
@@ -139,7 +141,7 @@ const updateArmorProficiencies = function(playerCharacter) {
 /**
  * Update the weapon inventory of the character.
  * Ability values are shortened to their 3-letter abbreviation.
- * @param {JSON} playerCharacter Full JSON character to perform the update on
+ * @param {PlayerCharacter} playerCharacter
  */
 const updateWeaponInventory = function(playerCharacter) {
     playerCharacter.inventory_weapons = playerCharacter.inventory_weapons?.map(proficiency => {

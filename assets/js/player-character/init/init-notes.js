@@ -1,4 +1,4 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../local-storage-util.js";
+import { globalPlayerCharacter } from "../objects/PlayerCharacter.js";
 
 /**
  * Initialize notes section.
@@ -6,8 +6,8 @@ import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../lo
 export const initNotes = function() {
     const textArea = document.getElementById('notes');
 
-    textArea.value = getPlayerCharacterProperty("notes");
+    textArea.value = globalPlayerCharacter.notes;
     textArea.onchange = function() {
-        setPlayerCharacterProperty("notes", this.value);
+        globalPlayerCharacter.setProperty("notes", this.value);
     };
 }

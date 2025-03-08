@@ -1,6 +1,6 @@
-import { getPlayerCharacterProperty, setPlayerCharacterProperty } from "../../../local-storage-util.js";
-import { ApiCategory, getApiResultsAsync } from "../../api.js";
+import { globalPlayerCharacter } from "../../objects/PlayerCharacter.js";
 import { getAbilityScoreModifier } from "../../util.js";
+import { Armor } from "../../objects/equipment/Armor.js";
 
 /**
  * Init the armor section of the inventory.
@@ -45,7 +45,7 @@ const saveArmorInventory = function() {
         };
     })
 
-    setPlayerCharacterProperty("inventory_armor", armors);
+    globalPlayerCharacter.setProperty("inventoryArmor", armors);
 }
 
 /**
@@ -53,9 +53,9 @@ const saveArmorInventory = function() {
  */
 const initArmorTable = async function() {
 
-    const armors = getPlayerCharacterProperty("inventory_armor");
+    const armors = globalPlayerCharacter.inventoryArmor;
     for (const armor of armors) {
-        const armorFromApi = await getApiResultsAsync(ApiCategory.Equipment, armor.index);
+        const armorFromApi = await Armor.getAsync(armor.index);
         addArmorRow(armorFromApi);
     }
 }
@@ -81,7 +81,7 @@ const initAddArmorButton = function() {
 
     addArmorButton.onclick = async () => {
         const armorSelect = document.getElementById('armor-select');
-        const armor = await getApiResultsAsync(ApiCategory.Equipment, armorSelect.value);
+        const armor = await Armor.getAsync(armorSelect.value);
 
         addArmorRow(armor);
 
@@ -95,7 +95,7 @@ const initAddArmorButton = function() {
 
 /**
  * Add a armor row to the armor table.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @param {string} ability Optional parameter. Required for building the initial table from storage. Used to specify the value of a dropdown.
  */
 const addArmorRow = function(armor, ability = null) {
@@ -112,7 +112,7 @@ const addArmorRow = function(armor, ability = null) {
 
 /**
  * Get a new row for the armor table.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableRowElement}
  */
 const getNewRow = function(armor) {
@@ -133,7 +133,7 @@ const getNewRow = function(armor) {
 
 /**
  * Get a new cell for the "Name" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewNameCell = function(armor) {
@@ -146,7 +146,7 @@ const getNewNameCell = function(armor) {
 
 /**
  * Get a new cell for the "Type" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewTypeCell = function(armor) {
@@ -159,7 +159,7 @@ const getNewTypeCell = function(armor) {
 
 /**
  * Get a new cell for the "Minimum Strength" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewStrengthRequirementCell = function(armor) {
@@ -172,7 +172,7 @@ const getNewStrengthRequirementCell = function(armor) {
 
 /**
  * Get a new cell for the "Disadvantage on stealth" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewDisadvantageOnStealthCell = function(armor) {
@@ -185,7 +185,7 @@ const getNewDisadvantageOnStealthCell = function(armor) {
 
 /**
  * Get a new cell for the "Armor class" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewArmorClassCell = function(armor) {
@@ -208,7 +208,7 @@ const getNewArmorClassCell = function(armor) {
 
 /**
  * Get a new cell for the "Effective armor class" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement} Empty. Will get filled in another function.
  */
 const getNewEffectiveArmorClassCell = function(armor) {
@@ -219,7 +219,7 @@ const getNewEffectiveArmorClassCell = function(armor) {
 
 /**
  * Get a new cell for the "Weight" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewWeightCell = function(armor) {
@@ -232,7 +232,7 @@ const getNewWeightCell = function(armor) {
 
 /**
  * Get a new cell for the "Buttons" column.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {HTMLTableCellElement}
  */
 const getNewButtonsCell = function() {
@@ -273,14 +273,14 @@ const getNewCell = function(headerName) {
 const updateEffectiveArmorClassCell = async function(row) {
     const effectiveArmorClassCell = row.querySelector('[headers="armor_effective-armor-class"]');
 
-    const armor = await getApiResultsAsync(ApiCategory.Equipment, row.dataset.index);
+    const armor = await Armor.getAsync(row.dataset.index);
 
     effectiveArmorClassCell.textContent = armor.armor_class.base + getArmorModifier(armor);
 }
 
 /**
  * Get the modifier for the given armor.
- * @param {object} armor Full armor object.
+ * @param {Armor} armor Full armor object.
  * @returns {number}
  */
 const getArmorModifier = function(armor) {

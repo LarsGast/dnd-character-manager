@@ -1,4 +1,4 @@
-import { getDefaultPlayerCharacter, getPlayerCharacter, getPlayerCharacterProperty, savePlayerCharacter } from "../../local-storage-util.js";
+import { globalPlayerCharacter, PlayerCharacter } from "../objects/PlayerCharacter.js";
 import { updateCharacter } from "../update-character.js";
 
 /**
@@ -79,7 +79,7 @@ const initResetButton = function(dialog) {
     const closeButton = dialog.querySelector('.reset');
 
     closeButton.onclick = () => {
-        savePlayerCharacter(getDefaultPlayerCharacter());
+        PlayerCharacter.getDefault().save();
         window.location.reload();
     }
 }
@@ -120,7 +120,7 @@ const initExportDownloadButton = function(dialog) {
 
         // Create the blob and url for download.
         const blob = new Blob(
-            [JSON.stringify(getPlayerCharacter(), null, 2)],
+            [JSON.stringify(globalPlayerCharacter, null, 2)],
             { type: 'application/json' }
         );
         const url = URL.createObjectURL(blob);
@@ -129,7 +129,7 @@ const initExportDownloadButton = function(dialog) {
         // That's why we create an anchor tag and trigger a click here.
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${getPlayerCharacterProperty('name')}.json`;
+        a.download = `${globalPlayerCharacter.name}.json`;
         a.click();
 
         // Release memory to prevent potential memory leaks.
@@ -144,7 +144,7 @@ const initExportDownloadButton = function(dialog) {
 const fillExportTextarea = function(dialog) {
     const textArea = dialog.querySelector('textarea');
 
-    textArea.value = JSON.stringify(getPlayerCharacter(), null, 2);
+    textArea.value = JSON.stringify(globalPlayerCharacter, null, 2);
 }
 
 /**
@@ -186,12 +186,12 @@ const initImportButton = function(dialog) {
     importButton.onclick = () => {
         const textArea = dialog.querySelector('textarea');
 
-        const playerCharacter = JSON.parse(textArea.value);
+        const playerCharacter = new PlayerCharacter(JSON.parse(textArea.value));
 
         // Update the character to the current version.
         updateCharacter(playerCharacter);
 
-        savePlayerCharacter(playerCharacter);
+        playerCharacter.save();
         window.location.reload();
     }
 }

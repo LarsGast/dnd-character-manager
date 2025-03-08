@@ -1,5 +1,6 @@
-import { getPlayerCharacterProperty } from "../../local-storage-util.js";
-import { ApiCategory, getApiResultsAsync } from "../api.js";
+import { globalPlayerCharacter } from "../objects/PlayerCharacter.js";
+import { Subrace } from "../objects/Subrace.js";
+import { Trait } from "../objects/Trait.js";
 
 /**
  * Update the subrace features section based on the current subrace.
@@ -7,7 +8,7 @@ import { ApiCategory, getApiResultsAsync } from "../api.js";
  */
 export const updateSubraceFeaturesSection = async function() {
 
-    const subRaceIndex = getPlayerCharacterProperty("subrace");
+    const subRaceIndex = globalPlayerCharacter.subrace;
     const section = document.getElementById('subrace-features');
 
     // If the user has not picked a subrace yet, or there is no available subrace to pick, there is nothing to set.
@@ -18,7 +19,7 @@ export const updateSubraceFeaturesSection = async function() {
     
     section.style.display = "block";
 
-    const subrace = await getApiResultsAsync(ApiCategory.Subraces, subRaceIndex);
+    const subrace = await Subrace.getAsync(subRaceIndex);
 
     setSubraceName(subrace);
     setDescription(subrace);
@@ -28,7 +29,7 @@ export const updateSubraceFeaturesSection = async function() {
 
 /**
  * Sets the name of the subrace.
- * @param {JSON} subrace Full subrace object as per the SRD API.
+ * @param {Subrace} subrace
  */
 const setSubraceName = function(subrace) {
     const p = document.getElementById("subrace_name");
@@ -38,7 +39,7 @@ const setSubraceName = function(subrace) {
 
 /**
  * Sets the description of the subrace.
- * @param {JSON} subrace Full subrace object as per the SRD API.
+ * @param {Subrace} subrace
  */
 const setDescription = function(subrace) {
     const p = document.getElementById("subrace_description");
@@ -48,7 +49,7 @@ const setDescription = function(subrace) {
 
 /**
  * Sets the ability bonuses of the subrace.
- * @param {JSON} subrace Full subrace object as per the SRD API.
+ * @param {Subrace} subrace
  */
 const setAbilityBonuses = function(subrace) {
     const ul = document.getElementById("subrace_ability_bonuses");
@@ -65,14 +66,15 @@ const setAbilityBonuses = function(subrace) {
 
 /**
  * Sets the traits of the subrace.
- * @param {JSON} subrace Full subrace object as per the SRD API.
+ * @param {Subrace} subrace
  */
 const setTraits = async function(subrace) {
     const div = document.getElementById("subrace_traits");
     div.replaceChildren();
 
-    for (const traitInfo of subrace.racial_traits) {
-        const trait = await getApiResultsAsync(ApiCategory.Traits, traitInfo.index);
+    const allTraits = await subrace.getAllTraitsAsync();
+
+    for (const trait of allTraits) {
         div.appendChild(getSubraceTraitHeading(trait));
         div.appendChild(getSubraceTraitDescription(trait));
     }
@@ -80,7 +82,7 @@ const setTraits = async function(subrace) {
 
 /**
  * Gets the heading of the given trait.
- * @param {JSON} trait Full trait object as per the SRD API.
+ * @param {Trait} trait
  * @returns {HTMLHeadingElement}
  */
 const getSubraceTraitHeading = function(trait) {
@@ -93,7 +95,7 @@ const getSubraceTraitHeading = function(trait) {
 
 /**
  * Gets the description of the given trait.
- * @param {JSON} trait Full trait object as per the SRD API.
+ * @param {Trait} trait
  * @returns {HTMLParagraphElement}
  */
 const getSubraceTraitDescription = function(trait) {
