@@ -33,6 +33,10 @@ table {
     margin-bottom: 0;
 }
 
+li ul {
+    margin-bottom: 0;
+}
+
 .no-style-list {
     list-style-type: none;
     margin: 0;
@@ -160,7 +164,7 @@ dialog {
     // Generic styling
     width: 80%;
     max-width: calc(0.8 * (800px - (30px * 2)));
-    &:not(#reset-dialog) {
+    &:not([is="character-reset-dialog"]) {
         height: 50vh;
     }
 
@@ -216,38 +220,35 @@ dialog {
 }
 
 /* Abilityscores for player character page */
-#ability-scores-container {
+.ability-scores-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px 10px;
 
-    ul {
+    ability-score-display {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 20px 10px;
+        flex-direction: column;
 
-        > li {
-            display: flex;
-            flex-direction: column;
+        width: 100px;
+        height: 80px;
+        padding: 5px;
 
-            width: 100px;
-            height: 80px;
-            padding: 5px;
+        border: 2px solid black;
+        border-radius: 10px;
 
+        align-items: center;
+
+        :nth-child(2) {
+            font-size: 2rem;
+        }
+
+        :last-child {
             border: 2px solid black;
-            border-radius: 10px;
-
-            align-items: center;
-
-            :nth-child(2) {
-                font-size: 2rem;
-            }
-
-            :last-child {
-                border: 2px solid black;
-                border-radius: 50%;
-                width: 50%;
-                background-color: #fdfdfd;
-                text-align: center;
-            }
+            border-radius: 50%;
+            width: 50%;
+            background-color: #fdfdfd;
+            text-align: center;
         }
     }
 }
@@ -298,7 +299,7 @@ summary {
     }
 }
 
-#notes {
+textarea[is="notes-textarea"] {
     width: 100%;
     height: 200px;
 }

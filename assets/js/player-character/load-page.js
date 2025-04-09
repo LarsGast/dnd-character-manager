@@ -1,22 +1,14 @@
 import { updateCharacter } from "./update-character.js";
-import { buildPage } from "./build/build-page.js";
-import { initPage } from "./init/init-page.js"
 import { globalPlayerCharacter } from "./objects/PlayerCharacter.js";
 
 /**
  * Starting point for all JavaScript code for the PC-Builder page.
  * This one function should bring the page to a functioning state.
  */
-export const loadPage = async function() {
+export const loadPage = function() {
 
     // Update the current PC to the latest version so the data and inputs know how to interact with each other.
     updateCharacterToLatestVersion();
-
-    // Build all elements that should appear on the page.
-    await buildPage();
-
-    // Initialize all elements that appear on the page.
-    await initPage()
 }
 
 /**

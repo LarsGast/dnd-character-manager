@@ -1,6 +1,7 @@
 import { LATEST_PLAYER_CHARACTER_VERSION_NUMBER, PlayerCharacter } from "./objects/PlayerCharacter.js";
 import { update_version_2 } from "./update/update-version-2.js";
 import { update_version_3 } from "./update/update-version-3.js";
+import { update_version_4 } from "./update/update-version-4.js";
 
 /**
  * Update an old player character object to a new version.
@@ -31,6 +32,12 @@ export const updateCharacter = function(playerCharacter) {
     if (playerCharacter.version === 2) {
         update_version_3(playerCharacter);
         playerCharacter.version = 3;
+    }
+    
+    // Version 3 -> version 4.
+    if (playerCharacter.version === 3) {
+        update_version_4(playerCharacter);
+        playerCharacter.version = 4;
     }
 
     // Clean the JSON object to remove unused properties and add missing properties.

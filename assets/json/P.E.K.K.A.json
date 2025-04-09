@@ -1,0 +1,104 @@
+{
+  "name": "P.E.K.K.A",
+  "classes": [
+    {
+      "name": "Fighter",
+      "level": "4"
+    }
+  ],
+  "race": null,
+  "background": null,
+  "alignment": null,
+  "strength": "16",
+  "dexterity": "13",
+  "constitution": "16",
+  "intelligence": "8",
+  "wisdom": 10,
+  "charisma": "12",
+  "proficiencies": [
+    "Athletics",
+    "Insight",
+    "Intimidation",
+    "Perception",
+    "Survival"
+  ],
+  "expertises": [],
+  "weapon_proficiencies": [
+    "Club",
+    "Dagger",
+    "Greatclub",
+    "Handaxe",
+    "Javelin",
+    "Light hammer",
+    "Mace",
+    "Quarterstaff",
+    "Sickle",
+    "Spear",
+    "Battleaxe",
+    "Flail",
+    "Glaive",
+    "Greataxe",
+    "Greatsword",
+    "Halberd",
+    "Lance",
+    "Longsword",
+    "Maul",
+    "Morningstar",
+    "Pike",
+    "Rapier",
+    "Scimitar",
+    "Trident",
+    "Shortsword",
+    "Warhammer",
+    "War pick",
+    "Whip",
+    "Crossbow, light",
+    "Dart",
+    "Shortbow",
+    "Sling",
+    "Blowgun",
+    "Crossbow, hand",
+    "Crossbow, heavy",
+    "Longbow",
+    "Net"
+  ],
+  "armor_proficiencies": [
+    "Padded Armor",
+    "Leather Armor",
+    "Studded Leather Armor",
+    "Hide Armor",
+    "Chain Shirt",
+    "Scale Mail",
+    "Breastplate",
+    "Half Plate Armor",
+    "Ring Mail",
+    "Chain Mail",
+    "Splint Armor",
+    "Plate Armor",
+    "Shield"
+  ],
+  "inventory_weapons": [
+    {
+      "index": "longsword",
+      "ability": "strength"
+    },
+    {
+      "index": "crossbow-light",
+      "ability": "dexterity"
+    },
+    {
+      "index": "dagger",
+      "ability": "strength"
+    },
+    {
+      "index": "shortsword",
+      "ability": "strength"
+    }
+  ],
+  "inventory_armor": [
+    {
+      "index": "splint-armor"
+    }
+  ],
+  "notes": null
+}

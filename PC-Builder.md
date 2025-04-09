@@ -49,207 +49,122 @@ permalink: /pc-builder/
     </details>
 </section>
 
-<section id="export-import-container">
-    <button id="reset-button" type="button">Reset</button>
-    <button id="export-button" type="button">Export</button>
-    <button id="import-button" type="button">Import</button>
+<section>
+    <button is="character-reset-button"></button>
+    <button is="character-export-button"></button>
+    <button is="character-import-button"></button>
 </section>
 
-<section id="generic-info-container">
+<section>
     <h2>Algemeen</h2>
     <ul>
-        <li><label>Name: <input id="name_i"/></label></li>
+        <li><label>Name: <input is="name-input"/></label></li>
         <li>
-            <label>Class & Level: </label><button id="class-and-level_b" type="button">Add class</button>
-            <ul id="class-and-level-list"></ul>
+            <label>Class & Level: </label><class-level-section></class-level-section>
         </li>
-        <li><label>Race: <select id="race_s"></select></label></li>
-        <li><label>Subrace: <select id="subrace_s"></select></label></li>
-        <li><label>Background: <select id="background_s"></select></label></li>
-        <li><label>Alignment: <select id="alignment_s"></select></label></li>
+        <li><label>Race: <select is="race-input"></select></label></li>
+        <li><label>Subrace: <select is="subrace-input"></select></label></li>
+        <li><label>Background: <select is="background-input"></select></label></li>
+        <li><label>Alignment: <select is="alignment-input"></select></label></li>
+        <li>Proficiency bonus: <proficiency-bonus-display></proficiency-bonus-display></li>
     </ul>
 </section>
 
-<section id="ability-scores-container">
+<section>
     <h2>Ability Scores</h2>
-    <ul class="no-style-list" id="ability-scores-list">
-        <li id="str">
-            <span>STR</span>
-            <span id="str_m"></span>
-            <input id="str_i" type="number" min="1" max="30"/>
+    <ul class="no-style-list ability-scores-list">
+        <li>
+            <ability-score-display ability="str"></ability-score-display>
         </li>
-        <li id="dex">
-            <span>DEX</span>
-            <span id="dex_m"></span>
-            <input id="dex_i" type="number" min="1" max="30"/>
+        <li>
+            <ability-score-display ability="dex"></ability-score-display>
         </li>
-        <li id="con">
-            <span>CON</span>
-            <span id="con_m"></span>
-            <input id="con_i" type="number" min="1" max="30"/>
+        <li>
+            <ability-score-display ability="con"></ability-score-display>
         </li>
-        <li id="int">
-            <span>INT</span>
-            <span id="int_m"></span>
-            <input id="int_i" type="number" min="1" max="30"/>
+        <li>
+            <ability-score-display ability="int"></ability-score-display>
         </li>
-        <li id="wis">
-            <span>WIS</span>
-            <span id="wis_m"></span>
-            <input id="wis_i" type="number" min="1" max="30"/>
+        <li>
+            <ability-score-display ability="wis"></ability-score-display>
         </li>
-        <li id="cha">
-            <span>CHA</span>
-            <span id="cha_m"></span>
-            <input id="cha_i" type="number" min="1" max="30"/>
+        <li>
+            <ability-score-display ability="cha"></ability-score-display>
         </li>
     </ul>
 </section>
 
-<section id="skills-container">
+<section>
     <h2>Skills</h2>
-    <ul class="no-style-list proficiencies-list three-columns-list" id="skills-list"></ul>
+    <ul is="skills-list"></ul>
 </section>
 
-<section id="equipment-proficiencies-container">
+<section>
     <details>
         <summary><h2>Equipment proficiencies</h2></summary>
         <details>
             <summary><h3>Weapons</h3></summary>
-            <div id="weapon-proficiencies-container"></div>
+            <h4>Simple Melee</h4>
+            <ul is="equipment-proficiencies-list" isArmor="false" equipmentCategoryIndex="simple-melee-weapons"></ul>
+            <h4>Martial Melee</h4>
+            <ul is="equipment-proficiencies-list" isArmor="false" equipmentCategoryIndex="martial-melee-weapons"></ul>
+            <h4>Simple Ranged</h4>
+            <ul is="equipment-proficiencies-list" isArmor="false" equipmentCategoryIndex="simple-ranged-weapons"></ul>
+            <h4>Martial Ranged</h4>
+            <ul is="equipment-proficiencies-list" isArmor="false" equipmentCategoryIndex="martial-ranged-weapons"></ul>
         </details>
         <details>
             <summary><h3>Armor</h3></summary>
-            <div id="armor-proficiencies-container"></div>
+            <h4>Light</h4>
+            <ul is="equipment-proficiencies-list" isArmor="true" equipmentCategoryIndex="light-armor"></ul>
+            <h4>Medium</h4>
+            <ul is="equipment-proficiencies-list" isArmor="true" equipmentCategoryIndex="medium-armor"></ul>
+            <h4>Heavy</h4>
+            <ul is="equipment-proficiencies-list" isArmor="true" equipmentCategoryIndex="heavy-armor"></ul>
+            <h4>Shields</h4>
+            <ul is="equipment-proficiencies-list" isArmor="true" equipmentCategoryIndex="shields"></ul>
         </details>
     </details>
 </section>
 
-<section id="inventory-container">
+<section>
     <details>
         <summary><h2>Inventory</h2></summary>
         <h3>Weapons</h3>
-        <button id="add-weapon-button" type="button" disabled>Add weapon</button>
-        <select id="weapon-select"></select>
+        <inventory-weapon-add-input></inventory-weapon-add-input>
         <div class="table-container">
-            <table id="weapons-table">
-                <thead>
-                    <tr>
-                        <th id="weapon_name">Name</th>
-                        <th id="weapon_ability">Ability</th>
-                        <th id="weapon_attack-bonus">Attack bonus</th>
-                        <th id="weapon_damage">Damage</th>
-                        <th id="weapon_damage-type">Damage type</th>
-                        <th id="weapon_range">Range</th>
-                        <th id="weapon_weight">Weight</th>
-                        <th id="weapon_buttons">Buttons</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <inventory-weapon-table></inventory-weapon-table>
         </div>
         <h3>Armor</h3>
-        <button id="add-armor-button" type="button" disabled>Add armor</button>
-        <select id="armor-select"></select>
+        <inventory-armor-add-input></inventory-armor-add-input>
         <div class="table-container">
-            <table id="armor-table">
-                <thead>
-                    <tr>
-                        <th id="armor_name">Name</th>
-                        <th id="armor_type">Type</th>
-                        <th id="armor_strength-requirement">Strength</th>
-                        <th id="armor_disadvantage-on-stealth">Stealth</th>
-                        <th id="armor_armor-class">Armor class</th>
-                        <th id="armor_effective-armor-class">Effective armor class</th>
-                        <th id="armor_weight">Weight</th>
-                        <th id="armor_buttons">Buttons</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <inventory-armor-table></inventory-armor-table>
         </div>
     </details>
 </section>
 
-<section id="race-features">
-    <details>
-        <summary><h2>Race features (<span id="race_name">choose race</span>)</h2></summary>
-        <h3>Ability Bonuses</h3>
-        <ul id="race_ability_bonuses"></ul>
-        <h3>Speed</h3>
-        <p id="race_speed"></p>
-        <h3>Alignment</h3>
-        <p id="race_alignment"></p>
-        <h3>Age</h3>
-        <p id="race_age"></p>
-        <h3>Size</h3>
-        <p id="race_size"></p>
-        <h3>Languages</h3>
-        <p id="race_languages"></p>
-        <h3>Traits</h3>
-        <div id="race_traits"></div>
-    </details>
+<section>
+    <details is="race-features-display"></details>
 </section>
 
-<section id="subrace-features">
-    <details>
-        <summary><h2>Subrace features (<span id="subrace_name"></span>)</h2></summary>
-        <h3>Description</h3>
-        <p id="subrace_description"></p>
-        <h3>Ability Bonuses</h3>
-        <ul id="subrace_ability_bonuses"></ul>
-        <h3>Traits</h3>
-        <div id="subrace_traits"></div>
-    </details>
+<section>
+    <details is="subrace-features-display"></details>
 </section>
 
-<section id="notes-container">
+<section>
     <h2>Notes</h2>
-    <textarea id="notes"></textarea>
+    <textarea is="notes-textarea"></textarea>
 </section>
 
-<div id="dialogs">
-    <dialog id="reset-dialog">
-        <div class="dialog-content">
-            <button class="close" type="button">Close</button>
-            <h2>Reset PC</h2>
-            <p>By resetting the PC, you will set the page to the same state it was when you loaded the page for the first time. All data will be removed and default values will be assigned to each property.</p>
-            <p><strong>Warning: resetting the page will remove all data. Export the data first to create a backup if you do not want to lose any data.</strong></p>
-            <button class="reset" type="button">Reset</button>
-        </div>
-    </dialog>
-    <dialog id="export-dialog">
-        <div class="dialog-content">
-            <button class="close" type="button">Close</button>
-            <h2>Export PC</h2>
-            <p>Use this window to download all information needed to build the PC Builder page. You can use this feature to save backups, move characters between devices, and more.</p>
-            <p>Use the <code>Import</code> button to import the information into the page using the resulting JSON file from this export.</p>
-            <div>
-                <button class="download" type="button">Download</button>
-                <label for="export-preview">Preview</label>
-            </div>
-            <textarea id="export-preview" disabled></textarea>
-        </div>
-    </dialog>
-    <dialog id="import-dialog">
-        <div class="dialog-content">
-            <button class="close" type="button">Close</button>
-            <h2>Import PC</h2>
-            <p>Use this window to import all information needed to build the PC Builder page. Only the data provided by an export should be used while importing. Using anything else may result in loss of data. Create a backup of the current data by exporting it before importing new data to prevent overwriting existing data.</p>
-            <p>Select a JSON file below, then press the <code>Import</code> button to import the data.</p>
-            <div>
-                <button class="import" type="button" disabled>Import</button>
-                <input class="load" type="file"/>
-                <label for="import-preview">Preview</label>
-            </div>
-            <textarea id="import-preview" disabled></textarea>
-        </div>
-    </dialog>
+<div>
+    <dialog is="character-reset-dialog"></dialog>
+    <dialog is="character-export-dialog"></dialog>
+    <dialog is="character-import-dialog"></dialog>
 </div>
 
 <script type="module">
     import { loadPage } from "{{ '/assets/js/player-character/load-page.js' | relative_url }}";
-    await loadPage();
+    loadPage();
 </script>
+
+<script type="module" src="{{ '/assets/js/player-character/import-custom-elements.js' | relative_url }}"></script>
