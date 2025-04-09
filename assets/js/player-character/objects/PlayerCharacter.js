@@ -203,6 +203,7 @@ export class PlayerCharacter {
             const playerCharacterAsString = localStorage.getItem(PLAYER_CHARACTER_KEY);
 
             // If no stored PC is found, create a new default one.
+            // Should only occur if the user visits the site for the very first time.
             if (!playerCharacterAsString) {
                 const defaultCharacter = PlayerCharacter.getDefault();
                 defaultCharacter.save();
