@@ -1,4 +1,4 @@
-import { ApiCategory } from "../../../api.js";
+import { ApiCategory, getApiResultsAsync } from "../../../api.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";
@@ -81,6 +81,87 @@ export class Class extends ApiBaseObject {
     constructor(data) {
         super(data);
         Object.assign(this, data);
+    }
+
+    /**
+     * Get a ClassLevel object that is a part of this class.
+     * @param {number} level
+     * @returns {Promise<ClassLevel>}
+     */
+    async getLevelAsync(level) {
+        return await ClassLevel.getClassLevelAsync(this.index, level);
+    }
+}
+
+class ClassLevel extends ApiBaseObject {
+    
+    /**
+     * The number value for the current level object.
+     * @type {number}
+     */
+    level;
+    
+    /**
+     * Total number of ability score bonuses gained, added from previous levels.
+     * @type {number}
+     */
+    ability_score_bonuses;
+    
+    /**
+     * Proficiency bonus for this class at the specified level.
+     * @type {number}
+     */
+    prof_bonus;
+    
+    /**
+     * Features automatically gained at this level.
+     * @type {ApiBaseObject[]}
+     */
+    features;
+    
+    /**
+     * Summary of spells known at this level.
+     * @type {object}
+     */
+    spellcasting;
+    
+    /**
+     * Class specific information such as dice values for bard songs and number of warlock invocations.
+     * @type {any}
+     */
+    class_specific;
+    
+    /**
+     * The class that this level is a part of.
+     * @type {ApiBaseObject}
+     */
+    class;
+
+    /**
+     * Constructor.
+     * @param {JSON} data Full object as specified in the 5e SRD API.
+     */
+    constructor(data) {
+        super(data);
+        Object.assign(this, data);
+    }
+
+    /**
+     * Get a ClassLevel object based on the given class and level.
+     * @param {string} classIndex 
+     * @param {number} level 
+     * @returns {Promise<ClassLevel>}
+     */
+    static async getClassLevelAsync(classIndex, level) {
+        return new this(await getApiResultsAsync(ApiCategory.Classes, `${classIndex}/levels/${level}`));
+    }
+
+    /**
+     * Get the full object of all subraces linked to this race.
+     * @returns {Promise<Feature[]>}
+     */
+    async getAllFeaturesAsync() {
+        return Promise.all(this.features.map(featureInfo => Feature.getAsync(featureInfo.index)));
     }
 }
 

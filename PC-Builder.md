@@ -30,7 +30,6 @@ permalink: /pc-builder/
         <ul>
             <li>HP, AC, initiative, en speed</li>
             <li>Saving throws</li>
-            <li>Class features</li>
             <li>Spell casting</li>
             <li>Talen</li>
             <li>
@@ -149,6 +148,10 @@ permalink: /pc-builder/
 
 <section>
     <details is="subrace-features-display"></details>
+</section>
+
+<section>
+    <details is="classes-features-display"></details>
 </section>
 
 <section>

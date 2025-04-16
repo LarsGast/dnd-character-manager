@@ -1,4 +1,18 @@
 /**
+ * Create an HTML element and add a value to the the textContent property.
+ * @param {HTMLElementTagNameMap} tagName 
+ * @param {string} textContent 
+ * @returns {HTMLElement}
+ */
+export const getElementWithTextContent = function(tagName, textContent) {
+    const element = document.createElement(tagName);
+
+    element.textContent = textContent;
+
+    return element;
+}
+
+/**
  * Get an empty option for select elements.
  * @returns {HTMLOptionElement}
  */
