@@ -38,7 +38,7 @@ export class ClassLevelSection extends HTMLElement {
     connectedCallback() {
         if (globalPlayerCharacter.classes.length > 0) {
             for (const classLevel of globalPlayerCharacter.classes) {
-                const classLevelInput = new ClassLevelInput(classLevel.index, classLevel.level);
+                const classLevelInput = new ClassLevelInput(classLevel.index, classLevel.subclass, classLevel.level);
                 this.classLevelList.appendChild(classLevelInput);
             }
         } 
@@ -51,6 +51,7 @@ export class ClassLevelSection extends HTMLElement {
         this._updateHandler = () => this.saveClasses();
         document.addEventListener("classAdded", this._updateHandler);
         document.addEventListener("classChanged", this._updateHandler);
+        document.addEventListener("subclassChanged", this._updateHandler);
         document.addEventListener("classLevelChanged", this._updateHandler);
         document.addEventListener("classDeleted", this._updateHandler);
     }
@@ -62,6 +63,7 @@ export class ClassLevelSection extends HTMLElement {
     disconnectedCallback() {
         document.removeEventListener("classAdded", this._updateHandler);
         document.removeEventListener("classChanged", this._updateHandler);
+        document.removeEventListener("subclassChanged", this._updateHandler);
         document.removeEventListener("classLevelChanged", this._updateHandler);
         document.removeEventListener("classDeleted", this._updateHandler);
     }
@@ -83,10 +85,11 @@ export class ClassLevelSection extends HTMLElement {
 
         // Loop through each ClassLevelInput element in the list.
         this.classLevelList.childNodes.forEach((el) => {
-            const select = el.querySelector("select");
+            const selects = el.querySelectorAll("select");
             const input = el.querySelector("input");
             classes.push({
-                index: select.value,
+                index: selects[0].value,
+                subclass: selects[1].value,
                 level: parseInt(input.value)
             });
         });

@@ -17,17 +17,22 @@ export class ClassLevelInput extends HTMLLIElement {
     /**
      * Creates a new ClassLevelInput element.
      * @param {string} classIndex The currently selected class index.
+     * @param {string} subclassIndex The currently selected subclass index.
      * @param {number} level The current class level.
      */
-    constructor(classIndex, level) {
+    constructor(classIndex, subclassIndex, level) {
         super();
 
         // Store current class and level values.
         this.classIndex = classIndex;
+        this.subclassIndex = subclassIndex;
         this.level = level;
         
         // Create a select element for choosing a class.
         this.classSelect = document.createElement("select");
+
+        // Create a select element for choosing a subclass.
+        this.subclassSelect = document.createElement("select");
 
         // Create an input element for entering the level.
         this.levelInput = document.createElement("input");
@@ -43,11 +48,13 @@ export class ClassLevelInput extends HTMLLIElement {
         
         // Append elements to the list item.
         this.appendChild(this.classSelect);
+        this.appendChild(this.subclassSelect);
         this.appendChild(this.levelInput);
         this.appendChild(this.deleteButton);
 
         // Bind event handlers.
         this.classSelect.onchange = () => this.handleClassChange();
+        this.subclassSelect.onchange = () => this.handleSubclassChange();
         this.levelInput.onchange = () => this.handleLevelChange();
         this.deleteButton.onclick = () => this.handleDelete();
     }
@@ -65,6 +72,11 @@ export class ClassLevelInput extends HTMLLIElement {
      * Populates the select element with class options including an empty option.
      */
     async loadOptions() {
+        await this.loadClassOptions();
+        await this.loadSubclassOptions();
+    }
+
+    async loadClassOptions() {
 
         // Add an empty option first.
         this.classSelect.appendChild(getEmptyOption());
@@ -79,13 +91,41 @@ export class ClassLevelInput extends HTMLLIElement {
         this.classSelect.value = this.classIndex ?? null;
         this.levelInput.value = this.level ?? 1;
     }
+
+    async loadSubclassOptions() {
+
+        this.subclassSelect.replaceChildren();
+
+        // Add an empty option first.
+        this.subclassSelect.appendChild(getEmptyOption());
+
+        // Retrieve all available subclasses.
+        const chosenClass = await Class.getAsync(this.classIndex);
+        for (const subclassInfo of chosenClass.subclasses) {
+            this.subclassSelect.appendChild(getSelectOption(subclassInfo.name, subclassInfo.index));
+        }
+        
+        // Set the current values, if already provided.
+        this.subclassSelect.value = this.subclassIndex ?? null;
+    }
   
     /**
      * Event handler for when the class selection changes.
      * Dispatches a "classChanged" event.
      */
-    handleClassChange() {
+    async handleClassChange() {
+        this.classIndex = this.classSelect.value;
+        this.subclassIndex = null;
+        await this.loadSubclassOptions();
         document.dispatchEvent(new Event("classChanged"));
+    }
+  
+    /**
+     * Event handler for when the subclass selection changes.
+     * Dispatches a "subclassChanged" event.
+     */
+    handleSubclassChange() {
+        document.dispatchEvent(new Event("subclassChanged"));
     }
 
     /**

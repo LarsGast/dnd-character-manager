@@ -61,7 +61,10 @@ export class ClassesFeaturesDisplay extends HTMLDetailsElement {
     async updateClassFeaturesDisplay() {
 
         // If no class information is present, hide this element.
-        if (!globalPlayerCharacter.classes || globalPlayerCharacter.classes.length === 0) {
+        if (!globalPlayerCharacter.classes || 
+            globalPlayerCharacter.classes.length === 0 ||
+            !globalPlayerCharacter.classes.some(classLevel => classLevel.index != 'null')
+        ) {
             this.style.display = "none";
             return;
         }

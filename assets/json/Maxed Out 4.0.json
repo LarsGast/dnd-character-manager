@@ -3,50 +3,62 @@
   "classes": [
     {
       "index": "barbarian",
+      "subclass": "berserker",
       "level": 20
     },
     {
       "index": "bard",
+      "subclass": "lore",
       "level": 20
     },
     {
       "index": "cleric",
+      "subclass": "life",
       "level": 20
     },
     {
       "index": "druid",
+      "subclass": "land",
       "level": 20
     },
     {
       "index": "fighter",
+      "subclass": "champion",
       "level": 20
     },
     {
       "index": "monk",
+      "subclass": "open-hand",
       "level": 20
     },
     {
       "index": "paladin",
+      "subclass": "devotion",
       "level": 20
     },
     {
       "index": "ranger",
+      "subclass": "hunter",
       "level": 20
     },
     {
       "index": "rogue",
+      "subclass": "thief",
       "level": 20
     },
     {
       "index": "sorcerer",
+      "subclass": "draconic",
       "level": 20
     },
     {
       "index": "warlock",
+      "subclass": "fiend",
       "level": 20
     },
     {
       "index": "wizard",
+      "subclass": "evocation",
       "level": 20
     }
   ],
