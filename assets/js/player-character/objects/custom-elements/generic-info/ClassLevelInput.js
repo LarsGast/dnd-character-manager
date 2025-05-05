@@ -99,6 +99,11 @@ export class ClassLevelInput extends HTMLLIElement {
         // Add an empty option first.
         this.subclassSelect.appendChild(getEmptyOption());
 
+        // If no class has been selected, there is no choice in subclass.
+        if (!this.classIndex) {
+            return;
+        }
+
         // Retrieve all available subclasses.
         const chosenClass = await Class.getAsync(this.classIndex);
         for (const subclassInfo of chosenClass.subclasses) {

@@ -1,6 +1,6 @@
 import { Race } from "../../api/resources/Race.js";
 import { Subrace } from "../../api/resources/Subrace.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -80,13 +80,13 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * Hides the element if no subrace is selected.
      */
     async updateSubraceFeaturesDisplay() {
-        if (!globalPlayerCharacter.subrace) {
+        if (!globals.activePlayerCharacter.subrace) {
             this.style.display = "none";
             return;
         }
         
         this.style.display = "block";
-        this.subrace = await Subrace.getAsync(globalPlayerCharacter.subrace);
+        this.subrace = await Subrace.getAsync(globals.activePlayerCharacter.subrace);
 
         // Clear current contents.
         this.replaceChildren();

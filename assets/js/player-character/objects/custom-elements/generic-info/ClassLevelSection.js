@@ -1,4 +1,4 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 import { ClassLevelInput } from "./ClassLevelInput.js";
 
 /**
@@ -9,7 +9,7 @@ import { ClassLevelInput } from "./ClassLevelInput.js";
  * - A button to add new class entries.
  * - A list of ClassLevelInput elements representing each class & level.
  *
- * It listens for changes (add, update, delete) and updates the global PC's classes accordingly by dispatching a "classesChanged" event.
+ * It listens for changes (add, update, delete) and updates the active PC's classes accordingly by dispatching a "classesChanged" event.
  */
 export class ClassLevelSection extends HTMLElement {
     
@@ -32,12 +32,12 @@ export class ClassLevelSection extends HTMLElement {
 
     /**
      * Called when the element is connected to the DOM.
-     * Loads existing class levels from the global player's data if available, otherwise creates a default ClassLevelInput.
+     * Loads existing class levels from the active player's data if available, otherwise creates a default ClassLevelInput.
      * Registers event listeners to track changes.
      */
     connectedCallback() {
-        if (globalPlayerCharacter.classes.length > 0) {
-            for (const classLevel of globalPlayerCharacter.classes) {
+        if (globals.activePlayerCharacter.classes.length > 0) {
+            for (const classLevel of globals.activePlayerCharacter.classes) {
                 const classLevelInput = new ClassLevelInput(classLevel.index, classLevel.subclass, classLevel.level);
                 this.classLevelList.appendChild(classLevelInput);
             }
@@ -78,7 +78,7 @@ export class ClassLevelSection extends HTMLElement {
     }
 
     /**
-     * Aggregates all class level inputs, updates the global player's classes, and dispatches a "classesChanged" event.
+     * Aggregates all class level inputs, updates the active player's classes, and dispatches a "classesChanged" event.
      */
     saveClasses() {
         let classes = [];
@@ -87,15 +87,30 @@ export class ClassLevelSection extends HTMLElement {
         this.classLevelList.childNodes.forEach((el) => {
             const selects = el.querySelectorAll("select");
             const input = el.querySelector("input");
+
+            const index = selects[0].value;
+            let subclass = selects[1].value;
+            const level = parseInt(input.value);
+
+            // Only save data if the user has actually chosen a class.
+            if (!index || index === "null") {
+                return;
+            }
+
+            // The "-- Select an option --" option has a value of "null", which we do not want to save.
+            if (subclass === "null") {
+                subclass = undefined;
+            }
+
             classes.push({
-                index: selects[0].value,
-                subclass: selects[1].value,
-                level: parseInt(input.value)
+                index: index,
+                subclass: subclass,
+                level: level
             });
         });
         
-        // Save the updated classes to the global player character.
-        globalPlayerCharacter.setProperty('classes', classes);
+        // Save the updated classes to the active player character.
+        globals.activePlayerCharacter.setProperty('classes', classes);
         document.dispatchEvent(new Event("classesChanged"));
     }
 }

@@ -1,6 +1,6 @@
 import { Background } from "../../api/resources/Background.js";
 import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom select element for choosing a character background.
@@ -35,8 +35,8 @@ export class BackgroundInput extends HTMLSelectElement {
             this.appendChild(getSelectOption(background.name, background.index));
         }
 
-        // Set the current value from the global player's data.
-        this.value = globalPlayerCharacter.background;
+        // Set the current value from the active player's data.
+        this.value = globals.activePlayerCharacter.background;
     }
 
     /**
@@ -44,7 +44,7 @@ export class BackgroundInput extends HTMLSelectElement {
      * Updates the player's background and dispatches a "backgroundUpdated" event.
      */
     handleChange() {
-        globalPlayerCharacter.setProperty('background', this.value);
+        globals.activePlayerCharacter.setProperty('background', this.value);
         document.dispatchEvent(new Event("backgroundUpdated"));
     }
 }

@@ -1,4 +1,5 @@
 import { PlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom HTML element for displaying the Character Import Dialog.
@@ -22,7 +23,7 @@ export class CharacterImportDialog extends HTMLDialogElement {
 
         // Create description paragraphs.
         this.firstParagraph = document.createElement('p');
-        this.firstParagraph.textContent = "Use this window to import all information needed to build the PC Builder page. Only the data provided by an export should be used while importing. Using anything else may result in loss of data. Create a backup of the current data by exporting it before importing new data to prevent overwriting existing data.";
+        this.firstParagraph.textContent = "Use this window to import a new character to use on this page. Only the data provided by an export should be used while importing. Using anything else may result in invalid data.";
         this.secondParagraph = document.createElement('p');
         this.secondParagraph.textContent = "Select a JSON file below, then press the Import button to import the data.";
 
@@ -133,17 +134,19 @@ export class CharacterImportDialog extends HTMLDialogElement {
     }
   
     /**
-     * Handles the import button click. Replaces the current PC data with the imported data,
-     * saves it, and reloads the page to update all elements.
+     * Handles the import button click. 
+     * Adds the imported data to the PC bank, closes the dialog, and updates the UI.
      */
     handleImportButtonClick() {
 
         // Create a new PlayerCharacter from the JSON data.
         const playerCharacter = new PlayerCharacter(JSON.parse(this.previewTextarea.value));
-        playerCharacter.save();
+        globals.playerCharacterBank.addNewCharacter(playerCharacter);
+        globals.playerCharacterBank.save();
 
-        // Reload the page to update all data.
-        window.location.reload();
+        this.close();
+
+        document.dispatchEvent(new Event("characterImported"));
     }
   
     /**

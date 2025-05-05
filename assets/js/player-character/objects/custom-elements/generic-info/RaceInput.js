@@ -1,12 +1,12 @@
 import { Race } from "../../api/resources/Race.js";
 import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom select element for choosing a race.
  * Extends the built-in HTMLSelectElement.
  *
- * The element loads all available races asynchronously, populates the options, and sets its value based on the global PC's data.
+ * The element loads all available races asynchronously, populates the options, and sets its value based on the active PC's data.
  * On change, the PC's race is updated and a "raceUpdated" event is dispatched.
  */
 export class RaceInput extends HTMLSelectElement {
@@ -36,7 +36,7 @@ export class RaceInput extends HTMLSelectElement {
         }
 
         // Set the value to the current PC's race.
-        this.value = globalPlayerCharacter.race;
+        this.value = globals.activePlayerCharacter.race;
     }
 
     /**
@@ -44,7 +44,7 @@ export class RaceInput extends HTMLSelectElement {
      * Updates the PC's race and dispatches a "raceUpdated" event.
      */
     handleChange() {
-        globalPlayerCharacter.setProperty('race', this.value);
+        globals.activePlayerCharacter.setProperty('race', this.value);
         document.dispatchEvent(new Event("raceUpdated"));
     }
 }

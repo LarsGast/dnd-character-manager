@@ -8,7 +8,7 @@ import { Subclass } from "../../api/resources/Subclass.js";
  * Custom details element that displays the features of the selected class.
  * Extends HTMLDetailsElement.
  *
- * This element updates its display whenever the global PC's class information changes.
+ * This element updates its display whenever the active PC's class information changes.
  * It shows sections for key class features, including hit die, proficiencies, starting equipment, and features available at each level.
  */
 export class ClassFeaturesDisplay extends HTMLDetailsElement {

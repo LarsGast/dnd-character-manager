@@ -1,4 +1,4 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom HTML element for displaying the Character Export Dialog.
@@ -73,7 +73,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
      * Registers an event listener for "characterExportButtonClicked".
      */
     connectedCallback() {
-        this._updateHandler = () => this.showDialog();
+        this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("characterExportButtonClicked", this._updateHandler);
     }
     
@@ -87,12 +87,16 @@ export class CharacterExportDialog extends HTMLDialogElement {
 
     /**
      * Opens the dialog and populates the preview textarea with the character data as JSON.
+     * @param {CustomEvent} event
      */
-    showDialog() {
-        this.showModal();
+    showDialog(event) {
 
-        // Display the current global PC as formatted JSON.
-        this.previewTextarea.value = JSON.stringify(globalPlayerCharacter, null, 2);
+        this.playerCharacter = globals.playerCharacterBank.getCharacterBankEntryById(event.detail.characterId).playerCharacter;
+        
+        // Display the current active PC as formatted JSON.
+        this.previewTextarea.value = JSON.stringify(this.playerCharacter, null, 2);
+
+        this.showModal();
     }
   
     /**
@@ -102,7 +106,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
 
         // Create a Blob from the character JSON data.
         const blob = new Blob(
-            [JSON.stringify(globalPlayerCharacter, null, 2)],
+            [JSON.stringify(this.playerCharacter, null, 2)],
             { type: 'application/json' }
         );
         const url = URL.createObjectURL(blob);
@@ -111,10 +115,12 @@ export class CharacterExportDialog extends HTMLDialogElement {
         // That's why we create an anchor tag and trigger a click here.
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${globalPlayerCharacter.name}.json`;
+        a.download = `${this.playerCharacter.name}.json`;
         a.click();
 
         URL.revokeObjectURL(url);
+
+        this.close();
     }
   
     /**

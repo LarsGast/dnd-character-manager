@@ -1,10 +1,10 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom input element for setting the character's name.
  * Extends the built-in HTMLInputElement.
  *
- * The element initializes its value from the global PC's name and dispatches a "nameChanged" event when the input changes.
+ * The element initializes its value from the active PC's name and dispatches a "nameChanged" event when the input changes.
  */
 export class NameInput extends HTMLInputElement {
     constructor() {
@@ -13,8 +13,8 @@ export class NameInput extends HTMLInputElement {
         // Set the input type to text.
         this.type = 'text';
 
-        // Initialize the value with the global PC's name.
-        this.value = globalPlayerCharacter.name;
+        // Initialize the value with the active PC's name.
+        this.value = globals.activePlayerCharacter.name;
 
         // Bind the change event.
         this.onchange = () => this.handleChange();
@@ -25,7 +25,7 @@ export class NameInput extends HTMLInputElement {
      * Updates the PC's name and dispatches a "nameChanged" event.
      */
     handleChange() {
-        globalPlayerCharacter.setProperty('name', this.value);
+        globals.activePlayerCharacter.setProperty('name', this.value);
         document.dispatchEvent(new Event("nameChanged"));
     }
 }

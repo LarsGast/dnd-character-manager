@@ -1,6 +1,6 @@
 import { EquipmentCategoryIndex } from "../../../api.js";
 import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 import { EquipmentCategory } from "../../api/resources/EquipmentCategory.js";
 import { Weapon } from "../../api/resources/equipment/Weapon.js";
 
@@ -10,7 +10,7 @@ import { Weapon } from "../../api/resources/equipment/Weapon.js";
  *
  * The element contains a select dropdown populated with weapon options grouped by category and a button to add the selected weapon. 
  * When a valid option is selected, the button is enabled. 
- * On clicking, the selected weapon is retrieved, added to the global PC's inventory (using its standard ability), and an "inventoryWeaponAdded" event is dispatched.
+ * On clicking, the selected weapon is retrieved, added to the active PC's inventory (using its standard ability), and an "inventoryWeaponAdded" event is dispatched.
  */
 export class InventoryWeaponAddInput extends HTMLElement {
 
@@ -91,7 +91,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
         const weapon = await Weapon.getAsync(weaponIndex);
 
         // Add the weapon to the PC's inventory using its standard ability.
-        globalPlayerCharacter.addWeaponToInventory(weapon.index, weapon.getStandardAbility());
+        globals.activePlayerCharacter.addWeaponToInventory(weapon.index, weapon.getStandardAbility());
 
         // Notify that a new weapon has been added.
         document.dispatchEvent(new Event("inventoryWeaponAdded"));

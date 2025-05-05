@@ -1,12 +1,12 @@
 import { getElementWithTextContent } from "../../../util.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 import { ClassFeaturesDisplay } from "./ClassFeaturesDisplay.js";
 
 /**
  * Custom details element that displays the features of the selected class.
  * Extends HTMLDetailsElement.
  *
- * This element updates its display whenever the global PC's class information changes.
+ * This element updates its display whenever the active PC's class information changes.
  * It contains information about each class the PC has chosen.
  */
 export class ClassesFeaturesDisplay extends HTMLDetailsElement {
@@ -61,9 +61,9 @@ export class ClassesFeaturesDisplay extends HTMLDetailsElement {
     async updateClassFeaturesDisplay() {
 
         // If no class information is present, hide this element.
-        if (!globalPlayerCharacter.classes || 
-            globalPlayerCharacter.classes.length === 0 ||
-            !globalPlayerCharacter.classes.some(classLevel => classLevel.index != 'null')
+        if (!globals.activePlayerCharacter.classes || 
+            globals.activePlayerCharacter.classes.length === 0 ||
+            !globals.activePlayerCharacter.classes.some(classLevel => classLevel.index != 'null')
         ) {
             this.style.display = "none";
             return;
@@ -77,7 +77,7 @@ export class ClassesFeaturesDisplay extends HTMLDetailsElement {
         this.appendChild(this.getSectionHeading());
 
         // Add the class features of each class the PC is a part of.
-        for (const classLevelInfo of globalPlayerCharacter.classes) {
+        for (const classLevelInfo of globals.activePlayerCharacter.classes) {
             this.appendChild(new ClassFeaturesDisplay(classLevelInfo));
         }
     }

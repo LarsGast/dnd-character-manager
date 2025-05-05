@@ -1,5 +1,5 @@
 import { Armor } from "../../api/resources/equipment/Armor.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom checkbox element representing an armor proficiency toggle.
@@ -24,7 +24,7 @@ export class ArmorProficiencyCheckbox extends HTMLInputElement {
         this.type = "checkbox";
 
         // Initialize the checked state based on PC's current proficiency.
-        this.checked = globalPlayerCharacter.isProficientInArmor(this.armor.index);
+        this.checked = globals.activePlayerCharacter.isProficientInArmor(this.armor.index);
 
         // Bind the handleChange method to the click event.
         this.onclick = () => this.handleChange();
@@ -33,15 +33,15 @@ export class ArmorProficiencyCheckbox extends HTMLInputElement {
     /**
      * Event handler for checkbox state changes.
      *
-     * When the checkbox is toggled, this method updates the global PC's armor proficiency accordingly and dispatches a custom event.
+     * When the checkbox is toggled, this method updates the active PC's armor proficiency accordingly and dispatches a custom event.
      */
     handleChange() {
 
         // Update proficiencies.
         if (this.checked) {
-            globalPlayerCharacter.addProficiencyInArmor(this.armor.index);
+            globals.activePlayerCharacter.addProficiencyInArmor(this.armor.index);
         } else {
-            globalPlayerCharacter.removeProficiencyInArmor(this.armor.index);
+            globals.activePlayerCharacter.removeProficiencyInArmor(this.armor.index);
         }
 
         // Dispatch a custom event to notify that the armor proficiency has changed.

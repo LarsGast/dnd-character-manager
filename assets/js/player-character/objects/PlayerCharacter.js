@@ -1,10 +1,5 @@
 import { Skill } from "../objects/api/resources/Skill.js";
-
-/**
- * Key used for saving and loading the player character from localStorage.
- * @constant {string}
- */
-const PLAYER_CHARACTER_KEY = "playerCharacter";
+import { globals } from "../load-page.js";
 
 /**
  * The current latest version of the PC object.
@@ -21,9 +16,9 @@ export class PlayerCharacter {
 
     /**
      * Name of the character.
-     * @type {string|null}
+     * @type {string}
      */
-    name = null;
+    name = "New character";
 
     /**
      * All chosen classes of the character.
@@ -172,52 +167,19 @@ export class PlayerCharacter {
     }
 
     /**
-     * Sets a property value on the character and immediately saves the character.
+     * Sets a property value on the character and immediately saves the character (if it exists within the player bank).
      * @param {string} propertyName The name of the property to update.
      * @param {any} propertyValue The new value for the property.
      */
     setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
-        this.save();
-    }
-    
-    /**
-     * Saves the character object into localStorage.
-     * Catches and logs any errors during saving.
-     */
-    save() {
-        try {
-            localStorage.setItem(PLAYER_CHARACTER_KEY, JSON.stringify(this));
-        } catch (error) {
-            console.error("Error while saving Player Character:", error);
-        }
-    }
 
-    /**
-     * Loads the character from localStorage.
-     * If no saved character exists, returns a default character.
-     * @returns {PlayerCharacter} The loaded or default character instance.
-     */
-    static load() {
-        try {
-            const playerCharacterAsString = localStorage.getItem(PLAYER_CHARACTER_KEY);
-
-            // If no stored PC is found, create a new default one.
-            // Should only occur if the user visits the site for the very first time.
-            if (!playerCharacterAsString) {
-                const defaultCharacter = PlayerCharacter.getDefault();
-                defaultCharacter.save();
-                return defaultCharacter;
-            }
-
-            const playerCharacterAsJson = JSON.parse(playerCharacterAsString);
-
-            return new PlayerCharacter(playerCharacterAsJson);
-        }
-        catch (error) {
-            console.error("Error parsing player character JSON:", error);
-            return new PlayerCharacter();
-        }
+        // Save the player bank.
+        // If the PlayerCharacter exists within the player character bank and is edited by reference, it will be saved to localStorage.
+        // If the PlayerCharacter does not exist within the bank, the bank will be saved without the PC.
+        // globals.activePlayerCharacter always exists within the bank, and will thus be saved correctly.
+        // If you want to save a PlayerCharacter that is not in the bank, add it to the bank first and then save the bank.
+        globals.playerCharacterBank.save();
     }
 
     /**
@@ -231,13 +193,6 @@ export class PlayerCharacter {
         playerCharacter.version = LATEST_PLAYER_CHARACTER_VERSION_NUMBER;
 
         return playerCharacter;
-    }
-
-    /**
-     * Resets the character by saving a default character to localStorage.
-     */
-    reset() {
-        PlayerCharacter.getDefault().save();
     }
 
     /**
@@ -509,10 +464,3 @@ export class PlayerCharacter {
         this.setProperty("inventoryArmor", inventoryArmor);
     }
 }
-
-/**
- * Global singleton instance containing all PC information.
- * Loaded from localStorage; if no saved data exists, defaults are provided.
- * @type {PlayerCharacter}
- */
-export const globalPlayerCharacter = PlayerCharacter.load();

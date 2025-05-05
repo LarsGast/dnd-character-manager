@@ -1,5 +1,5 @@
 import { Skill } from "../../api/resources/Skill.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom input element (checkbox) for toggling skill proficiency.
@@ -20,8 +20,8 @@ export class SkillProficiencyCheckbox extends HTMLInputElement {
         this.skill = skill;
         this.type = "checkbox";
 
-        // Initialize based on the global PC's proficiency state.
-        this.checked = globalPlayerCharacter.isProficientInSkill(this.skill.index);
+        // Initialize based on the active PC's proficiency state.
+        this.checked = globals.activePlayerCharacter.isProficientInSkill(this.skill.index);
 
         // Bind click event handler.
         this.onclick = () => this.handleChange();
@@ -45,9 +45,9 @@ export class SkillProficiencyCheckbox extends HTMLInputElement {
 
         // Update proficiency in the skill.
         if (this.checked) {
-            globalPlayerCharacter.addProficiencyInSkill(this.skill.index);
+            globals.activePlayerCharacter.addProficiencyInSkill(this.skill.index);
         } else {
-            globalPlayerCharacter.removeProficiencyInSkill(this.skill.index);
+            globals.activePlayerCharacter.removeProficiencyInSkill(this.skill.index);
         }
 
         document.dispatchEvent(new CustomEvent("skillProficiencyChanged", {
@@ -64,7 +64,7 @@ export class SkillProficiencyCheckbox extends HTMLInputElement {
         if (!event || (event.type === "skillExpertiseChanged" && event.detail.skill === this.skill.index)) {
             
             // Disable if PC already has expertise in the skill.
-            this.disabled = globalPlayerCharacter.isExpertInSkill(this.skill.index);
+            this.disabled = globals.activePlayerCharacter.isExpertInSkill(this.skill.index);
         }
     }
 }

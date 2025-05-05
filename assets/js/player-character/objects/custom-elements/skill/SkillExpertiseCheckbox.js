@@ -1,11 +1,11 @@
 import { Skill } from "../../api/resources/Skill.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom input element (checkbox) for toggling skill expertise.
  * Extends HTMLInputElement.
  *
- * On change, it updates the global PC's expertise state for the skill and dispatches a "skillExpertiseChanged" event.
+ * On change, it updates the active PC's expertise state for the skill and dispatches a "skillExpertiseChanged" event.
  */
 export class SkillExpertiseCheckbox extends HTMLInputElement {
 
@@ -20,7 +20,7 @@ export class SkillExpertiseCheckbox extends HTMLInputElement {
         this.type = "checkbox";
 
         // Set checkbox state based on the PC's current expertise.
-        this.checked = globalPlayerCharacter.isExpertInSkill(this.skill.index);
+        this.checked = globals.activePlayerCharacter.isExpertInSkill(this.skill.index);
 
         // Bind the onclick event.
         this.onclick = () => this.handleChange();
@@ -44,9 +44,9 @@ export class SkillExpertiseCheckbox extends HTMLInputElement {
 
         // Add or remove expertise in given skill.
         if (this.checked) {
-            globalPlayerCharacter.addExpertiseInSkill(this.skill.index);
+            globals.activePlayerCharacter.addExpertiseInSkill(this.skill.index);
         } else {
-            globalPlayerCharacter.removeExpertiseInSkill(this.skill.index);
+            globals.activePlayerCharacter.removeExpertiseInSkill(this.skill.index);
         }
 
         document.dispatchEvent(new CustomEvent("skillExpertiseChanged", {
@@ -62,7 +62,7 @@ export class SkillExpertiseCheckbox extends HTMLInputElement {
      */
     updateDisplay(event) {
         if (!event || (event.type === "skillProficiencyChanged" && event.detail.skill === this.skill.index)) {
-            this.disabled = !globalPlayerCharacter.isProficientInSkill(this.skill.index);
+            this.disabled = !globals.activePlayerCharacter.isProficientInSkill(this.skill.index);
         }
     }
 }

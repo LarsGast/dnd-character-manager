@@ -1,4 +1,4 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom table cell element that displays the calculated attack bonus for a weapon.
@@ -72,7 +72,7 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
      * @returns {boolean} True if the cell should update; otherwise false.
      */
     shouldUpdateDisplay(event) {
-        const inventoryWeapon = globalPlayerCharacter.inventoryWeapons[this.rowIndex];
+        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         return !event || 
             (event.type === "proficiencyBonusChanged") ||
@@ -86,8 +86,8 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
      * @returns {number} The computed attack bonus.
      */
     getAttackBonusValue() {
-        const inventoryWeapon = globalPlayerCharacter.inventoryWeapons[this.rowIndex];
-        return globalPlayerCharacter.getWeaponAttackBonus(inventoryWeapon.index, inventoryWeapon.ability);
+        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+        return globals.activePlayerCharacter.getWeaponAttackBonus(inventoryWeapon.index, inventoryWeapon.ability);
     }
 }
 

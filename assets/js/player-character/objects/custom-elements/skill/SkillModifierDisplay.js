@@ -1,5 +1,5 @@
 import { Skill } from "../../api/resources/Skill.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom element to display the calculated skill modifier.
@@ -60,7 +60,7 @@ export class SkillModifierDisplay extends HTMLElement {
      * Dispatches a "skillModifierChanged" event.
      */
     updateSkillModifier() {
-        this.textContent = globalPlayerCharacter.getSkillModifier(this.skill);
+        this.textContent = globals.activePlayerCharacter.getSkillModifier(this.skill);
         
         document.dispatchEvent(new CustomEvent("skillModifierChanged", {
             detail: { skill: this.skill.index },

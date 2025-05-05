@@ -33,6 +33,10 @@ table {
     margin-bottom: 0;
 }
 
+button {
+    width: fit-content;
+}
+
 li ul {
     margin-bottom: 0;
 }
@@ -164,19 +168,23 @@ dialog {
     // Generic styling
     width: 80%;
     max-width: calc(0.8 * (800px - (30px * 2)));
-    &:not([is="character-reset-dialog"]) {
+    &:not([is="character-delete-dialog"]) {
         height: 50vh;
     }
 
     /* Wrapper for all content within a dialog element. */
     .dialog-content {
 
-        height: 100%;
-        width: 100%;
+        /* The manage characters dialog contains more complex elements that do not work well together with set heights and flexbox. */
+        &:not(.manage-characters-dialog-content) {
 
-        // To dynamically grow the textarea within.
-        display: flex;
-        flex-direction: column;
+            height: 100%;
+            width: 100%;
+    
+            // To dynamically grow the textarea within.
+            display: flex;
+            flex-direction: column;
+        }
 
         /* Close button for the modal */
         .close {
@@ -188,17 +196,7 @@ dialog {
             cursor: pointer;
         }
 
-        /* Other buttons in the dialog */
-        .reset,
-        .copy,
-        .download,
-        .import {
-
-            // Prevent stretching caused by flex.
-            align-self: start;
-        }
-
-        .reset {
+        .delete {
 
             // As a warning.
             background-color: red;

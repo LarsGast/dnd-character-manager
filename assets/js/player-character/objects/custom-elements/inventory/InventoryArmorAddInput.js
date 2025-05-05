@@ -1,6 +1,6 @@
 import { EquipmentCategoryIndex } from "../../../api.js";
 import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 import { EquipmentCategory } from "../../api/resources/EquipmentCategory.js";
 import { Armor } from "../../api/resources/equipment/Armor.js";
 
@@ -11,7 +11,7 @@ import { Armor } from "../../api/resources/equipment/Armor.js";
  * This element consists of a select dropdown that is populated with armor options (grouped by type) and a button to add the selected armor.
  *
  * When a valid armor option is selected, the button is enabled.
- * Clicking the button fetches the armor details and updates the global PC's inventory, then dispatches an "inventoryArmorAdded" event.
+ * Clicking the button fetches the armor details and updates the active PC's inventory, then dispatches an "inventoryArmorAdded" event.
  */
 export class InventoryArmorAddInput extends HTMLElement {
     constructor() {
@@ -90,8 +90,8 @@ export class InventoryArmorAddInput extends HTMLElement {
         const armorIndex = this.armorSelect.value;
         const armor = await Armor.getAsync(armorIndex);
 
-        // Add the armor to the global player's inventory.
-        globalPlayerCharacter.addArmorToInventory(armor.index);
+        // Add the armor to the active player's inventory.
+        globals.activePlayerCharacter.addArmorToInventory(armor.index);
 
         // Notify listeners that armor has been added.
         document.dispatchEvent(new Event("inventoryArmorAdded"));

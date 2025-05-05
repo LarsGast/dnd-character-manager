@@ -1,5 +1,5 @@
 import { Armor } from "../../api/resources/equipment/Armor.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom table cell element that displays an armor's effective armor class.
@@ -65,11 +65,11 @@ export class InventoryArmorEffectiveArmorClassCell extends HTMLTableCellElement 
     }
 
     /**
-     * Calculates and returns the effective armor class using the global player's dexterity modifier.
+     * Calculates and returns the effective armor class using the active player's dexterity modifier.
      * @returns {number} The effective armor class value.
      */
     getEffectiveArmorClassValue() {
-        return this.armor.armor_class.getEffectiveArmorClass(globalPlayerCharacter.getAbilityModifier("dex"));
+        return this.armor.armor_class.getEffectiveArmorClass(globals.activePlayerCharacter.getAbilityModifier("dex"));
     }
 }
 

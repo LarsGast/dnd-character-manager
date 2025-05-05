@@ -1,4 +1,4 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom table cell element that contains action buttons for a weapon entry.
@@ -36,7 +36,7 @@ export class InventoryWeaponButtonsCell extends HTMLTableCellElement {
      * Removes the weapon from the global inventory and dispatches an "inventoryWeaponDeleted" event.
      */
     deleteRow() {
-        globalPlayerCharacter.removeWeaponFromInventory(this.rowIndex);
+        globals.activePlayerCharacter.removeWeaponFromInventory(this.rowIndex);
         document.dispatchEvent(new Event("inventoryWeaponDeleted"));
     }
 }

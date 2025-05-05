@@ -64,7 +64,7 @@ export class InventoryArmorRow extends HTMLTableRowElement {
 
         // Create a buttons cell to hold action buttons.
         // Note: Using rowIndex - 1 since the fist non-header row of the table starts at index 1.
-        // The index used in the parameter here should be the index of the object within the inventory data on globalPlayerCharacter.
+        // The index used in the parameter here should be the index of the object within the inventory data on globals.activePlayerCharacter.
         this.buttonsCell = new InventoryArmorButtonsCell(this.armor, this.rowIndex - 1);
         this.buttonsCell.headers = 'armor_buttons';
 

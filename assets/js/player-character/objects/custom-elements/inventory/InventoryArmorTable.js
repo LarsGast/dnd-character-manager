@@ -1,13 +1,13 @@
 import { Armor } from "../../api/resources/equipment/Armor.js";
 import { InventoryArmorRow } from "./InventoryArmorRow.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom element for displaying the inventory armor table.
  * Extends HTMLElement.
  *
  * This element constructs a table consisting of a header and a body.
- * The header defines columns for armor properties while the body is populated with InventoryArmorRow elements based on the global PC's inventory.
+ * The header defines columns for armor properties while the body is populated with InventoryArmorRow elements based on the active PC's inventory.
  * It listens for "inventoryArmorAdded" and "inventoryArmorDeleted" events to refresh its content.
  */
 export class InventoryArmorTable extends HTMLElement {
@@ -110,7 +110,7 @@ export class InventoryArmorTable extends HTMLElement {
             tableBody.replaceChildren();
 
             // For each armor in the inventory, create a new row and append it.
-            for (const inventoryArmor of globalPlayerCharacter.inventoryArmor) {
+            for (const inventoryArmor of globals.activePlayerCharacter.inventoryArmor) {
                 const armor = await Armor.getAsync(inventoryArmor.index);
                 tableBody.appendChild(new InventoryArmorRow(armor));
             }

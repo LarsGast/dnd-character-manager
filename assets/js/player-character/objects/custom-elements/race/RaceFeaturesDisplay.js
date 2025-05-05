@@ -1,11 +1,11 @@
 import { Race } from "../../api/resources/Race.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom details element that displays the features of the selected race.
  * Extends HTMLDetailsElement.
  *
- * This element updates its display whenever the global PC's race changes.
+ * This element updates its display whenever the active PC's race changes.
  * It shows sections for ability bonuses, speed, alignment, age, size, languages, and any available traits.
  */
 export class RaceFeaturesDisplay extends HTMLDetailsElement {
@@ -84,13 +84,13 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
     async updateRaceFeaturesDisplay() {
 
         // No race selected - hide the element.
-        if (!globalPlayerCharacter.race) {
+        if (!globals.activePlayerCharacter.race) {
             this.style.display = "none";
             return;
         }
         
         this.style.display = "block";
-        this.race = await Race.getAsync(globalPlayerCharacter.race);
+        this.race = await Race.getAsync(globals.activePlayerCharacter.race);
 
         // Clear any existing content.
         this.replaceChildren();

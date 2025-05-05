@@ -1,5 +1,5 @@
 import { Weapon } from "../../api/resources/equipment/Weapon.js";
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom table cell element that displays the damage dice and damage bonus of a weapon.
@@ -76,7 +76,7 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * @returns {boolean} True if update is necessary; otherwise false.
      */
     shouldUpdateDisplay(event) {
-        const inventoryWeapon = globalPlayerCharacter.inventoryWeapons[this.rowIndex];
+        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         return !event || 
             (event.type === "abilityScoreModifierChanged" && event.detail.ability === inventoryWeapon.ability) ||
@@ -88,13 +88,13 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * @returns {number|null} The damage bonus or null if damage information is unavailable.
      */
     getDamageBonusValue() {
-        const inventoryWeapon = globalPlayerCharacter.inventoryWeapons[this.rowIndex];
+        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         if (!this.weapon.damage) {
             return null;
         }
 
-        return globalPlayerCharacter.getAbilityModifier(inventoryWeapon.ability);
+        return globals.activePlayerCharacter.getAbilityModifier(inventoryWeapon.ability);
     }
 }
 

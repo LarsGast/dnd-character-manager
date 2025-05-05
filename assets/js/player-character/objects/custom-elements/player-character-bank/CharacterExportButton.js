@@ -4,10 +4,11 @@
  */
 export class CharacterExportButton extends HTMLButtonElement {
     
-    constructor() {
+    constructor(characterId) {
         super();
         
         // Set the button type and label.
+        this.characterId = characterId;
         this.type = 'button';
         this.textContent = "Export";
 
@@ -21,7 +22,12 @@ export class CharacterExportButton extends HTMLButtonElement {
     handleClick() {
         
         // Fire an event that signals the Character Export Dialog should be shown.
-        document.dispatchEvent(new Event('characterExportButtonClicked'));
+        document.dispatchEvent(new CustomEvent("characterExportButtonClicked", {
+            detail: { 
+                characterId: this.characterId 
+            },
+            bubbles: true
+        }));
     }
 }
 

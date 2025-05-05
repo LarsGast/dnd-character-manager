@@ -1,11 +1,11 @@
-import { globalPlayerCharacter } from "../../PlayerCharacter.js";
+import { globals } from "../../../load-page.js";
 
 /**
  * Custom input element for editing an ability score.
  * Extends HTMLInputElement.
  *
  * This input element is configured to accept a number between 1 and 30.
- * It initializes its value from the global PC's ability score and updates it when the user changes the input.
+ * It initializes its value from the active PC's ability score and updates it when the user changes the input.
  */
 export class AbilityScoreInput extends HTMLInputElement {
 
@@ -24,8 +24,8 @@ export class AbilityScoreInput extends HTMLInputElement {
         this.min = 1;
         this.max = 30;
 
-        // Initialize the input value from the global PC's current ability score.
-        this.value = globalPlayerCharacter[this.ability];
+        // Initialize the input value from the active PC's current ability score.
+        this.value = globals.activePlayerCharacter[this.ability];
 
         // Bind the change handler to react on user input changes.
         this.onchange = () => this.handleChange();
@@ -34,7 +34,7 @@ export class AbilityScoreInput extends HTMLInputElement {
     /**
      * Handler triggered when the input value changes.
      *
-     * This method ensures the score is within accepted limits, then updates the global PC's property and dispatches a custom event to notify that the ability score has changed.
+     * This method ensures the score is within accepted limits, then updates the active PC's property and dispatches a custom event to notify that the ability score has changed.
      */
     handleChange() {
 
@@ -42,7 +42,7 @@ export class AbilityScoreInput extends HTMLInputElement {
         this.limitScore();
         
         // Update the PC's ability score (convert input value to an integer).
-        globalPlayerCharacter.setProperty(this.ability, parseInt(this.value));
+        globals.activePlayerCharacter.setProperty(this.ability, parseInt(this.value));
 
         // Dispatch an event signaling that the ability score has changed.
         document.dispatchEvent(new CustomEvent("abilityScoreChanged", {

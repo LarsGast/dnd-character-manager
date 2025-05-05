@@ -182,7 +182,7 @@ const getShortAbility = function(longAbility) {
  */
 const toKebabCase = function(str) {
 
-    // To handle PC's that aren't complete yet.
+    // To handle PCs that aren't complete yet.
     if (!str) {
         return null;
     }
