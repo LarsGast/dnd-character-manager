@@ -1,6 +1,8 @@
 import { updateCharacter } from "./update-character.js";
 import { PlayerCharacterBank } from "./objects/PlayerCharacterBank.js";
 import { PlayerCharacter } from "./objects/PlayerCharacter.js";
+import { getCache, saveCache } from "./cache.js";
+import { baseUrl } from "./api.js";
 
 /**
  * A set of global variables to be used all across the codebase.
@@ -35,6 +37,9 @@ export const loadPage = function() {
 
     // Update the current PC to the latest version so the data and inputs know how to interact with each other.
     updatePlayerBank();
+
+    // Clean the cache.
+    cleanCache();
 }
 
 /**
@@ -84,4 +89,21 @@ const updatePlayerBank = function() {
     // Save the PCs, wether they have changes or not.
     // We don't need to check for changes. Saving is cheap and the extra logic will only bring complexity.
     globals.playerCharacterBank.save();
+}
+
+/**
+ * Clean the cache, remove unwanted entries.
+ */
+const cleanCache = function() {
+    const cache = getCache();
+
+    for (const key in cache) {
+        
+        // Remove all entries that are not from the SRD API.
+        if (!key.includes(baseUrl)) {
+            delete cache[key];
+        }
+    }
+
+    saveCache(cache);
 }

@@ -1,6 +1,6 @@
 import { addToCache, getFromCache } from "./cache.js";
 
-const baseUrl = 'https://www.dnd5eapi.co/api';
+export const baseUrl = 'https://www.dnd5eapi.co/api/2014';
 
 /**
  * Enum-like class that holds all endpoints of the SRD API.

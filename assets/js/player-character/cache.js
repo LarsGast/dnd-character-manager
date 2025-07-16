@@ -28,7 +28,7 @@ export const getFromCache = function(key) {
  * Get the cache object from local storage.
  * @returns {JSON} Full cache object.
  */
-const getCache = function() {
+export const getCache = function() {
 
     const cacheAsString = localStorage.getItem(CACHE_KEY_LOCAL);
     try {
@@ -50,7 +50,7 @@ const getCache = function() {
  * Save the cache object to local storage.
  * @param {JSON} cache cache as JSON.
  */
-const saveCache = function(cache) {
+export const saveCache = function(cache) {
 
     try {
         const cacheAsString = JSON.stringify(cache);
