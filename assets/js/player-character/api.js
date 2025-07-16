@@ -85,20 +85,36 @@ export const getApiResultsAsync = async function(apiCategory, index = null) {
 
 /**
  * Perform an API call and get data from https://www.dnd5eapi.co.
- * @param {string} url 
+ * @param {string} url The URL to call.
+ * @param {number} retryCount Number of retries in case of rate limiting. 
  * @returns {Promise<JSON>}
  */
-const getApiDataAsync = async function(url) {
+const getApiDataAsync = async function(url, retryCount = 0) {
 
     try {
         const response = await fetch(url);
 
-        if (!response.ok){
-            throw new Error(`Response status: ${response.status}`);
+        // Success.
+        if (response.ok) {
+            const json = await response.json();
+            return json;
         }
 
-        const json = await response.json();
-        return json;
+        // Too Many Requests (HTTP 429) - rate limiting.
+        if (response.status === 429) {
+
+            if (retryCount >= 5) {
+                throw new Error("Too many retries, giving up.");
+            }
+
+            const retryAfterMs = 1000; // The `retry-after` header is not provided by the API, so we use a fixed delay.
+            console.warn(`Rate limit hit. Retrying after ${retryAfterMs} ms...`);
+            await new Promise(resolve => setTimeout(resolve, retryAfterMs));
+            return getApiDataAsync(url, retryCount++);
+        }
+
+        // Any other error status.
+        throw new Error(`Response status: ${response.status}`);
     }
     catch (error) {
         console.error(error.message);
