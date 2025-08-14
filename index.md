@@ -1,7 +1,6 @@
 ---
-layout: page
-title: PC Builder
-permalink: /pc-builder/
+layout: home
+title: DnD Character Manager
 ---
 
 <section>
@@ -10,41 +9,26 @@ permalink: /pc-builder/
             <h2>Info</h2>
         </summary>
         <p>
-            Op deze pagina kun je je eigen <abbr title="Player Character">PC</abbr> maken zoals je dit ook op een papieren character sheet zou doen. Aangezien deze "character sheet" niet op fysiek papier is, kunnen we gebruik maken van technieken om de ervaring wat te stroomlijnen. Zo worden de skills van je karakter op deze pagina automatisch uitgerekend op basis van je ability scores, level, en proficiency/ expertise. Daarnaast heb je op het internet veel meer ruimte om dingen op te slaan dan een paar stukken A4 papier.
+            On this page, you can create your own DnD character like you would on a normal paper character sheet. Since this digital "character sheet" is not on physical paper, we can make use of techniques to streamline the experience. As an example, skill modifiers on this page will be automatically calculated based on your character's ability scores, level (proficiency bonus), and proficiency/ expertise in the skill. Besides this, a digital page allows you to store a lot more information than a couple of A4 paper sheets. 
         </p>
         <p>
-            Hieronder wordt wat dieper in gegaan op een paar specificaties van deze pagina. Door deze te lezen begrijp je mogelijk beter wat het idee achter de pagina is en wat de mogelijke uitbreidingen en limitaties zijn.
+            We will go into more depth of the specifications and limitations of this page below.
         </p>
         <h3>localStorage</h3>
         <p>
-            Voor het opslaan van de data op deze pagina wordt <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">localStorage</a> gebruikt. Dit is een techniek waarmee data lokaal in de client opgeslagen kan worden. Dit zorgt er in de praktijk voor dat iedereen die deze pagina bezoekt een unieke set aan data heeft, en dat de data die jij op deze pagina ziet alleen voor jou beschikbaar is. Dit zorgt er ook voor dat de data op jouw computer anders is dan bijvoorbeeld op je telefoon. Er zijn plannen om een export-import functionaliteit te maken waardoor je data over meerdere machines beschikbaar kunt stellen.
+            In order to save the data of this page, we use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">localStorage</a>. This allows us to store data locally in the browser. This way, everyone who visits this website will have their own unique set of data, and this data is available for the owner alone. In fact, every browser has their own unique data, which means that if you've made a character in Google Chrome, that character won't automatically be available in Firefox. For this reason, the page supports the exporting and importing of data.
         </p>
-        <h3>DnD API</h3>
+        <h3>DnD 5e <abbr title="Systems Reference Document">SRD</abbr> API</h3>
         <p>
-            Voor class, race, background, en alignment wordt de <a href="https://www.dnd5eapi.co/" target="_blank">DnD 5e API</a> gebruikt. Deze API bevat alle gratis content van D&D 5e, <a href="https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf" target="_blank">de <abbr title="Systems Reference Document">SRD</abbr></a>. Dit is een subset van het <abbr title="Player's Handbook">PHB</abbr>, wat inhoud dat niet alle content hier beschikbaar is (dit bevat bijvoorbeeld maar 1 background). Er zijn op dit moment geen plannen om dit uit te breiden, omdat je dan met copyright law bezig bent.
+            You build your character by assigning a race, class, background, alignment, etc. to it. In order to give you the best experience, all the data available in <a href="https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf" target="_blank">the <abbr title="Systems Reference Document">SRD</abbr></a> is available on this page. The <abbr title="Systems Reference Document">SRD</abbr> includes all the rules that <abbr title="Wizards of the Coast">WOTC</abbr> has made freely available. For this, we use the <a href="https://www.dnd5eapi.co/" target="_blank">DnD 5e API</a>, which provides all the data. If you notice mistakes in the <abbr title="Systems Reference Document">SRD</abbr> data, you can contribute to that project. I do not own or manage this project.
         </p>
-        <h3>Geplande componenten</h3>
+        <h3>Data not in the <abbr title="Systems Reference Document">SRD</abbr></h3>
         <p>
-            Naast de componenten die je al op deze pagina ziet, zijn er plannen voor uitbreidingen. Hieronder zie je een lijst met een aantal geplande onderdelen. Als je zelf voorstellen hebt over uitbreidingen, hoor ik dit graag.
+            A lot of DnD data is not present in the <abbr title="Systems Reference Document">SRD</abbr>, which means it might be difficult to build the character you want with content from, say, the Player's Handbook or your own homebrew. That's why this page contains a homebrew manager. Here, you can use the blueprint of official DnD <abbr title="Systems Reference Document">SRD</abbr> content to insert content not available in the <abbr title="Systems Reference Document">SRD</abbr>. You can use this to insert homebrew objects or official DnD content that you own. This way, you're able to create any character you want, even if it doesn't comply to the standard ruleset, just like you are able to on paper.
         </p>
-        <ul>
-            <li>HP, AC, initiative, en speed</li>
-            <li>Saving throws</li>
-            <li>Spell casting</li>
-            <li>Talen</li>
-            <li>
-                Inventory, onderverdeeld in
-                <ul>
-                    <li>Magische items</li>
-                    <li>Potions</li>
-                    <li>Goud</li>
-                    <li>Misc</li>
-                </ul>
-            </li>
-            <li>
-                Proficiencies in items
-            </li>
-        </ul>
+        <p>
+            Using official DnD content not in the <abbr title="Systems Reference Document">SRD</abbr> should only be done if you already own the content legally. We do not endorse sharing this content with anyone else.
+        </p>
     </details>
 </section>
 
@@ -54,7 +38,7 @@ permalink: /pc-builder/
 </section>
 
 <section>
-    <h2>Algemeen</h2>
+    <h2>General</h2>
     <ul>
         <li><label>Name: <input is="name-input"/></label></li>
         <li>
@@ -170,11 +154,11 @@ permalink: /pc-builder/
     <dialog is="homebrew-object-import-id-already-exists-dialog"></dialog>
 </div>
 
-<script type="module" src="{{ '/assets/js/player-character/load-globals.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js//load-globals.js' | relative_url }}"></script>
 
 <script type="module">
-    import { loadPage } from "{{ '/assets/js/player-character/load-page.js' | relative_url }}";
+    import { loadPage } from "{{ '/assets/js//load-page.js' | relative_url }}";
     loadPage();
 </script>
 
-<script type="module" src="{{ '/assets/js/player-character/import-custom-elements.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js//import-custom-elements.js' | relative_url }}"></script>

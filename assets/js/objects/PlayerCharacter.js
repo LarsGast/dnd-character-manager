@@ -1,4 +1,4 @@
-import { Skill } from "../objects/api/resources/Skill.js";
+import { Skill } from "./api/resources/Skill.js";
 import { globals } from "../load-globals.js";
 
 /**
