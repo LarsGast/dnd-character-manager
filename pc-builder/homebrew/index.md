@@ -7,13 +7,13 @@ On this page, you can build your own homebrew objects. a homebrew object in this
 
 <h2 is="homebrew-object-form-heading"></h2>
 
-<script type="module" src="{{ '/assets/js/player-character/load-globals.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js//load-globals.js' | relative_url }}"></script>
 
 <script type="module">
-    import { loadPage } from "{{ '/assets/js/player-character/load-page.js' | relative_url }}";
+    import { loadPage } from "{{ '/assets/js//load-page.js' | relative_url }}";
     loadPage();
 </script>
 
-<script type="module" src="{{ '/assets/js/player-character/import-custom-elements.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js//import-custom-elements.js' | relative_url }}"></script>
 
-<script type="module" src="{{ '/assets/js/player-character/homebrew/load-form.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js//homebrew/load-form.js' | relative_url }}"></script>
