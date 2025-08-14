@@ -20,7 +20,7 @@ export class HomebrewEditButton extends HTMLButtonElement {
      * Handles the button click and dispatches a "homebrewEditButtonClicked" event.
      */
     handleClick() {
-        window.location.href = `/pc-builder/homebrew/?id=${this.homebrewId}`;
+        window.location.href = `../pc-builder/homebrew/?id=${this.homebrewId}`;
     }
 }
 
