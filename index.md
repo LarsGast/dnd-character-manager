@@ -1,7 +1,6 @@
 ---
-layout: page
-title: PC Builder
-permalink: /pc-builder/
+layout: home
+title: DnD Character Manager
 ---
 
 <section>
