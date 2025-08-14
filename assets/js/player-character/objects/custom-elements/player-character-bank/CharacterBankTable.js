@@ -3,7 +3,7 @@ import { PlayerCharacterBankEntry } from "../../PlayerCharacterBank.js";
 import { CharacterExportButton } from "./CharacterExportButton.js";
 import { CharacterDeleteButton } from "./CharacterDeleteButton.js";
 import { CharacterSelectButton } from "./CharacterSelectButton.js";
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 import { PlayerCharacter } from "../../PlayerCharacter.js";
 import { Race } from "../../api/resources/Race.js";
 import { Subrace } from "../../api/resources/Subrace.js";
@@ -25,13 +25,13 @@ export class CharacterBankTable extends HTMLTableElement {
 
         this.isForCurrentCharacter = isForActiveCharacter;
         
-        this.caption = getElementWithTextContent("caption", isForActiveCharacter ? "Selected character" : "Character storage");
+        this.tableCaption = getElementWithTextContent("caption", isForActiveCharacter ? "Selected character" : "Character storage");
         this.tableHead = this.getTableHead();
 
         // Empty body, will be filled on events.
         this.tableBody = document.createElement('tbody');
 
-        this.appendChild(this.caption);
+        this.appendChild(this.tableCaption);
         this.appendChild(this.tableHead);
         this.appendChild(this.tableBody);
     }

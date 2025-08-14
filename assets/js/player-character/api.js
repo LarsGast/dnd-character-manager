@@ -32,7 +32,20 @@ export class ApiCategory {
     static WeaponProperties = new ApiCategory("weapon-properties");
 
     constructor(name) {
-        this.name = name
+
+        /** @type {string} */
+        this.name = name;
+    }
+
+    /**
+     * Returns the singular name of the category, e.g. "Class" for "classes".
+     * @returns {string|null} The singular name or null if not applicable.
+     */
+    getSingularName() {
+        switch (this.name) {
+            case "races": return "Race";
+            default: return null;
+        }
     }
 }
 

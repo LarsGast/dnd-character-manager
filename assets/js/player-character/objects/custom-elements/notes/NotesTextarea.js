@@ -1,4 +1,4 @@
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom HTML element for displaying and handling a textarea for character notes.

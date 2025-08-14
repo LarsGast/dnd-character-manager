@@ -1,5 +1,5 @@
 import { Skill } from "../../api/resources/Skill.js";
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom input element (checkbox) for toggling skill proficiency.

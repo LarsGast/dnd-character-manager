@@ -1,4 +1,4 @@
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom table cell element that displays the calculated attack bonus for a weapon.

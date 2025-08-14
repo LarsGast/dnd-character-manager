@@ -83,7 +83,7 @@ export class PlayerCharacterBankEntry {
 /**
  * Object that contains all information of all playerCharacters the user has saved in the page.
  * Contains both active PCs and PCs in storage.
- * Also referred to as "Player bank", "Character bank", or simply "Bank".
+ * Also referred to as "Player bank" or "Character bank".
  */
 export class PlayerCharacterBank {
 

@@ -168,15 +168,15 @@ dialog {
     // Generic styling
     width: 80%;
     max-width: calc(0.8 * (800px - (30px * 2)));
-    &:not([is="character-delete-dialog"]) {
+    &:not([is="character-delete-dialog"]):not([is="homebrew-object-delete-dialog"]):not([is="homebrew-object-import-id-already-exists-dialog"]) {
         height: 50vh;
     }
 
     /* Wrapper for all content within a dialog element. */
     .dialog-content {
 
-        /* The manage characters dialog contains more complex elements that do not work well together with set heights and flexbox. */
-        &:not(.manage-characters-dialog-content) {
+        /* The manage characters and homebrew objects dialogs contain more complex elements that do not work well together with set heights and flexbox. */
+        &:not(.manage-objects-dialog-content) {
 
             height: 100%;
             width: 100%;
@@ -184,6 +184,11 @@ dialog {
             // To dynamically grow the textarea within.
             display: flex;
             flex-direction: column;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-evenly;
         }
 
         /* Close button for the modal */
@@ -300,4 +305,42 @@ summary {
 textarea[is="notes-textarea"] {
     width: 100%;
     height: 200px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > *:not(button) {
+        display: flex;
+        flex-direction: column;
+
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+
+        width: 100%;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+
+        position: relative;
+
+        /* Tooltip icon */
+        .icon {
+
+            // To put it to the right of the label.
+            position: absolute;
+            right: 10px;
+            cursor: help;
+        }
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+    }
 }

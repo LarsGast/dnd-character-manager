@@ -1,6 +1,6 @@
 import { EquipmentCategoryIndex } from "../../../api.js";
 import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 import { EquipmentCategory } from "../../api/resources/EquipmentCategory.js";
 import { Weapon } from "../../api/resources/equipment/Weapon.js";
 

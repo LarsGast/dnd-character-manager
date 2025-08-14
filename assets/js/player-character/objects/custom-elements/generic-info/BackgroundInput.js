@@ -1,6 +1,6 @@
 import { Background } from "../../api/resources/Background.js";
-import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-page.js";
+import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../util.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom select element for choosing a character background.
@@ -31,9 +31,7 @@ export class BackgroundInput extends HTMLSelectElement {
         this.appendChild(getEmptyOption());
 
         // Populate the select element with background options.
-        for (const background of allBackgrounds.results) {
-            this.appendChild(getSelectOption(background.name, background.index));
-        }
+        populateSelectWithApiObjects(this, allBackgrounds);
 
         // Set the current value from the active player's data.
         this.value = globals.activePlayerCharacter.background;

@@ -1,30 +1,8 @@
 import { updateCharacter } from "./update-character.js";
-import { PlayerCharacterBank } from "./objects/PlayerCharacterBank.js";
 import { PlayerCharacter } from "./objects/PlayerCharacter.js";
 import { getCache, saveCache } from "./cache.js";
 import { baseUrl } from "./api.js";
-
-/**
- * A set of global variables to be used all across the codebase.
- */
-export const globals = {
-
-    /**
-     * Global singleton of the player character bank.
-     * This includes all PCs, both active and inactive.
-     * @type {PlayerCharacterBank}
-     */
-    playerCharacterBank: PlayerCharacterBank.load(),
-
-    /**
-     * The current active PC.
-     * Part of the player bank, this variable can have it's properties changed by reference and will be saved if the bank is saved.
-     * @type {PlayerCharacter}
-     */
-    get activePlayerCharacter() {
-        return this.playerCharacterBank.getActivePlayerCharacterBankEntry().playerCharacter;
-    }
-}
+import { globals } from "./load-globals.js";
 
 /**
  * Starting point for all JavaScript code for the PC-Builder page.

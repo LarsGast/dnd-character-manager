@@ -1,4 +1,4 @@
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom element for displaying the proficiency bonus.

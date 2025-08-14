@@ -1,5 +1,6 @@
 import { ApiCategory } from "../../../api.js";
 import { AbilityBonus } from "../helpers/AbilityBonus.js"
+import { Choice } from "../helpers/Choice.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 import { Subrace } from "./Subrace.js";
@@ -19,7 +20,7 @@ export class Race extends ApiBaseObject {
      * Bonuses to abilities this race gives.
      * @type {AbilityBonus[]}
      */
-    ability_bonuses;
+    ability_bonuses = [];
 
     /**
      * Flavor description of the typical age of the race.
@@ -46,10 +47,16 @@ export class Race extends ApiBaseObject {
     size_description;
 
     /**
-     * A list of proficiencies the race starts with.
+     * Starting languages for all new characters of this race.
      * @type {ApiObjectInfo[]}
      */
-    starting_proficiencies;
+    languages = [];
+
+    /**
+     * Starting language options for all new characters of this race.
+     * @type {ApiObjectInfo[]}
+     */
+    language_options = new Choice();
 
     /**
      * Flavor description of the languages known by the race.
@@ -61,13 +68,13 @@ export class Race extends ApiBaseObject {
      * A list of traits the race has.
      * @type {ApiObjectInfo[]}
      */
-    traits;
+    traits = [];
 
     /**
      * A list of subraces the race has, if any.
      * @type {ApiObjectInfo[]}
      */
-    subraces;
+    subraces = [];
 
     /**
      * Constructor.

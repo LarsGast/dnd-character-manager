@@ -26,3 +26,15 @@ import "./objects/custom-elements/player-character-bank/CharacterImportDialog.js
 import "./objects/custom-elements/class/ClassesFeaturesDisplay.js";
 import "./objects/custom-elements/player-character-bank/ManageCharactersDialog.js";
 import "./objects/custom-elements/player-character-bank/ManageCharactersButton.js";
+import "./objects/custom-elements/homebrew/ManageHomebrewButton.js";
+import "./objects/custom-elements/homebrew/ManageHomebrewDialog.js";
+import "./objects/custom-elements/homebrew/HomebrewDeleteButton.js";
+import "./objects/custom-elements/homebrew/HomebrewDeleteDialog.js";
+import "./homebrew/objects/custom-elements/specific-forms/RaceForm.js";
+import "./homebrew/objects/custom-elements/HomebrewFormHeading.js";
+import "./homebrew/objects/custom-elements/helpers/AbilityBonusesSection.js";
+import "./objects/custom-elements/homebrew/HomebrewExportButton.js";
+import "./objects/custom-elements/homebrew/HomebrewExportDialog.js";
+import "./objects/custom-elements/homebrew/HomebrewImportButton.js";
+import "./objects/custom-elements/homebrew/HomebrewImportDialog.js";
+import "./objects/custom-elements/homebrew/HomebrewImportIdAlreadyExistsDialog.js";

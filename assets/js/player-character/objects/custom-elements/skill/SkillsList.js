@@ -23,7 +23,7 @@ export class SkillsList extends HTMLUListElement {
     async connectedCallback() {
         const allSkills = await Skill.getAllAsync();
         
-        for (const skillInfo of allSkills.results) {
+        for (const skillInfo of allSkills.srdObjects) {
             const skill = await Skill.getAsync(skillInfo.index);
             this.appendChild(new SkillDisplay(skill));
         }

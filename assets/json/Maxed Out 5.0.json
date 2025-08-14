@@ -1,0 +1,22 @@
+{
+  "name": "New character",
+  "classes": [],
+  "race": "ca4f714c-230c-409f-a5a8-d96ca8f548f6",
+  "subrace": null,
+  "background": null,
+  "alignment": null,
+  "str": 10,
+  "dex": 10,
+  "con": 10,
+  "int": 10,
+  "wis": 10,
+  "cha": 10,
+  "proficiencies": [],
+  "expertises": [],
+  "weaponProficiencies": [],
+  "armorProficiencies": [],
+  "inventoryWeapons": [],
+  "inventoryArmor": [],
+  "notes": "",
+  "version": 4
+}

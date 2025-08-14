@@ -1,6 +1,6 @@
 import { Alignment } from "../../api/resources/Alignment.js";
-import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-page.js";
+import { getEmptyOption, populateSelectWithApiObjects } from "../../../util.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom select element for choosing an alignment.
@@ -31,9 +31,7 @@ export class AlignmentInput extends HTMLSelectElement {
         this.appendChild(getEmptyOption());
 
         // For each alignment, create and add a select option.
-        for (const alignment of allAlignments.results) {
-            this.appendChild(getSelectOption(alignment.name, alignment.index));
-        }
+        populateSelectWithApiObjects(this, allAlignments);
 
         // Set the select value to the active PC's current alignment.
         this.value = globals.activePlayerCharacter.alignment;

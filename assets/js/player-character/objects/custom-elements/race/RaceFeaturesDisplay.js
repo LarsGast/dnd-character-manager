@@ -1,5 +1,5 @@
 import { Race } from "../../api/resources/Race.js";
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom details element that displays the features of the selected race.

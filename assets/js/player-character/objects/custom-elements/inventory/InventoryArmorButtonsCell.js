@@ -1,4 +1,4 @@
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom table cell element containing buttons for inventory armor actions.

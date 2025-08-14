@@ -16,7 +16,7 @@ export class ManageCharactersDialog extends HTMLDialogElement {
         
         // Container div for styling the content of the dialog.
         this.dialogContent = document.createElement('div');
-        this.dialogContent.classList.add("dialog-content", "manage-characters-dialog-content");
+        this.dialogContent.classList.add("dialog-content", "manage-objects-dialog-content");
 
         // Create a heading for the dialog.
         this.heading = getElementWithTextContent("h2", "Manage characters");

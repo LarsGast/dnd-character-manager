@@ -1,6 +1,6 @@
 import { Race } from "../../api/resources/Race.js";
-import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-page.js";
+import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../util.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom select element for choosing a race.
@@ -20,9 +20,23 @@ export class RaceInput extends HTMLSelectElement {
 
     /**
      * Called when the element is connected to the DOM.
-     * Loads all races and sets up the select options.
      */
     async connectedCallback() {
+        this._updateHandler = async () => await this.updateSelectOptions();
+
+        document.addEventListener("newHomebrewCreated", this._updateHandler);
+        document.addEventListener("homebrewImported", this._updateHandler);
+        document.addEventListener("homebrewDeleted", this._updateHandler);
+
+        await this.updateSelectOptions();
+    }
+
+    /**
+     * Loads all races and sets up the select options.
+     */
+    async updateSelectOptions() {
+
+        this.replaceChildren();
 
         // Retrieve all races.
         const allRaces = await Race.getAllAsync();
@@ -31,9 +45,7 @@ export class RaceInput extends HTMLSelectElement {
         this.appendChild(getEmptyOption());
 
         // Populate the select element with race options.
-        for (const race of allRaces.results) {
-            this.appendChild(getSelectOption(race.name, race.index));
-        }
+        populateSelectWithApiObjects(this, allRaces);
 
         // Set the value to the current PC's race.
         this.value = globals.activePlayerCharacter.race;

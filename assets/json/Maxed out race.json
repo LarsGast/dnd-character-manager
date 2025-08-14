@@ -1,0 +1,376 @@
+{
+  "id": "0a1be80d-c1b1-4685-997c-50e647e8a4b1",
+  "homebrewObject": {
+    "index": "5348052f-fad9-48be-aff5-510a170fda48",
+    "name": "Maxed out race",
+    "speed": "1000",
+    "ability_bonuses": [
+      {
+        "ability_score": {
+          "index": "str",
+          "name": "STR"
+        },
+        "bonus": 10
+      },
+      {
+        "ability_score": {
+          "index": "dex",
+          "name": "DEX"
+        },
+        "bonus": 10
+      },
+      {
+        "ability_score": {
+          "index": "con",
+          "name": "CON"
+        },
+        "bonus": 10
+      },
+      {
+        "ability_score": {
+          "index": "int",
+          "name": "INT"
+        },
+        "bonus": 10
+      },
+      {
+        "ability_score": {
+          "index": "wis",
+          "name": "WIS"
+        },
+        "bonus": 10
+      },
+      {
+        "ability_score": {
+          "index": "cha",
+          "name": "CHA"
+        },
+        "bonus": 10
+      }
+    ],
+    "age": "A thousand thousand years",
+    "alignment": "All of them babey",
+    "size": "Gargantuan",
+    "size_description": "So big. Like, so big.",
+    "languages": [
+      {
+        "index": "abyssal",
+        "name": "Abyssal"
+      },
+      {
+        "index": "celestial",
+        "name": "Celestial"
+      },
+      {
+        "index": "common",
+        "name": "Common"
+      },
+      {
+        "index": "deep-speech",
+        "name": "Deep Speech"
+      },
+      {
+        "index": "draconic",
+        "name": "Draconic"
+      },
+      {
+        "index": "dwarvish",
+        "name": "Dwarvish"
+      },
+      {
+        "index": "elvish",
+        "name": "Elvish"
+      },
+      {
+        "index": "giant",
+        "name": "Giant"
+      },
+      {
+        "index": "gnomish",
+        "name": "Gnomish"
+      },
+      {
+        "index": "goblin",
+        "name": "Goblin"
+      },
+      {
+        "index": "halfling",
+        "name": "Halfling"
+      },
+      {
+        "index": "infernal",
+        "name": "Infernal"
+      },
+      {
+        "index": "orc",
+        "name": "Orc"
+      },
+      {
+        "index": "primordial",
+        "name": "Primordial"
+      },
+      {
+        "index": "sylvan",
+        "name": "Sylvan"
+      },
+      {
+        "index": "undercommon",
+        "name": "Undercommon"
+      }
+    ],
+    "language_options": {
+      "desc": "You know them all already baby, but choose some more.",
+      "choose": 100,
+      "type": "Languages",
+      "from": {
+        "option_set_type": "options_array",
+        "options": [
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "abyssal",
+              "name": "Abyssal"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "celestial",
+              "name": "Celestial"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "common",
+              "name": "Common"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "deep-speech",
+              "name": "Deep Speech"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "draconic",
+              "name": "Draconic"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "dwarvish",
+              "name": "Dwarvish"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "elvish",
+              "name": "Elvish"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "giant",
+              "name": "Giant"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "gnomish",
+              "name": "Gnomish"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "goblin",
+              "name": "Goblin"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "halfling",
+              "name": "Halfling"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "infernal",
+              "name": "Infernal"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "orc",
+              "name": "Orc"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "primordial",
+              "name": "Primordial"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "sylvan",
+              "name": "Sylvan"
+            }
+          },
+          {
+            "option_type": "reference",
+            "item": {
+              "index": "undercommon",
+              "name": "Undercommon"
+            }
+          }
+        ]
+      }
+    },
+    "language_desc": "You know them allllllllllllllllllll.",
+    "traits": [
+      {
+        "index": "artificers-lore",
+        "name": "Artificer's Lore"
+      },
+      {
+        "index": "brave",
+        "name": "Brave"
+      },
+      {
+        "index": "breath-weapon",
+        "name": "Breath Weapon"
+      },
+      {
+        "index": "damage-resistance",
+        "name": "Damage Resistance"
+      },
+      {
+        "index": "darkvision",
+        "name": "Darkvision"
+      },
+      {
+        "index": "draconic-ancestry",
+        "name": "Draconic Ancestry"
+      },
+      {
+        "index": "dwarven-resilience",
+        "name": "Dwarven Resilience"
+      },
+      {
+        "index": "dwarven-toughness",
+        "name": "Dwarven Toughness"
+      },
+      {
+        "index": "elf-weapon-training",
+        "name": "Elf Weapon Training"
+      },
+      {
+        "index": "extra-language",
+        "name": "Extra Language"
+      },
+      {
+        "index": "fey-ancestry",
+        "name": "Fey Ancestry"
+      },
+      {
+        "index": "gnome-cunning",
+        "name": "Gnome Cunning"
+      },
+      {
+        "index": "halfling-nimbleness",
+        "name": "Halfling Nimbleness"
+      },
+      {
+        "index": "hellish-resistance",
+        "name": "Hellish Resistance"
+      },
+      {
+        "index": "high-elf-cantrip",
+        "name": "High Elf Cantrip"
+      },
+      {
+        "index": "infernal-legacy",
+        "name": "Infernal Legacy"
+      },
+      {
+        "index": "keen-senses",
+        "name": "Keen Senses"
+      },
+      {
+        "index": "lucky",
+        "name": "Lucky"
+      },
+      {
+        "index": "menacing",
+        "name": "Menacing"
+      },
+      {
+        "index": "naturally-stealthy",
+        "name": "Naturally Stealthy"
+      },
+      {
+        "index": "relentless-endurance",
+        "name": "Relentless Endurance"
+      },
+      {
+        "index": "savage-attacks",
+        "name": "Savage Attacks"
+      },
+      {
+        "index": "skill-versatility",
+        "name": "Skill Versatility"
+      },
+      {
+        "index": "stonecunning",
+        "name": "Stonecunning"
+      },
+      {
+        "index": "tinker",
+        "name": "Tinker"
+      },
+      {
+        "index": "tool-proficiency",
+        "name": "Tool Proficiency"
+      },
+      {
+        "index": "trance",
+        "name": "Trance"
+      }
+    ],
+    "subraces": [
+      {
+        "index": "high-elf",
+        "name": "High Elf"
+      },
+      {
+        "index": "hill-dwarf",
+        "name": "Hill Dwarf"
+      },
+      {
+        "index": "lightfoot-halfling",
+        "name": "Lightfoot Halfling"
+      },
+      {
+        "index": "rock-gnome",
+        "name": "Rock Gnome"
+      }
+    ]
+  },
+  "apiCategoryName": "races",
+  "lastEdit": "2025-08-13T11:52:08.069Z",
+  "version": 1
+}

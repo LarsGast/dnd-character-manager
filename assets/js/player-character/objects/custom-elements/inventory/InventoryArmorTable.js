@@ -1,6 +1,6 @@
 import { Armor } from "../../api/resources/equipment/Armor.js";
 import { InventoryArmorRow } from "./InventoryArmorRow.js";
-import { globals } from "../../../load-page.js";
+import { globals } from "../../../load-globals.js";
 
 /**
  * Custom element for displaying the inventory armor table.
