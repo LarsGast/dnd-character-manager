@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: DnD Wiki
+title: DnD Character Manager
 github_username: LarsGast
 
 # Build settings
@@ -28,11 +28,6 @@ plugins:
 
 header_pages:
   - index.md
-  - Campaigns.md
-  - Characters.md
-  - Locations.md
-  - Items.md
-  - PC-Builder.md
 
 # Exclude from processing.
 # The following items will not be processed, by default.
