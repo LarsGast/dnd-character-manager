@@ -9,20 +9,6 @@
     // border: 1px solid red !important;
 }
 
-/* DEBUG MODE */
-/* SHOULD ALWAYS BE ON IN PRODUCTION */
-.unpublished {
-    display: none !important;
-    background-color: pink;
-}
-
-// Regular sized images are too large.
-img {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: contain;
-}
-
 // Make tables scrollable horizontally.
 .table-container {
     overflow-x: auto;
@@ -47,118 +33,14 @@ li ul {
     margin-bottom: 15px;
 }
 
-.no-style-link-group {
-    a {
-        display: block;
-        height: 100%;
-        text-decoration: none;
-        color: black;
-    }
-}
-
-/* For the list of characters on the Characters page */
-.character-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px 10px;
-
-    > li {
-        /* Make the boxes pretty */
-        border: 1px solid black;
-        box-shadow: 5px 5px;
-        border-radius: 10px;
-        width: 238px;
-        transition: transform 0.2s;
-
-        &:hover {
-            transform: translateY(-10px)
-        }
-        
-        /* Make the content of the boxes pretty */
-        .character-summary-wrapper {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-
-            .character-icons {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-
-            h2 {
-                font-size: 16px;
-                font-weight: bold;
-                margin: 0;
-            }
-        }
-    }
-}
-
 /* Character Icons */
 .icon {
     font-family: "Font Awesome 5 Free";
     font-weight: 600;
 
     /* Each icon has its own Unicode */
-    
-    &.player::before {
-        content: "\f007";
-    }
-
-    &.quest::before {
-        content: "\f70e";
-    }
-
-    &.shop::before {
-        content: "\f54e";
-    }
-
-    &.tavern::before {
-        content: "\f7b6";
-    }
-
     &.question::before {
         content: "\3f";
-    }
-    
-    &.with-party::before {
-        content: "\f6bb"; 
-    }
-    
-    &.male::before {
-        content: "\f222";
-    }
-    
-    &.female::before {
-        content: "\f221";
-    }
-    
-    &.non-binary::before {
-        content: "\f22d";
-    }
-    
-    &.genderfluid::before {
-        content: "\f224";
-    }
-
-    &.friendly::before {
-        content: "\f5b8";
-        font-weight: 500;
-    }
-
-    &.indifferent::before {
-        content: "\f11a";
-        font-weight: 500;
-    }
-
-    &.hostile::before {
-        content: "\f556";
-        font-weight: 500;
-    }
-    
-    &.dead::before {
-        content: "\f54c";
     }
 }
 
@@ -307,7 +189,7 @@ textarea[is="notes-textarea"] {
     height: 200px;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
     gap: 10px;
