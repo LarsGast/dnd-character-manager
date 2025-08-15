@@ -1,0 +1,22 @@
+labels:
+  - name: bug
+    description: Indicates a bug in the code or documentation.
+    color: ff0000
+  - name: enhancement
+    description: Suggests an improvement or new feature.
+    color: 00ff00
+  - name: question
+    description: A question about the project or its usage.
+    color: ffff00
+  - name: documentation
+    description: Issues related to documentation.
+    color: 0000ff
+  - name: help wanted
+    description: Issues that need assistance from the community.
+    color: ff00ff
+  - name: invalid
+    description: Issues that are not valid or do not follow the guidelines.
+    color: 808080
+  - name: duplicate
+    description: Issues that are duplicates of existing issues.
+    color: 00ffff
