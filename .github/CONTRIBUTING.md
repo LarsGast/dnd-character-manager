@@ -68,6 +68,6 @@ feat(nav): add mobile hamburger menu
 - Merge is done by maintainers once checks pass and approvals are satisfied.
 
 ## Getting help
-- If you need help picking an issue or onboarding, tag `@maintainer` or open a discussion using the `discussion` issue type.
+- If you need help picking an issue or onboarding, tag `@LarsGast` or open a discussion using the `discussion` issue type.
 
 Thanks — we appreciate your contributions!
