@@ -43,10 +43,6 @@ Thanks for wanting to contribute! This document explains the process for contrib
 - Unit tests run with `npm test` (Jest).
 - Add tests for bug fixes and new features. Keep tests deterministic and fast.
 
-## Accessibility (a11y)
-- Aim to follow WCAG basics: semantic HTML, proper ARIA roles where needed, keyboard navigation and visible focus states.
-- Include notes about any a11y trade-offs in the PR description.
-
 ## Migration to TypeScript
 - We plan to migrate incrementally. When adding new files or touching modules:
   - Prefer adding `.ts`/`.tsx` for new modules.
