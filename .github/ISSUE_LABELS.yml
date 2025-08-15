@@ -5,15 +5,21 @@ labels:
   - name: enhancement
     description: Suggests an improvement or new feature.
     color: 00ff00
-  - name: question
-    description: A question about the project or its usage.
-    color: ffff00
   - name: documentation
     description: Issues related to documentation.
     color: 0000ff
+  - name: question
+    description: A question about the project or its usage.
+    color: ffff00
+  - name: discussion
+    description: Issues that are more suitable for discussion rather than a bug or feature request.
+    color: 800080
   - name: help wanted
     description: Issues that need assistance from the community.
     color: ff00ff
+  - name: good first issue
+    description: Issues that are suitable for first-time contributors.
+    color: 00ffff
   - name: invalid
     description: Issues that are not valid or do not follow the guidelines.
     color: 808080
