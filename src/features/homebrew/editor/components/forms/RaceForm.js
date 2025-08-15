@@ -1,7 +1,7 @@
-import { Language } from "../../../../../../MOVE-ME/js/objects/api/resources/Language.js";
-import { Race } from "../../../../../../MOVE-ME/js/objects/api/resources/Race.js";
-import { Subrace } from "../../../../../../MOVE-ME/js/objects/api/resources/Subrace.js";
-import { Trait } from "../../../../../../MOVE-ME/js/objects/api/resources/Trait.js";
+import { Language } from "../../../../../types/api/resources/Language.js";
+import { Race } from "../../../../../types/api/resources/Race.js";
+import { Subrace } from "../../../../../types/api/resources/Subrace.js";
+import { Trait } from "../../../../../types/api/resources/Trait.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "../HomebrewBaseForm.js";
 import { AbilityBonusesSection } from "../../../manager/components/helpers/AbilityBonusesSection.js";

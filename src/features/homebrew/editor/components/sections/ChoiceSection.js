@@ -1,5 +1,5 @@
-import { Choice, OptionSet } from "../../../../../../MOVE-ME/js/objects/api/helpers/Choice.js";
-import { ApiObjectInfo } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiObjectInfo.js";
+import { Choice, OptionSet } from "../../../../../types/api/helpers/Choice.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getTooltipSpan } from "../FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 

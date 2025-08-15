@@ -1,6 +1,6 @@
-import { ApiBaseObjectList } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiObjectInfo.js";
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../../MOVE-ME/js/util.js";
+import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
  * Custom element for selecting an object from a list of possible objects.

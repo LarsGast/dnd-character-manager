@@ -1,4 +1,4 @@
-import { getEmptyOption, getSelectOption } from '../../../../../MOVE-ME/js/util.js'
+import { getEmptyOption, getSelectOption } from '../../../../utils/util.js';
 
 /**
  * Creates and returns a labeled input section for the form.

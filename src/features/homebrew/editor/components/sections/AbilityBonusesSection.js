@@ -1,6 +1,6 @@
-import { AbilityBonus } from "../../../../../../MOVE-ME/js/objects/api/helpers/AbilityBonus.js";
-import { AbilityScore } from "../../../../../../MOVE-ME/js/objects/api/resources/AbilityScore.js";
-import { ApiObjectInfo } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiObjectInfo.js";
+import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
+import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../FormElementsBuilder.js";
 
 /**

@@ -1,4 +1,4 @@
-import { updateCharacter } from "./MOVE-ME/js/update-character.js";
+import { updateCharacter } from './services/update/update-character.js';
 import { PlayerCharacter } from "./types/PlayerCharacter.js";
 import { getCache, saveCache } from "./cache.js";
 import { baseUrl } from "./api.js";

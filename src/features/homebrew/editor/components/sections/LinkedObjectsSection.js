@@ -1,5 +1,5 @@
-import { ApiBaseObjectList } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiObjectInfo.js";
+import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getTooltipSpan } from "../FormElementsBuilder.js";
 import { ObjectSelect } from "./ObjectSelect.js";
 

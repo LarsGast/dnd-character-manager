@@ -1,5 +1,5 @@
-import { ApiCategory } from "../../../MOVE-ME/js/api.js";
-import { globals } from "../../../MOVE-ME/js/load-globals.js";
+import { ApiCategory } from "../../../services/api.js";
+import { globals } from "../../../store/load-globals.js";
 import { RaceForm } from "./components/forms/RaceForm.js";
 
 // This file is used to load the homebrew form based on the active homebrew entry.

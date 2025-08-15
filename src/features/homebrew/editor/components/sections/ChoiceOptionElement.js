@@ -1,7 +1,7 @@
-import { Option } from "../../../../../../MOVE-ME/js/objects/api/helpers/Choice.js";
-import { ApiBaseObjectList } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../../MOVE-ME/js/objects/api/resources/ApiObjectInfo.js";
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../../MOVE-ME/js/util.js";
+import { Option } from "../../../../../types/api/helpers/Choice.js";
+import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
  * Custom element for selecting a choice option.
