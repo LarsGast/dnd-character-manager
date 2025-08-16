@@ -12,7 +12,7 @@ import "./features/character/editor/inventory/weapons/components/tables/Inventor
 import "./features/character/editor/name/components/NameInput.js";
 import "./features/character/editor/notes/components/NotesTextarea.js";
 import "./features/character/editor/race/components/RaceInput.js";
-import "./features/character/editor/skills/components/lists/SkillsList.js ";
+import "./features/character/editor/skills/components/lists/SkillsList.js";
 import "./features/character/editor/subrace/components/SubraceInput.js";
 import "./features/character/manager/components/buttons/CharacterDeleteButton.js";
 import "./features/character/manager/components/buttons/CharacterExportButton.js";
