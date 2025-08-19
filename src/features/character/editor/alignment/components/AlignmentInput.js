@@ -1,6 +1,6 @@
 import { Alignment } from "../../../../../types/api/resources/Alignment.js";
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../util.js";
-import { globals } from "../../../load-globals.js";
+import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom select element for choosing an alignment.

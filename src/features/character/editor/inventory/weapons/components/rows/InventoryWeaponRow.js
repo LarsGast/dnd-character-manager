@@ -1,5 +1,5 @@
 import { InventoryWeaponAttackBonusCell } from "../cells/InventoryWeaponAttackBonusCell.js";
-import { Weapon } from "../../../../../types/api/resources/equipment/Weapon.js";
+import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
 import { InventoryWeaponAbilityCell } from "../cells/InventoryWeaponAbilityCell.js";
 import { InventoryDamageCell } from "../cells/InventoryWeaponDamageCell.js";
 import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.js";

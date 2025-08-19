@@ -1,4 +1,4 @@
-import { globals } from "../../../load-globals.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom input element for setting the character's name.

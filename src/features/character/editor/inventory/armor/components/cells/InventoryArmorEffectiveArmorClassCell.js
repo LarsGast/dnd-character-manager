@@ -1,5 +1,5 @@
-import { Armor } from "../../../../../types/api/resources/equipment/Armor.js";
-import { globals } from "../../../load-globals.js";
+import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom table cell element that displays an armor's effective armor class.

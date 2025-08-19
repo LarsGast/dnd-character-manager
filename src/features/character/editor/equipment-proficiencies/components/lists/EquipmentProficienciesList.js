@@ -2,7 +2,7 @@ import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js"
 import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
 import { EquipmentCategory } from "../../../../../../types/api/resources/EquipmentCategory.js";
 import { ArmorProficiencyDisplay } from "../display/ArmorProficiencyDisplay.js";
-import { WeaponProficiencyDisplay } from "../WeaponProficiencyDisplay.js";
+import { WeaponProficiencyDisplay } from "../display/WeaponProficiencyDisplay.js";
 
 /**
  * Custom unordered list element for displaying equipment proficiencies.

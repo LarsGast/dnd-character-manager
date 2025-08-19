@@ -1,4 +1,4 @@
-import { getElementWithTextContent } from "../../../util.js"
+import { getElementWithTextContent } from "../../../../../utils/util.js"
 import { CharacterBankTable } from "../tables/CharacterBankTable.js";
 import { CharacterImportButton } from "../buttons/CharacterImportButton.js"
 import { NewCharacterButton } from "../buttons/NewCharacterButton.js";

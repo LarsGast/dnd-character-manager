@@ -1,4 +1,4 @@
-import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../util.js";
+import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
 
 /**

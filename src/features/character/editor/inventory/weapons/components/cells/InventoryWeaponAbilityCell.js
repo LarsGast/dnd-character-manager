@@ -1,6 +1,6 @@
-import { Weapon } from "../../../../../types/api/resources/equipment/Weapon.js";
-import { getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-globals.js";
+import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
+import { getSelectOption } from "../../../../../../../utils/util.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom table cell element that displays or allows selection of the ability used for weapon attacks.

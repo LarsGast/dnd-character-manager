@@ -3,10 +3,10 @@ import { Race } from "../../../../../types/api/resources/Race.js";
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
 import { Trait } from "../../../../../types/api/resources/Trait.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
-import { HomebrewBaseForm } from "../HomebrewBaseForm.js";
-import { AbilityBonusesSection } from "../../../manager/components/helpers/AbilityBonusesSection.js";
-import { ChoiceSection } from "../../../manager/components/helpers/ChoiceSection.js";
-import { LinkedObjectsSection } from "../../../manager/components/helpers/LinkedObjectsSection.js";
+import { HomebrewBaseForm } from "../forms/HomebrewBaseForm.js";
+import { AbilityBonusesSection } from "../sections/AbilityBonusesSection.js";
+import { ChoiceSection } from "../sections/ChoiceSection.js";
+import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
 
 /**
  * Form for editing custom homebrew Race objects.

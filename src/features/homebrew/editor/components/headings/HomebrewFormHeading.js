@@ -1,5 +1,5 @@
-import { ApiCategory } from "../../../api.js";
-import { globals } from "../../../load-globals.js";
+import { ApiCategory } from "../../../../../../../services/api.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom heading element for homebrew forms.

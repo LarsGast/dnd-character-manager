@@ -1,4 +1,4 @@
-import { getElementWithTextContent } from "../../../util.js";
+import { getElementWithTextContent } from "../../../../../utils/util.js";
 import { Choice } from "../../../../../types/api/helpers/Choice.js";
 import { Feature } from "../../../../../types/api/helpers/Feature.js";
 import { Class } from "../../../../../types/api/resources/Class.js";

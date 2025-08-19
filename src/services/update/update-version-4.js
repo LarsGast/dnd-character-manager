@@ -1,4 +1,4 @@
-import { PlayerCharacter } from "../objects/PlayerCharacter.js";
+import { PlayerCharacter } from "../../types/PlayerCharacter.js";
 
 /**
  * Update a character from version 3 to version 4. Read the individual functions for more specific information.

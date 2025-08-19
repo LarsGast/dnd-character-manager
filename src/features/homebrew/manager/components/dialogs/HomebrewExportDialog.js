@@ -1,4 +1,4 @@
-import { globals } from "../../../load-globals.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Export Dialog.

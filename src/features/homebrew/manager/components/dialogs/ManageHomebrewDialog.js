@@ -1,7 +1,7 @@
-import { getElementWithTextContent } from "../../../util.js";
+import { getElementWithTextContent } from "../../../../../utils/util.js";
 import { HomebrewImportButton } from "../buttons/HomebrewImportButton.js";
 import { HomebrewTable } from "../tables/HomebrewTable.js";
-import { HomebrewTypeSelect } from "../HomebrewTypeSelect.js";
+import { HomebrewTypeSelect } from "../selects/HomebrewTypeSelect.js";
 import { NewHomebrewButton } from "../buttons/NewHomebrewButton.js";
 
 /**

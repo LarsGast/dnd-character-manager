@@ -1,5 +1,5 @@
-import { ApiCategory } from "../../../api.js";
-import { getEmptyOption, getSelectOption } from "../../../util.js";
+import { ApiCategory } from "../../../../../../../services/api.js";
+import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
 
 /**
  * Custom select element for choosing the type of homebrew object.

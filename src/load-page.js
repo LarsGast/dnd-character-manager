@@ -1,8 +1,8 @@
 import { updateCharacter } from './services/update/update-character.js';
 import { PlayerCharacter } from "./types/PlayerCharacter.js";
-import { getCache, saveCache } from "./cache.js";
-import { baseUrl } from "./api.js";
-import { globals } from "./load-globals.js";
+import { getCache, saveCache } from "./services/cache.js";
+import { baseUrl } from "./services/api.js";
+import { globals } from "./store/load-globals.js";
 
 /**
  * Starting point for all JavaScript code for the PC-Builder page.

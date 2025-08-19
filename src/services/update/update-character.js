@@ -1,4 +1,4 @@
-import { LATEST_PLAYER_CHARACTER_VERSION_NUMBER, PlayerCharacter } from "./objects/PlayerCharacter.js";
+import { LATEST_PLAYER_CHARACTER_VERSION_NUMBER, PlayerCharacter } from "../../types/PlayerCharacter.js";
 import { update_version_2 } from "./update-version-2.js";
 import { update_version_3 } from "./update-version-3.js";
 import { update_version_4 } from "./update-version-4.js";

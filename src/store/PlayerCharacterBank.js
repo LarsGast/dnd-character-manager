@@ -1,5 +1,5 @@
-import { updateCharacter } from "../update-character.js";
-import { PlayerCharacter } from "../../../services/PlayerCharacter.js";
+import { updateCharacter } from "../services/update/update-character.js";
+import { PlayerCharacter } from "../types/PlayerCharacter.js";
 
 /**
  * Key used for saving and loading the player character bank from localStorage.

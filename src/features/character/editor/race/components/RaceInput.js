@@ -1,6 +1,6 @@
 import { Race } from "../../../../../types/api/resources/Race.js";
-import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../util.js";
-import { globals } from "../../../load-globals.js";
+import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom select element for choosing a race.

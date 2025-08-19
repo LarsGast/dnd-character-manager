@@ -1,7 +1,7 @@
 import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
 import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
 import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
-import { getNumberInputWithLabel, getTooltipSpan } from "../FormElementsBuilder.js";
+import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
 /**
  * Custom section element for displaying and editing ability bonuses.

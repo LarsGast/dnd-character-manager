@@ -1,6 +1,6 @@
-import { PlayerCharacterBank } from "./objects/PlayerCharacterBank.js";
-import { PlayerCharacter } from "./objects/PlayerCharacter.js";
-import { HomebrewBank, HomebrewBankEntry } from "./objects/HomebrewBank.js";
+import { PlayerCharacterBank } from "./PlayerCharacterBank.js"
+import { PlayerCharacter } from "../types/PlayerCharacter.js";
+import { HomebrewBank, HomebrewBankEntry } from "./HomebrewBank.js";
 
 /**
  * A set of global variables to be used all across the codebase.

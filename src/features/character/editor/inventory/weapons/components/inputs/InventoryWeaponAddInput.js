@@ -1,8 +1,8 @@
-import { EquipmentCategoryIndex } from "../../../api.js";
-import { getEmptyOption, getSelectOption } from "../../../util.js";
-import { globals } from "../../../load-globals.js";
-import { EquipmentCategory } from "../../../../../types/api/resources/EquipmentCategory.js";
-import { Weapon } from "../../../../../types/api/resources/equipment/Weapon.js";
+import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
+import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
+import { globals } from "../../../../../../../store/load-globals.js";
+import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
+import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.

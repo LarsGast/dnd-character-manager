@@ -1,5 +1,5 @@
-import { getElementWithTextContent } from "../../../util.js";
-import { globals } from "../../../load-globals.js";
+import { getElementWithTextContent } from "../../../../../utils/util.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 import { ClassFeaturesDisplay } from "./ClassFeaturesDisplay.js";
 
 /**

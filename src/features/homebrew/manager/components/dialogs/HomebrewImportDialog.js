@@ -1,5 +1,5 @@
-import { globals } from "../../../load-globals.js";
-import { HomebrewBankEntry } from "../../HomebrewBank.js";
+import { globals } from "../../../../../../../store/load-globals.js";
+import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Import Dialog.

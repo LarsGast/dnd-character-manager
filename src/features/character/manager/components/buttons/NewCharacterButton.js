@@ -1,4 +1,4 @@
-import { globals } from "../../../load-globals.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
 
 /**

@@ -1,4 +1,4 @@
-import { ApiCategory, getApiResultsAsync } from "../../../api.js";
+import { ApiCategory, getApiResultsAsync } from "../../../../../../../services/api.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";

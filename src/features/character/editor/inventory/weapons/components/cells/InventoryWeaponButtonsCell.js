@@ -1,4 +1,4 @@
-import { globals } from "../../../load-globals.js";
+import { globals } from "../../../../../../../../store/load-globals.js";
 
 /**
  * Custom table cell element that contains action buttons for a weapon entry.
