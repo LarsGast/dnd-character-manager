@@ -154,11 +154,11 @@ title: DnD Character Manager
     <dialog is="homebrew-object-import-id-already-exists-dialog"></dialog>
 </div>
 
-<script type="module" src="{{ '/src/store/load-globals.js' | relative_url }}"></script>
+<script type="module" src="{{ 'store/load-globals.js' | relative_url }}"></script>
 
 <script type="module">
-    import { loadPage } from "{{ '/src/load-page.js' | relative_url }}";
+    import { loadPage } from "{{ 'load-page.js' | relative_url }}";
     loadPage();
 </script>
 
-<script type="module" src="{{ '/src/register-components.js' | relative_url }}"></script>
+<script type="module" src="{{ 'register-components.js' | relative_url }}"></script>

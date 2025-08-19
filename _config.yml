@@ -21,6 +21,8 @@
 title: DnD Character Manager
 github_username: LarsGast
 
+source: src
+
 # Build settings
 theme: minima
 plugins:
