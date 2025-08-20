@@ -1,361 +1,383 @@
 {
-    "name": "Maxed Out 1.0",
-    "classes": [
-      {
-        "name": "Barbarian",
-        "level": "20"
-      },
-      {
-        "name": "Bard",
-        "level": "20"
-      },
-      {
-        "name": "Cleric",
-        "level": "20"
-      },
-      {
-        "name": "Druid",
-        "level": "20"
-      },
-      {
-        "name": "Fighter",
-        "level": "20"
-      },
-      {
-        "name": "Monk",
-        "level": "20"
-      },
-      {
-        "name": "Paladin",
-        "level": "20"
-      },
-      {
-        "name": "Ranger",
-        "level": "20"
-      },
-      {
-        "name": "Rogue",
-        "level": "20"
-      },
-      {
-        "name": "Sorcerer",
-        "level": "20"
-      },
-      {
-        "name": "Warlock",
-        "level": "20"
-      },
-      {
-        "name": "Wizard",
-        "level": "20"
-      }
-    ],
-    "race": "Dragonborn",
-    "background": "Acolyte",
-    "alignment": "Chaotic Evil",
-    "strength": "30",
-    "dexterity": "30",
-    "constitution": "30",
-    "intelligence": "30",
-    "wisdom": "30",
-    "charisma": "30",
-    "proficiencies": [
-      "Acrobatics",
-      "Arcana",
-      "Investigation",
-      "Nature",
-      "Sleight of Hand",
-      "Performance",
-      "Animal Handling",
-      "Athletics",
-      "Deception",
-      "History",
-      "Insight",
-      "Intimidation",
-      "Medicine",
-      "Perception",
-      "Persuasion",
-      "Religion",
-      "Stealth",
-      "Survival"
-    ],
-    "expertises": [
-      "Arcana",
-      "Nature",
-      "Sleight of Hand",
-      "Acrobatics",
-      "Animal Handling",
-      "Athletics",
-      "Deception",
-      "History",
-      "Insight",
-      "Intimidation",
-      "Investigation",
-      "Medicine",
-      "Perception",
-      "Performance",
-      "Persuasion",
-      "Religion",
-      "Stealth",
-      "Survival"
-    ],
-    "notes": "A lot of notes here.",
-    "weapon_proficiencies": [
-      "Club",
-      "Trident",
-      "Crossbow, light",
-      "Dagger",
-      "Greatclub",
-      "Handaxe",
-      "Javelin",
-      "Light hammer",
-      "Mace",
-      "Quarterstaff",
-      "Sickle",
-      "Spear",
-      "Battleaxe",
-      "Flail",
-      "Glaive",
-      "Greataxe",
-      "Greatsword",
-      "Halberd",
-      "Lance",
-      "Longsword",
-      "Maul",
-      "Morningstar",
-      "Pike",
-      "Rapier",
-      "Scimitar",
-      "Shortsword",
-      "War pick",
-      "Warhammer",
-      "Whip",
-      "Dart",
-      "Shortbow",
-      "Sling",
-      "Blowgun",
-      "Crossbow, hand",
-      "Crossbow, heavy",
-      "Longbow",
-      "Net"
-    ],
-    "armor_proficiencies": [
-      "Chain Shirt",
-      "Half Plate Armor",
-      "Plate Armor",
-      "Shield",
-      "Padded Armor",
-      "Leather Armor",
-      "Studded Leather Armor",
-      "Hide Armor",
-      "Scale Mail",
-      "Breastplate",
-      "Ring Mail",
-      "Chain Mail",
-      "Splint Armor"
-    ],
-    "inventory_weapons": [
-      {
-        "index": "club",
-        "ability": "strength"
-      },
-      {
-        "index": "dagger",
-        "ability": "strength"
-      },
-      {
-        "index": "dagger",
-        "ability": "dexterity"
-      },
-      {
-        "index": "greatclub",
-        "ability": "strength"
-      },
-      {
-        "index": "handaxe",
-        "ability": "strength"
-      },
-      {
-        "index": "javelin",
-        "ability": "strength"
-      },
-      {
-        "index": "light-hammer",
-        "ability": "strength"
-      },
-      {
-        "index": "mace",
-        "ability": "strength"
-      },
-      {
-        "index": "quarterstaff",
-        "ability": "strength"
-      },
-      {
-        "index": "sickle",
-        "ability": "strength"
-      },
-      {
-        "index": "spear",
-        "ability": "strength"
-      },
-      {
-        "index": "battleaxe",
-        "ability": "strength"
-      },
-      {
-        "index": "flail",
-        "ability": "strength"
-      },
-      {
-        "index": "glaive",
-        "ability": "strength"
-      },
-      {
-        "index": "greataxe",
-        "ability": "strength"
-      },
-      {
-        "index": "greatsword",
-        "ability": "strength"
-      },
-      {
-        "index": "halberd",
-        "ability": "strength"
-      },
-      {
-        "index": "lance",
-        "ability": "strength"
-      },
-      {
-        "index": "longsword",
-        "ability": "strength"
-      },
-      {
-        "index": "maul",
-        "ability": "strength"
-      },
-      {
-        "index": "morningstar",
-        "ability": "strength"
-      },
-      {
-        "index": "pike",
-        "ability": "strength"
-      },
-      {
-        "index": "rapier",
-        "ability": "strength"
-      },
-      {
-        "index": "rapier",
-        "ability": "dexterity"
-      },
-      {
-        "index": "scimitar",
-        "ability": "strength"
-      },
-      {
-        "index": "scimitar",
-        "ability": "dexterity"
-      },
-      {
-        "index": "shortsword",
-        "ability": "strength"
-      },
-      {
-        "index": "shortsword",
-        "ability": "dexterity"
-      },
-      {
-        "index": "trident",
-        "ability": "strength"
-      },
-      {
-        "index": "war-pick",
-        "ability": "strength"
-      },
-      {
-        "index": "warhammer",
-        "ability": "strength"
-      },
-      {
-        "index": "whip",
-        "ability": "strength"
-      },
-      {
-        "index": "whip",
-        "ability": "dexterity"
-      },
-      {
-        "index": "crossbow-light",
-        "ability": "dexterity"
-      },
-      {
-        "index": "dart",
-        "ability": "dexterity"
-      },
-      {
-        "index": "shortbow",
-        "ability": "dexterity"
-      },
-      {
-        "index": "sling",
-        "ability": "dexterity"
-      },
-      {
-        "index": "blowgun",
-        "ability": "dexterity"
-      },
-      {
-        "index": "crossbow-hand",
-        "ability": "dexterity"
-      },
-      {
-        "index": "crossbow-heavy",
-        "ability": "dexterity"
-      },
-      {
-        "index": "longbow",
-        "ability": "dexterity"
-      }
-    ],
-    "inventory_armor": [
-      {
-        "index": "padded-armor"
-      },
-      {
-        "index": "leather-armor"
-      },
-      {
-        "index": "studded-leather-armor"
-      },
-      {
-        "index": "hide-armor"
-      },
-      {
-        "index": "chain-shirt"
-      },
-      {
-        "index": "scale-mail"
-      },
-      {
-        "index": "breastplate"
-      },
-      {
-        "index": "half-plate-armor"
-      },
-      {
-        "index": "ring-mail"
-      },
-      {
-        "index": "chain-mail"
-      },
-      {
-        "index": "splint-armor"
-      },
-      {
-        "index": "plate-armor"
-      }
-    ]
-  }
+  "name": "Maxed Out 1.0",
+  "classes": [
+    {
+      "index": "barbarian",
+      "subclass": "berserker",
+      "level": 20
+    },
+    {
+      "index": "bard",
+      "subclass": "lore",
+      "level": 20
+    },
+    {
+      "index": "cleric",
+      "subclass": "life",
+      "level": 20
+    },
+    {
+      "index": "druid",
+      "subclass": "land",
+      "level": 20
+    },
+    {
+      "index": "fighter",
+      "subclass": "champion",
+      "level": 20
+    },
+    {
+      "index": "monk",
+      "subclass": "open-hand",
+      "level": 20
+    },
+    {
+      "index": "paladin",
+      "subclass": "devotion",
+      "level": 20
+    },
+    {
+      "index": "ranger",
+      "subclass": "hunter",
+      "level": 20
+    },
+    {
+      "index": "rogue",
+      "subclass": "thief",
+      "level": 20
+    },
+    {
+      "index": "sorcerer",
+      "subclass": "draconic",
+      "level": 20
+    },
+    {
+      "index": "warlock",
+      "subclass": "fiend",
+      "level": 20
+    },
+    {
+      "index": "wizard",
+      "subclass": "evocation",
+      "level": 20
+    }
+  ],
+  "race": "5348052f-fad9-48be-aff5-510a170fda48",
+  "subrace": "high-elf",
+  "background": "acolyte",
+  "alignment": "chaotic-evil",
+  "str": 30,
+  "dex": 30,
+  "con": 30,
+  "int": 30,
+  "wis": 30,
+  "cha": 30,
+  "proficiencies": [
+    "acrobatics",
+    "animal-handling",
+    "arcana",
+    "athletics",
+    "deception",
+    "history",
+    "insight",
+    "intimidation",
+    "investigation",
+    "medicine",
+    "nature",
+    "perception",
+    "performance",
+    "persuasion",
+    "religion",
+    "sleight-of-hand",
+    "stealth",
+    "survival"
+  ],
+  "expertises": [
+    "acrobatics",
+    "animal-handling",
+    "arcana",
+    "athletics",
+    "deception",
+    "history",
+    "insight",
+    "intimidation",
+    "investigation",
+    "medicine",
+    "nature",
+    "perception",
+    "performance",
+    "persuasion",
+    "religion",
+    "sleight-of-hand",
+    "stealth",
+    "survival"
+  ],
+  "weaponProficiencies": [
+    "club",
+    "dagger",
+    "greatclub",
+    "handaxe",
+    "javelin",
+    "light-hammer",
+    "mace",
+    "quarterstaff",
+    "sickle",
+    "spear",
+    "battleaxe",
+    "flail",
+    "glaive",
+    "greataxe",
+    "greatsword",
+    "maul",
+    "morningstar",
+    "pike",
+    "rapier",
+    "scimitar",
+    "shortsword",
+    "trident",
+    "war-pick",
+    "warhammer",
+    "whip",
+    "halberd",
+    "lance",
+    "longsword",
+    "crossbow-light",
+    "dart",
+    "shortbow",
+    "sling",
+    "blowgun",
+    "crossbow-hand",
+    "crossbow-heavy",
+    "longbow",
+    "net"
+  ],
+  "armorProficiencies": [
+    "padded-armor",
+    "leather-armor",
+    "studded-leather-armor",
+    "hide-armor",
+    "chain-shirt",
+    "scale-mail",
+    "breastplate",
+    "half-plate-armor",
+    "ring-mail",
+    "chain-mail",
+    "splint-armor",
+    "plate-armor",
+    "shield"
+  ],
+  "inventoryWeapons": [
+    {
+      "index": "club",
+      "ability": "str"
+    },
+    {
+      "index": "dagger",
+      "ability": "str"
+    },
+    {
+      "index": "dagger",
+      "ability": "dex"
+    },
+    {
+      "index": "greatclub",
+      "ability": "str"
+    },
+    {
+      "index": "handaxe",
+      "ability": "str"
+    },
+    {
+      "index": "javelin",
+      "ability": "str"
+    },
+    {
+      "index": "light-hammer",
+      "ability": "str"
+    },
+    {
+      "index": "mace",
+      "ability": "str"
+    },
+    {
+      "index": "quarterstaff",
+      "ability": "str"
+    },
+    {
+      "index": "sickle",
+      "ability": "str"
+    },
+    {
+      "index": "spear",
+      "ability": "str"
+    },
+    {
+      "index": "battleaxe",
+      "ability": "str"
+    },
+    {
+      "index": "flail",
+      "ability": "str"
+    },
+    {
+      "index": "glaive",
+      "ability": "str"
+    },
+    {
+      "index": "greataxe",
+      "ability": "str"
+    },
+    {
+      "index": "greatsword",
+      "ability": "str"
+    },
+    {
+      "index": "halberd",
+      "ability": "str"
+    },
+    {
+      "index": "lance",
+      "ability": "str"
+    },
+    {
+      "index": "longsword",
+      "ability": "str"
+    },
+    {
+      "index": "maul",
+      "ability": "str"
+    },
+    {
+      "index": "morningstar",
+      "ability": "str"
+    },
+    {
+      "index": "pike",
+      "ability": "str"
+    },
+    {
+      "index": "rapier",
+      "ability": "str"
+    },
+    {
+      "index": "rapier",
+      "ability": "dex"
+    },
+    {
+      "index": "scimitar",
+      "ability": "str"
+    },
+    {
+      "index": "scimitar",
+      "ability": "dex"
+    },
+    {
+      "index": "shortsword",
+      "ability": "str"
+    },
+    {
+      "index": "shortsword",
+      "ability": "dex"
+    },
+    {
+      "index": "trident",
+      "ability": "str"
+    },
+    {
+      "index": "war-pick",
+      "ability": "str"
+    },
+    {
+      "index": "warhammer",
+      "ability": "str"
+    },
+    {
+      "index": "whip",
+      "ability": "str"
+    },
+    {
+      "index": "whip",
+      "ability": "dex"
+    },
+    {
+      "index": "crossbow-light",
+      "ability": "dex"
+    },
+    {
+      "index": "dart",
+      "ability": "dex"
+    },
+    {
+      "index": "dart",
+      "ability": "str"
+    },
+    {
+      "index": "shortbow",
+      "ability": "dex"
+    },
+    {
+      "index": "sling",
+      "ability": "dex"
+    },
+    {
+      "index": "blowgun",
+      "ability": "dex"
+    },
+    {
+      "index": "crossbow-hand",
+      "ability": "dex"
+    },
+    {
+      "index": "crossbow-heavy",
+      "ability": "dex"
+    },
+    {
+      "index": "longbow",
+      "ability": "dex"
+    },
+    {
+      "index": "net",
+      "ability": "dex"
+    }
+  ],
+  "inventoryArmor": [
+    {
+      "index": "padded-armor"
+    },
+    {
+      "index": "leather-armor"
+    },
+    {
+      "index": "studded-leather-armor"
+    },
+    {
+      "index": "hide-armor"
+    },
+    {
+      "index": "chain-shirt"
+    },
+    {
+      "index": "scale-mail"
+    },
+    {
+      "index": "breastplate"
+    },
+    {
+      "index": "half-plate-armor"
+    },
+    {
+      "index": "ring-mail"
+    },
+    {
+      "index": "chain-mail"
+    },
+    {
+      "index": "splint-armor"
+    },
+    {
+      "index": "plate-armor"
+    }
+  ],
+  "notes": "A lot of notes.",
+  "version": 1
+}
