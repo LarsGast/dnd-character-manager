@@ -1,4 +1,4 @@
-# Contributing to the LarsGast DnD Character Manager
+# Contributing
 
 Thanks for wanting to contribute! This document explains the process for contributing, coding standards, and the review process.
 
@@ -11,19 +11,19 @@ Thanks for wanting to contribute! This document explains the process for contrib
 4. Run the dev server:  
    `bundle exec jekyll serve`
 
-> If you don't have Bundler set up yet, see [Using Jekyll with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/)
+> If you don't have Bundler set up yet, see [Using Jekyll with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/).
 
 ## Filing issues
 - Use the appropriate issue template.
-- The template will provide clear instructions on what information is should contain.
+- The template will provide clear instructions on what information the issue should contain.
 - Add the label that best fits the problem (bug, enhancement, docs).
 
 ## Working on a change / PR process
 - Branch from `main`.
 - Keep PRs small and focused.
+- Use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) (see [Commit messages](#commit-messages)).
 - Add unit tests where applicable.
 - Create a pull request and follow the instructions provided by the template.
-- Use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) (see [Commit messages](#commit-messages)).
 - Link issues with `Closes #<issue>` when the PR resolves an issue.
 - Ensure any automated checks pass on your branch.
 - All PRs will be squashed and merged on completion.
@@ -47,11 +47,11 @@ optional longer description
 
 The most common types are `fix` and `feat`. Use these if they make sense, since these work well with SemVer.
 
-If `fix` and `feat` do not make sense, you can use any other type, as long as it relates to the change.
+If `fix` and `feat` do not make sense, you can use any other type, as long as it relates to the change. Other common types are `chore`, `docs`, `style`, `refactor`, `test`.
 
-Other common types are `chore`, `docs`, `style`, `refactor`, `test`.
+If you find your commit fits multiple types, try splitting it up in smaller commits.
 
-If a change is a BREAKING CHANGE, append a `!` after the type/scope and should include the text `BREAKING CHANGE: description` in the footer of the commit. A BREAKING CHANGE can be part of commits of any type. Any change that results in loss of data, removal of functionality, invalidation of links, or a very significant change in functionality should be marked as a BREAKING CHANGE. 
+If a change is a BREAKING CHANGE, append a `!` after the type/scope and include the text `BREAKING CHANGE: description` in the footer of the commit. A BREAKING CHANGE can be part of commits of any type. Any change that results in loss of data, removal of functionality, invalidation of links, or a very significant change in functionality should be marked as a BREAKING CHANGE.
 
 Examples:
 
@@ -62,7 +62,11 @@ Replaces the old static menu
 ```
 
 ```
-fix(store): remove trailing space when saving character name
+fix: remove trailing space when saving character name
+```
+
+```
+docs: update CONTRIBUTING.md
 ```
 
 ```
@@ -78,5 +82,6 @@ BREAKING CHANGE: {website}/homebrew is no longer available, use {website}/homebr
 
 ## Getting help
 - If you need help picking an issue or onboarding, tag `@LarsGast` or open a discussion using the `discussion` issue type.
+- Don't feel it needs to be perfect — incomplete work is totally fine. We'd love to help you get along the way.
 
 Thanks, we appreciate your contribution!
