@@ -6,7 +6,7 @@ import { globals } from "../store/load-globals.js";
  * This should be updated whenever a breaking change is performed on the PC object blueprint.
  * @constant {number}
  */
-export const LATEST_PLAYER_CHARACTER_VERSION_NUMBER = 4;
+export const LATEST_PLAYER_CHARACTER_VERSION_NUMBER = 1;
 
 /**
  * Contains all information of a character needed to build the PC-Builder page.

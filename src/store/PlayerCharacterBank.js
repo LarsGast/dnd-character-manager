@@ -1,4 +1,3 @@
-import { updateCharacter } from "../services/update/update-character.js";
 import { PlayerCharacter } from "../types/PlayerCharacter.js";
 
 /**
@@ -179,9 +178,6 @@ export class PlayerCharacterBank {
      * @param {PlayerCharacter} playerCharacter 
      */
     addNewCharacter(playerCharacter) {
-
-        // Upgrade the given PC to the latest version to support legacy imports.
-        updateCharacter(playerCharacter);
 
         const bankEntry = new PlayerCharacterBankEntry();
 

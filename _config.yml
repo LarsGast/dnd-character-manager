@@ -18,18 +18,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+# SEO
 title: DnD Character Manager
-github_username: LarsGast
-
-source: src
+tagline: Manage your Dungeons & Dragons characters
+description: A web application to help you create, manage, and play your Dungeons & Dragons characters.
 
 # Build settings
+source: src
 theme: minima
 plugins:
   - jekyll-feed
-
-header_pages:
-  - index.md
 
 # Exclude from processing.
 # The following items will not be processed, by default.
