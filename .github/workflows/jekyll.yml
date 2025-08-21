@@ -10,6 +10,7 @@ on:
   # Runs on publishing a release.
   release:
     types: [published]
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
