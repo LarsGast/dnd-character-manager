@@ -1,5 +1,5 @@
 import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../store/load-globals.js";
 
 /**
  * Custom HTML element for displaying the Character Import Dialog.

@@ -1,5 +1,5 @@
 import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../store/load-globals.js";
 import { Race } from "../../../../../types/api/resources/Race.js";
 
 /**

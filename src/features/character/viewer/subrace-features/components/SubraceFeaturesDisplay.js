@@ -1,5 +1,5 @@
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../store/load-globals.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.

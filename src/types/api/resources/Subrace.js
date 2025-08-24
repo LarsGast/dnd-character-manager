@@ -1,4 +1,4 @@
-import { ApiCategory } from "../../../../../../../services/api.js";
+import { ApiCategory } from "../../../services/api.js";
 import { AbilityBonus } from "../helpers/AbilityBonus.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
