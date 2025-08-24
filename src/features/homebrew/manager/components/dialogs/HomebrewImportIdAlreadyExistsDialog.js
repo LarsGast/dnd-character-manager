@@ -97,7 +97,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
 
         const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry.homebrewObject.index);
 
-        this.homebrewIdentifierAnchor.href = `../homebrew/?id=${existingEntry.id}`;
+        this.homebrewIdentifierAnchor.href = `homebrew/?id=${existingEntry.id}`;
         this.homebrewIdentifierAnchor.target = "_blank";
     }
   
