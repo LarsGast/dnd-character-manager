@@ -1,6 +1,6 @@
 import { Background } from "../../../../../types/api/resources/Background.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../store/load-globals.js";
 
 /**
  * Custom select element for choosing a character background.

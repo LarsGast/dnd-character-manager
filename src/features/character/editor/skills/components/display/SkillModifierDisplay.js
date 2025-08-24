@@ -1,5 +1,5 @@
 import { Skill } from "../../../../../../types/api/resources/Skill.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../../store/load-globals.js";
 
 /**
  * Custom element to display the calculated skill modifier.

@@ -1,4 +1,4 @@
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../store/load-globals.js";
 import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getTextInputSection } from '../../services/FormElementsBuilder.js';
 

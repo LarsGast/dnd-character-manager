@@ -1,5 +1,5 @@
 import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
-import { globals } from "../../../../../../../../store/load-globals.js";
+import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
  * Custom table cell element that displays the damage dice and damage bonus of a weapon.

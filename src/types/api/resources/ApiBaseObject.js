@@ -1,7 +1,7 @@
-import { getApiResultsAsync } from "../../../../../../../services/api.js";
+import { getApiResultsAsync } from "../../../services/api.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 import { ResourceList } from "../helpers/ResourceList.js";
-import { globals } from "../../../../../../../store/load-globals.js";
+import { globals } from "../../../store/load-globals.js";
 
 export class ApiBaseObject extends ApiObjectInfo {
 
