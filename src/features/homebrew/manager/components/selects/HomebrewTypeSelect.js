@@ -49,6 +49,7 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
         const fragment = document.createDocumentFragment();
 
         fragment.appendChild(this.getTypeSelectOption(ApiCategory.Races));
+        fragment.appendChild(this.getTypeSelectOption(ApiCategory.Traits));
 
         return fragment;
     }

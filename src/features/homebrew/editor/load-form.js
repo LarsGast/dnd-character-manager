@@ -1,6 +1,7 @@
 import { ApiCategory } from "../../../services/api.js";
 import { globals } from "../../../store/load-globals.js";
 import { RaceForm } from "./components/forms/RaceForm.js";
+import { TraitForm } from "./components/forms/TraitForm.js";
 
 // This file is used to load the homebrew form based on the active homebrew entry.
 // It checks the apiCategoryName of the active homebrew entry and loads the appropriate form.
@@ -8,6 +9,16 @@ import { RaceForm } from "./components/forms/RaceForm.js";
 
 const pageContent = document.getElementsByClassName("post-content")[0];
 
-if (globals.activeHomebrewEntry.apiCategoryName === ApiCategory.Races.name) {
-    pageContent.appendChild(new RaceForm(globals.activeHomebrewEntry.homebrewObject));
+let form;
+switch (globals.activeHomebrewEntry.apiCategoryName) {
+    case ApiCategory.Races.name:
+        form = new RaceForm(globals.activeHomebrewEntry.homebrewObject);
+        break;
+    case ApiCategory.Traits.name:
+        form = new TraitForm(globals.activeHomebrewEntry.homebrewObject);
+        break;
+    default:
+        throw new Error(`No form available for API category ${globals.activeHomebrewEntry.apiCategoryName}`);
 }
+
+pageContent.appendChild(form);

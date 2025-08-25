@@ -44,6 +44,7 @@ export class ApiCategory {
     getSingularName() {
         switch (this.name) {
             case "races": return "Race";
+            case "traits": return "Trait";
             default: return null;
         }
     }

@@ -1,6 +1,7 @@
 import { ApiCategory } from "../services/api.js";
 import { ApiObjectInfo } from "../types/api/resources/ApiObjectInfo.js";
 import { Race } from "../types/api/resources/Race.js";
+import { Trait } from "../types/api/resources/Trait.js";
 
 /**
  * Key used for saving and loading the homebrew bank from localStorage.
@@ -240,6 +241,7 @@ export class HomebrewBankEntry {
     #getHomebrewObject() {
         switch (this.apiCategoryName) {
             case ApiCategory.Races.name: return new Race(this.homebrewObject);
+            case ApiCategory.Traits.name: return new Trait(this.homebrewObject);
             default: return new ApiObjectInfo(this.homebrewObject);
         }
     }
