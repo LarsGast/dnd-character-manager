@@ -1,4 +1,5 @@
 import { ApiCategory } from "../../../services/api.js";
+import { Choice } from "../helpers/Choice.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
@@ -11,37 +12,37 @@ export class Trait extends ApiBaseObject {
      * Can consist of multiple paragraphs.
      * @type {string[]}
      */
-    desc;
+    desc = [];
 
     /**
      * List of races that get this trait.
      * @type {ApiObjectInfo[]}
      */
-    races;
+    races = [];
 
     /**
      * List of subraces that get this trait.
      * @type {ApiObjectInfo[]}
      */
-    subraces;
+    subraces = [];
 
     /**
      * List of proficiencies that this trait provides.
      * @type {ApiObjectInfo[]}
      */
-    proficiencies;
+    proficiencies = [];
 
     /**
      * If applicable, a choice in proficiencies that the player can make when getting this trait.
      * @type {Choice}
      */
-    proficiency_choices;
+    proficiency_choices = new Choice();
 
     /**
      * If applicable, a choice in languages that the player can make when getting this trait.
      * @type {Choice}
      */
-    language_options;
+    language_options = new Choice();
 
     /**
      * Any extra trait-specific information.

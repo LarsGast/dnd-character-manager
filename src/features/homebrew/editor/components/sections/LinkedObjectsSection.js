@@ -69,7 +69,7 @@ export class LinkedObjectsSection extends HTMLElement {
 
     /**
      * Gets the form data from the linked objects section.
-     * @returns {ObjectSelect[]} An array of ObjectSelect objects containing the selected values.
+     * @returns {ApiObjectInfo[]} An array of ApiObjectInfo objects containing the selected values.
      */
     getValue() {
         /** @type {ObjectSelect[]} */
