@@ -67,9 +67,6 @@ export class TraitForm extends HomebrewBaseForm {
         );
         fragment.appendChild(this.languageOptionsSection);
 
-        // Races?
-        // Subraces?
-
         return fragment;
     }
 
