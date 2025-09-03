@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentObjectInfo } from "../resources/DnDContentObjectInfo.js";
 
 /**
  * Has information about the bonuses to abilities a race can have.
@@ -7,7 +7,7 @@ export class AbilityBonus {
 
     /**
      * Ability score that the bonus gets applied to.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     ability_score;
 

@@ -1,8 +1,8 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 
-export class Skill extends ApiBaseObject {
+export class Skill extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Skills;
 
@@ -14,7 +14,7 @@ export class Skill extends ApiBaseObject {
 
     /**
      * The ability score that the skill is typically used as.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     ability_score;
 

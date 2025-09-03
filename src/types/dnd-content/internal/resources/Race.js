@@ -1,12 +1,12 @@
 import { ApiCategory } from "../../../../services/api.js";
 import { AbilityBonus } from "../helpers/AbilityBonus.js"
 import { Choice } from "../helpers/Choice.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 import { Subrace } from "./Subrace.js";
 import { Trait } from "./Trait.js";
 
-export class Race extends ApiBaseObject {
+export class Race extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Races;
 
@@ -48,13 +48,13 @@ export class Race extends ApiBaseObject {
 
     /**
      * Starting languages for all new characters of this race.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     languages = [];
 
     /**
      * Starting language options for all new characters of this race.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     language_options = new Choice();
 
@@ -66,13 +66,13 @@ export class Race extends ApiBaseObject {
 
     /**
      * A list of traits the race has.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     traits = [];
 
     /**
      * A list of subraces the race has, if any.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     subraces = [];
 

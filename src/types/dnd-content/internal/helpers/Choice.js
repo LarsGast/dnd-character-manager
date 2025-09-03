@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentObjectInfo } from "../resources/DnDContentObjectInfo.js";
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
@@ -112,7 +112,7 @@ export class Option {
     
     /**
      * Reference to the object in the API of the actual choice.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     item;
 
@@ -160,19 +160,19 @@ export class Option {
 
     /**
      *  A list of alignments of those who might follow the ideal.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     alignments;
 
     /**
      * Thing being referenced.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     of;
 
     /**
      * Ability score being referenced.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     ability_score;
 
@@ -208,7 +208,7 @@ export class Option {
 
     /**
      * Reference to type of damage.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     damage_type;
 

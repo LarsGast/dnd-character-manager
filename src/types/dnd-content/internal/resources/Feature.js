@@ -1,7 +1,7 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
 
-export class Feature extends ApiBaseObject {
+export class Feature extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Features;
 
@@ -19,20 +19,20 @@ export class Feature extends ApiBaseObject {
 
     /**
      * The class that this feature is a prt of.
-     * @type {ApiBaseObject}
+     * @type {DnDContentBaseObject}
      */
     class;
 
     /**
      * The subclass that this feature is a prt of.
-     * @type {ApiBaseObject}
+     * @type {DnDContentBaseObject}
      */
     subclass;
 
     /**
      * The parent feature that this feature is a part of.
      * undefined if this features does not have a parent.
-     * @type {ApiBaseObject}
+     * @type {DnDContentBaseObject}
      */
     parent;
 

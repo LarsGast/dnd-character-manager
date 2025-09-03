@@ -1,10 +1,10 @@
 import { ApiCategory, getApiResultsAsync } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";
 import { Feature } from "../helpers/Feature.js";
 
-export class Class extends ApiBaseObject {
+export class Class extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Classes;
 
@@ -58,19 +58,19 @@ export class Class extends ApiBaseObject {
 
     /**
      * List of starting proficiencies for all new characters of this class.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     proficiencies;
 
     /**
      * Saving throws the class is proficient in.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     saving_throws;
 
     /**
      * List of all possible subclasses this class can specialize in.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     subclasses;
         
@@ -93,7 +93,7 @@ export class Class extends ApiBaseObject {
     }
 }
 
-class ClassLevel extends ApiBaseObject {
+class ClassLevel extends DnDContentBaseObject {
     
     /**
      * The number value for the current level object.
@@ -115,7 +115,7 @@ class ClassLevel extends ApiBaseObject {
     
     /**
      * Features automatically gained at this level.
-     * @type {ApiBaseObject[]}
+     * @type {DnDContentBaseObject[]}
      */
     features;
     
@@ -133,7 +133,7 @@ class ClassLevel extends ApiBaseObject {
     
     /**
      * The class that this level is a part of.
-     * @type {ApiBaseObject}
+     * @type {DnDContentBaseObject}
      */
     class;
 
@@ -181,7 +181,7 @@ class MultiClassing {
 
     /**
      * List of proficiencies available when multi-classing.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     proficiencies;
 
@@ -196,7 +196,7 @@ class Prerequisite {
 
     /**
      * The ability score that must have a minimum score to multi-class.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     ability_score;
 
@@ -223,7 +223,7 @@ class SpellCasting {
 
     /**
      * Reference to the AbilityScore used for spellcasting by the class.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     spellcasting_ability;
 }
@@ -238,7 +238,7 @@ class StartingEquipment {
 
     /**
      * Information about the equipment.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     equipment;
 }

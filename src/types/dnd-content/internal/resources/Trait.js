@@ -1,9 +1,9 @@
 import { ApiCategory } from "../../../../services/api.js";
 import { Choice } from "../helpers/Choice.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 
-export class Trait extends ApiBaseObject {
+export class Trait extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Traits;
 
@@ -16,19 +16,19 @@ export class Trait extends ApiBaseObject {
 
     /**
      * List of races that get this trait.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     races = [];
 
     /**
      * List of subraces that get this trait.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     subraces = [];
 
     /**
      * List of proficiencies that this trait provides.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     proficiencies = [];
 

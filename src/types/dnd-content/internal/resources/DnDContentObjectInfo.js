@@ -4,7 +4,7 @@ export class DnDContentObjectInfo {
 
     /**
      * Enum-like value that holds the endpoints of given class.
-     * Must be implemented in every class that extends ApiBaseObject.
+     * Must be implemented in every class that extends DnDContentBaseObject.
      * @type {ApiCategory}
      */
     static apiCategory;

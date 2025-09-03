@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../../../api/resources/ApiObjectInfo.js";
+import { DnDContentObjectInfo } from "../DnDContentObjectInfo.js";
 import { Equipment } from "./Equipment.js";
 
 export class Weapon extends Equipment {
@@ -43,7 +43,7 @@ export class Weapon extends Equipment {
 
     /**
      * Extra properties this weapon has.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     properties;
 
@@ -79,7 +79,7 @@ class Damage {
 
     /**
      * The type of damage that is dealt.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     damage_type
 }

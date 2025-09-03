@@ -1,8 +1,8 @@
 import { ApiCategory, getApiResultsAsync } from "../../../../services/api.js";
 import { Feature } from "../helpers/Feature.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
 
-export class Subclass extends ApiBaseObject {
+export class Subclass extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Subclasses;
 
@@ -14,7 +14,7 @@ export class Subclass extends ApiBaseObject {
 
     /**
      * Class that the subclass belongs to.
-     * @type {ApiBaseObject}
+     * @type {DnDContentBaseObject}
      */
     class;
 

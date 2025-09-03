@@ -1,16 +1,16 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";
 import { Feature } from "../helpers/Feature.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 
-export class Background extends ApiBaseObject {
+export class Background extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Backgrounds;
 
     /**
      * Starting proficiencies for all new characters of this background.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     starting_proficiencies;
 
@@ -22,7 +22,7 @@ export class Background extends ApiBaseObject {
 
     /**
      * Starting equipment for all new characters of this background.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     starting_equipment;
 

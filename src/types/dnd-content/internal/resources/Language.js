@@ -1,7 +1,7 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
 
-export class Language extends ApiBaseObject {
+export class Language extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Languages;
 

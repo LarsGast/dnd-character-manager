@@ -1,14 +1,14 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 
-export class EquipmentCategory extends ApiBaseObject {
+export class EquipmentCategory extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.EquipmentCategories;
 
     /**
      * All equipments that fall under this category.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     equipment;
 

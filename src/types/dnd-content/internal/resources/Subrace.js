@@ -1,11 +1,11 @@
 import { ApiCategory } from "../../../../services/api.js";
 import { AbilityBonus } from "../helpers/AbilityBonus.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";
 import { Trait } from "./Trait.js";
 
-export class Subrace extends ApiBaseObject {
+export class Subrace extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Subraces;
 
@@ -17,7 +17,7 @@ export class Subrace extends ApiBaseObject {
 
     /**
      * The race that the subrace is a part of.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     race;
 
@@ -29,13 +29,13 @@ export class Subrace extends ApiBaseObject {
 
     /**
      * A list of proficiencies the subrace starts with.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     starting_proficiencies;
 
     /**
      * List of languages the subrace always learns.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     languages;
 
@@ -47,7 +47,7 @@ export class Subrace extends ApiBaseObject {
 
     /**
      * A list of traits the subrace has.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     racial_traits;
 

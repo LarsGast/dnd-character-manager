@@ -34,7 +34,7 @@ export class DnDContentBaseObject extends DnDContentObjectInfo {
 
     /**
      * Get all resources from the 5e SRD API or homebrew storage.
-     * @returns {Promise<ApiBaseObjectList>}
+     * @returns {Promise<DnDContentBaseObjectList>}
      */
     static async getAllAsync() {
 
@@ -43,15 +43,15 @@ export class DnDContentBaseObject extends DnDContentObjectInfo {
         /** @type {ResourceList} */
         const srdObjects = await getApiResultsAsync(this.apiCategory);
 
-        return new ApiBaseObjectList(srdObjects.results, homebrewObjects)
+        return new DnDContentBaseObjectList(srdObjects.results, homebrewObjects)
     }
 }
 
 /**
- * Class that holds a list of ApiBaseObject instances.
+ * Class that holds a list of DnDContentBaseObject instances.
  * It contains both SRD objects and homebrew objects.
  */
-export class ApiBaseObjectList {
+export class DnDContentBaseObjectList {
 
     /**
      * Array of SRD objects of the category.

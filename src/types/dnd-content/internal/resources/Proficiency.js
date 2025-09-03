@@ -1,8 +1,8 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
+import { DnDContentBaseObject } from "./DnDContentBaseObject.js";
+import { DnDContentObjectInfo } from "./DnDContentObjectInfo.js";
 
-export class Proficiency extends ApiBaseObject {
+export class Proficiency extends DnDContentBaseObject {
 
     static apiCategory = ApiCategory.Proficiencies;
 
@@ -14,19 +14,19 @@ export class Proficiency extends ApiBaseObject {
 
     /**
      * Classes that start with this proficiency.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     classes = [];
 
     /**
      * Races that start with this proficiency.
-     * @type {ApiObjectInfo[]}
+     * @type {DnDContentObjectInfo[]}
      */
     races = [];
 
     /**
      * Reference to the full description of the related resource.
-     * @type {ApiObjectInfo}
+     * @type {DnDContentObjectInfo}
      */
     reference;
     
