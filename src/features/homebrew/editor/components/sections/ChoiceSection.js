@@ -1,5 +1,5 @@
-import { Choice, OptionSet } from "../../../../../types/api/helpers/Choice.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { Choice, OptionSet } from "../../../../../types/dnd-content/api/helpers/Choice.js";
+import { ApiObjectInfo } from "../../../../../types/dnd-content/api/resources/ApiObjectInfo.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 

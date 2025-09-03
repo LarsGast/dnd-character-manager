@@ -1,6 +1,6 @@
 import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
+import { Race } from "../../../../../types/dnd-content/api/resources/Race.js";
 
 /**
  * Custom select element for choosing a subrace.

@@ -1,4 +1,4 @@
-import { Skill } from "./api/resources/Skill.js";
+import { Skill } from "./dnd-content/api/resources/Skill.js";
 import { globals } from "../store/load-globals.js";
 
 /**

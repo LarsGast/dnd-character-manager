@@ -1,4 +1,4 @@
-import { Skill } from "../../../../../../types/api/resources/Skill.js";
+import { Skill } from "../../../../../../types/dnd-content/api/resources/Skill.js";
 import { SkillModifierDisplay } from "./SkillModifierDisplay.js";
 import { SkillProficiencyCheckbox } from "../checkboxes/SkillProficiencyCheckbox.js";
 import { SkillExpertiseCheckbox } from "../checkboxes/SkillExpertiseCheckbox.js";

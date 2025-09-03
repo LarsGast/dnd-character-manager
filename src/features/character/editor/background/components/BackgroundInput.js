@@ -1,4 +1,4 @@
-import { Background } from "../../../../../types/api/resources/Background.js";
+import { Background } from "../../../../../types/dnd-content/api/resources/Background.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 

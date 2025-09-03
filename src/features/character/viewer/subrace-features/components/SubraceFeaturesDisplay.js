@@ -1,4 +1,4 @@
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
+import { Subrace } from "../../../../../types/dnd-content/api/resources/Subrace.js";
 import { globals } from "../../../../../store/load-globals.js";
 
 /**

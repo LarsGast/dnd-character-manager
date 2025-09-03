@@ -1,8 +1,8 @@
 import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
 import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
-import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
+import { EquipmentCategory } from "../../../../../../../types/dnd-content/api/resources/EquipmentCategory.js";
+import { Armor } from "../../../../../../../types/dnd-content/api/resources/equipment/Armor.js";
 
 /**
  * Custom element for adding armor to the inventory.

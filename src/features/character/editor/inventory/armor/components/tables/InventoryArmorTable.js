@@ -1,4 +1,4 @@
-import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
+import { Armor } from "../../../../../../../types/dnd-content/api/resources/equipment/Armor.js";
 import { InventoryArmorRow } from "../rows/InventoryArmorRow.js";
 import { globals } from "../../../../../../../store/load-globals.js";
 

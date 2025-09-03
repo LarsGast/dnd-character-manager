@@ -1,6 +1,6 @@
-import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
-import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { AbilityBonus } from "../../../../../types/dnd-content/api/helpers/AbilityBonus.js";
+import { AbilityScore } from "../../../../../types/dnd-content/api/resources/AbilityScore.js";
+import { ApiObjectInfo } from "../../../../../types/dnd-content/api/resources/ApiObjectInfo.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
 /**

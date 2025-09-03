@@ -1,5 +1,5 @@
 import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
+import { Class } from "../../../../../types/dnd-content/api/resources/Class.js";
 
 /**
  * Custom list item element that represents a class-level input.

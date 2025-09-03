@@ -1,7 +1,7 @@
 import { ApiCategory } from "../services/api.js";
-import { ApiObjectInfo } from "../types/api/resources/ApiObjectInfo.js";
-import { Race } from "../types/api/resources/Race.js";
-import { Trait } from "../types/api/resources/Trait.js";
+import { ApiObjectInfo } from "../types/dnd-content/api/resources/ApiObjectInfo.js";
+import { Race } from "../types/dnd-content/api/resources/Race.js";
+import { Trait } from "../types/dnd-content/api/resources/Trait.js";
 
 /**
  * Key used for saving and loading the homebrew bank from localStorage.

@@ -5,10 +5,10 @@ import { CharacterDeleteButton } from "../buttons/CharacterDeleteButton.js";
 import { CharacterSelectButton } from "../buttons/CharacterSelectButton.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
-import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { Race } from "../../../../../types/dnd-content/api/resources/Race.js";
+import { Subrace } from "../../../../../types/dnd-content/api/resources/Subrace.js";
+import { Class } from "../../../../../types/dnd-content/api/resources/Class.js";
+import { Subclass } from "../../../../../types/dnd-content/api/resources/Subclass.js";
 
 /**
  * Custom HTML element for displaying active and inactive characters stored in the PlayerCharacterBank.

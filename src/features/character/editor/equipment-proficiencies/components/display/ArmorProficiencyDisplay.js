@@ -1,4 +1,4 @@
-import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
+import { Armor } from "../../../../../../types/dnd-content/api/resources/equipment/Armor.js";
 import { ArmorProficiencyCheckbox } from "../checkboxes/ArmorProficiencyCheckbox.js";
 
 /**

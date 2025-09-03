@@ -1,4 +1,4 @@
-import { ApiBaseObjectList } from '../types/api/resources/ApiBaseObject.js'
+import { ApiBaseObjectList } from '../types/dnd-content/api/resources/ApiBaseObject.js'
 
 /**
  * Create an HTML element and add a value to the the textContent property.

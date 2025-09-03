@@ -1,8 +1,8 @@
 import { getElementWithTextContent } from "../../../../../utils/util.js";
-import { Choice } from "../../../../../types/api/helpers/Choice.js";
-import { Feature } from "../../../../../types/api/helpers/Feature.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
-import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { Choice } from "../../../../../types/dnd-content/api/helpers/Choice.js";
+import { Feature } from "../../../../../types/dnd-content/api/helpers/Feature.js";
+import { Class } from "../../../../../types/dnd-content/api/resources/Class.js";
+import { Subclass } from "../../../../../types/dnd-content/api/resources/Subclass.js";
 
 /**
  * Custom details element that displays the features of the selected class.

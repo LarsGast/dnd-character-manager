@@ -1,4 +1,4 @@
-import { Alignment } from "../../../../../types/api/resources/Alignment.js";
+import { Alignment } from "../../../../../types/dnd-content/api/resources/Alignment.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 

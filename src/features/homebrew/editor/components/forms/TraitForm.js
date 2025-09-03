@@ -1,6 +1,6 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Proficiency } from "../../../../../types/api/resources/Proficiency.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { Language } from "../../../../../types/dnd-content/api/resources/Language.js";
+import { Proficiency } from "../../../../../types/dnd-content/api/resources/Proficiency.js";
+import { Trait } from "../../../../../types/dnd-content/api/resources/Trait.js";
 import { getTextareaSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "../forms/HomebrewBaseForm.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";

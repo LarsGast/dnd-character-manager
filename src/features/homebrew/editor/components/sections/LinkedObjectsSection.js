@@ -1,5 +1,5 @@
-import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObjectList } from "../../../../../types/dnd-content/api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../../../../types/dnd-content/api/resources/ApiObjectInfo.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ObjectSelect } from "./ObjectSelect.js";
 

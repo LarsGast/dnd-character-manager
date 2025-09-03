@@ -1,8 +1,8 @@
 import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
 import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
+import { EquipmentCategory } from "../../../../../../../types/dnd-content/api/resources/EquipmentCategory.js";
+import { Weapon } from "../../../../../../../types/dnd-content/api/resources/equipment/Weapon.js";
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.

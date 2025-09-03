@@ -1,7 +1,7 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { Language } from "../../../../../types/dnd-content/api/resources/Language.js";
+import { Race } from "../../../../../types/dnd-content/api/resources/Race.js";
+import { Subrace } from "../../../../../types/dnd-content/api/resources/Subrace.js";
+import { Trait } from "../../../../../types/dnd-content/api/resources/Trait.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "../forms/HomebrewBaseForm.js";
 import { AbilityBonusesSection } from "../sections/AbilityBonusesSection.js";
