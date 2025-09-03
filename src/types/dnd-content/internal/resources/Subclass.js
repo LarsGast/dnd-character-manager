@@ -1,6 +1,6 @@
 import { ApiCategory, getApiResultsAsync } from "../../../../services/api.js";
 import { Feature } from "../helpers/Feature.js";
-import { ApiBaseObject } from "./ApiBaseObject.js";
+import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
 
 export class Subclass extends ApiBaseObject {
 

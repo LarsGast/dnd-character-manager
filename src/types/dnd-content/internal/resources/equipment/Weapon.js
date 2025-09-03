@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../ApiObjectInfo.js";
+import { ApiObjectInfo } from "../../../api/resources/ApiObjectInfo.js";
 import { Equipment } from "./Equipment.js";
 
 export class Weapon extends Equipment {

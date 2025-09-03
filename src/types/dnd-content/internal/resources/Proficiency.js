@@ -1,6 +1,6 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "./ApiBaseObject.js";
-import { ApiObjectInfo } from "./ApiObjectInfo.js";
+import { ApiBaseObject } from "../../api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../api/resources/ApiObjectInfo.js";
 
 export class Proficiency extends ApiBaseObject {
 

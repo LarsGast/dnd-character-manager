@@ -1,5 +1,5 @@
 import { ApiCategory } from "../../../../services/api.js";
-import { ApiBaseObject } from "../resources/ApiBaseObject.js";
+import { ApiBaseObject } from "./ApiBaseObject.js";
 
 export class Feature extends ApiBaseObject {
 
