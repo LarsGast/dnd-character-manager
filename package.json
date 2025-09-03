@@ -8,6 +8,10 @@
   "scripts": {
     "watch:ts": "tsc --watch",
     "serve:jekyll": "bundle exec jekyll serve",
-    "dev": "npm-run-all --parallel watch:ts serve:jekyll"
+    "dev": "npm-run-all --parallel watch:ts serve:jekyll",
+
+    "build:ts": "tsc",
+    "build:jekyll": "bundle exec jekyll build",
+    "build": "npm-run-all build:ts build:jekyll"
   }
 }

@@ -24,7 +24,7 @@ tagline: Manage your Dungeons & Dragons characters
 description: A web application to help you create, manage, and play your Dungeons & Dragons characters.
 
 # Build settings
-source: src
+source: built
 repository: LarsGast/dnd-character-manager
 theme: minima
 plugins:
