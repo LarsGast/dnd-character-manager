@@ -18,7 +18,7 @@
 
     "build:ts": "tsc",
     "build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
-    "build:jekyll": "bundle exec jekyll build",
+    "build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
     "build": "npm run build:ts && npm run build:static && npm run build:jekyll"
   }
 }
