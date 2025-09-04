@@ -1,17 +1,25 @@
 {
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.10",
+    "concurrently": "^9.2.1",
+    "cpx": "^1.5.0",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
     "typescript": "^5.9.2"
   },
-  
   "scripts": {
+    "clean": "rimraf build _site",
+    "prebuild": "npm run clean",
+    "predev": "npm run clean",
+
     "watch:ts": "tsc --watch",
+    "watch:static": "cpx \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build --watch",
     "serve:jekyll": "bundle exec jekyll serve",
-    "dev": "npm-run-all --parallel watch:ts serve:jekyll",
+    "dev": "concurrently \"npm:watch:static\" \"npm:watch:ts\" \"npm:serve:jekyll\"",
 
     "build:ts": "tsc",
+    "build:static": "cpx \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
     "build:jekyll": "bundle exec jekyll build",
-    "build": "npm-run-all build:ts build:jekyll"
+    "build": "npm-run-all build:ts build:static build:jekyll"
   }
 }
