@@ -47,7 +47,6 @@ While I am striving to bring the best experience to everyone who wants to use th
 - Export / Import JSON: easy backups and device transfer.
     - Your characters are YOUR characters. Use this feature to stay in control.
 
-
 ## Privacy & security
 - By default all data is stored locally in the browser ([localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)).
     - This prevents anyone (even us) to access your data.

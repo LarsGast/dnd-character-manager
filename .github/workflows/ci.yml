@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+    paths:
+      - src/**
+      - .github/workflows/ci.yml
+      - tsconfig.json
+      - _config.yml
+      - package.json
+      - package-lock.json
+      - Gemfile
+      - Gemfile.lock
+  pull_request:
+    branches: main
+    types: [opened, synchronize, reopened]
+    paths: 
+      - src/**
+      - .github/workflows/ci.yml
+      - tsconfig.json
+      - _config.yml
+      - package.json
+      - package-lock.json
+      - Gemfile
+      - Gemfile.lock
+
+jobs:
+  build:
+    # Only run for non-draft PRs or pushes to main.
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # Setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Ruby and Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      # Dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Build
+      - name: Build the site
+        run: npm run build
