@@ -5,11 +5,27 @@ Thanks for wanting to contribute! This document explains the process for contrib
 ## Quick start
 1. Fork the repo.
 2. Create a branch:  
-   `git checkout -b feat/short-description` or `git checkout -b fix/short-description`
+   ```
+   git checkout -b feat/short-description
+   ``` 
+   or 
+   ```
+   git checkout -b fix/short-description
+   ```
 3. Install dependencies:  
-   `bundle install`
+   ```
+   npm install
+   ```
+   ```
+   bundle install
+   ```
 4. Run the dev server:  
-   `bundle exec jekyll serve`
+   ```
+   npm run dev
+   ```
+5. Access the site at `http://localhost:4000/`
+
+> If you don't have Node set up yet, see [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 > If you don't have Bundler set up yet, see [Using Jekyll with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/).
 
