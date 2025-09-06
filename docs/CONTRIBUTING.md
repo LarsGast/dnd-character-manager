@@ -45,12 +45,15 @@ Thanks for wanting to contribute! This document explains the process for contrib
 - All PRs will be squashed and merged on completion.
 
 ## Code style & linters
+- The [tsconfig.json](../tsconfig.json) file contains TypeScript compilation rules.
+   - If any of the compilation rules are violated the application cannot be built.
+   - Make sure that `.ts` files do not contain any errors.
 - We currently do not use a linter. Reference existing code on how you should style new code.
-- We will add a linter and code style guidelines later.
+   - We will add a linter guidelines later.
 
 ## Tests
 - The project currently does not have any tests.
-- Information about proper testing procedures will be added later.
+   - Information about proper testing procedures will be added later.
 
 ## Commit messages
 We use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for all commits:
