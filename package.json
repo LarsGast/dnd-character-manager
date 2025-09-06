@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.10",
     "concurrently": "^9.2.1",
     "cpy-cli": "^6.0.0",
     "rimraf": "^6.0.1",
@@ -14,8 +13,8 @@
     "watch:ts": "tsc --watch",
     "watch:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build --watch",
     "serve:jekyll": "bundle exec jekyll serve",
-    "dev": "concurrently \"npm:watch:ts\" \"npm:watch:static\" \"npm:serve:jekyll\" -c yellow,cyan,magenta ",
-
+    "dev": "concurrently \"npm:watch:ts\" \"npm:watch:static\" \"npm:serve:jekyll\" -c yellow,cyan,magenta",
+    
     "build:ts": "tsc",
     "build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
     "build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
