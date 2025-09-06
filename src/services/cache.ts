@@ -2,10 +2,10 @@ const CACHE_KEY_LOCAL = "cache";
 
 /**
  * Add a value to the cache.
- * @param {string} key Identifier of the cached value.
- * @param {JSON} value The value to cache.
+ * @param key Identifier of the cached value.
+ * @param value The value to cache.
  */
-export const addToCache = function(key, value) {
+export function addToCache(key: string, value: any): void {
 
     const cache = getCache();
 
@@ -16,19 +16,19 @@ export const addToCache = function(key, value) {
 
 /**
  * Get a value from the cache.
- * @param {string} key Identifier of the cached value.
- * @returns {JSON | undefined} undefined if no value exists in the cache with given key.
+ * @param key Identifier of the cached value.
+ * @returns undefined if no value exists in the cache with given key.
  */
-export const getFromCache = function(key) {
+export function getFromCache(key: string): any {
     const cache = getCache();
     return cache[key];
 }
 
 /**
  * Get the cache object from local storage.
- * @returns {JSON} Full cache object.
+ * @returns Full cache object.
  */
-export const getCache = function() {
+export function getCache(): any {
 
     const cacheAsString = localStorage.getItem(CACHE_KEY_LOCAL);
     try {
@@ -44,13 +44,13 @@ export const getCache = function() {
         console.error("Error parsing cache JSON:", error);
         return {};
     }
-};
+}
 
 /**
  * Save the cache object to local storage.
- * @param {JSON} cache cache as JSON.
+ * @param cache cache as JSON.
  */
-export const saveCache = function(cache) {
+export function saveCache(cache: {}): void {
 
     try {
         const cacheAsString = JSON.stringify(cache);
@@ -58,6 +58,6 @@ export const saveCache = function(cache) {
     }
     catch (error) {
         console.error("Error while saving cache:", error);
-        console.log("Cache JSON:", playerCharacter);
+        console.log("Cache JSON:", cache);
     }
-};
+}
