@@ -80,7 +80,7 @@ export class EquipmentCategoryIndex {
  * @param index Identifier of the resource (optional).
  * @returns Full object as specified in the SRD API specifications.
  */
-export async function getApiResultsAsync(apiCategory: ApiCategory, index?: string | EquipmentCategoryIndex): Promise<JSON> {
+export async function getApiResultsAsync(apiCategory: ApiCategory, index?: string | EquipmentCategoryIndex): Promise<any> {
 
     // Craft the URL string bases on the given parameters.
     const indexString = index instanceof EquipmentCategoryIndex ? index.name : index ?? '';

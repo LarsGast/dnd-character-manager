@@ -1,5 +1,7 @@
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -85,7 +87,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
         }
         
         this.style.display = "block";
-        this.subrace = await Subrace.getAsync(globals.activePlayerCharacter.subrace);
+        this.subrace = await ApiBaseObject.getAsync(globals.activePlayerCharacter.subrace, Subrace);
 
         // Clear current contents.
         this.replaceChildren();

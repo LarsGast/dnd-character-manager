@@ -1,5 +1,7 @@
 import { Race } from "../../../../../types/api/resources/Race.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -90,7 +92,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
         }
         
         this.style.display = "block";
-        this.race = await Race.getAsync(globals.activePlayerCharacter.race);
+        this.race = await ApiBaseObject.getAsync(globals.activePlayerCharacter.race, Race);
 
         // Clear any existing content.
         this.replaceChildren();

@@ -1,6 +1,7 @@
 import { ApiCategory, getApiResultsAsync } from "../../../services/api.js";
 import { Feature } from "../helpers/Feature.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
+import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
 export class Subclass extends ApiBaseObject {
 
@@ -53,6 +54,6 @@ export class Subclass extends ApiBaseObject {
     async getFeaturesForLevelAsync(level) {
         const response = await getApiResultsAsync(ApiCategory.Subclasses, `${this.index}/levels/${level}/features`);
 
-        return Promise.all(response.results.map(featureInfo => Feature.getAsync(featureInfo.index)));
+        return Promise.all(response.results.map(featureInfo => ApiBaseObject.getAsync(featureInfo.index, Feature)));
     }
 }

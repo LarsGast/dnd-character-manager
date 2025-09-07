@@ -78,7 +78,7 @@ export class AbilityBonusesSection extends HTMLElement {
                 continue;
             }
 
-            const abilityScore = new ApiObjectInfo(await AbilityScore.getAsync(abilityScoreIndex));
+            const abilityScore = new ApiObjectInfo(await ApiBaseObject.getAsync(abilityScoreIndex, AbilityScore));
         
             // Remove unwanted keys
             const emptyApiObjectInfo = new ApiObjectInfo();

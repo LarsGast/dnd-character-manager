@@ -1,6 +1,7 @@
 import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
 import { InventoryArmorRow } from "../rows/InventoryArmorRow.js";
 import { globals } from "../../../../../../../store/load-globals.js";
+import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom element for displaying the inventory armor table.
@@ -111,7 +112,7 @@ export class InventoryArmorTable extends HTMLElement {
 
             // For each armor in the inventory, create a new row and append it.
             for (const inventoryArmor of globals.activePlayerCharacter.inventoryArmor) {
-                const armor = await Armor.getAsync(inventoryArmor.index);
+                const armor = await ApiBaseObject.getAsync(inventoryArmor.index, Armor);
                 tableBody.appendChild(new InventoryArmorRow(armor));
             }
         }

@@ -161,7 +161,7 @@ class ClassLevel extends ApiBaseObject {
      * @returns {Promise<Feature[]>}
      */
     async getAllFeaturesAsync() {
-        return Promise.all(this.features.map(featureInfo => Feature.getAsync(featureInfo.index)));
+        return Promise.all(this.features.map(featureInfo => ApiBaseObject.getAsync(featureInfo.index, Feature)));
     }
 }
 
