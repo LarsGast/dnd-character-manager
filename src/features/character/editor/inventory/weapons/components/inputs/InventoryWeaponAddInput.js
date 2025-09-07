@@ -3,6 +3,7 @@ import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util
 import { globals } from "../../../../../../../store/load-globals.js";
 import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
 import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
+import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.
@@ -62,7 +63,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
         optgroup.label = optgroupLabel;
     
         // Fetch weapons for the provided category.
-        const results = await EquipmentCategory.getAsync(equipmentCategoryIndex);
+        const results = await ApiBaseObject.getAsync(equipmentCategoryIndex, EquipmentCategory);
     
         // For each weapon, create an option element.
         results.equipment.forEach(equipment => {
@@ -88,7 +89,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
      */
     async addWeapon() {
         const weaponIndex = this.weaponSelect.value;
-        const weapon = await Weapon.getAsync(weaponIndex);
+        const weapon = await ApiBaseObject.getAsync(weaponIndex, Weapon);
 
         // Add the weapon to the PC's inventory using its standard ability.
         globals.activePlayerCharacter.addWeaponToInventory(weapon.index, weapon.getStandardAbility());

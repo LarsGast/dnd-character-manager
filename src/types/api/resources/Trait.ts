@@ -5,58 +5,58 @@ import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
 export class Trait extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.Traits;
+    static override apiCategory = ApiCategory.Traits;
 
     /**
      * Description of the trait.
      * Can consist of multiple paragraphs.
-     * @type {string[]}
      */
-    desc = [];
+    desc: string[] = [];
 
     /**
      * List of races that get this trait.
-     * @type {ApiObjectInfo[]}
      */
-    races = [];
+    races: ApiObjectInfo[] = [];
 
     /**
      * List of subraces that get this trait.
-     * @type {ApiObjectInfo[]}
      */
-    subraces = [];
+    subraces: ApiObjectInfo[] = [];
 
     /**
      * List of proficiencies that this trait provides.
-     * @type {ApiObjectInfo[]}
      */
-    proficiencies = [];
+    proficiencies: ApiObjectInfo[] = [];
 
     /**
      * If applicable, a choice in proficiencies that the player can make when getting this trait.
-     * @type {Choice}
      */
-    proficiency_choices = new Choice();
+    proficiency_choices: Choice = new Choice();
 
     /**
      * If applicable, a choice in languages that the player can make when getting this trait.
-     * @type {Choice}
      */
-    language_options = new Choice();
+    language_options: Choice = new Choice();
 
     /**
      * Any extra trait-specific information.
      * Can differ in specification per trait.
-     * @type {JSON}
      */
-    trait_specific;
+    trait_specific: any;
     
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Trait> = {}) {
         super(data);
-        Object.assign(this, data);
+
+        this.desc = data.desc ?? [];
+        this.races = data.races?.map(r => new ApiObjectInfo(r)) ?? [];
+        this.subraces = data.subraces?.map(sr => new ApiObjectInfo(sr)) ?? [];
+        this.proficiencies = data.proficiencies?.map(p => new ApiObjectInfo(p)) ?? [];
+        this.proficiency_choices = new Choice(data.proficiency_choices);
+        this.language_options = new Choice(data.language_options);
+        this.trait_specific = data.trait_specific ?? {};
     }
 }

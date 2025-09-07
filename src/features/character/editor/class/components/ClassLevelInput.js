@@ -1,5 +1,7 @@
 import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom list item element that represents a class-level input.
@@ -104,7 +106,7 @@ export class ClassLevelInput extends HTMLLIElement {
         }
 
         // Retrieve all available subclasses.
-        const chosenClass = await Class.getAsync(this.classIndex);
+        const chosenClass = await ApiBaseObject.getAsync(this.classIndex, Class);
         for (const subclassInfo of chosenClass.subclasses) {
             this.subclassSelect.appendChild(getSelectOption(subclassInfo.name, subclassInfo.index));
         }

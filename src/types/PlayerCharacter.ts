@@ -16,163 +16,143 @@ export class PlayerCharacter {
 
     /**
      * Name of the character.
-     * @type {string}
      */
-    name = "New character";
+    name: string = "New character";
 
     /**
      * All chosen classes of the character.
      * Empty array if none are chosen yet.
      * Each item should match the "index" property in the 5e API.
-     * @type {object[]}
      */
-    classes = [];
+    classes: object[] = [];
 
     /**
      * Chosen race of the character.
      * Null if none is chosen.
      * Should match the "index" property in the 5e API.
-     * @type {string|null}
      */
-    race = null;
+    race: string | null = null;
 
     /**
      * Chosen subrace of the character.
      * Null if none is chosen.
      * Should match the "index" property in the 5e API.
-     * @type {string|null}
      */
-    subrace = null;
+    subrace: string | null = null;
 
     /**
      * Chosen background of the character.
      * Null if none is chosen.
      * Should match the "index" property in the 5e API.
-     * @type {string|null}
      */
-    background = null;
+    background: string | null = null;
 
     /**
      * Chosen alignment of the character.
      * Null if none is chosen.
      * Should match the "index" property in the 5e API.
-     * @type {string|null}
      */
-    alignment = null;
+    alignment: string | null = null;
 
     /**
      * Strength score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    str = 10;
+    str: number = 10;
 
     /**
      * Dexterity score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    dex = 10;
+    dex: number = 10;
 
     /**
      * Constitution score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    con = 10;
+    con: number = 10;
 
     /**
      * Intelligence score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    int = 10;
+    int: number = 10;
 
     /**
      * Wisdom score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    wis = 10;
+    wis: number = 10;
 
     /**
      * Charisma score of the character.
      * Default value is 10.
-     * @type {number}
      */
-    cha = 10;
+    cha: number = 10;
 
     /**
      * All proficiencies of the character.
      * Each item should match the "index" property in the 5e API.
-     * @type {string[]}
      */
-    proficiencies = [];
+    proficiencies: string[] = [];
 
     /**
      * All expertises of the character.
      * Each item should match the "index" property in the 5e API.
-     * @type {string[]}
      */
-    expertises = [];
+    expertises: string[] = [];
 
     /**
      * All weapon proficiencies of the character.
      * Each item should match the "index" property in the 5e API.
-     * @type {string[]}
      */
-    weaponProficiencies = [];
+    weaponProficiencies: string[] = [];
 
     /**
      * All armor proficiencies of the character.
      * Each item should match the "index" property in the 5e API.
-     * @type {string[]}
      */
-    armorProficiencies = [];
+    armorProficiencies: string[] = [];
 
     /**
      * All weapons in the inventory of the character.
      * Each object should have an "index" property that matches the 5e API.
-     * @type {object[]}
      */
-    inventoryWeapons = [];
+    inventoryWeapons: object[] = [];
 
     /**
      * All armor in the inventory of the character.
      * Each object should have an "index" property that matches the 5e API.
-     * @type {object[]}
      */
-    inventoryArmor = [];
+    inventoryArmor: object[] = [];
 
     /**
      * Notes that the user has filled in.
-     * @type {string}
      */
-    notes = "";
+    notes: string = "";
 
     /**
      * Version number of the character.
      * Used to upgrade the character when breaking changes in the data occur.
-     * @type {number|null}
      */
-    version = null;
+    version: number | null = null;
 
     /**
      * Constructs a new PlayerCharacter instance.
      * If data is provided, properties are assigned from it.
-     * @param {JSON} data Optional initial data for the character.
+     * @param data Optional initial data for the character.
      */
-    constructor(data = {}) {
+    constructor(data: Partial<PlayerCharacter> = {}) {
         Object.assign(this, data);
     }
 
     /**
      * Sets a property value on the character and immediately saves the character (if it exists within the player bank).
-     * @param {string} propertyName The name of the property to update.
-     * @param {any} propertyValue The new value for the property.
+     * @param propertyName The name of the property to update.
+     * @param propertyValue The new value for the property.
      */
-    setProperty(propertyName, propertyValue) {
-        this[propertyName] = propertyValue;
+    setProperty(propertyName: string, propertyValue: string | number | any[] | null): void {
+        (this as any)[propertyName] = propertyValue;
 
         // Save the player bank.
         // If the PlayerCharacter exists within the player character bank and is edited by reference, it will be saved to localStorage.
@@ -185,9 +165,9 @@ export class PlayerCharacter {
     /**
      * Returns a default PlayerCharacter instance.
      * Sets the version to the latest version number.
-     * @returns {PlayerCharacter} A new default character instance.
+     * @returns A new default character instance.
      */
-    static getDefault() {
+    static getDefault(): PlayerCharacter {
         const playerCharacter = new PlayerCharacter();
 
         playerCharacter.version = LATEST_PLAYER_CHARACTER_VERSION_NUMBER;
@@ -197,30 +177,30 @@ export class PlayerCharacter {
 
     /**
      * Calculates and returns the proficiency bonus based on the total character level.
-     * @returns {number} The proficiency bonus.
+     * @returns The proficiency bonus.
      */
-    getProficiencyBonus() {
-        const totalLevel = this.classes.reduce((sum, cls) => sum + (cls.level || 0), 0);
+    getProficiencyBonus(): number {
+        const totalLevel = this.classes.reduce((sum, cls) => sum + ((cls as any).level || 0), 0);
         return Math.ceil(totalLevel / 4) + 1;
     }
 
     /**
      * Computes and returns the ability modifier for a given ability.
-     * @param {string} ability The ability (e.g., "str", "dex") to compute the modifier for.
-     * @returns {number} The computed ability modifier.
+     * @param ability The ability (e.g., "str", "dex") to compute the modifier for.
+     * @returns The computed ability modifier.
      */
-    getAbilityModifier(ability) {
-        const abilityScore = this[ability];
+    getAbilityModifier(ability: string): number {
+        const abilityScore = (this as any)[ability];
         return Math.floor((abilityScore - 10) / 2);
     }
 
     /**
      * Computes and returns the modifier for a given skill.
      * Includes ability modifier, proficiency bonus (if proficient), and additional bonus for expertise.
-     * @param {Skill} skill The skill object containing its ability_score and index.
-     * @returns {number} The computed skill modifier.
+     * @param skill The skill object containing its ability_score and index.
+     * @returns The computed skill modifier.
      */
-    getSkillModifier(skill) {
+    getSkillModifier(skill: Skill): number {
         let skillModifier = this.getAbilityModifier(skill.ability_score.index);
 
         if (this.isProficientInSkill(skill.index)) {
@@ -236,27 +216,27 @@ export class PlayerCharacter {
 
     /**
      * Checks if the character is proficient in a given skill.
-     * @param {string} skillIndex The index of the skill.
-     * @returns {boolean} True if proficient, false otherwise.
+     * @param skillIndex The index of the skill.
+     * @returns True if proficient, false otherwise.
      */
-    isProficientInSkill(skillIndex) {
+    isProficientInSkill(skillIndex: string): boolean {
         return this.proficiencies.includes(skillIndex);
     }
 
     /**
      * Checks if the character is an expert in a given skill.
-     * @param {string} skillIndex The index of the skill.
-     * @returns {boolean} True if expert, false otherwise.
+     * @param skillIndex The index of the skill.
+     * @returns True if expert, false otherwise.
      */
-    isExpertInSkill(skillIndex) {
+    isExpertInSkill(skillIndex: string): boolean {
         return this.expertises.includes(skillIndex);
     }
 
     /**
      * Adds proficiency in a skill if not already proficient.
-     * @param {string} skillIndex The index of the skill.
+     * @param skillIndex The index of the skill.
      */
-    addProficiencyInSkill(skillIndex) {
+    addProficiencyInSkill(skillIndex: string): void {
         if (this.isProficientInSkill(skillIndex)) {
             return;
         }
@@ -269,9 +249,9 @@ export class PlayerCharacter {
 
     /**
      * Removes proficiency in a skill if the character is proficient.
-     * @param {string} skillIndex The index of the skill.
+     * @param skillIndex The index of the skill.
      */
-    removeProficiencyInSkill(skillIndex) {
+    removeProficiencyInSkill(skillIndex: string): void {
         if (!this.isProficientInSkill(skillIndex)) {
             return;
         }
@@ -283,9 +263,9 @@ export class PlayerCharacter {
 
     /**
      * Adds expertise in a skill if PC is does not already have expertise in the skill.
-     * @param {string} skillIndex The index of the skill.
+     * @param skillIndex The index of the skill.
      */
-    addExpertiseInSkill(skillIndex) {
+    addExpertiseInSkill(skillIndex: string): void {
         if (this.isExpertInSkill(skillIndex)) {
             return;
         }
@@ -298,9 +278,9 @@ export class PlayerCharacter {
 
     /**
      * Removes expertise in a skill if the PC has expertise in the skill.
-     * @param {string} skillIndex The index of the skill.
+     * @param skillIndex The index of the skill.
      */
-    removeExpertiseInSkill(skillIndex) {
+    removeExpertiseInSkill(skillIndex: string): void {
         if (!this.isExpertInSkill(skillIndex)) {
             return;
         }
@@ -312,18 +292,18 @@ export class PlayerCharacter {
 
     /**
      * Checks if the character is proficient in a weapon.
-     * @param {string} weaponIndex The index of the weapon.
-     * @returns {boolean} True if proficient, false otherwise.
+     * @param weaponIndex The index of the weapon.
+     * @returns True if proficient, false otherwise.
      */
-    isProficientInWeapon(weaponIndex) {
+    isProficientInWeapon(weaponIndex: string): boolean {
         return this.weaponProficiencies.includes(weaponIndex);
     }
 
     /**
      * Adds proficiency in a weapon if not already proficient.
-     * @param {string} weaponIndex The index of the weapon.
+     * @param weaponIndex The index of the weapon.
      */
-    addProficiencyInWeapon(weaponIndex) {
+    addProficiencyInWeapon(weaponIndex: string): void {
         if (this.isProficientInWeapon(weaponIndex)) {
             return;
         }
@@ -336,9 +316,9 @@ export class PlayerCharacter {
 
     /**
      * Removes proficiency in a weapon if the character is proficient.
-     * @param {string} weaponIndex The index of the weapon.
+     * @param weaponIndex The index of the weapon.
      */
-    removeProficiencyInWeapon(weaponIndex) {
+    removeProficiencyInWeapon(weaponIndex: string): void {
         if (!this.isProficientInWeapon(weaponIndex)) {
             return;
         }
@@ -350,18 +330,18 @@ export class PlayerCharacter {
 
     /**
      * Checks if the character is proficient in a type of armor.
-     * @param {string} armorIndex The index of the armor.
-     * @returns {boolean} True if proficient, false otherwise.
+     * @param armorIndex The index of the armor.
+     * @returns True if proficient, false otherwise.
      */
-    isProficientInArmor(armorIndex) {
+    isProficientInArmor(armorIndex: string): boolean {
         return this.armorProficiencies.includes(armorIndex);
     }
 
     /**
      * Adds proficiency in armor if not already proficient.
-     * @param {string} armorIndex The index of the armor.
+     * @param armorIndex The index of the armor.
      */
-    addProficiencyInArmor(armorIndex) {
+    addProficiencyInArmor(armorIndex: string): void {
         if (this.isProficientInArmor(armorIndex)) {
             return;
         }
@@ -374,9 +354,9 @@ export class PlayerCharacter {
 
     /**
      * Removes proficiency in armor if the character is proficient.
-     * @param {string} armorIndex The index of the armor.
+     * @param armorIndex The index of the armor.
      */
-    removeProficiencyInArmor(armorIndex) {
+    removeProficiencyInArmor(armorIndex: string): void {
         if (!this.isProficientInArmor(armorIndex)) {
             return;
         }
@@ -388,16 +368,16 @@ export class PlayerCharacter {
 
     /**
      * Updates the ability used for a weapon in the inventory.
-     * @param {number} index The index of the weapon in the inventory.
-     * @param {string} ability The new ability (e.g., "str" or "dex").
+     * @param index The index of the weapon in the inventory.
+     * @param ability The new ability (e.g., "str" or "dex").
      */
-    editWeaponAbility(index, ability) {
+    editWeaponAbility(index: number, ability: string): void {
         if (index > this.inventoryWeapons.length) {
             return;
         }
 
         const inventoryWeapons = this.inventoryWeapons;
-        inventoryWeapons[index].ability = ability;
+        (inventoryWeapons[index] as any).ability = ability;
 
         this.setProperty("inventoryWeapons", inventoryWeapons);
     }
@@ -405,11 +385,11 @@ export class PlayerCharacter {
     /**
      * Computes and returns the attack bonus for a weapon.
      * Includes the ability modifier and proficiency bonus (if proficient).
-     * @param {string} weaponIndex The index of the weapon.
-     * @param {string} ability The ability used (e.g., "str" or "dex").
-     * @returns {number} The computed attack bonus.
+     * @param weaponIndex The index of the weapon.
+     * @param ability The ability used (e.g., "str" or "dex").
+     * @returns The computed attack bonus.
      */
-    getWeaponAttackBonus(weaponIndex, ability) {
+    getWeaponAttackBonus(weaponIndex: string, ability: string): number {
         let attackBonus = this.getAbilityModifier(ability);
 
         if (this.isProficientInWeapon(weaponIndex)) {
@@ -421,10 +401,10 @@ export class PlayerCharacter {
 
     /**
      * Adds a weapon to the character's inventory.
-     * @param {string} weaponIndex The index of the weapon.
-     * @param {string} ability The ability used for the weapon.
+     * @param weaponIndex The index of the weapon.
+     * @param ability The ability used for the weapon.
      */
-    addWeaponToInventory(weaponIndex, ability) {
+    addWeaponToInventory(weaponIndex: string, ability: string): void {
         const inventoryWeapons = this.inventoryWeapons;
         inventoryWeapons.push({ index: weaponIndex, ability: ability });
 
@@ -433,9 +413,9 @@ export class PlayerCharacter {
 
     /**
      * Removes a weapon from the inventory at the specified position.
-     * @param {number} index The position in the inventory to remove.
+     * @param index The position in the inventory to remove.
      */
-    removeWeaponFromInventory(index) {
+    removeWeaponFromInventory(index: number): void {
         const inventoryWeapons = this.inventoryWeapons;
         inventoryWeapons.splice(index, 1);
 
@@ -444,9 +424,9 @@ export class PlayerCharacter {
 
     /**
      * Adds an armor item to the character's inventory.
-     * @param {string} armorIndex The index of the armor.
+     * @param armorIndex The index of the armor.
      */
-    addArmorToInventory(armorIndex) {
+    addArmorToInventory(armorIndex: string): void {
         const inventoryArmor = this.inventoryArmor;
         inventoryArmor.push({ index: armorIndex });
 
@@ -455,9 +435,9 @@ export class PlayerCharacter {
 
     /**
      * Removes an armor item from the inventory at the specified position.
-     * @param {number} index The position in the inventory to remove.
+     * @param index The position in the inventory to remove.
      */
-    removeArmorFromInventory(index) {
+    removeArmorFromInventory(index: number): void {
         const inventoryArmor = this.inventoryArmor;
         inventoryArmor.splice(index, 1);
 

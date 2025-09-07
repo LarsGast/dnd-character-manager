@@ -4,20 +4,20 @@ import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
 export class EquipmentCategory extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.EquipmentCategories;
+    static override apiCategory = ApiCategory.EquipmentCategories;
 
     /**
      * All equipments that fall under this category.
-     * @type {ApiObjectInfo[]}
      */
-    equipment;
+    equipment: ApiObjectInfo[];
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<EquipmentCategory> = {}) {
         super(data);
-        Object.assign(this, data);
+
+        this.equipment = (data.equipment ?? []).map(equipment => new ApiObjectInfo(equipment));
     }
 }

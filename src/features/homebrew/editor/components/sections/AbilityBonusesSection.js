@@ -1,5 +1,6 @@
 import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
 import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
@@ -78,7 +79,7 @@ export class AbilityBonusesSection extends HTMLElement {
                 continue;
             }
 
-            const abilityScore = new ApiObjectInfo(await AbilityScore.getAsync(abilityScoreIndex));
+            const abilityScore = new ApiObjectInfo(await ApiBaseObject.getAsync(abilityScoreIndex, AbilityScore));
         
             // Remove unwanted keys
             const emptyApiObjectInfo = new ApiObjectInfo();

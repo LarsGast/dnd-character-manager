@@ -1,3 +1,5 @@
+import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
+import { ApiObjectInfo } from "../../../../../../types/api/resources/ApiObjectInfo.js";
 import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
 import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
 import { EquipmentCategory } from "../../../../../../types/api/resources/EquipmentCategory.js";
@@ -38,15 +40,15 @@ export class EquipmentProficienciesList extends HTMLUListElement {
     async connectedCallback() {
 
         // Fetch equipment information based on the category index.
-        const results = await EquipmentCategory.getAsync(this.equipmentCategoryIndex);
+        const results = await ApiBaseObject.getAsync(this.equipmentCategoryIndex, EquipmentCategory);
 
         // Iterate over each equipment item to create and append the display component.
         for (const equipmentInfo of results.equipment) {
             if (this.isArmor === "true") {
-                const armor = await Armor.getAsync(equipmentInfo.index);
+                const armor = await ApiBaseObject.getAsync(equipmentInfo.index, Armor);
                 this.appendChild(new ArmorProficiencyDisplay(armor));
             } else {
-                const weapon = await Weapon.getAsync(equipmentInfo.index);
+                const weapon = await ApiBaseObject.getAsync(equipmentInfo.index, Weapon);
                 this.appendChild(new WeaponProficiencyDisplay(weapon));
             }
         }

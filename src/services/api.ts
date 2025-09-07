@@ -30,8 +30,9 @@ export class ApiCategory {
     static Subraces = new ApiCategory("subraces");
     static Traits = new ApiCategory("traits");
     static WeaponProperties = new ApiCategory("weapon-properties");
+    name: string;
 
-    constructor(name) {
+    constructor(name: string) {
 
         /** @type {string} */
         this.name = name;
@@ -39,9 +40,9 @@ export class ApiCategory {
 
     /**
      * Returns the singular name of the category, e.g. "Class" for "classes".
-     * @returns {string|null} The singular name or null if not applicable.
+     * @returns The singular name or null if not applicable.
      */
-    getSingularName() {
+    getSingularName(): string | null {
         switch (this.name) {
             case "races": return "Race";
             case "traits": return "Trait";
@@ -66,22 +67,23 @@ export class EquipmentCategoryIndex {
     static SimpleRangedWeapons = new EquipmentCategoryIndex("simple-ranged-weapons");
     static MartialRangedWeapons = new EquipmentCategoryIndex("martial-ranged-weapons");
 
-    constructor(name) {
+    name: string;
+
+    constructor(name: string) {
         this.name = name
     }
 }
 
 /**
  * Call the SRD API and return the results.
- * @param {ApiCategory} apiCategory Category or endpoint of the resource.
- * @param {string} index Identifier of the resource (optional).
- * @returns {Promise<JSON>} Full object as specified in the SRD API specifications.
+ * @param apiCategory Category or endpoint of the resource.
+ * @param index Identifier of the resource (optional).
+ * @returns Full object as specified in the SRD API specifications.
  */
-export const getApiResultsAsync = async function(apiCategory, index = null) {
+export async function getApiResultsAsync(apiCategory: ApiCategory, index?: string | EquipmentCategoryIndex): Promise<any> {
 
     // Craft the URL string bases on the given parameters.
-    // index?.name is not undefined if it is an enum-like class.
-    let indexString = index?.name ?? index ?? '';
+    const indexString = index instanceof EquipmentCategoryIndex ? index.name : index ?? '';
     const url = `${baseUrl}/${apiCategory.name}/${indexString}`;
 
     // Check the cache first.
@@ -99,11 +101,11 @@ export const getApiResultsAsync = async function(apiCategory, index = null) {
 
 /**
  * Perform an API call and get data from https://www.dnd5eapi.co.
- * @param {string} url The URL to call.
- * @param {number} retryCount Number of retries in case of rate limiting. 
- * @returns {Promise<JSON>}
+ * @param url The URL to call.
+ * @param retryCount Number of retries in case of rate limiting. 
+ * @returns
  */
-const getApiDataAsync = async function(url, retryCount = 0) {
+async function getApiDataAsync(url: RequestInfo | URL, retryCount: number = 0): Promise<any> {
 
     try {
         const response = await fetch(url);
@@ -131,6 +133,10 @@ const getApiDataAsync = async function(url, retryCount = 0) {
         throw new Error(`Response status: ${response.status}`);
     }
     catch (error) {
-        console.error(error.message);
+        if (error instanceof Error) {
+            console.error(error.message);
+        } else {
+            console.error(error);
+        }
     }
 }

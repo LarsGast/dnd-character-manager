@@ -5,43 +5,41 @@ export class ApiObjectInfo {
     /**
      * Enum-like value that holds the endpoints of given class.
      * Must be implemented in every class that extends ApiBaseObject.
-     * @type {ApiCategory}
      */
-    static apiCategory;
+    static apiCategory: ApiCategory;
 
     /**
      * Unique identifier in the 5e SRD API.
      * UUID for homebrew objects.
-     * @type {string}
      */
-    index;
+    index: string;
 
     /**
      * Display name of the object.
-     * @type {string}
      */
-    name;
+    name: string;
 
     /**
      * Url to the object within the API.
-     * @type {string}
      */
-    url;
+    url: string | undefined;
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
-        Object.assign(this, data);
+    constructor(data: Partial<ApiObjectInfo> = {}) {
+        this.index = data.index ?? "";
+        this.name = data.name ?? "";
+        this.url = data.url;
     }
 
     /**
      * Creates a new instance of the object with default values.
      * This is used for creating new homebrew objects.
-     * @returns {ApiObjectInfo} A new instance with default values.
+     * @returns A new instance with default values.
      */
-    static getDefault() {
+    static getDefault(): ApiObjectInfo {
         const obj = new this();
 
         obj.index = self.crypto.randomUUID();
@@ -55,14 +53,14 @@ export class ApiObjectInfo {
      * This is used to determine the type of object when creating homebrew entries.
      */
     get apiCategory() {
-        return this.constructor.apiCategory;
+        return (this.constructor as typeof ApiObjectInfo).apiCategory;
     }
 
     /**
      * Returns an object that can be used as an option in a select element.
-     * @returns {{optionText: string, optionValue: string}}
+     * @returns
      */
-    getOptionTextAndValueFunc() {
+    getOptionTextAndValueFunc(): { optionText: string; optionValue: string; } {
         return {
             optionText: this.name,
             optionValue: this.index

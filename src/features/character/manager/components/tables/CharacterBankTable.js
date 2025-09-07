@@ -9,6 +9,8 @@ import { Race } from "../../../../../types/api/resources/Race.js";
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
 import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom HTML element for displaying active and inactive characters stored in the PlayerCharacterBank.
@@ -165,12 +167,12 @@ export class CharacterBankTable extends HTMLTableElement {
         }
 
         // Get the actual race from the API to get the display name.
-        const race = await Race.getAsync(playerCharacter.race);
+        const race = await ApiBaseObject.getAsync(playerCharacter.race, Race);
 
         let value = race.name;
         if (playerCharacter.subrace) {
             // Get the actual subrace from the API to get the display name.
-            const subrace = await Subrace.getAsync(playerCharacter.subrace);
+            const subrace = await ApiBaseObject.getAsync(playerCharacter.subrace, Subrace);
             value += `, ${subrace.name}`;
         }
 
@@ -201,12 +203,12 @@ export class CharacterBankTable extends HTMLTableElement {
     async getClassSubclassLevelValue(classObject) {
 
         // Get the actual class from the API to get the display name.
-        const classApiObject = await Class.getAsync(classObject.index);
+        const classApiObject = await ApiBaseObject.getAsync(classObject.index, Class);
 
         let value = `${classApiObject.name} ${classObject.level}`;
         if (classObject.subclass) {
             // Get the actual subclass from the API to get the display name.
-            const subclass = await Subclass.getAsync(classObject.subclass);
+            const subclass = await ApiBaseObject.getAsync(classObject.subclass, Subclass);
             value += ` (${subclass.name})`;
         }
 

@@ -1,3 +1,4 @@
+import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
 import { Skill } from "../../../../../../types/api/resources/Skill.js";
 import { SkillDisplay } from "../display/SkillDisplay.js";
 
@@ -24,7 +25,7 @@ export class SkillsList extends HTMLUListElement {
         const allSkills = await Skill.getAllAsync();
         
         for (const skillInfo of allSkills.srdObjects) {
-            const skill = await Skill.getAsync(skillInfo.index);
+            const skill = await ApiBaseObject.getAsync(skillInfo.index, Skill);
             this.appendChild(new SkillDisplay(skill));
         }
     }

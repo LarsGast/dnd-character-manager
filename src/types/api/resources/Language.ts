@@ -3,38 +3,38 @@ import { ApiBaseObject } from "./ApiBaseObject.js";
 
 export class Language extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.Languages;
+    static override apiCategory = ApiCategory.Languages;
 
     /**
      * Brief description of the language.
-     * @type {string}
      */
-    desc;
+    desc: string;
 
     /**
      * CPossible values: [Standard, Exotic].
-     * @type {string}
      */
-    type;
+    type: string;
 
     /**
      * Script used for writing in the language.
-     * @type {string}
      */
-    script;
+    script: string;
 
     /**
      * List of races that tend to speak the language.
-     * @type {string[]}
      */
-    typical_speakers;
+    typical_speakers: string[];
     
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Language> = {}) {
         super(data);
-        Object.assign(this, data);
+        
+        this.desc = data.desc ?? "";
+        this.type = data.type ?? "";
+        this.script = data.script ?? "";
+        this.typical_speakers = data.typical_speakers ?? [];
     }
 }

@@ -45,7 +45,7 @@ function readBaseurl() {
 const baseurl = readBaseurl();
 if (verbose) console.log('Detected baseurl from _config.yml:', baseurl);
 
-const allJs = walk(projectRoot);
+const allJs = walk(path.join(projectRoot, 'build'));
 if (allJs.length === 0) {
   console.error('No .js files found.');
   process.exit(1);

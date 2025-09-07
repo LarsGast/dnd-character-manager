@@ -3,6 +3,8 @@ import { Choice } from "../../../../../types/api/helpers/Choice.js";
 import { Feature } from "../../../../../types/api/helpers/Feature.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
 import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
  * Custom details element that displays the features of the selected class.
@@ -24,9 +26,9 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * Immediately updates the display.
      */
     async connectedCallback() {
-        this.class = await Class.getAsync(this.classLevelInfo.index);
+        this.class = await ApiBaseObject.getAsync(this.classLevelInfo.index, Class);
         if (this.classLevelInfo.subclass && this.classLevelInfo.subclass != "null") {
-            this.subclass = await Subclass.getAsync(this.classLevelInfo.subclass);
+            this.subclass = await ApiBaseObject.getAsync(this.classLevelInfo.subclass, Subclass);
         }
 
         await this.updateClassFeaturesDisplay();
@@ -227,7 +229,7 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 
         // For each option provided by the choice, fetch the subfeature and display it.
         for (const option of choice.from.options) {
-            const subfeature = await Feature.getAsync(option.item.index);
+            const subfeature = await ApiBaseObject.getAsync(option.item.index, Feature);
             
             const li = getElementWithTextContent("li", `${subfeature.name}. `);
             

@@ -7,28 +7,31 @@ export class Choice {
     
     /**
      * Description of the choice to be made.
-     * @type {string}
      */
-    desc = '';
+    desc: string;
     
     /**
      * How many of the choices can be chosen.
-     * @type {number}
      */
-    choose;
+    choose: number;
     
     /**
      * The type of object that is being chosen.
      * Examples: proficiencies, languages.
-     * @type {string}
      */
-    type = '';
+    type: string;
     
     /**
      * The options to choose from.
-     * @type {OptionSet}
      */
-    from = new OptionSet();
+    from: OptionSet;
+
+    constructor(data: Partial<Choice> = {}) {
+        this.desc = data.desc ?? '';
+        this.choose = data.choose ?? 0;
+        this.type = data.type ?? '';
+        this.from = data.from ? new OptionSet(data.from) : new OptionSet();
+    }
 }
 
 /**
@@ -39,30 +42,33 @@ export class OptionSet {
     /**
      * Type of option set.
      * Can be options_array for an array of objects, equipment_category for a collection of equipments, or resource_list for only the reference to the object.
-     * @type {string}
      */
-    option_set_type;
+    option_set_type: string;
 
     /**
      * A URL leading to all options.
      * undefined if option_set_type is not resource_list_url.
-     * @type {string}
      */
-    resource_list_url;
+    resource_list_url: string;
 
     /**
      * Object with information about the equipment category of the choice.
      * undefined if option_set_type is not equipment_category.
-     * @type {string}
      */
-    equipment_category;
+    equipment_category: string;
 
     /**
      * The options to choose from.
      * undefined if option_set_type is not options_array.
-     * @type {Option[]}
      */
-    options = [];
+    options: Option[] = [];
+
+    constructor(data: Partial<OptionSet> = {}) {
+        this.option_set_type = data.option_set_type ?? '';
+        this.resource_list_url = data.resource_list_url ?? '';
+        this.equipment_category = data.equipment_category ?? '';
+        this.options = (data.options ?? []).map(o => new Option(o));
+    }
 }
 
 /**
@@ -106,121 +112,124 @@ export class Option {
      *   - damage_type
      *   - damage_dice
      *   - notes
-     * @type {string}
      */
-    option_type;
+    option_type: string;
     
     /**
      * Reference to the object in the API of the actual choice.
-     * @type {ApiObjectInfo}
      */
-    item;
+    item: ApiObjectInfo;
 
     /**
      * The name of the action, according to its `name` attribute.
-     * @type {string}
      */
-    action_name;
+    action_name: string;
 
     /**
      * The number of times this action can be repeated if this option is chosen.
-     * @type {string | number}
      */
-    count;
+    count: string | number;
 
     /**
      * For attack actions that can be either melee, ranged, abilities, or magic.
-     * @type {string = "melee" | "ranged" | "ability" | "magic"}
      */
-    type;
+    type: string | undefined;
 
     /**
      * An array of Option objects. All of them must be taken if the option is chosen.
-     * @type {Option[]}
      */
-    items;
+    items: Option[];
 
     /**
      * The Choice to resolve.
-     * @type {Choice}
      */
-    choice;
+    choice: Choice;
 
     /**
      * The string.
-     * @type {string}
      */
-    string;
+    string: string;
 
     /**
      * A description of the ideal.
-     * @type {string}
      */
-    desc;
+    desc: string;
 
     /**
      *  A list of alignments of those who might follow the ideal.
-     * @type {ApiObjectInfo[]}
      */
-    alignments;
+    alignments: ApiObjectInfo[];
 
     /**
      * Thing being referenced.
-     * @type {ApiObjectInfo}
      */
-    of;
+    of: ApiObjectInfo;
 
     /**
      * Ability score being referenced.
-     * @type {ApiObjectInfo}
      */
-    ability_score;
+    ability_score: ApiObjectInfo;
 
     /**
      * The minimum score required to satisfy the prerequisite.
-     * @type {number}
      */
-    minimum_score;
+    minimum_score: number;
 
     /**
      * The bonus being applied to the ability score.
-     * @type {number}
      */
-    bonus;
+    bonus: number;
 
     /**
      * Name of the breath.
-     * @type {string}
      */
-    name;
+    name: string;
 
     /**
      * Difficulty check of the breath attack.
-     * @type {number}
      */
-    dc;
+    dc: number;
 
     /**
      * Damage dealt by the breath attack, if any.
-     * @type {string}
      */
-    damage;
+    damage: string;
 
     /**
      * Reference to type of damage.
-     * @type {ApiObjectInfo}
      */
-    damage_type;
+    damage_type: ApiObjectInfo;
 
     /**
      * Damage expressed in dice (e.g. "13d6").
-     * @type {string}
      */
-    damage_dice;
+    damage_dice: string;
 
     /**
      * Information regarding the damage.
-     * @type {string}
      */
-    notes;
+    notes: string;
+
+    constructor(data: Partial<Option> = {}) {
+        this.option_type = data.option_type ?? '';
+        this.item = data.item ? new ApiObjectInfo(data.item) : new ApiObjectInfo();
+        this.action_name = data.action_name ?? '';
+        this.count = data.count ?? 0;
+        this.type = data.type;
+        this.items = (data.items ?? []).map(i => new Option(i));
+        this.choice = data.choice ? new Choice(data.choice) : new Choice();
+        this.string = data.string ?? '';
+        this.desc = data.desc ?? '';
+        this.alignments = (data.alignments ?? []).map(a => new ApiObjectInfo(a));
+        this.of = data.of ? new ApiObjectInfo(data.of) : new ApiObjectInfo();
+        this.ability_score = data.ability_score ? new ApiObjectInfo(data.ability_score) : new ApiObjectInfo();
+        this.minimum_score = data.minimum_score ?? 0;
+        this.bonus = data.bonus ?? 0;
+        this.name = data.name ?? '';
+        this.dc = data.dc ?? 0;
+        this.damage = data.damage ?? '';
+        this.damage_type = data.damage_type ? new ApiObjectInfo(data.damage_type) : new ApiObjectInfo();
+        this.damage_dice = data.damage_dice ?? '';
+        this.notes = data.notes ?? '';
+    }
 }

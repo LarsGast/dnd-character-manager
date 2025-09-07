@@ -5,55 +5,55 @@ export class Weapon extends Equipment {
 
     /**
      * Category of weapon, such as "Martial" and "Simple".
-     * @type {string}
      */
-    weapon_category;
+    weapon_category: string;
 
     /**
      * Range as a string, such as "Melee" and "Ranged".
-     * @type {string}
      */
-    weapon_range;
+    weapon_range: string;
 
     /**
      * weapon_category combined with weapon_range in a single string.
-     * @type {string}
      */
-    category_range;
+    category_range: string;
 
     /**
      * Information about the damage this weapon deals.
      * undefined for nets.
-     * @type {Damage}
      */
-    damage;
+    damage: Damage | undefined;
 
     /**
      * Information about the range (in feet) this weapon has.
-     * @type {Range}
      */
-    range;
+    range: Range;
 
     /**
      * Information about the throwing range (in feet) this weapon has.
      * undefined if the weapon cannot be thrown.
-     * @type {Range}
      */
-    throw_range;
+    throw_range: Range | undefined;
 
     /**
      * Extra properties this weapon has.
-     * @type {ApiObjectInfo[]}
      */
-    properties;
+    properties: ApiObjectInfo[];
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Weapon> = {}) {
         super(data);
-        Object.assign(this, data);
+
+        this.weapon_category = data.weapon_category ?? "";
+        this.weapon_range = data.weapon_range ?? "";
+        this.category_range = data.category_range ?? "";
+        this.damage = data.damage ? new Damage(data.damage) : new Damage();
+        this.range = data.range ? new Range(data.range) : new Range();
+        this.throw_range = data.throw_range ? new Range(data.throw_range) : undefined;
+        this.properties = (data.properties ?? []).map(property => new ApiObjectInfo(property));
     }
 
     hasMultipleAbilities() {
@@ -73,15 +73,18 @@ class Damage {
 
     /**
      * The dice used for rolling for damage.
-     * @type {string}
      */
-    damage_dice;
+    damage_dice: string;
 
     /**
      * The type of damage that is dealt.
-     * @type {ApiObjectInfo}
      */
-    damage_type
+    damage_type: ApiObjectInfo
+
+    constructor(data: Partial<Damage> = {}) {
+        this.damage_dice = data.damage_dice ?? "";
+        this.damage_type = data.damage_type ? new ApiObjectInfo(data.damage_type) : new ApiObjectInfo();
+    }
 }
 
 class Range {
@@ -90,9 +93,8 @@ class Range {
      * The normal range of the weapon in feet.
      * Multiple of 5.
      * No disadvantage will be imposed when using this range.
-     * @type {number}
      */
-    normal;
+    normal: number;
 
     /**
      * The long range of the weapon in feet.
@@ -100,7 +102,11 @@ class Range {
      * Disadvantage will be imposed when using this range.
      * Cannot attack past this range.
      * undefined for non-thrown melee weapons.
-     * @type {number}
      */
-    long;
+    long: number;
+
+    constructor(data: Partial<Range> = {}) {
+        this.normal = data.normal ?? 0;
+        this.long = data.long ?? 0;
+    }
 }
