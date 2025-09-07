@@ -30,35 +30,33 @@ export class HomebrewBank {
 
     /**
      * Objects that contain all information about each saved homebrew object.
-     * @type {HomebrewBankEntry[]}
      */
-    homebrewBankEntries = [];
+    homebrewBankEntries: HomebrewBankEntry[];
 
     /**
      * Version number of the object bank.
      * Used to upgrade the bank when breaking changes in the data specification occur.
-     * Default 1, which might be upgraded on page load.
-     * @type {number}
      */
-    version = 1;
+    version: number;
     
     /**
      * Constructs a new HomebrewBank instance.
      * If data is provided, properties are assigned from it.
-     * @param {JSON} data Optional initial data for the object bank.
+     * @param data Optional initial data for the object bank.
      */
-    constructor(data = {}) {
-        Object.assign(this, data);
+    constructor(data?: Partial<HomebrewBank>) {
+        this.homebrewBankEntries = data?.homebrewBankEntries?.map(entry => new HomebrewBankEntry(entry)) ?? [];
 
-        this.homebrewBankEntries = this.homebrewBankEntries.map(entry => new HomebrewBankEntry(entry));
+        // Default 1, which might be upgraded on page load.
+        this.version = data?.version ?? 1;
     }
 
     /**
      * Loads the homebrew bank from localStorage.
      * If no saved bank exists, returns a default bank.
-     * @returns {HomebrewBank} The loaded or default bank instance.
+     * @returns The loaded or default bank instance.
      */
-    static load() {
+    static load(): HomebrewBank {
         try {
             const homebrewBankAsString = localStorage.getItem(CUSTOM_OBJECT_BANK_KEY);
 
@@ -83,9 +81,9 @@ export class HomebrewBank {
     /**
      * Returns a default HomebrewBank instance.
      * Sets the version to the latest version number.
-     * @returns {HomebrewBank} A new default object bank instance.
+     * @returns A new default object bank instance.
      */
-    static getDefault() {
+    static getDefault(): HomebrewBank {
         const defaultBank = new HomebrewBank();
 
         defaultBank.version = LATEST_CUSTOM_OBJECT_BANK_VERSION_NUMBER;
@@ -97,7 +95,7 @@ export class HomebrewBank {
      * Saves the homebrew bank object into localStorage to persist the data over multiple browser sessions.
      * Catches and logs any errors during saving.
      */
-    save() {
+    save(): void {
         try {
             localStorage.setItem(CUSTOM_OBJECT_BANK_KEY, JSON.stringify(this));
         } catch (error) {
@@ -107,10 +105,10 @@ export class HomebrewBank {
     
     /**
      * Adds a single homebrew object to the bank.
-     * @param {ApiObjectInfo} homebrewObject 
-     * @param {string} apiCategoryName 
+     * @param homebrewObject 
+     * @param apiCategoryName 
      */
-    addNewHomebrew(homebrewObject, apiCategoryName) {
+    addNewHomebrew(homebrewObject: ApiObjectInfo, apiCategoryName: string) {
 
         const bankEntry = new HomebrewBankEntry();
 
@@ -123,45 +121,45 @@ export class HomebrewBank {
 
     /**
      * Removes a single homebrew object from the bank.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
+     * @param id UUID.
      */
-    removeHomebrewFromBank(id) {
+    removeHomebrewFromBank(id: string) {
         this.homebrewBankEntries = this.homebrewBankEntries.filter(entry => entry.id != id);
     }
 
     /**
      * Get a HomebrewBankEntry by ID.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
+     * @param id UUID.
      * @returns {HomebrewBankEntry}
      */
-    getHomebrewBankEntryByIndex(id) {
+    getHomebrewBankEntryByIndex(id: string): HomebrewBankEntry | undefined {
         return this.homebrewBankEntries.find(entry => entry.id === id);
     }
 
     /**
      * Get a HomebrewBankEntry by the index of the homebrew object.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID of the homebrew object.
-     * @returns {HomebrewBankEntry|undefined} The homebrew bank entry if found.
+     * @param id UUID of the homebrew object.
+     * @returns The homebrew bank entry if found.
      */
-    getHomebrewBankEntryByObjectIndex(id) {
+    getHomebrewBankEntryByObjectIndex(id: string): HomebrewBankEntry | undefined {
         return this.homebrewBankEntries.find(entry => entry.homebrewObject.index === id);
     }
 
     /**
      * Get a homebrew object by its ID.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
-     * @return {ApiObjectInfo|undefined} The homebrew object if found, otherwise undefined.
+     * @param id UUID.
+     * @return The homebrew object if found, otherwise undefined.
      */
-    getHomebrewObjectByIndex(id) {
+    getHomebrewObjectByIndex(id: string): ApiObjectInfo | undefined  {
         return this.homebrewBankEntries.find(entry => entry.homebrewObject.index === id)?.homebrewObject;
     }
 
     /**
      * Get all homebrew objects that belong to a specific API category.
-     * @param {ApiCategory} apiCategory The API category to filter by.
-     * @return {ApiObjectInfo[]} An array of homebrew objects that belong to the specified category.
+     * @param apiCategory The API category to filter by.
+     * @return An array of homebrew objects that belong to the specified category.
      */
-    getHomebrewObjectsByCategory(apiCategory) {
+    getHomebrewObjectsByCategory(apiCategory: ApiCategory): ApiObjectInfo[] {
         return this.homebrewBankEntries
             .filter(entry => entry.apiCategoryName === apiCategory.name)
             .map(entry => entry.homebrewObject);
@@ -169,10 +167,10 @@ export class HomebrewBank {
 
     /**
      * Checks if a homebrew object exists in the bank by its index.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID of the homebrew object.
-     * @returns {boolean} True if the homebrew object exists, false otherwise.
+     * @param id UUID of the homebrew object.
+     * @returns True if the homebrew object exists, false otherwise.
      */
-    getDoesHomebrewObjectExistByIndex(id) {
+    getDoesHomebrewObjectExistByIndex(id: string): boolean {
         return this.homebrewBankEntries.some(entry => entry.homebrewObject.index === id);
     }
 }
@@ -186,59 +184,54 @@ export class HomebrewBankEntry {
     /**
      * ID of the entry.
      * Different from the generated UUID in ApiObjectInfo, as that ID is for managing items in the DOM, and this ID is for managing objects in storage.
-     * @type {`${string}-${string}-${string}-${string}-${string}`} UUID
      */
-    id = self.crypto.randomUUID();
+    id: string;
 
     /**
      * All data required for a homebrew object.
-     * @type {ApiObjectInfo}
      */
-    homebrewObject;
+    homebrewObject: ApiObjectInfo;
 
     /**
      * Name of the API category this homebrew object belongs to.
      * Used to determine which type of homebrew object this is.
-     * @type {string} Value of ApiCategory.name.
      */
-    apiCategoryName;
+    apiCategoryName: string;
 
     /**
      * Date and time of the last time the homebrew object was edited.
      * This value gets updated when:
      * - The object is created (by import or manual)
      * - The object is saved
-     * @type {Date}
      */
-    lastEdit = new Date();
+    lastEdit: Date;
 
     /**
      * Version number of the homebrew bank entry.
      * Used to upgrade the bank entries when breaking changes in the data specification occur.
      * Default 1, which might be upgraded on page load.
-     * @type {number}
      */
-    version = 1;
+    version: number;
     
     /**
      * Constructs a new HomebrewBankEntry instance.
      * If data is provided, properties are assigned from it.
-     * @param {JSON} data Initial data for the object bank entry.
+     * @param data Initial data for the object bank entry.
      */
-    constructor(data = {}) {
-        Object.assign(this, data);
-
-        // Initialize objects.
-        this.homebrewObject = this.#getHomebrewObject();
-        this.lastEdit = new Date(this.lastEdit);
+    constructor(data: Partial<HomebrewBankEntry> = {}) {
+        this.id = data.id ?? self.crypto.randomUUID();
+        this.homebrewObject = this.getHomebrewObject();
+        this.apiCategoryName = data.apiCategoryName ?? "";
+        this.lastEdit = data.lastEdit ? new Date(data.lastEdit) : new Date();
+        this.version = data.version ?? 1;
     }
 
     /**
      * Gets the initialized version of the homebrewObject property based on the apiCategoryName.
      * This is necessary because the homebrewObject can be of different types depending on the category.
-     * @returns {ApiObjectInfo} The initialized homebrew object.
+     * @returns The initialized homebrew object.
      */
-    #getHomebrewObject() {
+    private getHomebrewObject(): ApiObjectInfo {
         switch (this.apiCategoryName) {
             case ApiCategory.Races.name: return new Race(this.homebrewObject);
             case ApiCategory.Traits.name: return new Trait(this.homebrewObject);
