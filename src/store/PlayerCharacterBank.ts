@@ -29,22 +29,19 @@ export class PlayerCharacterBankEntry {
     /**
      * UUID.
      * Used for managing characters (selecting, exporting, deleting).
-     * @type {`${string}-${string}-${string}-${string}-${string}`}
      */
-    id = self.crypto.randomUUID();
+    id: string;
 
     /**
      * Wether the playerCharacter of this entry is the active one.
      * There can only be one active PC at a time.
-     * @type {boolean}
      */
-    isActive = false;
+    isActive: boolean;
 
     /**
      * All character data needed to load and initialize all elements on the page.
-     * @type {PlayerCharacter}
      */
-    playerCharacter;
+    playerCharacter: PlayerCharacter;
 
     /**
      * Date and time of the last time the playerCharacter was edited.
@@ -53,29 +50,27 @@ export class PlayerCharacterBankEntry {
      * - The character is put into storage (becomes no longer active).
      * 
      * This value does NOT get updated on each change of the PC, it is purely used for sorting the characters in storage when displaying them.
-     * @type {Date}
      */
-    lastEdit = new Date();
+    lastEdit: Date;
 
     /**
      * Version number of the player bank entry.
      * Used to upgrade the bank entries when breaking changes in the data specification occur.
      * Default 1, which might be upgraded on page load.
-     * @type {number}
      */
-    version = 1;
+    version: number;
 
     /**
      * Constructs a new PlayerCharacterBankEntry instance.
      * If data is provided, properties are assigned from it.
-     * @param {JSON} data Initial data for the character bank entry.
+     * @param data Initial data for the character bank entry.
      */
-    constructor(data = {}) {
-        Object.assign(this, data);
-
-        // Initialize objects.
-        this.playerCharacter = new PlayerCharacter(this.playerCharacter);
-        this.lastEdit = new Date(this.lastEdit);
+    constructor(data: Partial<PlayerCharacterBankEntry> = {}) {
+        this.id = data.id ?? self.crypto.randomUUID();
+        this.isActive = data.isActive ?? false;
+        this.playerCharacter = data.playerCharacter ? new PlayerCharacter(data.playerCharacter) : PlayerCharacter.getDefault();
+        this.lastEdit = data.lastEdit ? new Date(data.lastEdit) : new Date();
+        this.version = data.version ?? 1;
     }
 }
 
@@ -88,35 +83,32 @@ export class PlayerCharacterBank {
 
     /**
      * Objects that contain all information about each saved PC.
-     * @type {PlayerCharacterBankEntry[]}
      */
-    playerCharacterBankEntries = [];
+    playerCharacterBankEntries: PlayerCharacterBankEntry[];
 
     /**
      * Version number of the player bank.
      * Used to upgrade the bank when breaking changes in the data specification occur.
      * Default 1, which might be upgraded on page load.
-     * @type {number}
      */
-    version = 1;
+    version: number;
 
     /**
      * Constructs a new PlayerCharacterBank instance.
      * If data is provided, properties are assigned from it.
-     * @param {JSON} data Optional initial data for the character bank.
+     * @param data Optional initial data for the character bank.
      */
-    constructor(data = {}) {
-        Object.assign(this, data);
-
-        this.playerCharacterBankEntries = this.playerCharacterBankEntries.map(entry => new PlayerCharacterBankEntry(entry));
+    constructor(data: Partial<PlayerCharacterBank> = {}) {
+        this.version = data.version ?? 1;
+        this.playerCharacterBankEntries = (data.playerCharacterBankEntries ?? []).map(entry => new PlayerCharacterBankEntry(entry));
     }
 
     /**
      * Loads the character bank from localStorage.
      * If no saved bank exists, returns a default bank.
-     * @returns {PlayerCharacterBank} The loaded or default bank instance.
+     * @returns The loaded or default bank instance.
      */
-    static load() {
+    static load(): PlayerCharacterBank {
         try {
             const playerCharactersAsString = localStorage.getItem(PLAYER_CHARACTER_BANK_KEY);
 
@@ -141,9 +133,9 @@ export class PlayerCharacterBank {
     /**
      * Returns a default PlayerCharacterBank instance.
      * Sets the version to the latest version number.
-     * @returns {PlayerCharacterBank} A new default character instance.
+     * @returns A new default character instance.
      */
-    static getDefault() {
+    static getDefault(): PlayerCharacterBank {
         const defaultBank = new PlayerCharacterBank();
 
         // The bank should always have a character, else the page cannot load correctly.
@@ -157,7 +149,7 @@ export class PlayerCharacterBank {
      * Saves the character bank object into localStorage to persist the data over multiple browser sessions.
      * Catches and logs any errors during saving.
      */
-    save() {
+    save(): void {
         try {
             localStorage.setItem(PLAYER_CHARACTER_BANK_KEY, JSON.stringify(this));
         } catch (error) {
@@ -169,7 +161,7 @@ export class PlayerCharacterBank {
      * Empty the player bank, remove all entries.
      * This removes data which cannot be recovered.
      */
-    empty() {
+    empty(): void {
         this.playerCharacterBankEntries = [];
     }
 
@@ -177,7 +169,7 @@ export class PlayerCharacterBank {
      * Adds a single playerCharacter to the bank.
      * @param {PlayerCharacter} playerCharacter 
      */
-    addNewCharacter(playerCharacter) {
+    addNewCharacter(playerCharacter: PlayerCharacter): void {
 
         const bankEntry = new PlayerCharacterBankEntry();
 
@@ -196,50 +188,50 @@ export class PlayerCharacterBank {
 
     /**
      * Change the current active character to the character with an entry that has the given ID.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
+     * @param id UUID.
      */
-    setActiveCharacter(id) {
+    setActiveCharacter(id: string): void {
 
         // Since we put the old active character into storage, we will set the new lastEdit date.
-        const oldActiveCharacterEntry = this.getActivePlayerCharacterBankEntry();
+        const oldActiveCharacterEntry = this.getActivePlayerCharacterBankEntry()!;
         oldActiveCharacterEntry.lastEdit = new Date();
         oldActiveCharacterEntry.isActive = false;
 
         // Set the given character entry to active.
-        const newActiveCharacterEntry = this.getCharacterBankEntryById(id);
+        const newActiveCharacterEntry = this.getCharacterBankEntryById(id)!;
         newActiveCharacterEntry.isActive = true;
     }
 
     /**
      * Removes a single character from the PC bank.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
+     * @param id UUID.
      */
-    removeCharacterFromBank(id) {
+    removeCharacterFromBank(id: string): void {
         this.playerCharacterBankEntries = this.playerCharacterBankEntries.filter(entry => entry.id != id);
     }
 
     /**
      * Get a PlayerCharacterBankEntry by ID.
-     * @param {`${string}-${string}-${string}-${string}-${string}`} id UUID.
-     * @returns {PlayerCharacterBankEntry}
+     * @param id UUID.
+     * @returns
      */
-    getCharacterBankEntryById(id) {
+    getCharacterBankEntryById(id: string): PlayerCharacterBankEntry | undefined {
         return this.playerCharacterBankEntries.find(entry => entry.id === id);
     }
 
     /**
      * Get the currently active PlayerCharacterBankEntry object.
-     * @returns {PlayerCharacterBankEntry}
+     * @returns
      */
-    getActivePlayerCharacterBankEntry() {
+    getActivePlayerCharacterBankEntry(): PlayerCharacterBankEntry | undefined {
         return this.playerCharacterBankEntries.find(entry => entry.isActive);
     }
     
     /**
      * Get all inactive PlayerCharacterBankEntry objects.
-     * @returns {PlayerCharacterBankEntry[]}
+     * @returns
      */
-    getInactivePlayerCharacterBankEntries() {
+    getInactivePlayerCharacterBankEntries(): PlayerCharacterBankEntry[] {
         return this.playerCharacterBankEntries.filter(entry => !entry.isActive);
     }
 }
