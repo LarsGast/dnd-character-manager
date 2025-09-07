@@ -7,13 +7,16 @@ export class AbilityBonus {
 
     /**
      * Ability score that the bonus gets applied to.
-     * @type {ApiObjectInfo}
      */
-    ability_score;
+    ability_score: ApiObjectInfo;
 
     /**
      * The height of the bonus.
-     * @type {number}
      */
-    bonus;
+    bonus: number;
+
+    constructor(data: Partial<AbilityBonus> = {}) {
+        this.ability_score = new ApiObjectInfo(data.ability_score ?? {});
+        this.bonus = data.bonus ?? 0;
+    }
 }
