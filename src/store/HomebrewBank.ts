@@ -44,8 +44,8 @@ export class HomebrewBank {
      * If data is provided, properties are assigned from it.
      * @param data Optional initial data for the object bank.
      */
-    constructor(data?: Partial<HomebrewBank>) {
-        this.homebrewBankEntries = data?.homebrewBankEntries?.map(entry => new HomebrewBankEntry(entry)) ?? [];
+    constructor(data: Partial<HomebrewBank> = {}) {
+        this.homebrewBankEntries = (data.homebrewBankEntries ?? []).map(entry => new HomebrewBankEntry(entry));
 
         // Default 1, which might be upgraded on page load.
         this.version = data?.version ?? 1;
@@ -220,8 +220,8 @@ export class HomebrewBankEntry {
      */
     constructor(data: Partial<HomebrewBankEntry> = {}) {
         this.id = data.id ?? self.crypto.randomUUID();
-        this.homebrewObject = this.getHomebrewObject();
         this.apiCategoryName = data.apiCategoryName ?? "";
+        this.homebrewObject = this.getHomebrewObject(data.homebrewObject);
         this.lastEdit = data.lastEdit ? new Date(data.lastEdit) : new Date();
         this.version = data.version ?? 1;
     }
@@ -231,11 +231,11 @@ export class HomebrewBankEntry {
      * This is necessary because the homebrewObject can be of different types depending on the category.
      * @returns The initialized homebrew object.
      */
-    private getHomebrewObject(): ApiObjectInfo {
+    private getHomebrewObject(homebrewObject: Partial<ApiObjectInfo> = {}): ApiObjectInfo {
         switch (this.apiCategoryName) {
-            case ApiCategory.Races.name: return new Race(this.homebrewObject);
-            case ApiCategory.Traits.name: return new Trait(this.homebrewObject);
-            default: return new ApiObjectInfo(this.homebrewObject);
+            case ApiCategory.Races.name: return new Race(homebrewObject);
+            case ApiCategory.Traits.name: return new Trait(homebrewObject);
+            default: return new ApiObjectInfo(homebrewObject);
         }
     }
 }
