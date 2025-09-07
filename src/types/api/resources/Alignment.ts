@@ -3,26 +3,26 @@ import { ApiBaseObject } from "./ApiBaseObject.js";
 
 export class Alignment extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.Alignments;
+    static override apiCategory = ApiCategory.Alignments;
 
     /**
      * Abbreviation/initials/acronym for the alignment.
-     * @type {string}
      */
-    abbreviation;
+    abbreviation: string;
 
     /**
      * Brief description of the alignment.
-     * @type {string}
      */
-    desc;
+    desc: string;
     
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Alignment> = {}) {
         super(data);
-        Object.assign(this, data);
+        
+        this.abbreviation = data.abbreviation ?? "";
+        this.desc = data.desc ?? "";
     }
 }

@@ -56,7 +56,7 @@ export class Subrace extends ApiBaseObject {
         this.ability_bonuses = data.ability_bonuses?.map(ab => new AbilityBonus(ab)) ?? [];
         this.starting_proficiencies = data.starting_proficiencies?.map(sp => new ApiObjectInfo(sp)) ?? [];
         this.languages = data.languages?.map(l => new ApiObjectInfo(l)) ?? [];
-        this.language_options = Object.assign(new Choice(), data.language_options);
+        this.language_options = new Choice(data.language_options);
         this.racial_traits = data.racial_traits?.map(rt => new ApiObjectInfo(rt)) ?? [];
     }
 

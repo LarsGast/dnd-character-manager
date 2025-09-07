@@ -4,36 +4,35 @@ export class Armor extends Equipment {
 
     /**
      * Category of armor, such as "Light", "Medium", and "Heavy".
-     * @type {string}
      */
-    armor_category;
+    armor_category: string;
 
     /**
      * The base armor class of the armor. Can be used to calculate effective armor class.
-     * @type {ArmorClass}
      */
-    armor_class;
+    armor_class: ArmorClass;
 
     /**
      * The minimum STR score required to don this armor.
-     * @type {number}
      */
-    str_minimum;
+    str_minimum: number;
 
     /**
      * If wearing this armor imposes disadvantage on stealth checks.
-     * @type {boolean}
      */
-    stealth_disadvantage;
+    stealth_disadvantage: boolean;
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Armor> = {}) {
         super(data);
-        Object.assign(this, data);
-        this.armor_class = new ArmorClass(this.armor_class);
+
+        this.armor_category = data.armor_category ?? "";
+        this.armor_class = data.armor_class ? new ArmorClass(data.armor_class) : new ArmorClass({ base: 0, dex_bonus: false });
+        this.str_minimum = data.str_minimum ?? 0;
+        this.stealth_disadvantage = data.stealth_disadvantage ?? false;        
     }
 }
 
@@ -44,33 +43,32 @@ class ArmorClass {
 
     /**
      * Base AC every character gets while wearing the armor.
-     * @type {number}
      */
-    base;
+    base: number;
 
     /**
      * Wether a DEX bonus applies to the armor.
-     * @type {boolean}
      */
-    dex_bonus;
+    dex_bonus: boolean;
 
     /**
      * The maximum amount of DEX bonus the armor gets.
      * undefined if dex_bonus is false or it has no maximum.
-     * @type {number}
      */
-    max_bonus;
+    max_bonus: number | undefined;
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
-        Object.assign(this, data);
+    constructor(data: Partial<ArmorClass> = {}) {
+        this.base = data.base ?? 0;
+        this.dex_bonus = data.dex_bonus ?? false;
+        this.max_bonus = data.max_bonus ?? undefined;
     }
 
     getDisplayString() {
-        let displayString = this.base;
+        let displayString = `${this.base}`;
 
         if (this.dex_bonus) {
             displayString += ' + DEX';
@@ -83,7 +81,7 @@ class ArmorClass {
         return displayString;
     }
 
-    getEffectiveArmorClass(dexModifier) {
+    getEffectiveArmorClass(dexModifier: number) {
         let armorClass = this.base;
 
         if (this.dex_bonus) {

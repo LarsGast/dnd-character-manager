@@ -1,49 +1,50 @@
 import { ApiCategory, getApiResultsAsync } from "../../../services/api.js";
 import { Feature } from "../helpers/Feature.js";
+import { ResourceList } from "../helpers/ResourceList.js";
 import { ApiBaseObject } from "./ApiBaseObject.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
 export class Subclass extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.Subclasses;
+    static override apiCategory = ApiCategory.Subclasses;
 
     /**
      * Description of the resource.
-     * @type {string[]}
      */
-    desc;
+    desc: string[];
 
     /**
      * Class that the subclass belongs to.
-     * @type {ApiBaseObject}
      */
-    class;
+    class: ApiObjectInfo;
 
     /**
      * Lore-friendly flavor text for a classes respective subclass.
-     * @type {string}
      */
-    subclass_flavor;
+    subclass_flavor: string;
 
     /**
      * Resource url that shows the subclass level progression.
-     * @type {string[]}
      */
-    subclass_levels;
+    subclass_levels: string[];
 
     /**
      * Subclass specific spells.
-     * @type {object[]}
      */
-    spells;
+    spells: object[];
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Subclass> = {}) {
         super(data);
-        Object.assign(this, data);
+        
+        this.desc = data.desc ?? [];
+        this.class = data.class ? new ApiObjectInfo(data.class) : new ApiObjectInfo();
+        this.subclass_flavor = data.subclass_flavor ?? "";
+        this.subclass_levels = data.subclass_levels ?? [];
+        this.spells = data.spells ?? [];
     }
 
     /**
@@ -51,8 +52,8 @@ export class Subclass extends ApiBaseObject {
      * @param {number} level
      * @returns {Promise<Feature[]>} 
      */
-    async getFeaturesForLevelAsync(level) {
-        const response = await getApiResultsAsync(ApiCategory.Subclasses, `${this.index}/levels/${level}/features`);
+    async getFeaturesForLevelAsync(level: number): Promise<Feature[]> {
+        const response = new ResourceList(await getApiResultsAsync(ApiCategory.Subclasses, `${this.index}/levels/${level}/features`));
 
         return Promise.all(response.results.map(featureInfo => ApiBaseObject.getAsync(featureInfo.index, Feature)));
     }

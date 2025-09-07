@@ -55,8 +55,8 @@ export class Trait extends ApiBaseObject {
         this.races = data.races?.map(r => new ApiObjectInfo(r)) ?? [];
         this.subraces = data.subraces?.map(sr => new ApiObjectInfo(sr)) ?? [];
         this.proficiencies = data.proficiencies?.map(p => new ApiObjectInfo(p)) ?? [];
-        this.proficiency_choices = Object.assign(new Choice(), data.proficiency_choices);
-        this.language_options = Object.assign(new Choice(), data.language_options);
+        this.proficiency_choices = new Choice(data.proficiency_choices);
+        this.language_options = new Choice(data.language_options);
         this.trait_specific = data.trait_specific ?? {};
     }
 }

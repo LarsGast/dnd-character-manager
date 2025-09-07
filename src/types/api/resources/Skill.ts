@@ -4,26 +4,26 @@ import { ApiObjectInfo } from "./ApiObjectInfo.js";
 
 export class Skill extends ApiBaseObject {
 
-    static apiCategory = ApiCategory.Skills;
+    static override apiCategory = ApiCategory.Skills;
 
     /**
      * Flavor description of the skill.
-     * @type {string[]}
      */
-    desc;
+    desc: string[];
 
     /**
      * The ability score that the skill is typically used as.
-     * @type {ApiObjectInfo}
      */
-    ability_score;
+    ability_score: ApiObjectInfo;
 
     /**
      * Constructor.
-     * @param {JSON} data Full object as specified in the 5e SRD API.
+     * @param data Full object as specified in the 5e SRD API.
      */
-    constructor(data) {
+    constructor(data: Partial<Skill> = {}) {
         super(data);
-        Object.assign(this, data);
+        
+        this.desc = data.desc ?? [];
+        this.ability_score = data.ability_score ? new ApiObjectInfo(data.ability_score) : new ApiObjectInfo();
     }
 }

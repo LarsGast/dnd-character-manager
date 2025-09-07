@@ -18,7 +18,7 @@ export class Race extends ApiBaseObject {
     /**
      * Bonuses to abilities this race gives.
      */
-    ability_bonuses: AbilityBonus[] = [];
+    ability_bonuses: AbilityBonus[];
 
     /**
      * Flavor description of the typical age of the race.
@@ -43,12 +43,12 @@ export class Race extends ApiBaseObject {
     /**
      * Starting languages for all new characters of this race.
      */
-    languages: ApiObjectInfo[] = [];
+    languages: ApiObjectInfo[];
 
     /**
      * Starting language options for all new characters of this race.
      */
-    language_options: Choice = new Choice();
+    language_options: Choice;
 
     /**
      * Flavor description of the languages known by the race.
@@ -58,7 +58,7 @@ export class Race extends ApiBaseObject {
     /**
      * A list of traits the race has.
      */
-    traits: ApiObjectInfo[] = [];
+    traits: ApiObjectInfo[];
 
     /**
      * A list of subraces the race has, if any.
@@ -79,7 +79,7 @@ export class Race extends ApiBaseObject {
         this.size = data.size ?? "";
         this.size_description = data.size_description ?? "";
         this.languages = (data.languages ?? []).map(lang => new ApiObjectInfo(lang));
-        this.language_options = Object.assign(new Choice(), data.language_options);
+        this.language_options = new Choice(data.language_options);
         this.language_desc = data.language_desc ?? "";
         this.traits = (data.traits ?? []).map(trait => new ApiObjectInfo(trait));
         this.subraces = (data.subraces ?? []).map(subrace => new ApiObjectInfo(subrace));
