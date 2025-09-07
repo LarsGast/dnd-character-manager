@@ -193,7 +193,7 @@ export class PlayerCharacterBank {
     setActiveCharacter(id: string): void {
 
         // Since we put the old active character into storage, we will set the new lastEdit date.
-        const oldActiveCharacterEntry = this.getActivePlayerCharacterBankEntry()!;
+        const oldActiveCharacterEntry = this.getActivePlayerCharacterBankEntry();
         oldActiveCharacterEntry.lastEdit = new Date();
         oldActiveCharacterEntry.isActive = false;
 
@@ -223,8 +223,8 @@ export class PlayerCharacterBank {
      * Get the currently active PlayerCharacterBankEntry object.
      * @returns
      */
-    getActivePlayerCharacterBankEntry(): PlayerCharacterBankEntry | undefined {
-        return this.playerCharacterBankEntries.find(entry => entry.isActive);
+    getActivePlayerCharacterBankEntry(): PlayerCharacterBankEntry {
+        return this.playerCharacterBankEntries.find(entry => entry.isActive)!;
     }
     
     /**
