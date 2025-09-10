@@ -1,5 +1,5 @@
 import { Race } from "../../../../../types/api/resources/Race.js";
-import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
+import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 
 /**
@@ -10,6 +10,7 @@ import { globals } from "../../../../../store/load-globals.js";
  * On change, the PC's race is updated and a "raceUpdated" event is dispatched.
  */
 export class RaceInput extends HTMLSelectElement {
+    _updateHandler?: () => Promise<void>;
     
     constructor() {
         super();
@@ -21,7 +22,7 @@ export class RaceInput extends HTMLSelectElement {
     /**
      * Called when the element is connected to the DOM.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
         this._updateHandler = async () => await this.updateSelectOptions();
 
         document.addEventListener("newHomebrewCreated", this._updateHandler);
@@ -34,7 +35,7 @@ export class RaceInput extends HTMLSelectElement {
     /**
      * Loads all races and sets up the select options.
      */
-    async updateSelectOptions() {
+    async updateSelectOptions(): Promise<void> {
 
         this.replaceChildren();
 
@@ -48,14 +49,14 @@ export class RaceInput extends HTMLSelectElement {
         populateSelectWithApiObjects(this, allRaces);
 
         // Set the value to the current PC's race.
-        this.value = globals.activePlayerCharacter.race;
+        this.value = globals.activePlayerCharacter.race ?? "null";
     }
 
     /**
      * Handles changes to the race selection.
      * Updates the PC's race and dispatches a "raceUpdated" event.
      */
-    handleChange() {
+    handleChange(): void {
         globals.activePlayerCharacter.setProperty('race', this.value);
         document.dispatchEvent(new Event("raceUpdated"));
     }
