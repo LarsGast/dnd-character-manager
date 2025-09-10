@@ -1,4 +1,5 @@
 import { Choice, OptionSet } from "../../../../../types/api/helpers/Choice.js";
+import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
 import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
@@ -8,21 +9,23 @@ import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
  * It allows the user to select a number of options from a list of possible objects.
  */
 export class ChoiceSection extends HTMLElement {
+    possibleObjects: ApiBaseObjectList;
+    defaultValue: Choice;
+    descTextarea: HTMLTextAreaElement;
+    chooseInput: HTMLInputElement;
+    typeInput: HTMLInputElement;
 
     /**
      * Creates an instance of ChoiceSection.
-     * @param {string} sectionLabel The label for the section.
-     * @param {ApiBaseObjectList} possibleObjects The list of possible objects to choose from.
-     * @param {Choice} defaultValue The default choice value to initialize the section.
-     * @param {string} tooltip Optional tooltip text for the section.
+     * @param sectionLabel The label for the section.
+     * @param possibleObjects The list of possible objects to choose from.
+     * @param defaultValue The default choice value to initialize the section.
+     * @param tooltip Optional tooltip text for the section.
      */
-    constructor(sectionLabel, possibleObjects, defaultValue, tooltip) {
+    constructor(sectionLabel: string, possibleObjects: ApiBaseObjectList, defaultValue: Choice, tooltip: string) {
         super();
 
-        /** @type {ApiBaseObjectList} */
         this.possibleObjects = possibleObjects;
-
-        /** @type {Choice} */
         this.defaultValue = defaultValue;
 
         this.descTextarea = this.getDescTextarea();
@@ -46,11 +49,11 @@ export class ChoiceSection extends HTMLElement {
 
     /**
      * Creates a label element with the given text and optional tooltip.
-     * @param {string} labelText The text for the label.
-     * @param {string} tooltip Optional tooltip text for the label.
-     * @returns {HTMLLabelElement} The label element with the specified text and tooltip.
+     * @param labelText The text for the label.
+     * @param tooltip Optional tooltip text for the label.
+     * @returns The label element with the specified text and tooltip.
      */
-    getLabel(labelText, tooltip) {
+    getLabel(labelText: string | null, tooltip: string): HTMLLabelElement {
         const label = document.createElement('label');
 
         label.textContent = labelText;
@@ -62,9 +65,9 @@ export class ChoiceSection extends HTMLElement {
 
     /**
      * Creates a textarea element for the description of the choice.
-     * @returns {HTMLTextAreaElement} The textarea element for the description.
+     * @returns The textarea element for the description.
      */
-    getDescTextarea() {
+    getDescTextarea(): HTMLTextAreaElement {
         const textarea = document.createElement('textarea');
 
         textarea.value = this.defaultValue.desc;
@@ -74,22 +77,22 @@ export class ChoiceSection extends HTMLElement {
 
     /**
      * Creates an input element for the number of choices to make.
-     * @returns {HTMLInputElement} The input element for the number of choices.
+     * @returns The input element for the number of choices.
      */
-    getChooseInput() {
+    getChooseInput(): HTMLInputElement {
         const input = document.createElement('input');
 
         input.type = 'number';
-        input.value = this.defaultValue.choose;
+        input.value = this.defaultValue.choose.toString();
 
         return input;
     }
 
     /**
      * Creates an input element for the type of the choice.
-     * @returns {HTMLInputElement} The input element for the type of the choice.
+     * @returns The input element for the type of the choice.
      */
-    getTypeInput() {
+    getTypeInput(): HTMLInputElement {
         const input = document.createElement('input');
 
         input.value = this.defaultValue.type;
@@ -99,9 +102,9 @@ export class ChoiceSection extends HTMLElement {
 
     /**
      * Creates a button to add a new choice option.
-     * @returns {HTMLButtonElement} The button element that, when clicked, will add a new choice option element.
+     * @returns The button element that, when clicked, will add a new choice option element.
      */
-    getAddOptionButton() {
+    getAddOptionButton(): HTMLButtonElement {
         const button = document.createElement('button');
 
         button.textContent = "Add";
@@ -113,17 +116,17 @@ export class ChoiceSection extends HTMLElement {
 
     /**
      * Adds a new choice option element to the section.
-     * @param {ApiObjectInfo} defaultValue The default value to set in the new choice option element.
+     * @param defaultValue The default value to set in the new choice option element.
      */
-    addOption(defaultValue) {
+    addOption(defaultValue?: ApiObjectInfo) {
         this.appendChild(new ChoiceOptionElement(this.possibleObjects, defaultValue));
     }
 
     /**
      * Gets the form data from the choice section.
-     * @returns {Choice} The constructed Choice object containing the description, number of choices,
+     * @returns The constructed Choice object containing the description, number of choices,
      */
-    getValue() {
+    getValue(): Choice {
 
         const choice = new Choice();
 
@@ -134,8 +137,7 @@ export class ChoiceSection extends HTMLElement {
         const optionSet = new OptionSet();
         optionSet.option_set_type = "options_array";
 
-        /** @type {ChoiceOptionElement[]} */
-        const options = Array.from(this.querySelectorAll('choice-option-element'));
+        const options: ChoiceOptionElement[] = Array.from(this.querySelectorAll('choice-option-element'));
         optionSet.options = options.map(option => option.getValue());
 
         choice.from = optionSet;

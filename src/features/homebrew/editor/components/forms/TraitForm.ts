@@ -2,7 +2,7 @@ import { Language } from "../../../../../types/api/resources/Language.js";
 import { Proficiency } from "../../../../../types/api/resources/Proficiency.js";
 import { Trait } from "../../../../../types/api/resources/Trait.js";
 import { getTextareaSection } from "../../services/FormElementsBuilder.js";
-import { HomebrewBaseForm } from "../forms/HomebrewBaseForm.js";
+import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
 import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
 
@@ -10,24 +10,28 @@ import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
  * Form for editing custom homebrew Trait objects.
  */
 export class TraitForm extends HomebrewBaseForm {
+    trait: Trait;
+    descriptionSection?: HTMLElement;
+    proficienciesSection?: LinkedObjectsSection;
+    proficiencyChoicesSection?: ChoiceSection;
+    languageOptionsSection?: ChoiceSection;
 
     /**
      * Creates an instance of TraitForm.
-     * @param {Trait} traitObject
+     * @param traitObject
      */
-    constructor(traitObject) {
+    constructor(traitObject: Trait) {
         super(traitObject);
         
-        /** @type {Trait} */
         this.trait = traitObject;
     }
 
     /**
      * Initializes the form by appending the form body.
      * This method is called when the element is connected to the DOM.
-     * @returns {Promise<void>}
+     * @returns
      */
-    async connectedCallback() {
+    override async connectedCallback(): Promise<void> {
         this.appendChild(await this.getFormBody());
 
         super.connectedCallback();
@@ -35,12 +39,12 @@ export class TraitForm extends HomebrewBaseForm {
 
     /**
      * Creates the body of the form with all necessary sections.
-     * @returns {Promise<DocumentFragment>} A fragment containing all the sections of the form.
+     * @returns A fragment containing all the sections of the form.
      */
-    async getFormBody() {
+    async getFormBody(): Promise<DocumentFragment> {
         const fragment = document.createDocumentFragment();
 
-        this.descriptionSection = getTextareaSection("Description", 'desc', this.trait.desc, "Description of the trait.", true)
+        this.descriptionSection = getTextareaSection("Description", 'desc', this.trait.desc, true, "Description of the trait.")
         fragment.appendChild(this.descriptionSection);
 
         this.proficienciesSection = new LinkedObjectsSection(
@@ -73,14 +77,14 @@ export class TraitForm extends HomebrewBaseForm {
     /**
      * @override Trait specific properties.
      */
-    async getFormDataAsync() {
+    override async getFormDataAsync(): Promise<Trait> {
     
         const data = new Trait(await super.getFormDataAsync());
 
-        data.desc = this.descriptionSection.getElementsByTagName('textarea')[0].value.split('\n').map(p => p.trim()).filter(p => p.length > 0);
-        data.proficiencies = this.proficienciesSection.getValue();
-        data.proficiency_choices = this.proficiencyChoicesSection.getValue();
-        data.language_options = this.languageOptionsSection.getValue();
+        data.desc = this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0);
+        data.proficiencies = this.proficienciesSection!.getValue();
+        data.proficiency_choices = this.proficiencyChoicesSection!.getValue();
+        data.language_options = this.languageOptionsSection!.getValue();
 
         return data;
     }

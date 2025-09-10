@@ -1,5 +1,7 @@
 import { ApiCategory } from "../../../services/api.js";
 import { globals } from "../../../store/load-globals.js";
+import { Race } from "../../../types/api/resources/Race.js";
+import { Trait } from "../../../types/api/resources/Trait.js";
 import { RaceForm } from "./components/forms/RaceForm.js";
 import { TraitForm } from "./components/forms/TraitForm.js";
 
@@ -12,10 +14,10 @@ const pageContent = document.getElementsByClassName("post-content")[0];
 let form;
 switch (globals.activeHomebrewEntry.apiCategoryName) {
     case ApiCategory.Races.name:
-        form = new RaceForm(globals.activeHomebrewEntry.homebrewObject);
+        form = new RaceForm(globals.activeHomebrewEntry.homebrewObject as Race);
         break;
     case ApiCategory.Traits.name:
-        form = new TraitForm(globals.activeHomebrewEntry.homebrewObject);
+        form = new TraitForm(globals.activeHomebrewEntry.homebrewObject as Trait);
         break;
     default:
         throw new Error(`No form available for API category ${globals.activeHomebrewEntry.apiCategoryName}`);

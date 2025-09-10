@@ -11,19 +11,19 @@ export class HomebrewBaseForm extends HTMLFormElement {
     
     /**
      * Creates an instance of HomebrewBaseForm.
-     * @param {ApiObjectInfo} homebrewObject 
+     * @param homebrewObject 
      */
-    constructor(homebrewObject) {
+    constructor(homebrewObject: ApiObjectInfo) {
         super();
 
         // "Name" is the only required field for all homebrew objects.
-        this.appendChild(getTextInputSection("Name", "name", homebrewObject.name, "Name of the homebrew object.", true));    
+        this.appendChild(getTextInputSection("Name", "name", homebrewObject.name, true, "Name of the homebrew object."));    
     }
 
     /**
      * Called when the form is connected to the DOM.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.addEventListener("submit", this.handleSubmitAsync.bind(this));
 
         // Add the save button on the bottom of the form.
@@ -34,9 +34,9 @@ export class HomebrewBaseForm extends HTMLFormElement {
      * Handles the form submission.
      * Prevents the default form submission behavior, collects the form data, updates the active homebrew entry, saves the homebrew bank, and reloads the page.
      * Override this method in subclasses to add additional functionality.
-     * @param {Event} event 
+     * @param event 
      */
-    async handleSubmitAsync(event) {
+    async handleSubmitAsync(event: Event): Promise<void> {
         event.preventDefault();
 
         const data = await this.getFormDataAsync();
@@ -50,9 +50,9 @@ export class HomebrewBaseForm extends HTMLFormElement {
     /**
      * Collects the form data and returns it as an ApiObjectInfo instance.
      * Override this method in subclasses to add additional fields.
-     * @returns {Promise<ApiObjectInfo>} Homebrew object data collected from the form.
+     * @returns Homebrew object data collected from the form.
      */
-    async getFormDataAsync() {
+    async getFormDataAsync(): Promise<ApiObjectInfo> {
         const formData = new FormData(this);
 
         // Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
@@ -60,7 +60,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
 
         // Overwrite the properties of the ApiObjectInfo instance with the form data.
         for (const [key, value] of formData) {
-            data[key] = value;
+            (data as any)[key] = value;
         }
         
         return Promise.resolve(data);
@@ -68,9 +68,9 @@ export class HomebrewBaseForm extends HTMLFormElement {
 
     /**
      * Creates and returns a save button element.
-     * @returns {HTMLButtonElement} Save button element.
+     * @returns Save button element.
      */
-    getSaveButton() {
+    getSaveButton(): HTMLButtonElement {
         const button = document.createElement('button');
 
         button.type = 'submit';

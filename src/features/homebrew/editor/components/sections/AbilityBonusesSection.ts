@@ -12,25 +12,24 @@ export class AbilityBonusesSection extends HTMLElement {
 
     /**
      * Default order of ability scores.
-     * @type {string[]}
      */
-    abilityScoreOrder = ["str", "dex", "con", "int", "wis", "cha"];
+    abilityScoreOrder: string[] = ["str", "dex", "con", "int", "wis", "cha"];
+    abilityBonuses: AbilityBonus[];
 
     /**
      * Creates an instance of AbilityBonusesSection.
-     * @param {AbilityBonus[]} abilityBonuses Initial ability bonuses to display.
-     * @param {string} tooltip Tooltip text for the section.
+     * @param abilityBonuses Initial ability bonuses to display.
+     * @param tooltip Tooltip text for the section.
      */
-    constructor(abilityBonuses, tooltip) {
+    constructor(abilityBonuses: AbilityBonus[], tooltip: string) {
         super();
 
-        /** @type {AbilityBonus[]} */
         this.abilityBonuses = abilityBonuses;
 
         this.appendChild(this.getSectionLabel(tooltip));
     }
 
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
         const abilityScores = await AbilityScore.getAllAsync();
 
         const sortedAbilityScores = abilityScores.srdObjects.sort((a, b) => {
@@ -42,17 +41,17 @@ export class AbilityBonusesSection extends HTMLElement {
         for (const abilityScore of sortedAbilityScores) {
             const abilityBonus = this.abilityBonuses.find(bonus => bonus.ability_score.index === abilityScore.index);
 
-            const inputWithLabel = getNumberInputWithLabel(abilityScore.name, abilityScore.index, abilityBonus?.bonus ?? 0, null, true);
+            const inputWithLabel = getNumberInputWithLabel(abilityScore.name, abilityScore.index, abilityBonus?.bonus ?? 0, true);
             this.appendChild(inputWithLabel);
         }
     }
 
     /**
      * Creates and returns the section label with tooltip.
-     * @param {string} tooltip Tooltip text for the section.
-     * @returns {HTMLLabelElement} Label element for the section.
+     * @param tooltip Tooltip text for the section.
+     * @returns Label element for the section.
      */
-    getSectionLabel(tooltip) {
+    getSectionLabel(tooltip: string): HTMLLabelElement {
         const label = document.createElement('label');
 
         label.textContent = "Ability bonuses";
@@ -64,10 +63,10 @@ export class AbilityBonusesSection extends HTMLElement {
 
     /**
      * Retrieves the values of all ability bonuses from the section.
-     * @returns {Promise<AbilityBonus[]>} Array of AbilityBonus objects representing the selected values.
+     * @returns Array of AbilityBonus objects representing the selected values.
      */
-    async getValueAsync() {
-        const inputs = this.querySelectorAll('input[type="number"]');
+    async getValueAsync(): Promise<AbilityBonus[]> {
+        const inputs = this.querySelectorAll('input[type="number"]') as NodeListOf<HTMLInputElement>;
         const abilityBonuses = [];
 
         for (const input of inputs) {
@@ -80,14 +79,6 @@ export class AbilityBonusesSection extends HTMLElement {
             }
 
             const abilityScore = new ApiObjectInfo(await ApiBaseObject.getAsync(abilityScoreIndex, AbilityScore));
-        
-            // Remove unwanted keys
-            const emptyApiObjectInfo = new ApiObjectInfo();
-            for (const key in abilityScore) {
-                if (!emptyApiObjectInfo.hasOwnProperty(key)) {
-                    delete abilityScore[key];
-                }
-            }
 
             const abilityBonus = new AbilityBonus();
             abilityBonus.ability_score = abilityScore;
