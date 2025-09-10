@@ -4,6 +4,8 @@
 ![GitHub License](https://img.shields.io/github/license/LarsGast/dnd-character-manager)
 ![Edition](https://img.shields.io/badge/edition-5e-blue)
 
+[![CI](https://github.com/LarsGast/dnd-character-manager/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/LarsGast/dnd-character-manager/actions/workflows/ci.yml)
+
 A local-first D&D character manager. Fast in-session access, homebrew support, export/import, and offline storage (currently supports **D&D 5e**).
 
 ## Table of contents
