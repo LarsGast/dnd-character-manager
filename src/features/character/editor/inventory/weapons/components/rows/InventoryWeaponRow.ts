@@ -11,13 +11,23 @@ import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.
  * This row assembles various cells for the weapon's name, ability, attack bonus, damage, damage type, range, weight, and action buttons.
  */
 export class InventoryWeaponRow extends HTMLTableRowElement {
+    weapon: Weapon;
+    nameCell?: HTMLTableCellElement;
+    abilityCell?: InventoryWeaponAbilityCell;
+    attackBonusCell?: InventoryWeaponAttackBonusCell;
+    damageCell?: InventoryDamageCell;
+    damageTypeCell?: HTMLTableCellElement;
+    rangeCell?: HTMLTableCellElement;
+    weightCell?: HTMLTableCellElement;
+    buttonsCell?: InventoryWeaponButtonsCell;
 
     /**
      * Creates an instance of InventoryWeaponRow.
      * @param {Weapon} weapon The weapon object to display.
      */
-    constructor(weapon) {
+    constructor(weapon: Weapon) {
         super();
+
         this.weapon = weapon;
     }
     
@@ -25,7 +35,7 @@ export class InventoryWeaponRow extends HTMLTableRowElement {
      * Called when the element is connected to the DOM.
      * Creates and appends table cells with weapon details.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         
         // Create a cell for the weapon name.
         this.nameCell = document.createElement('td');
@@ -47,17 +57,17 @@ export class InventoryWeaponRow extends HTMLTableRowElement {
         // Create a cell for the weapon's damage type.
         this.damageTypeCell = document.createElement('td');
         this.damageTypeCell.headers = 'weapon_damage-type';
-        this.damageTypeCell.textContent = this.weapon.damage?.damage_type.name;
+        this.damageTypeCell.textContent = this.weapon.damage?.damage_type.name ?? "";
 
         // Create a cell for the range value.
         this.rangeCell = document.createElement('td');
         this.rangeCell.headers = 'weapon_range';
-        this.rangeCell.textContent = this.weapon.range.normal;
+        this.rangeCell.textContent = this.weapon.range.normal.toString();
 
         // Create a cell for the weight.
         this.weightCell = document.createElement('td');
         this.weightCell.headers = 'weapon_weight';
-        this.weightCell.textContent = this.weapon.weight;
+        this.weightCell.textContent = this.weapon.weight.toString();
 
         // Create a cell for action buttons (e.g., delete).
         this.buttonsCell = new InventoryWeaponButtonsCell(this.weapon, this.rowIndex - 1);

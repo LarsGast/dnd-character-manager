@@ -9,16 +9,19 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * It listens for changes in ability score modifiers and weapon ability selection to update its display.
  */
 export class InventoryDamageCell extends HTMLTableCellElement {
+    weapon: Weapon;
+    rowIndex: number;
+    damageBonusSpan: HTMLSpanElement;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of InventoryDamageCell.
-     * @param {Weapon} weapon The weapon object.
-     * @param {number} rowIndex The index of the weapon in the inventory.
+     * @param weapon The weapon object.
+     * @param rowIndex The index of the weapon in the inventory.
      */
-    constructor(weapon, rowIndex) {
+    constructor(weapon: Weapon, rowIndex: number) {
         super();
         
-        /** @type {Weapon} */
         this.weapon = weapon;
         this.rowIndex = rowIndex;
 
@@ -34,10 +37,10 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * Called when the element is added to the DOM.
      * Updates the display immediately and registers event listeners.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("abilityScoreModifierChanged", this._updateHandler);
         document.addEventListener("inventoryWeaponAbilityChanged", this._updateHandler);
     }
@@ -46,20 +49,20 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * Called when the element is removed from the DOM.
      * Removes the event listeners.
      */
-    disconnectedCallback() {
-        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler);
-        document.removeEventListener("inventoryWeaponAbilityChanged", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler!);
+        document.removeEventListener("inventoryWeaponAbilityChanged", this._updateHandler!);
     }
 
     /**
      * Updates the displayed damage bonus.
      * Applies a special CSS class if the bonus is positive.
-     * @param {CustomEvent} event An optional event that may trigger the update.
+     * @param event An optional event that may trigger the update.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent): void {
         if (this.shouldUpdateDisplay(event)) {
             const damageBonusValue = this.getDamageBonusValue();
-            this.damageBonusSpan.textContent = damageBonusValue;
+            this.damageBonusSpan.textContent = damageBonusValue?.toString() ?? "";
 
             // Add a CSS class that adds the "+" sign in front of a positive number.
             if (damageBonusValue !== null && damageBonusValue >= 0) {
@@ -72,11 +75,11 @@ export class InventoryDamageCell extends HTMLTableCellElement {
 
     /**
      * Determines if the display should be updated based on the event.
-     * @param {CustomEvent} event The event to examine.
-     * @returns {boolean} True if update is necessary; otherwise false.
+     * @param event The event to examine.
+     * @returns True if update is necessary; otherwise false.
      */
-    shouldUpdateDisplay(event) {
-        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+    shouldUpdateDisplay(event?: CustomEvent): boolean {
+        const inventoryWeapon: any = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         return !event || 
             (event.type === "abilityScoreModifierChanged" && event.detail.ability === inventoryWeapon.ability) ||
@@ -85,10 +88,10 @@ export class InventoryDamageCell extends HTMLTableCellElement {
 
     /**
      * Retrieves the damage bonus value based on the current ability modifier.
-     * @returns {number|null} The damage bonus or null if damage information is unavailable.
+     * @returns The damage bonus or null if damage information is unavailable.
      */
-    getDamageBonusValue() {
-        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+    getDamageBonusValue(): number | null {
+        const inventoryWeapon: any = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         if (!this.weapon.damage) {
             return null;

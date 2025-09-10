@@ -13,6 +13,11 @@ import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseO
  * The table listens for "inventoryWeaponAdded" and "inventoryWeaponDeleted" events to refresh its content.
  */
 export class InventoryWeaponTable extends HTMLElement {
+    tableHead: HTMLTableSectionElement;
+    tableBody: HTMLTableSectionElement;
+    table: HTMLTableElement;
+    _updateHandler?: (event: any) => Promise<void>;
+
     constructor() {
         super();
 
@@ -80,7 +85,7 @@ export class InventoryWeaponTable extends HTMLElement {
      * Called when the element is connected to the DOM.
      * Updates the table display immediately and registers event listeners for weapon inventory updates.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
         this._updateHandler = (event) => this.updateDisplay(event);
@@ -92,23 +97,23 @@ export class InventoryWeaponTable extends HTMLElement {
      * Called when the element is disconnected from the DOM.
      * Removes event listeners to avoid memory leaks.
      */
-    disconnectedCallback() {
-        document.removeEventListener("inventoryWeaponAdded", this._updateHandler);
-        document.removeEventListener("inventoryWeaponDeleted", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("inventoryWeaponAdded", this._updateHandler!);
+        document.removeEventListener("inventoryWeaponDeleted", this._updateHandler!);
     }
 
     /**
      * Updates the table body by repopulating it with the current inventory weapons.
-     * @param {CustomEvent} event An optional event that triggers the update.
+     * @param event An optional event that triggers the update.
      */
-    async updateDisplay(event) {
+    async updateDisplay(event?: CustomEvent): Promise<void> {
         if (this.shouldUpdateDisplay(event)) {
-            const tableBody = this.table.querySelector('tbody');
+            const tableBody = this.table.querySelector('tbody')!;
             tableBody.replaceChildren();
 
             // Create a row for each weapon currently in the global inventory.
             for (const inventoryWeapon of globals.activePlayerCharacter.inventoryWeapons) {
-                const weapon = await ApiBaseObject.getAsync(inventoryWeapon.index, Weapon);
+                const weapon = await ApiBaseObject.getAsync((inventoryWeapon as any).index, Weapon);
                 tableBody.appendChild(new InventoryWeaponRow(weapon));
             }
         }
@@ -116,10 +121,10 @@ export class InventoryWeaponTable extends HTMLElement {
 
     /**
      * Determines whether the table should be updated based on the triggering event.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if the table should be refreshed; otherwise false.
+     * @param event The event to evaluate.
+     * @returns True if the table should be refreshed; otherwise false.
      */
-    shouldUpdateDisplay(event) {
+    shouldUpdateDisplay(event?: CustomEvent): boolean {
         return !event ||
             event.type === "inventoryWeaponAdded" ||
             event.type === "inventoryWeaponDeleted";
