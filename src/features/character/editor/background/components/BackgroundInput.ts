@@ -34,7 +34,7 @@ export class BackgroundInput extends HTMLSelectElement {
         populateSelectWithApiObjects(this, allBackgrounds);
 
         // Set the current value from the active player's data.
-        this.value = globals.activePlayerCharacter.background;
+        this.value = globals.activePlayerCharacter.background ?? "null";
     }
 
     /**
