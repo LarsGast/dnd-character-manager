@@ -8,17 +8,17 @@ import { ObjectSelect } from "./ObjectSelect.js";
  * It provides a way to select objects from a list of possible objects and manage them.
  */
 export class LinkedObjectsSection extends HTMLElement {
+    possibleObjects: ApiBaseObjectList;
 
     /**
      * Creates an instance of LinkedObjectsSection.
-     * @param {string} label The label for the section.
-     * @param {ApiBaseObjectList} possibleObjects The list of possible objects to select from.
-     * @param {ApiObjectInfo[]} selectedObjects The list of objects that are currently selected
+     * @param label The label for the section.
+     * @param possibleObjects The list of possible objects to select from.
+     * @param selectedObjects The list of objects that are currently selected
      */
-    constructor(label, possibleObjects, selectedObjects, tooltip) {
+    constructor(label: string, possibleObjects: ApiBaseObjectList, selectedObjects: ApiObjectInfo[], tooltip: string) {
         super();
         
-        /** @type {ApiBaseObjectList} */
         this.possibleObjects = possibleObjects;
 
         this.appendChild(this.getSectionLabel(label, tooltip));
@@ -31,11 +31,11 @@ export class LinkedObjectsSection extends HTMLElement {
 
     /**
      * Creates a label for the section with the given text and optional tooltip.
-     * @param {string} labelText The text for the label.
-     * @param {string} tooltip Optional tooltip text for the label.
-     * @returns {HTMLLabelElement} The label element with the specified text and tooltip.
+     * @param labelText The text for the label.
+     * @param tooltip Optional tooltip text for the label.
+     * @returns The label element with the specified text and tooltip.
      */
-    getSectionLabel(labelText, tooltip) {
+    getSectionLabel(labelText: string, tooltip: string): HTMLLabelElement {
         const label = document.createElement('label');
 
         label.textContent = labelText;
@@ -47,9 +47,9 @@ export class LinkedObjectsSection extends HTMLElement {
 
     /**
      * Creates a button to add a new object select element.
-     * @returns {HTMLButtonElement} The button element that, when clicked, will add a new object select element.
+     * @returns The button element that, when clicked, will add a new object select element.
      */
-    getAddButton() {
+    getAddButton(): HTMLButtonElement {
         const button = document.createElement('button');
 
         button.textContent = "Add";
@@ -61,19 +61,18 @@ export class LinkedObjectsSection extends HTMLElement {
 
     /**
      * Adds a new ObjectSelect element to the section.
-     * @param {ApiObjectInfo} selectedObject Optional default value for the new ObjectSelect
+     * @param selectedObject Optional default value for the new ObjectSelect
      */
-    addObjectSelect(selectedObject) {
+    addObjectSelect(selectedObject?: ApiObjectInfo): void {
         this.appendChild(new ObjectSelect(this.possibleObjects, selectedObject));
     }
 
     /**
      * Gets the form data from the linked objects section.
-     * @returns {ApiObjectInfo[]} An array of ApiObjectInfo objects containing the selected values.
+     * @returns An array of ApiObjectInfo objects containing the selected values.
      */
-    getValue() {
-        /** @type {ObjectSelect[]} */
-        const objectSelects = Array.from(this.querySelectorAll('object-select'));
+    getValue(): ApiObjectInfo[] {
+        const objectSelects: ObjectSelect[] = Array.from(this.querySelectorAll('object-select'));
 
         return objectSelects.map(objectSelect => objectSelect.getValue());
     }

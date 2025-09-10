@@ -8,19 +8,19 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  * It allows the user to select an object from a list of possible objects.
  */
 export class ChoiceOptionElement extends HTMLElement {
+    possibleObjects: ApiBaseObjectList;
+    defaultValue?: ApiObjectInfo;
+    select: HTMLSelectElement;
     
     /**
      * Creates an instance of ChoiceOptionElement.
-     * @param {ApiBaseObjectList} possibleObjects The list of possible objects to select from
-     * @param {ApiObjectInfo} defaultValue The default value to set in the select element
+     * @param possibleObjects The list of possible objects to select from
+     * @param defaultValue The default value to set in the select element
      */
-    constructor(possibleObjects, defaultValue) {
+    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: ApiObjectInfo) {
         super();
         
-        /** @type {ApiBaseObjectList} */
         this.possibleObjects = possibleObjects;
-
-        /** @type {ApiObjectInfo} */
         this.defaultValue = defaultValue;
         
         this.select = this.getItemSelect();
@@ -32,25 +32,25 @@ export class ChoiceOptionElement extends HTMLElement {
     /**
      * Gets the select element for choosing an object.
      * It populates the select options with the provided possible objects.
-     * @returns {HTMLSelectElement} The select element with options for each possible object.
+     * @returns The select element with options for each possible object.
      */
-    getItemSelect() {
+    getItemSelect(): HTMLSelectElement {
         const select = document.createElement('select');
 
         select.appendChild(getEmptyOption());
 
         populateSelectWithApiObjects(select, this.possibleObjects);
 
-        select.value = this.defaultValue?.index ?? null;
+        select.value = this.defaultValue?.index ?? "null";
 
         return select;
     }
 
     /**
      * Creates a delete button to remove the choice option element.
-     * @returns {HTMLButtonElement} The button element that, when clicked, will remove this element from the DOM.
+     * @returns The button element that, when clicked, will remove this element from the DOM.
      */
-    getDeleteButton() {
+    getDeleteButton(): HTMLButtonElement {
         const button = document.createElement('button');
 
         button.textContent = "Remove";
@@ -61,9 +61,9 @@ export class ChoiceOptionElement extends HTMLElement {
 
     /**
      * Gets the value of the choice option element.
-     * @returns {Option} The constructed Option object containing the selected index and name.
+     * @returns The constructed Option object containing the selected index and name.
      */
-    getValue() {
+    getValue(): Option {
         const option = new Option();
 
         option.option_type = "reference";

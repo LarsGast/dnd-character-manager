@@ -7,16 +7,18 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  * It allows the user to select an object and provides a delete button to remove the selection.
  */
 export class ObjectSelect extends HTMLElement {
+    possibleObjects: ApiBaseObjectList;
+    select: HTMLSelectElement;
+    deleteButton: HTMLButtonElement;
 
     /**
      * Creates an instance of ObjectSelect.
-     * @param {ApiBaseObjectList} possibleObjects The list of possible objects to select from
-     * @param {ApiObjectInfo} selectedObject The object that is currently selected, if any.
+     * @param possibleObjects The list of possible objects to select from
+     * @param selectedObject The object that is currently selected, if any.
      */
-    constructor(possibleObjects, selectedObject) {
+    constructor(possibleObjects: ApiBaseObjectList, selectedObject?: ApiObjectInfo) {
         super();
         
-        /** @type {ApiBaseObjectList} */
         this.possibleObjects = possibleObjects;
 
         this.select = this.getSelect(selectedObject);
@@ -28,26 +30,26 @@ export class ObjectSelect extends HTMLElement {
 
     /**
      * Creates a select element populated with the possible objects.
-     * @param {ApiObjectInfo} defaultValue The default value to set in the select
-     * @returns {HTMLSelectElement} The select element with options for each possible object.
+     * @param defaultValue The default value to set in the select
+     * @returns The select element with options for each possible object.
      */
-    getSelect(defaultValue) {
+    getSelect(defaultValue?: ApiObjectInfo): HTMLSelectElement {
         const select = document.createElement('select');
 
         select.appendChild(getEmptyOption());
 
         populateSelectWithApiObjects(select, this.possibleObjects);
 
-        select.value = defaultValue?.index ?? null;
+        select.value = defaultValue?.index ?? "null";
 
         return select;
     }
 
     /**
      * Creates a delete button to remove the object select element.
-     * @returns {HTMLButtonElement} The button element that, when clicked, will remove this element from the DOM.
+     * @returns The button element that, when clicked, will remove this element from the DOM.
      */
-    getDeleteButton() {
+    getDeleteButton(): HTMLButtonElement {
         const button = document.createElement('button');
 
         button.textContent = "Remove";
@@ -58,9 +60,9 @@ export class ObjectSelect extends HTMLElement {
 
     /**
      * Gets the value of the selected object.
-     * @returns {ApiObjectInfo} An ApiObjectInfo object containing the index and name of the selected object.
+     * @returns An ApiObjectInfo object containing the index and name of the selected object.
      */
-    getValue() {
+    getValue(): ApiObjectInfo {
         const data = new ApiObjectInfo();
 
         data.index = this.select.value;

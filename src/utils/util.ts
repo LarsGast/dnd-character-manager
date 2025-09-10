@@ -50,9 +50,9 @@ export function getEmptyOption(customText: string = "-- Select an option --", cu
  * Get an option for a select element.
  * @param optionText Text that the user sees.
  * @param optionValue Hidden value/ identifier of the option.
- * @returns {HTMLOptionElement} 
+ * @returns
  */
-export function getSelectOption(optionText: string, optionValue: string | undefined): HTMLOptionElement {
+export function getSelectOption(optionText: string, optionValue?: string): HTMLOptionElement {
     const option = document.createElement('option');
 
     option.textContent = optionText;
