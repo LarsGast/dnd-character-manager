@@ -14,12 +14,17 @@ import { SkillExpertiseCheckbox } from "../checkboxes/SkillExpertiseCheckbox.js"
  * - A text element showing the skill name and corresponding ability.
  */
 export class SkillDisplay extends HTMLLIElement {
+    skill: Skill;
+    proficiencyCheckbox: SkillProficiencyCheckbox;
+    expertiseCheckbox: SkillExpertiseCheckbox;
+    modifierDisplay: SkillModifierDisplay;
+    skillNameDisplay: HTMLSpanElement;
 
     /**
      * Creates an instance of SkillDisplay.
-     * @param {Skill} skill The skill object.
+     * @param skill The skill object.
      */
-    constructor(skill) {
+    constructor(skill: Skill) {
         super();
 
         this.skill = skill;

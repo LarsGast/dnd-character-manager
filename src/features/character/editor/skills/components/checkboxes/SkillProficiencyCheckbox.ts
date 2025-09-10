@@ -9,12 +9,14 @@ import { globals } from "../../../../../../store/load-globals.js";
  * It disables itself if the PC has expertise in the skill already.
  */
 export class SkillProficiencyCheckbox extends HTMLInputElement {
+    skill: Skill;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of SkillProficiencyCheckbox.
-     * @param {Skill} skill The skill object.
+     * @param skill The skill object.
      */
-    constructor(skill) {
+    constructor(skill: Skill) {
         super();
 
         this.skill = skill;
@@ -31,17 +33,17 @@ export class SkillProficiencyCheckbox extends HTMLInputElement {
      * Called when connected to the DOM.
      * Updates display and listens for expertise changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("skillExpertiseChanged", this._updateHandler);
     }
   
     /**
      * Handles checkbox state changes for proficiency.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Update proficiency in the skill.
         if (this.checked) {
@@ -58,9 +60,9 @@ export class SkillProficiencyCheckbox extends HTMLInputElement {
 
     /**
      * Updates the checkbox's enabled state based on the expertise status.
-     * @param {CustomEvent} event An optional event triggering the update.
+     * @param event An optional event triggering the update.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent): void {
         if (!event || (event.type === "skillExpertiseChanged" && event.detail.skill === this.skill.index)) {
             
             // Disable if PC already has expertise in the skill.
