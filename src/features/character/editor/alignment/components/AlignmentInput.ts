@@ -34,7 +34,7 @@ export class AlignmentInput extends HTMLSelectElement {
         populateSelectWithApiObjects(this, allAlignments);
 
         // Set the select value to the active PC's current alignment.
-        this.value = globals.activePlayerCharacter.alignment;
+        this.value = globals.activePlayerCharacter.alignment ?? "null";
     }
 
     /**
