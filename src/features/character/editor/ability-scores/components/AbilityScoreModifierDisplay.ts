@@ -8,12 +8,14 @@ import { globals } from "../../../../../store/load-globals.js";
  * It also dispatches a custom event when updated.
  */
 export class AbilityScoreModifierDisplay extends HTMLElement {
+    ability: string;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Create an AbilityScoreModifierDisplay.
-     * @param {string} ability The ability name (e.g., "str", "dex") for which to display the modifier.
+     * @param ability The ability name (e.g., "str", "dex") for which to display the modifier.
      */
-    constructor(ability) {
+    constructor(ability: string) {
         super();
 
         // Store the ability this display is associated with.
@@ -41,7 +43,7 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
      * Ensures that the event listener is removed to prevent memory leaks.
      */
     disconnectedCallback() {
-        document.removeEventListener("abilityScoreChanged", this._updateHandler);
+        document.removeEventListener("abilityScoreChanged", this._updateHandler!);
     }
 
     /**
@@ -50,15 +52,15 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
      * If an event is provided, the update only occurs if it relates to this ability.
      * It also dispatches a custom event notifying that the modifier has changed.
      *
-     * @param {CustomEvent} event The event that may trigger the update.
+     * @param event The event that may trigger the update.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent) {
 
         // If there is no event or the event matches this ability, update the display.
         if (!event || event.detail.ability === this.ability) {
             
             // Retrieve and display the ability modifier from the active player character.
-            this.textContent = globals.activePlayerCharacter.getAbilityModifier(this.ability);
+            this.textContent = globals.activePlayerCharacter.getAbilityModifier(this.ability).toString();
             this.handleChange();
         }
     }
