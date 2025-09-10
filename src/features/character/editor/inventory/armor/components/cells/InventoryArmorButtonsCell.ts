@@ -1,4 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
+import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
 
 /**
  * Custom table cell element containing buttons for inventory armor actions.
@@ -7,13 +8,16 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * In this implementation, it contains a "Delete" button to remove the armor from the PC's inventory. The cell takes an Armor instance and a row index.
  */
 export class InventoryArmorButtonsCell extends HTMLTableCellElement {
+    armor: Armor;
+    rowIndex: number;
+    deleteButton: HTMLButtonElement;
 
     /**
      * Creates an instance of InventoryArmorButtonsCell.
-     * @param {Armor} armor The armor object.
-     * @param {number} rowIndex The row index in the table (used to identify the inventory entry). Points to the same object in the globals.activePlayerCharacter.inventoryArmor array.
+     * @param armor The armor object.
+     * @param rowIndex The row index in the table (used to identify the inventory entry). Points to the same object in the globals.activePlayerCharacter.inventoryArmor array.
      */
-    constructor(armor, rowIndex) {
+    constructor(armor: Armor, rowIndex: number) {
         super();
 
         this.armor = armor;
@@ -33,7 +37,7 @@ export class InventoryArmorButtonsCell extends HTMLTableCellElement {
     /**
      * Deletes the row by removing the corresponding armor from the inventory and dispatching an "inventoryArmorDeleted" event.
      */
-    deleteRow() {
+    deleteRow(): void {
         globals.activePlayerCharacter.removeArmorFromInventory(this.rowIndex);
         document.dispatchEvent(new Event("inventoryArmorDeleted"));
     }

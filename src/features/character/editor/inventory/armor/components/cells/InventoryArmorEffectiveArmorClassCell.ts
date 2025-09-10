@@ -8,15 +8,16 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * This element listens for global changes in ability score modifiers (specifically "dex") and updates the displayed effective armor class accordingly.
  */
 export class InventoryArmorEffectiveArmorClassCell extends HTMLTableCellElement {
+    armor: Armor;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of InventoryArmorEffectiveArmorClassCell.
-     * @param {Armor} armor The armor object, containing armor class data.
+     * @param armor The armor object, containing armor class data.
      */
-    constructor(armor) {
+    constructor(armor: Armor) {
         super();
 
-        /** @type {Armor} */
         this.armor = armor;
     }
 
@@ -24,13 +25,13 @@ export class InventoryArmorEffectiveArmorClassCell extends HTMLTableCellElement 
      * Called when the element is connected to the DOM.
      * Updates the display immediately and registers an event listener for changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Update display immediately.
         this.updateDisplay();
 
         // Listen for changes to ability scores.
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("abilityScoreModifierChanged", this._updateHandler);
     }
     
@@ -38,26 +39,26 @@ export class InventoryArmorEffectiveArmorClassCell extends HTMLTableCellElement 
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler!);
     }
 
     /**
      * Updates the cell text content if a relevant event occurs.
-     * @param {CustomEvent} event An optional event triggering the update.
+     * @param event An optional event triggering the update.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent): void {
         if (this.shouldUpdateDisplay(event)) {
-            this.textContent = this.getEffectiveArmorClassValue();
+            this.textContent = this.getEffectiveArmorClassValue().toString();
         }
     }
 
     /**
      * Determines whether the display should be updated based on the event.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if update is necessary; false otherwise.
+     * @param event The event to evaluate.
+     * @returns True if update is necessary; false otherwise.
      */
-    shouldUpdateDisplay(event) {
+    shouldUpdateDisplay(event?: CustomEvent): boolean {
         return !event ||
             (event.type === "abilityScoreModifierChanged" &&
              event.detail.ability === "dex" &&
@@ -66,9 +67,9 @@ export class InventoryArmorEffectiveArmorClassCell extends HTMLTableCellElement 
 
     /**
      * Calculates and returns the effective armor class using the active player's dexterity modifier.
-     * @returns {number} The effective armor class value.
+     * @returns The effective armor class value.
      */
-    getEffectiveArmorClassValue() {
+    getEffectiveArmorClassValue(): number {
         return this.armor.armor_class.getEffectiveArmorClass(globals.activePlayerCharacter.getAbilityModifier("dex"));
     }
 }

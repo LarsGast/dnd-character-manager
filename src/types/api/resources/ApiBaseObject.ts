@@ -1,4 +1,4 @@
-import { ApiCategory, getApiResultsAsync } from "../../../services/api.js";
+import { ApiCategory, EquipmentCategoryIndex, getApiResultsAsync } from "../../../services/api.js";
 import { ApiObjectInfo } from "./ApiObjectInfo.js";
 import { ResourceList } from "../helpers/ResourceList.js";
 import { globals } from "../../../store/load-globals.js";
@@ -20,12 +20,17 @@ export abstract class ApiBaseObject extends ApiObjectInfo {
      * @param index Index as specified in the API.
      * @returns An instance of the specific subclass.
      */
-    static async getAsync<C extends ApiObjectInfo>(index: string, ctor: {new (data: Partial<C>): C, apiCategory: ApiCategory}): Promise<C> {
+    static async getAsync<C extends ApiObjectInfo>(
+        index: string | EquipmentCategoryIndex, 
+        ctor: {new (data: Partial<C>): C, apiCategory: ApiCategory}
+    ): Promise<C> {
 
         // Homebrew ID's are UUID's, so we know these don't exist in the API.
-        const homebrewObject = globals.homebrewBank.getHomebrewObjectByIndex(index);
-        if (homebrewObject) {
-            return homebrewObject as C;
+        if (typeof index === "string") {
+            const homebrewObject = globals.homebrewBank.getHomebrewObjectByIndex(index);
+            if (homebrewObject) {
+                return homebrewObject as C;
+            }
         }
 
         const apiData = await getApiResultsAsync(ctor.apiCategory, index);

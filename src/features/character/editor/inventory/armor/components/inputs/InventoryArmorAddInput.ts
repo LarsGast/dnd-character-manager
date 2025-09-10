@@ -15,6 +15,9 @@ import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseO
  * Clicking the button fetches the armor details and updates the active PC's inventory, then dispatches an "inventoryArmorAdded" event.
  */
 export class InventoryArmorAddInput extends HTMLElement {
+    armorSelect: HTMLSelectElement;
+    addArmorButton: HTMLButtonElement;
+
     constructor() {
         super();
         
@@ -41,7 +44,7 @@ export class InventoryArmorAddInput extends HTMLElement {
      * Called when the element is connected to the DOM.
      * Loads the armor options grouped by category and appends them to the select element.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
 
         // Start with an empty option.
         this.armorSelect.appendChild(getEmptyOption());
@@ -54,11 +57,11 @@ export class InventoryArmorAddInput extends HTMLElement {
 
     /**
      * Creates an optgroup element populated with armor options.
-     * @param {string} optgroupLabel The label for the option group (e.g., "Light", "Medium", "Heavy").
-     * @param {EquipmentCategoryIndex} equipmentCategoryIndex The index of the equipment category to load.
-     * @returns {Promise<HTMLOptGroupElement>} A promise resolving to the populated optgroup element.
+     * @param optgroupLabel The label for the option group (e.g., "Light", "Medium", "Heavy").
+     * @param equipmentCategoryIndex The index of the equipment category to load.
+     * @returns A promise resolving to the populated optgroup element.
      */
-    async getSelectOptionGroup(optgroupLabel, equipmentCategoryIndex) {
+    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: EquipmentCategoryIndex): Promise<HTMLOptGroupElement> {
 
         const optgroup = document.createElement('optgroup');
         optgroup.label = optgroupLabel;
@@ -78,7 +81,7 @@ export class InventoryArmorAddInput extends HTMLElement {
      * Handles changes in the select element.
      * If a valid armor is selected, enables the "Add armor" button.
      */
-    handleWeaponSelectChange() {
+    handleWeaponSelectChange(): void {
         if (this.armorSelect.value) {
             this.addArmorButton.disabled = false;
         }
@@ -87,7 +90,7 @@ export class InventoryArmorAddInput extends HTMLElement {
     /**
      * Fetches the selected armor, adds it to the global inventory, dispatches an "inventoryArmorAdded" event, and resets the select.
      */
-    async addWeapon() {
+    async addWeapon(): Promise<void> {
         const armorIndex = this.armorSelect.value;
         const armor = await ApiBaseObject.getAsync(armorIndex, Armor);
 
