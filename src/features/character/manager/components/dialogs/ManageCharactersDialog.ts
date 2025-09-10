@@ -10,6 +10,17 @@ import { NewCharacterButton } from "../buttons/NewCharacterButton.js";
  * The dialog shows the user all their characters (active and inactive) and lets them switch, export, import, and delete.
  */
 export class ManageCharactersDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLElement;
+    firstParagraph: HTMLElement;
+    secondParagraph: HTMLElement;
+    thirdParagraph: HTMLElement;
+    createNewCharacterButton: NewCharacterButton;
+    importButton: CharacterImportButton;
+    currentCharacterTableContainer: HTMLDivElement;
+    bankedCharactersTableContainer: HTMLDivElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: () => void;
     
     constructor() {
         super();
@@ -65,7 +76,7 @@ export class ManageCharactersDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Listens for the "manageCharactersButtonClicked" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = () => this.showDialog();
         document.addEventListener("manageCharactersButtonClicked", this._updateHandler);
     }
@@ -74,14 +85,14 @@ export class ManageCharactersDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("manageCharactersButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("manageCharactersButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog and fires off an event to let the page know it is opened.
      */
-    showDialog() {
+    showDialog(): void {
         this.showModal();
 
         document.dispatchEvent(new Event('manageCharactersDialogOpened'));
@@ -90,7 +101,7 @@ export class ManageCharactersDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

@@ -18,7 +18,7 @@ export class ManageCharactersButton extends HTMLButtonElement {
     /**
      * Handles the button click and dispatches a "manageCharactersButtonClicked" event.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new Event('manageCharactersButtonClicked'));
     }
 }

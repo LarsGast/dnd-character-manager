@@ -7,6 +7,14 @@ import { globals } from "../../../../../store/load-globals.js";
  * The dialog warns the user about data loss, upon confirmation deletes the selected player character.
  */
 export class CharacterDeleteDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    warningText: HTMLElement;
+    deleteButton: HTMLButtonElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: (event: any) => void;
+    characterId?: string;
     
     constructor() {
         super();
@@ -52,7 +60,7 @@ export class CharacterDeleteDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Registers an event listener for "characterDeleteButtonClicked".
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("characterDeleteButtonClicked", this._updateHandler);
     }
@@ -61,15 +69,15 @@ export class CharacterDeleteDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("characterDeleteButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("characterDeleteButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog.
-     * @param {CustomEvent} event Custom event containing information about the selected character.
+     * @param event Custom event containing information about the selected character.
      */
-    showDialog(event) {
+    showDialog(event: CustomEvent) {
 
         // Set the PC ID here to use on confirmation.
         this.characterId = event.detail.characterId;
@@ -81,9 +89,9 @@ export class CharacterDeleteDialog extends HTMLDialogElement {
      * Handles reset button clicks.
      * Simply remove the character from the bank, close the dialog, and reload the UI.
      */
-    handleDeleteButtonClick() {
+    handleDeleteButtonClick(): void {
 
-        globals.playerCharacterBank.removeCharacterFromBank(this.characterId);
+        globals.playerCharacterBank.removeCharacterFromBank(this.characterId!);
         globals.playerCharacterBank.save();
 
         this.close();
@@ -94,7 +102,7 @@ export class CharacterDeleteDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

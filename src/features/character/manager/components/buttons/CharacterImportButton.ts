@@ -18,7 +18,7 @@ export class CharacterImportButton extends HTMLButtonElement {
     /**
      * Handles the button click and dispatches a "characterImportButtonClicked" event.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new Event('characterImportButtonClicked'));
     }
 }

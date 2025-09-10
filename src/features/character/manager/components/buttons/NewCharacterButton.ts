@@ -21,7 +21,7 @@ export class NewCharacterButton extends HTMLButtonElement {
     /**
      * Handles the button click.
      */
-    handleClick() {
+    handleClick(): void {
         globals.playerCharacterBank.addNewCharacter(PlayerCharacter.getDefault());
         globals.playerCharacterBank.save();
 

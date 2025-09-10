@@ -3,8 +3,9 @@
  * Extends HTMLButtonElement.
  */
 export class CharacterDeleteButton extends HTMLButtonElement {
+    characterId: string;
     
-    constructor(characterId) {
+    constructor(characterId: string) {
         super();
         
         // Set type and text.
@@ -19,7 +20,7 @@ export class CharacterDeleteButton extends HTMLButtonElement {
     /**
      * Handles the button click and dispatches a "characterDeleteButtonClicked" event.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new CustomEvent("characterDeleteButtonClicked", {
             detail: { 
                 characterId: this.characterId 
