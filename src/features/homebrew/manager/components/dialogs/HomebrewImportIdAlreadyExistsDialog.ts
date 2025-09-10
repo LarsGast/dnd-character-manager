@@ -6,6 +6,17 @@ import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
  * Extends HTMLDialogElement.
  */
 export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    homebrewIdentifierAnchor: HTMLAnchorElement;
+    firstParagraph: HTMLParagraphElement;
+    cancelImportButton: HTMLButtonElement;
+    overwriteButton: HTMLButtonElement;
+    keepBothButton: HTMLButtonElement;
+    closeButton: HTMLButtonElement;
+    buttonGroup: HTMLDivElement;
+    _updateHandler?: (event: any) => void;
+    homebrewBankEntry?: HomebrewBankEntry;
     
     constructor() {
         super();
@@ -70,7 +81,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Listens for the "homebrewImportIdAlreadyExists" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("homebrewImportIdAlreadyExists", this._updateHandler);
     }
@@ -79,25 +90,24 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("homebrewImportIdAlreadyExists", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("homebrewImportIdAlreadyExists", this._updateHandler!);
     }
 
     /**
      * Displays the dialog and resets any previous file selections or preview.
-     * @param {CustomEvent} event The event that triggered the dialog to open.
+     * @param event The event that triggered the dialog to open.
      */
-    showDialog(event) {
+    showDialog(event: CustomEvent): void {
         this.showModal();
 
-        /** @type {HomebrewBankEntry} */
         this.homebrewBankEntry = event.detail.homebrewBankEntry;
 
-        this.homebrewIdentifierAnchor.textContent = `${this.homebrewBankEntry.apiCategoryName}: ${this.homebrewBankEntry.homebrewObject.name}`;
+        this.homebrewIdentifierAnchor.textContent = `${this.homebrewBankEntry!.apiCategoryName}: ${this.homebrewBankEntry!.homebrewObject.name}`;
 
-        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry.homebrewObject.index);
+        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry!.homebrewObject.index);
 
-        this.homebrewIdentifierAnchor.href = `homebrew/?id=${existingEntry.id}`;
+        this.homebrewIdentifierAnchor.href = `homebrew/?id=${existingEntry!.id}`;
         this.homebrewIdentifierAnchor.target = "_blank";
     }
   
@@ -105,7 +115,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Handles the cancel import button click.
      * Closes the dialog and dispatches an event to indicate import cancellation.
      */
-    handleCancelImportButtonClick() {
+    handleCancelImportButtonClick(): void {
         this.close();
         document.dispatchEvent(new Event("homebrewImportCancelled"));
     }
@@ -114,10 +124,10 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Handles the overwrite button click.
      * Overwrites the existing homebrew object with the new one and saves the homebrew bank
      */
-    handleOverwriteButtonClick() {
+    handleOverwriteButtonClick(): void {
         
-        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry.homebrewObject.index);
-        existingEntry.homebrewObject = this.homebrewBankEntry.homebrewObject;
+        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry!.homebrewObject.index)!;
+        existingEntry.homebrewObject = this.homebrewBankEntry!.homebrewObject;
 
         globals.homebrewBank.save();
 
@@ -131,11 +141,11 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Creates a new homebrew object with a new UUID and appends it to the homebrew bank.
      * The new object will have the same properties as the existing one, but with a modified name.
      */
-    handleKeepBothButtonClick() {
-        this.homebrewBankEntry.homebrewObject.index = self.crypto.randomUUID();
-        this.homebrewBankEntry.homebrewObject.name += " (copy)";
+    handleKeepBothButtonClick(): void {
+        this.homebrewBankEntry!.homebrewObject.index = self.crypto.randomUUID();
+        this.homebrewBankEntry!.homebrewObject.name += " (copy)";
 
-        globals.homebrewBank.addNewHomebrew(this.homebrewBankEntry.homebrewObject, this.homebrewBankEntry.apiCategoryName);
+        globals.homebrewBank.addNewHomebrew(this.homebrewBankEntry!.homebrewObject, this.homebrewBankEntry!.apiCategoryName);
         globals.homebrewBank.save();
 
         this.close();
@@ -146,7 +156,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

@@ -11,6 +11,15 @@ import { NewHomebrewButton } from "../buttons/NewHomebrewButton.js";
  * The dialog shows the user all their homebrew objects (active and inactive) and lets them switch, export, import, and delete.
  */
 export class ManageHomebrewDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLElement;
+    firstParagraph: HTMLElement;
+    homebrewTypeSelect: HomebrewTypeSelect;
+    createNewHomebrew: NewHomebrewButton;
+    importButton: HomebrewImportButton;
+    homebrewTableContainer: HTMLDivElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: () => void;
     
     constructor() {
         super();
@@ -58,7 +67,7 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Listens for the "manageHomebrewButtonClicked" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = () => this.showDialog();
         document.addEventListener("manageHomebrewButtonClicked", this._updateHandler);
     }
@@ -67,14 +76,14 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("manageHomebrewButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("manageHomebrewButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog and fires off an event to let the page know it is opened.
      */
-    showDialog() {
+    showDialog(): void {
         this.showModal();
 
         document.dispatchEvent(new Event('manageHomebrewDialogOpened'));
@@ -83,7 +92,7 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

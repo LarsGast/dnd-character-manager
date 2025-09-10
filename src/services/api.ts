@@ -42,11 +42,11 @@ export class ApiCategory {
      * Returns the singular name of the category, e.g. "Class" for "classes".
      * @returns The singular name or null if not applicable.
      */
-    getSingularName(): string | null {
+    getSingularName(): string | undefined {
         switch (this.name) {
             case "races": return "Race";
             case "traits": return "Trait";
-            default: return null;
+            default: return undefined;
         }
     }
 }

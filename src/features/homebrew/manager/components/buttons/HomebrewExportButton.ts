@@ -3,8 +3,9 @@
  * Extends HTMLButtonElement.
  */
 export class HomebrewExportButton extends HTMLButtonElement {
+    homebrewId: string;
     
-    constructor(homebrewId) {
+    constructor(homebrewId: string) {
         super();
         
         // Set type and text.
@@ -19,7 +20,7 @@ export class HomebrewExportButton extends HTMLButtonElement {
     /**
      * Handles the button click and dispatches a "homebrewExportButtonClicked" event.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new CustomEvent("homebrewExportButtonClicked", {
             detail: { 
                 homebrewId: this.homebrewId 

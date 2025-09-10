@@ -4,11 +4,10 @@
  */
 export class HomebrewImportButton extends HTMLButtonElement {
     
-    constructor(homebrewId) {
+    constructor() {
         super();
         
         // Set type and text.
-        this.homebrewId = homebrewId;
         this.type = 'button';
         this.textContent = "Import";
 
@@ -19,7 +18,7 @@ export class HomebrewImportButton extends HTMLButtonElement {
     /**
      * Handles the button click and dispatches a "homebrewImportButtonClicked" event.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new Event("homebrewImportButtonClicked"));
     }
 }

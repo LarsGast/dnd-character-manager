@@ -2,6 +2,8 @@ import { globals } from "../../../../../store/load-globals.js";
 import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 
 export class NewHomebrewButton extends HTMLButtonElement {
+    _updateHandler?: (event: any) => void;
+    apiCategoryName?: string;
     
     constructor() {
         super();
@@ -19,7 +21,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
      * Called when the element is connected to the DOM.
      * Listens for the "customElementTypeChanged" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.updateButtonData(event);
         document.addEventListener("customElementTypeChanged", this._updateHandler);
     }
@@ -28,26 +30,24 @@ export class NewHomebrewButton extends HTMLButtonElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("customElementTypeChanged", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("customElementTypeChanged", this._updateHandler!);
     }
 
     /**
      * 
-     * @param {CustomEvent} event 
+     * @param event 
      */
-    updateButtonData(event) {
-        /** @type {string} */
+    updateButtonData(event: CustomEvent): void {
         this.apiCategoryName = event.detail.apiCategoryName;
-
         this.disabled = false;
     }
     
     /**
      * Handles the button click.
      */
-    handleClick() {
-        globals.homebrewBank.addNewHomebrew(ApiObjectInfo.getDefault(), this.apiCategoryName);
+    handleClick(): void {
+        globals.homebrewBank.addNewHomebrew(ApiObjectInfo.getDefault(), this.apiCategoryName!);
         globals.homebrewBank.save();
 
         document.dispatchEvent(new Event("newHomebrewCreated"));

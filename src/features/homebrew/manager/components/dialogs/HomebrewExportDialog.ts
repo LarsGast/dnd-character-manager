@@ -1,3 +1,4 @@
+import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
 import { globals } from "../../../../../store/load-globals.js";
 
 /**
@@ -7,6 +8,17 @@ import { globals } from "../../../../../store/load-globals.js";
  * The dialog warns the user about data loss, upon confirmation exports the selected homebrew object.
  */
 export class HomebrewExportDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    secondParagraph: HTMLParagraphElement;
+    exportButtonAndLabel: HTMLDivElement;
+    exportButton: HTMLButtonElement;
+    previewLabel: HTMLLabelElement;
+    previewTextarea: HTMLTextAreaElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: (event: any) => void;
+    homebrewBankEntry?: HomebrewBankEntry;
     
     constructor() {
         super();
@@ -64,15 +76,14 @@ export class HomebrewExportDialog extends HTMLDialogElement {
         this.dialogContent.appendChild(this.closeButton);
 
         // Append the content to the dialog.
-        this.appendChild(this.dialogContent);  
-
+        this.appendChild(this.dialogContent);
     }
 
     /**
      * Called when the element is connected to the DOM.
      * Registers an event listener for "homebrewExportButtonClicked".
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("homebrewExportButtonClicked", this._updateHandler);
     }
@@ -81,15 +92,15 @@ export class HomebrewExportDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("homebrewExportButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("homebrewExportButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog.
-     * @param {CustomEvent} event Custom event containing information about the selected homebrew object.
+     * @param event Custom event containing information about the selected homebrew object.
      */
-    showDialog(event) {
+    showDialog(event: CustomEvent): void {
 
         this.homebrewBankEntry = globals.homebrewBank.getHomebrewBankEntryByIndex(event.detail.homebrewId);
         
@@ -102,7 +113,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
     /**
      * Handles the export button click by creating a downloadable JSON file.
      */
-    handleExportButtonClick() {
+    handleExportButtonClick(): void {
 
         // Create a Blob from the homebrew JSON data.
         const blob = new Blob(
@@ -115,7 +126,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
         // That's why we create an anchor tag and trigger a click here.
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${this.homebrewBankEntry.homebrewObject.name}.json`;
+        a.download = `${this.homebrewBankEntry!.homebrewObject.name}.json`;
         a.click();
 
         URL.revokeObjectURL(url);
@@ -126,7 +137,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }
