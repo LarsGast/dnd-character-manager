@@ -37,7 +37,7 @@ export class AbilityScoreInput extends HTMLInputElement {
      *
      * This method ensures the score is within accepted limits, then updates the active PC's property and dispatches a custom event to notify that the ability score has changed.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Ensure the score does not exceed boundaries.
         this.limitScore();
@@ -57,7 +57,7 @@ export class AbilityScoreInput extends HTMLInputElement {
     /**
      * Restrict the value to the defined boundaries (min: 1, max: 30).
      */
-    limitScore() {
+    limitScore(): void {
         if (Number(this.value) > Number(this.max)) {
             this.value = this.max;
         }

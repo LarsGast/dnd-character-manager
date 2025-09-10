@@ -71,7 +71,7 @@ export class ClassLevelInput extends HTMLLIElement {
      * Called when the element is connected to the DOM.
      * Loads class options into the classSelect element.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
         await this.loadOptions();
     }
 
@@ -79,12 +79,12 @@ export class ClassLevelInput extends HTMLLIElement {
      * Loads class options asynchronously.
      * Populates the select element with class options including an empty option.
      */
-    async loadOptions() {
+    async loadOptions(): Promise<void> {
         await this.loadClassOptions();
         await this.loadSubclassOptions();
     }
 
-    async loadClassOptions() {
+    async loadClassOptions(): Promise<void> {
 
         // Add an empty option first.
         this.classSelect.appendChild(getEmptyOption());
@@ -99,7 +99,7 @@ export class ClassLevelInput extends HTMLLIElement {
         this.levelInput.value = (this.level ?? 1).toString();
     }
 
-    async loadSubclassOptions() {
+    async loadSubclassOptions(): Promise<void> {
 
         this.subclassSelect.replaceChildren();
 
@@ -125,7 +125,7 @@ export class ClassLevelInput extends HTMLLIElement {
      * Event handler for when the class selection changes.
      * Dispatches a "classChanged" event.
      */
-    async handleClassChange() {
+    async handleClassChange(): Promise<void> {
         this.classIndex = this.classSelect.value;
         this.subclassIndex = undefined;
         await this.loadSubclassOptions();
@@ -136,7 +136,7 @@ export class ClassLevelInput extends HTMLLIElement {
      * Event handler for when the subclass selection changes.
      * Dispatches a "subclassChanged" event.
      */
-    handleSubclassChange() {
+    handleSubclassChange(): void {
         document.dispatchEvent(new Event("subclassChanged"));
     }
 
@@ -144,7 +144,7 @@ export class ClassLevelInput extends HTMLLIElement {
      * Event handler for when the level input changes.
      * Ensures the level is within range, then dispatches a "classLevelChanged" event.
      */
-    handleLevelChange() {
+    handleLevelChange(): void {
         if (Number(this.levelInput.value) > 20) {
             this.levelInput.value = "20";
         }
@@ -159,7 +159,7 @@ export class ClassLevelInput extends HTMLLIElement {
      * Event handler for deleting the class level input.
      * Removes the element and dispatches a "classDeleted" event.
      */
-    handleDelete() {
+    handleDelete(): void {
         this.remove();
         document.dispatchEvent(new Event("classDeleted"));
     }

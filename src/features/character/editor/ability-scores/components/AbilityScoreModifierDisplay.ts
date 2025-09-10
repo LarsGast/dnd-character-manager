@@ -27,13 +27,13 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
      *
      * Sets the initial display value and registers an event listener to update the modifier when the ability score changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Set the initial display value.
         this.updateDisplay();
 
         // Register an event listener for ability score changes.
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event) => this.updateDisplay({ event });
         document.addEventListener("abilityScoreChanged", this._updateHandler);
     }
 
@@ -42,7 +42,7 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
      *
      * Ensures that the event listener is removed to prevent memory leaks.
      */
-    disconnectedCallback() {
+    disconnectedCallback(): void {
         document.removeEventListener("abilityScoreChanged", this._updateHandler!);
     }
 
@@ -54,7 +54,7 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
      *
      * @param event The event that may trigger the update.
      */
-    updateDisplay(event?: CustomEvent) {
+    updateDisplay({ event }: { event?: CustomEvent; } = {}) {
 
         // If there is no event or the event matches this ability, update the display.
         if (!event || event.detail.ability === this.ability) {
@@ -68,7 +68,7 @@ export class AbilityScoreModifierDisplay extends HTMLElement {
     /**
      * Dispatch a custom event indicating that the ability score modifier has changed.
      */
-    handleChange() {
+    handleChange(): void {
         document.dispatchEvent(new CustomEvent("abilityScoreModifierChanged", {
             detail: { 
                 ability: this.ability 

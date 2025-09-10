@@ -38,7 +38,7 @@ export class ClassLevelSection extends HTMLElement {
      * Loads existing class levels from the active player's data if available, otherwise creates a default ClassLevelInput.
      * Registers event listeners to track changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         if (globals.activePlayerCharacter.classes.length > 0) {
             for (const classLevel of globals.activePlayerCharacter.classes) {
                 const classLevelInput = new ClassLevelInput((classLevel as any).index, (classLevel as any).subclass, (classLevel as any).level);
@@ -63,7 +63,7 @@ export class ClassLevelSection extends HTMLElement {
      * Called when the element is disconnected from the DOM.
      * Removes event listeners to prevent memory leaks.
      */
-    disconnectedCallback() {
+    disconnectedCallback(): void {
         document.removeEventListener("classAdded", this._updateHandler!);
         document.removeEventListener("classChanged", this._updateHandler!);
         document.removeEventListener("subclassChanged", this._updateHandler!);
@@ -75,7 +75,7 @@ export class ClassLevelSection extends HTMLElement {
      * Event handler for the "Add class" button.
      * Creates and appends a new ClassLevelInput element and dispatches a "classAdded" event.
      */
-    onAddClassButtonClick() {
+    onAddClassButtonClick(): void {
         this.classLevelList.appendChild(new ClassLevelInput());
         document.dispatchEvent(new Event("classAdded"));
     }
@@ -83,7 +83,7 @@ export class ClassLevelSection extends HTMLElement {
     /**
      * Aggregates all class level inputs, updates the active player's classes, and dispatches a "classesChanged" event.
      */
-    saveClasses() {
+    saveClasses(): void {
         let classes: any[] = [];
 
         // Loop through each ClassLevelInput element in the list.
