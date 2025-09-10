@@ -8,12 +8,14 @@ import { globals } from "../../../../../../store/load-globals.js";
  * On change, it updates the active PC's expertise state for the skill and dispatches a "skillExpertiseChanged" event.
  */
 export class SkillExpertiseCheckbox extends HTMLInputElement {
+    skill: Skill;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of SkillExpertiseCheckbox.
-     * @param {Skill} skill The skill object.
+     * @param skill The skill object.
      */
-    constructor(skill) {
+    constructor(skill: Skill) {
         super();
 
         this.skill = skill;
@@ -30,17 +32,17 @@ export class SkillExpertiseCheckbox extends HTMLInputElement {
      * Called when the element is connected to the DOM.
      * Updates its display and listens for changes in skill proficiency.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("skillProficiencyChanged", this._updateHandler);
     }
   
     /**
      * Handles changes to the checkbox state, updating global expertise.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Add or remove expertise in given skill.
         if (this.checked) {
@@ -58,9 +60,9 @@ export class SkillExpertiseCheckbox extends HTMLInputElement {
     /**
      * Updates the checkbox display based on the proficiency state.
      * Disables the checkbox if the PC is not yet proficient in the skill.
-     * @param {CustomEvent} event An event indicating a change.
+     * @param event An event indicating a change.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent): void {
         if (!event || (event.type === "skillProficiencyChanged" && event.detail.skill === this.skill.index)) {
             this.disabled = !globals.activePlayerCharacter.isProficientInSkill(this.skill.index);
         }

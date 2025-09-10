@@ -14,6 +14,8 @@ import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseO
  * On clicking, the selected weapon is retrieved, added to the active PC's inventory (using its standard ability), and an "inventoryWeaponAdded" event is dispatched.
  */
 export class InventoryWeaponAddInput extends HTMLElement {
+    weaponSelect: HTMLSelectElement;
+    addWeaponButton: HTMLButtonElement;
 
     constructor() {
         super();
@@ -40,7 +42,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
      * Called when the element is attached to the DOM.
      * Populates the select element with weapon options grouped by category.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
 
         // Start with an empty default option.
         this.weaponSelect.appendChild(getEmptyOption());
@@ -54,11 +56,11 @@ export class InventoryWeaponAddInput extends HTMLElement {
 
     /**
      * Creates and returns an optgroup element containing weapon options.
-     * @param {string} optgroupLabel The label for this group (e.g., "Simple Melee", "Martial Ranged").
-     * @param {EquipmentCategoryIndex} equipmentCategoryIndex The category index for fetching weapon data.
-     * @returns {Promise<HTMLOptGroupElement>} A promise that resolves to the populated optgroup element.
+     * @param optgroupLabel The label for this group (e.g., "Simple Melee", "Martial Ranged").
+     * @param equipmentCategoryIndex The category index for fetching weapon data.
+     * @returns A promise that resolves to the populated optgroup element.
      */
-    async getSelectOptionGroup(optgroupLabel, equipmentCategoryIndex) {
+    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: EquipmentCategoryIndex): Promise<HTMLOptGroupElement> {
         const optgroup = document.createElement('optgroup');
         optgroup.label = optgroupLabel;
     
@@ -77,7 +79,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
      * Handles changes in the weapon select.
      * Enables the "Add weapon" button if a valid selection is made.
      */
-    handleWeaponSelectChange() {
+    handleWeaponSelectChange(): void {
         if (this.weaponSelect.value) {
             this.addWeaponButton.disabled = false;
         }
@@ -87,7 +89,7 @@ export class InventoryWeaponAddInput extends HTMLElement {
      * Handles the addition of a weapon to the global inventory.
      * Retrieves the weapon by its index, adds it with its standard ability, dispatches an "inventoryWeaponAdded" event, and then resets the select.
      */
-    async addWeapon() {
+    async addWeapon(): Promise<void> {
         const weaponIndex = this.weaponSelect.value;
         const weapon = await ApiBaseObject.getAsync(weaponIndex, Weapon);
 

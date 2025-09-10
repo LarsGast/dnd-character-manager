@@ -22,7 +22,7 @@ export class AlignmentInput extends HTMLSelectElement {
      * Called when the element is connected to the DOM.
      * Asynchronously loads all alignments and populates the select options.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
 
         // Retrieve all alignments.
         const allAlignments = await Alignment.getAllAsync();
@@ -34,14 +34,14 @@ export class AlignmentInput extends HTMLSelectElement {
         populateSelectWithApiObjects(this, allAlignments);
 
         // Set the select value to the active PC's current alignment.
-        this.value = globals.activePlayerCharacter.alignment;
+        this.value = globals.activePlayerCharacter.alignment ?? "null";
     }
 
     /**
      * Handles changes in the select input.
      * Updates the active PC's alignment and dispatches an "alignmentUpdated" event.
      */
-    handleChange() {
+    handleChange(): void {
         globals.activePlayerCharacter.setProperty('alignment', this.value);
         document.dispatchEvent(new Event("alignmentUpdated"));
     }

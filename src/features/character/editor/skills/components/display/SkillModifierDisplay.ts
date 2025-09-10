@@ -8,12 +8,14 @@ import { globals } from "../../../../../../store/load-globals.js";
  * This element listens for changes in proficiency, expertise, ability modifier, and proficiency bonus, and updates its displayed value accordingly.
  */
 export class SkillModifierDisplay extends HTMLElement {
+    skill: Skill;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of SkillModifierDisplay.
-     * @param {Skill} skill The skill object.
+     * @param skill The skill object.
      */
-    constructor(skill) {
+    constructor(skill: Skill) {
         super();
         this.skill = skill;
     }
@@ -22,10 +24,10 @@ export class SkillModifierDisplay extends HTMLElement {
      * Called when the element is connected to the DOM.
      * Updates the display and sets up event listeners.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("proficiencyBonusChanged", this._updateHandler);
         document.addEventListener("abilityScoreModifierChanged", this._updateHandler);
         document.addEventListener("skillProficiencyChanged", this._updateHandler);
@@ -34,9 +36,9 @@ export class SkillModifierDisplay extends HTMLElement {
 
     /**
      * Updates the display if the triggering event indicates a change to this skill.
-     * @param {CustomEvent} event An event indicating potential changes.
+     * @param event An event indicating potential changes.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent): void {
         if (this.getShouldUpdate(event)) {
             this.updateSkillModifier();
         }
@@ -44,10 +46,10 @@ export class SkillModifierDisplay extends HTMLElement {
 
     /**
      * Determines whether to update the display based on the given event.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if the display should update.
+     * @param event The event to evaluate.
+     * @returns True if the display should update.
      */
-    getShouldUpdate(event) {
+    getShouldUpdate(event?: CustomEvent): boolean {
         return !event ||
             event.type === "proficiencyBonusChanged" ||
             (event.type === "abilityScoreModifierChanged" && event.detail.ability === this.skill.ability_score.index) ||
@@ -59,8 +61,8 @@ export class SkillModifierDisplay extends HTMLElement {
      * Computes and updates the text content with the skill's modifier.
      * Dispatches a "skillModifierChanged" event.
      */
-    updateSkillModifier() {
-        this.textContent = globals.activePlayerCharacter.getSkillModifier(this.skill);
+    updateSkillModifier(): void {
+        this.textContent = globals.activePlayerCharacter.getSkillModifier(this.skill).toString();
         
         document.dispatchEvent(new CustomEvent("skillModifierChanged", {
             detail: { skill: this.skill.index },

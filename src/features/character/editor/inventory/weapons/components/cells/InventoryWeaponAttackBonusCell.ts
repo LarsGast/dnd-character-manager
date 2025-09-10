@@ -1,4 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
+import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
 
 /**
  * Custom table cell element that displays the calculated attack bonus for a weapon.
@@ -7,13 +8,16 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * The cell listens for updates from proficiency, ability score modifiers, weapon proficiency, and weapon ability changes to update the displayed attack bonus.
  */
 export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
+    weapon: Weapon;
+    rowIndex: number;
+    _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of InventoryWeaponAttackBonusCell.
-     * @param {Weapon} weapon The weapon object.
-     * @param {number} rowIndex The index of the weapon in the inventory.
+     * @param weapon The weapon object.
+     * @param rowIndex The index of the weapon in the inventory.
      */
-    constructor(weapon, rowIndex) {
+    constructor(weapon: Weapon, rowIndex: number) {
         super();
 
         this.weapon = weapon;
@@ -28,7 +32,7 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
 
         this.updateDisplay();
 
-        this._updateHandler = (event) => this.updateDisplay(event);
+        this._updateHandler = (event: any) => this.updateDisplay(event);
         document.addEventListener("proficiencyBonusChanged", this._updateHandler);
         document.addEventListener("abilityScoreModifierChanged", this._updateHandler);
         document.addEventListener("weaponProficiencyChanged", this._updateHandler);
@@ -40,21 +44,21 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
      * Removes registered event listeners.
      */
     disconnectedCallback() {
-        document.removeEventListener("proficiencyBonusChanged", this._updateHandler);
-        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler);
-        document.removeEventListener("weaponProficiencyChanged", this._updateHandler);
-        document.removeEventListener("inventoryWeaponAbilityChanged", this._updateHandler);
+        document.removeEventListener("proficiencyBonusChanged", this._updateHandler!);
+        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler!);
+        document.removeEventListener("weaponProficiencyChanged", this._updateHandler!);
+        document.removeEventListener("inventoryWeaponAbilityChanged", this._updateHandler!);
     }
 
     /**
      * Updates the cell's displayed attack bonus.
      * Also adds or removes a CSS class for positive bonus values.
-     * @param {CustomEvent} event An optional event that triggers the update.
+     * @param event An optional event that triggers the update.
      */
-    updateDisplay(event) {
+    updateDisplay(event?: CustomEvent) {
         if (this.shouldUpdateDisplay(event)) {
             const attackBonusValue = this.getAttackBonusValue();
-            this.textContent = attackBonusValue;
+            this.textContent = attackBonusValue.toString();
 
             // Add a CSS class that adds the "+" sign in front of a positive number.
             if (attackBonusValue > 0) {
@@ -68,25 +72,25 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
 
     /**
      * Determines if the display should be updated based on the triggering event.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if the cell should update; otherwise false.
+     * @param event The event to evaluate.
+     * @returns True if the cell should update; otherwise false.
      */
-    shouldUpdateDisplay(event) {
+    shouldUpdateDisplay(event?: CustomEvent): boolean {
         const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
         return !event || 
             (event.type === "proficiencyBonusChanged") ||
-            (event.type === "abilityScoreModifierChanged" && event.detail.ability === inventoryWeapon.ability) ||
+            (event.type === "abilityScoreModifierChanged" && event.detail.ability === (inventoryWeapon as any).ability) ||
             (event.type === "weaponProficiencyChanged" && event.detail.weapon === this.weapon.index) ||
             (event.type === "inventoryWeaponAbilityChanged" && event.detail.index === this.rowIndex);
     }
 
     /**
      * Retrieves the calculated attack bonus for the weapon.
-     * @returns {number} The computed attack bonus.
+     * @returns The computed attack bonus.
      */
-    getAttackBonusValue() {
-        const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+    getAttackBonusValue(): number {
+        const inventoryWeapon: any = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
         return globals.activePlayerCharacter.getWeaponAttackBonus(inventoryWeapon.index, inventoryWeapon.ability);
     }
 }

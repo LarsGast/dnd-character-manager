@@ -11,12 +11,16 @@ import { AbilityScoreModifierDisplay } from "./AbilityScoreModifierDisplay.js";
  * - An input field for the user to adjust the ability score.
  */
 export class AbilityScoreDisplay extends HTMLElement {
+    ability: string;
+    displayLabel: HTMLSpanElement;
+    modifierDisplay: AbilityScoreModifierDisplay;
+    scoreInput: AbilityScoreInput;
 
     constructor() {
         super();
 
         // Retrieve the "ability" attribute (e.g., "str", "dex").
-        this.ability = this.getAttribute("ability");
+        this.ability = this.getAttribute("ability")!;
 
         // Create a span element to display the ability's label.
         this.displayLabel = document.createElement('span');

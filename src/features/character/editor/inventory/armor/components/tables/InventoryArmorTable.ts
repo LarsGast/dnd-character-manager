@@ -12,6 +12,11 @@ import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseO
  * It listens for "inventoryArmorAdded" and "inventoryArmorDeleted" events to refresh its content.
  */
 export class InventoryArmorTable extends HTMLElement {
+    tableHead: HTMLTableSectionElement;
+    tableBody: HTMLTableSectionElement;
+    table: HTMLTableElement;
+    _updateHandler?: (event: any) => Promise<void>;
+
     constructor() {
         super();
 
@@ -79,7 +84,7 @@ export class InventoryArmorTable extends HTMLElement {
      * Called when the element is connected to the DOM.
      * Updates the table display and registers event listeners for armor inventory changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Refresh the table immediately.
         this.updateDisplay();
@@ -94,25 +99,25 @@ export class InventoryArmorTable extends HTMLElement {
      * Called when the element is disconnected from the DOM.
      * Removes event listeners.
      */
-    disconnectedCallback() {
-        document.removeEventListener("inventoryArmorAdded", this._updateHandler);
-        document.removeEventListener("inventoryArmorDeleted", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("inventoryArmorAdded", this._updateHandler!);
+        document.removeEventListener("inventoryArmorDeleted", this._updateHandler!);
     }
 
     /**
      * Updates the table display by repopulating the body with the current armor inventory.
-     * @param {CustomEvent} event Optional event that may trigger the update.
+     * @param event Optional event that may trigger the update.
      */
-    async updateDisplay(event) {
+    async updateDisplay(event?: CustomEvent) {
         if (this.shouldUpdateDisplay(event)) {
 
             // Clear existing table body content.
-            const tableBody = this.table.querySelector('tbody');
+            const tableBody = this.table.querySelector('tbody')!;
             tableBody.replaceChildren();
 
             // For each armor in the inventory, create a new row and append it.
             for (const inventoryArmor of globals.activePlayerCharacter.inventoryArmor) {
-                const armor = await ApiBaseObject.getAsync(inventoryArmor.index, Armor);
+                const armor = await ApiBaseObject.getAsync((inventoryArmor as any).index, Armor);
                 tableBody.appendChild(new InventoryArmorRow(armor));
             }
         }
@@ -120,10 +125,10 @@ export class InventoryArmorTable extends HTMLElement {
 
     /**
      * Determines if the table display should be updated based on the event.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if the table should be updated; false otherwise.
+     * @param event The event to evaluate.
+     * @returns True if the table should be updated; false otherwise.
      */
-    shouldUpdateDisplay(event) {
+    shouldUpdateDisplay(event?: CustomEvent): boolean {
         return !event ||
             event.type === "inventoryArmorAdded" ||
             event.type === "inventoryArmorDeleted";

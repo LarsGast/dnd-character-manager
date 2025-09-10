@@ -1,7 +1,6 @@
 import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { Race } from "../../../../../types/api/resources/Race.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
@@ -13,6 +12,7 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  * Changes are propagated by dispatching a "subraceUpdated" event.
  */
 export class SubraceInput extends HTMLSelectElement {
+    _updateHandler?: (event: any) => Promise<void>;
     
     constructor() {
         super();
@@ -25,7 +25,7 @@ export class SubraceInput extends HTMLSelectElement {
      * Called when the element is connected to the DOM.
      * Immediately updates the subrace options and registers an event listener for race updates.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
 
         // Update the displayed subrace options immediately.
         await this.updateDisplay();
@@ -39,15 +39,15 @@ export class SubraceInput extends HTMLSelectElement {
      * Called when the element is disconnected from the DOM.
      * Removes the race update event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("raceUpdated", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("raceUpdated", this._updateHandler!);
     }
 
     /**
      * Updates the subrace options based on the current race.
-     * @param {Event} event Optional event triggering the update.
+     * @param event Optional event triggering the update.
      */
-    async updateDisplay(event) {
+    async updateDisplay(event?: Event): Promise<void> {
 
         // Remove all existing child options.
         this.replaceChildren();
@@ -69,7 +69,7 @@ export class SubraceInput extends HTMLSelectElement {
             this.handleChange();
         } else {
             // Otherwise, set the value to the current global subrace.
-            this.value = globals.activePlayerCharacter.subrace;
+            this.value = globals.activePlayerCharacter.subrace ?? "null";
         }
     }
 
@@ -77,7 +77,7 @@ export class SubraceInput extends HTMLSelectElement {
      * Handles changes to the subrace selection.
      * Updates the PC's subrace and dispatches a "subraceUpdated" event.
      */
-    handleChange() {
+    handleChange(): void {
         globals.activePlayerCharacter.setProperty('subrace', this.value == "null" ? null : this.value);
         document.dispatchEvent(new Event("subraceUpdated"));
     }

@@ -8,12 +8,13 @@ import { globals } from "../../../../../store/load-globals.js";
  * It initializes its value from the active PC's ability score and updates it when the user changes the input.
  */
 export class AbilityScoreInput extends HTMLInputElement {
+    ability: string;
 
     /**
      * Create an AbilityScoreInput.
-     * @param {string} ability The ability for which the score is being input (e.g., "str", "dex").
+     * @param ability The ability for which the score is being input (e.g., "str", "dex").
      */
-    constructor(ability) {
+    constructor(ability: string) {
         super();
 
         // Store the ability identifier.
@@ -21,11 +22,11 @@ export class AbilityScoreInput extends HTMLInputElement {
 
         // Set input type and limits.
         this.type = "number";
-        this.min = 1;
-        this.max = 30;
+        this.min = "1";
+        this.max = "30";
 
         // Initialize the input value from the active PC's current ability score.
-        this.value = globals.activePlayerCharacter[this.ability];
+        this.value = (globals.activePlayerCharacter as any)[this.ability];
 
         // Bind the change handler to react on user input changes.
         this.onchange = () => this.handleChange();
@@ -36,7 +37,7 @@ export class AbilityScoreInput extends HTMLInputElement {
      *
      * This method ensures the score is within accepted limits, then updates the active PC's property and dispatches a custom event to notify that the ability score has changed.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Ensure the score does not exceed boundaries.
         this.limitScore();
@@ -56,13 +57,13 @@ export class AbilityScoreInput extends HTMLInputElement {
     /**
      * Restrict the value to the defined boundaries (min: 1, max: 30).
      */
-    limitScore() {
-        if (this.value > 30) {
-            this.value = 30;
+    limitScore(): void {
+        if (Number(this.value) > Number(this.max)) {
+            this.value = this.max;
         }
 
-        if (this.value < 1) {
-            this.value = 1;
+        if (Number(this.value) < Number(this.min)) {
+            this.value = this.min;
         }
     }
 }

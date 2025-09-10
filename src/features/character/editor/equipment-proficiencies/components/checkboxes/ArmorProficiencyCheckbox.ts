@@ -9,15 +9,15 @@ import { globals } from "../../../../../../store/load-globals.js";
  * Clicking the checkbox will update the PC's proficiency and notify any listeners via a custom event.
  */
 export class ArmorProficiencyCheckbox extends HTMLInputElement {
+    armor: Armor;
 
     /**
      * Create an ArmorProficiencyCheckbox.
-     * @param {Armor} armor An Armor object representing the armor to display.
+     * @param armor An Armor object representing the armor to display.
      */
-    constructor(armor) {
+    constructor(armor: Armor) {
         super();
 
-        /** @type {Armor} */
         this.armor = armor;
         
         // Set the input type to checkbox.
@@ -35,7 +35,7 @@ export class ArmorProficiencyCheckbox extends HTMLInputElement {
      *
      * When the checkbox is toggled, this method updates the active PC's armor proficiency accordingly and dispatches a custom event.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Update proficiencies.
         if (this.checked) {

@@ -22,7 +22,7 @@ export class BackgroundInput extends HTMLSelectElement {
      * Called when the element is connected to the DOM.
      * Loads all backgrounds and sets up the select options.
      */
-    async connectedCallback() {
+    async connectedCallback(): Promise<void> {
         
         // Retrieve all backgrounds.
         const allBackgrounds = await Background.getAllAsync();
@@ -34,14 +34,14 @@ export class BackgroundInput extends HTMLSelectElement {
         populateSelectWithApiObjects(this, allBackgrounds);
 
         // Set the current value from the active player's data.
-        this.value = globals.activePlayerCharacter.background;
+        this.value = globals.activePlayerCharacter.background ?? "null";
     }
 
     /**
      * Handles selection changes.
      * Updates the player's background and dispatches a "backgroundUpdated" event.
      */
-    handleChange() {
+    handleChange(): void {
         globals.activePlayerCharacter.setProperty('background', this.value);
         document.dispatchEvent(new Event("backgroundUpdated"));
     }

@@ -9,15 +9,23 @@ import { InventoryArmorEffectiveArmorClassCell } from "../cells/InventoryArmorEf
  * This element creates table cells for various armor properties (name, type, strength requirement, stealth disadvantage, armor class, effective armor class, and weight) and includes action buttons.
  */
 export class InventoryArmorRow extends HTMLTableRowElement {
+    armor: Armor;
+    nameCell?: HTMLTableCellElement;
+    typeCell?: HTMLTableCellElement;
+    strengthCell?: HTMLTableCellElement;
+    stealthCell?: HTMLTableCellElement;
+    armorClassCell?: HTMLTableCellElement;
+    effectiveArmorClassCell?: InventoryArmorEffectiveArmorClassCell;
+    weightCell?: HTMLTableCellElement;
+    buttonsCell?: InventoryArmorButtonsCell;
 
     /**
      * Creates an instance of InventoryArmorRow.
-     * @param {Armor} armor The armor object to be displayed.
+     * @param armor The armor object to be displayed.
      */
-    constructor(armor) {
+    constructor(armor: Armor) {
         super();
 
-        /** @type {Armor} */
         this.armor = armor;
     }
     
@@ -25,7 +33,7 @@ export class InventoryArmorRow extends HTMLTableRowElement {
      * Called when the element is connected to the DOM.
      * Initializes table cells with armor properties and appends them to the row.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Create and populate cell for the armor name.
         this.nameCell = document.createElement('td');
@@ -41,7 +49,7 @@ export class InventoryArmorRow extends HTMLTableRowElement {
         // Display "-" if no minimum strength is required.
         this.strengthCell = document.createElement('td');
         this.strengthCell.headers = 'armor_strength-requirement';
-        this.strengthCell.textContent = this.armor.str_minimum === 0 ? "-" : this.armor.str_minimum;
+        this.strengthCell.textContent = this.armor.str_minimum === 0 ? "-" : this.armor.str_minimum.toString();
 
         // Create and populate cell for stealth disadvantage.
         this.stealthCell = document.createElement('td');
@@ -60,7 +68,7 @@ export class InventoryArmorRow extends HTMLTableRowElement {
         // Create and populate cell for weight.
         this.weightCell = document.createElement('td');
         this.weightCell.headers = 'armor_weight';
-        this.weightCell.textContent = this.armor.weight;
+        this.weightCell.textContent = this.armor.weight.toString();
 
         // Create a buttons cell to hold action buttons.
         // Note: Using rowIndex - 1 since the fist non-header row of the table starts at index 1.

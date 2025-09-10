@@ -12,13 +12,16 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * When the select value changes, the active player's inventory is updated and an "inventoryWeaponAbilityChanged" event is dispatched.
  */
 export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
+    weapon: Weapon;
+    rowIndex: number;
+    select?: HTMLSelectElement;
 
     /**
      * Creates an instance of InventoryWeaponAbilityCell.
-     * @param {Weapon} weapon The weapon object.
-     * @param {number} rowIndex The index of the weapon in the global inventory.
+     * @param weapon The weapon object.
+     * @param rowIndex The index of the weapon in the global inventory.
      */
-    constructor(weapon, rowIndex) {
+    constructor(weapon: Weapon, rowIndex: number) {
         super();
 
         this.weapon = weapon;
@@ -51,8 +54,8 @@ export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
      * Handles changes to the ability select element.
      * Updates the active player's inventory weapon entry with the new ability, and dispatches a custom "inventoryWeaponAbilityChanged" event with details.
      */
-    handleChange() {
-        globals.activePlayerCharacter.editWeaponAbility(this.rowIndex, this.select.value);
+    handleChange(): void {
+        globals.activePlayerCharacter.editWeaponAbility(this.rowIndex, this.select!.value);
 
         document.dispatchEvent(new CustomEvent("inventoryWeaponAbilityChanged", {
             detail: { 
@@ -64,11 +67,11 @@ export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
 
     /**
      * Retrieves the default ability for the weapon from the active player's inventory.
-     * @returns {string} The current ability value (e.g., "str" or "dex").
+     * @returns The current ability value (e.g., "str" or "dex").
      */
-    getDefaultAbility() {
+    getDefaultAbility(): string {
         const inventoryWeapon = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
-        return inventoryWeapon.ability;
+        return (inventoryWeapon as any).ability;
     }
 }
 
