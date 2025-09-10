@@ -3,7 +3,6 @@
     "module": "es6",
     "target": "es2017",
     "outDir": "./build",
-    "allowJs": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
