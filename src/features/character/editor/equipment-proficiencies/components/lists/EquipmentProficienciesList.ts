@@ -55,7 +55,7 @@ export class EquipmentProficienciesList extends HTMLUListElement {
         }
 
         // Apply a CSS class to manage the number of columns based on item count.
-        const className = this.getNumberOfColumnsClassName({ listLength: results.equipment.length });
+        const className = this.getNumberOfColumnsClassName(results.equipment.length);
         if (className) {
             this.classList.add(className);
         }
@@ -66,7 +66,7 @@ export class EquipmentProficienciesList extends HTMLUListElement {
      * @param listLength The total number of equipment items.
      * @returnsThe CSS class name defining column layout.
      */
-    getNumberOfColumnsClassName({ listLength }: { listLength: number; }): string | undefined {
+    getNumberOfColumnsClassName(listLength: number): string | undefined {
         if (listLength >= 9) {
             return 'three-columns-list';
         }

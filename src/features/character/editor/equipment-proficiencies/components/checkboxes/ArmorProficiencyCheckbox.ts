@@ -35,7 +35,7 @@ export class ArmorProficiencyCheckbox extends HTMLInputElement {
      *
      * When the checkbox is toggled, this method updates the active PC's armor proficiency accordingly and dispatches a custom event.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Update proficiencies.
         if (this.checked) {

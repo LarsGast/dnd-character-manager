@@ -35,7 +35,7 @@ export class WeaponProficiencyCheckbox extends HTMLInputElement {
      *
      * Updates the active player character's weapon proficiency based on checkbox state and dispatches a custom event.
      */
-    handleChange() {
+    handleChange(): void {
 
         // Update proficiencies.
         if (this.checked) {
