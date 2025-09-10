@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       should_create_release:
-        description: 'Whether a new GitHub release should be created for this deployment.'
+        description: 'Create a new GitHub release.'
         required: true
         type: boolean
         default: true
