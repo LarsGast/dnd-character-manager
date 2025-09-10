@@ -1,7 +1,7 @@
 import { Race } from "../../../../../types/api/resources/Race.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { Trait } from "../../../../../types/api/resources/Trait.js";
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -11,6 +11,8 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  * It shows sections for ability bonuses, speed, alignment, age, size, languages, and any available traits.
  */
 export class RaceFeaturesDisplay extends HTMLDetailsElement {
+    _updateHandler?: (event: any) => Promise<void>;
+    race?: Race;
 
     constructor() {
         super();
@@ -20,7 +22,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
      * Called when the element is connected to the DOM.
      * Immediately updates the display and starts listening for race updates.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Update the display on startup.
         this.updateDisplay();
@@ -34,15 +36,15 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
      * Called when the element is disconnected from the DOM.
      * Cleans up the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("raceUpdated", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("raceUpdated", this._updateHandler!);
     }
 
     /**
      * Asynchronously updates the display if an update is warranted.
-     * @param {CustomEvent} event An optional event that triggers the update.
+     * @param event An optional event that triggers the update.
      */
-    async updateDisplay(event) {
+    async updateDisplay(event?: CustomEvent) {
         if (this.getShouldUpdate(event)) {
             await this.updateRaceFeaturesDisplay();
         }
@@ -50,19 +52,19 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Determines if the display should be updated.
-     * @param {CustomEvent} event The event that triggered the update.
-     * @returns {boolean} True if update should occur.
+     * @param event The event that triggered the update.
+     * @returns True if update should occur.
      */
-    getShouldUpdate(event) {
+    getShouldUpdate(event?: CustomEvent): boolean {
         return !event || (event.type === "raceUpdated");
     }
 
     /**
      * Creates and returns a level-3 heading element for a given title.
-     * @param {string} title The heading title.
-     * @returns {HTMLElement} The heading element.
+     * @param title The heading title.
+     * @returns The heading element.
      */
-    getHeading(title) {
+    getHeading(title: string): HTMLElement {
         const heading = document.createElement('h3');
         heading.textContent = title;
         return heading;
@@ -70,10 +72,10 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Creates and returns a paragraph element containing the body text.
-     * @param {string} body The text content.
-     * @returns {HTMLElement} The paragraph element.
+     * @param body The text content.
+     * @returns The paragraph element.
      */
-    getParagraph(body) {
+    getParagraph(body: string): HTMLElement {
         const p = document.createElement('p');
         p.textContent = body;
         return p;
@@ -83,7 +85,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
      * Asynchronously updates the display with the race's features.
      * Hides the element if no race is selected.
      */
-    async updateRaceFeaturesDisplay() {
+    async updateRaceFeaturesDisplay(): Promise<void> {
 
         // No race selected - hide the element.
         if (!globals.activePlayerCharacter.race) {
@@ -106,7 +108,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
         // Display speed.
         this.appendChild(this.getHeading("Speed"));
-        this.appendChild(this.getParagraph(this.race.speed));
+        this.appendChild(this.getParagraph(this.race.speed.toString()));
         
         // Display alignment.
         this.appendChild(this.getHeading("Alignment"));
@@ -133,9 +135,9 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Constructs and returns the section heading element.
-     * @returns {HTMLElement} The summary element with an h2 heading.
+     * @returns The summary element with an h2 heading.
      */
-    getSectionHeading() {
+    getSectionHeading(): HTMLElement {
         const summary = document.createElement('summary');
 
         const heading = document.createElement('h2');
@@ -149,20 +151,20 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Retrieves the race name.
-     * @returns {string} The race name or a fallback prompt.
+     * @returns The race name or a fallback prompt.
      */
-    getRaceName() {
+    getRaceName(): string {
         return this.race ? this.race.name : "choose race";
     }
 
     /**
      * Builds and returns an unordered list displaying all ability bonuses.
-     * @returns {HTMLElement} The unordered list element.
+     * @returns The unordered list element.
      */
-    getAbilityBonusBody() {
+    getAbilityBonusBody(): HTMLElement {
         const ul = document.createElement('ul');
 
-        for (const abilityBonus of this.race.ability_bonuses) {
+        for (const abilityBonus of this.race!.ability_bonuses) {
             const li = document.createElement('li');
             li.textContent = `${abilityBonus.ability_score.name} + ${abilityBonus.bonus}`;
             ul.appendChild(li);
@@ -173,10 +175,10 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Creates and returns a level-4 heading element for a trait.
-     * @param {string} title The trait title.
-     * @returns {HTMLElement} The heading element.
+     * @param title The trait title.
+     * @returns The heading element.
      */
-    getTraitHeading(title) {
+    getTraitHeading(title: string): HTMLElement {
         const heading = document.createElement('h4');
         heading.textContent = title;
         return heading;
@@ -184,10 +186,10 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Constructs a section element for race traits.
-     * @param {Array} traits An array of trait objects.
-     * @returns {HTMLElement} The section element containing trait headings and descriptions.
+     * @param traits An array of trait objects.
+     * @returns The section element containing trait headings and descriptions.
      */
-    getTraitsSection(traits) {
+    getTraitsSection(traits: Trait[]): HTMLElement {
         const traitsSection = document.createElement('section');
         
         traitsSection.appendChild(this.getHeading("Traits"));
