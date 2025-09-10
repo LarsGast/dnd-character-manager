@@ -8,6 +8,7 @@ import { globals } from "../../../../../store/load-globals.js";
  * It updates automatically when the "classesChanged" event is dispatched.
  */
 export class ProficiencyBonusDisplay extends HTMLElement {
+    _updateHandler?: () => void;
 
     constructor() {
         super();
@@ -17,7 +18,7 @@ export class ProficiencyBonusDisplay extends HTMLElement {
      * Called when the element is connected to the DOM.
      * Immediately updates the displayed proficiency bonus and registers an event listener for class changes.
      */
-    connectedCallback() {
+    connectedCallback(): void {
 
         // Update display immediately.
         this.updateDisplay();
@@ -31,18 +32,18 @@ export class ProficiencyBonusDisplay extends HTMLElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener to prevent memory leaks.
      */
-    disconnectedCallback() {
-        document.removeEventListener("classesChanged", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("classesChanged", this._updateHandler!);
     }
     
     /**
      * Updates the displayed proficiency bonus.
      * Retrieves the bonus from the PC's data and dispatches a "proficiencyBonusChanged" event.
      */
-    updateDisplay() {
+    updateDisplay(): void {
 
         // Update the element's text with the current proficiency bonus.
-        this.textContent = globals.activePlayerCharacter.getProficiencyBonus();
+        this.textContent = globals.activePlayerCharacter.getProficiencyBonus().toString();
         
         // Dispatch an event to indicate the bonus has been updated.
         document.dispatchEvent(new Event("proficiencyBonusChanged"));

@@ -1,7 +1,7 @@
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { Trait } from "../../../../../types/api/resources/Trait.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -11,6 +11,8 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  * It displays sections for the subrace's description, ability bonuses, and any available traits.
  */
 export class SubraceFeaturesDisplay extends HTMLDetailsElement {
+    _updateHandler?: (event: any) => Promise<void>;
+    subrace?: Subrace;
 
     constructor() {
         super();
@@ -20,7 +22,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * Called when the element is connected to the DOM.
      * Updates the display and registers an event listener for subrace updates.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this.updateDisplay();
 
         this._updateHandler = (event) => this.updateDisplay(event);
@@ -31,15 +33,15 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * Called when disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("subraceUpdated", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("subraceUpdated", this._updateHandler!);
     }
 
     /**
      * Updates the display if the triggering event indicates a change.
-     * @param {CustomEvent} event An optional event indicating an update.
+     * @param event An optional event indicating an update.
      */
-    async updateDisplay(event) {
+    async updateDisplay(event?: CustomEvent) {
         if (this.getShouldUpdate(event)) {
             await this.updateSubraceFeaturesDisplay();
         }
@@ -47,19 +49,19 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Determines if the display should update.
-     * @param {CustomEvent} event The event to evaluate.
-     * @returns {boolean} True if no event exists or the event is "subraceUpdated".
+     * @param event The event to evaluate.
+     * @returns True if no event exists or the event is "subraceUpdated".
      */
-    getShouldUpdate(event) {
+    getShouldUpdate(event?: CustomEvent): boolean {
         return !event || (event.type === "subraceUpdated");
     }
 
     /**
      * Creates and returns a level-3 heading element for the given title.
-     * @param {string} title The heading title.
-     * @returns {HTMLElement} The heading element.
+     * @param title The heading title.
+     * @returns The heading element.
      */
-    getHeading(title) {
+    getHeading(title: string): HTMLElement {
         const heading = document.createElement('h3');
         heading.textContent = title;
         return heading;
@@ -67,10 +69,10 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Creates and returns a paragraph element containing the provided text.
-     * @param {string} body The paragraph text.
-     * @returns {HTMLElement} The paragraph element.
+     * @param body The paragraph text.
+     * @returns The paragraph element.
      */
-    getParagraph(body) {
+    getParagraph(body: string): HTMLElement {
         const p = document.createElement('p');
         p.textContent = body;
         return p;
@@ -80,7 +82,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * Asynchronously updates the subrace features display.
      * Hides the element if no subrace is selected.
      */
-    async updateSubraceFeaturesDisplay() {
+    async updateSubraceFeaturesDisplay(): Promise<void> {
         if (!globals.activePlayerCharacter.subrace) {
             this.style.display = "none";
             return;
@@ -112,9 +114,9 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Constructs and returns the section heading element.
-     * @returns {HTMLElement} The summary element containing an h2 heading with the subrace name.
+     * @returns The summary element containing an h2 heading with the subrace name.
      */
-    getSectionHeading() {
+    getSectionHeading(): HTMLElement {
         const summary = document.createElement('summary');
 
         const heading = document.createElement('h2');
@@ -128,20 +130,20 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Retrieves the subrace name.
-     * @returns {string} The subrace name or a prompt if none is selected.
+     * @returns The subrace name or a prompt if none is selected.
      */
-    getSubraceName() {
+    getSubraceName(): string {
         return this.subrace ? this.subrace.name : "choose subrace";
     }
 
     /**
      * Builds an unordered list displaying all ability bonuses for the subrace.
-     * @returns {HTMLElement} The unordered list element.
+     * @returns The unordered list element.
      */
-    getAbilityBonusBody() {
+    getAbilityBonusBody(): HTMLElement {
         const ul = document.createElement('ul');
 
-        for (const abilityBonus of this.subrace.ability_bonuses) {
+        for (const abilityBonus of this.subrace!.ability_bonuses) {
             const li = document.createElement('li');
             li.textContent = `${abilityBonus.ability_score.name} + ${abilityBonus.bonus}`;
             ul.appendChild(li);
@@ -152,10 +154,10 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Creates and returns a level-4 heading element for a trait title.
-     * @param {string} title The trait title.
-     * @returns {HTMLElement} The heading element.
+     * @param title The trait title.
+     * @returns The heading element.
      */
-    getTraitHeading(title) {
+    getTraitHeading(title: string): HTMLElement {
         const heading = document.createElement('h4');
         heading.textContent = title;
         return heading;
@@ -163,10 +165,10 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
 
     /**
      * Constructs a section element that displays all traits for the subrace.
-     * @param {Array} traits An array of trait objects.
-     * @returns {HTMLElement} The section element with trait headings and paragraphs.
+     * @param traits An array of trait objects.
+     * @returns The section element with trait headings and paragraphs.
      */
-    getTraitsSection(traits) {
+    getTraitsSection(traits: Trait[]): HTMLElement {
         const traitsSection = document.createElement('section');
 
         traitsSection.appendChild(this.getHeading("Traits"));
