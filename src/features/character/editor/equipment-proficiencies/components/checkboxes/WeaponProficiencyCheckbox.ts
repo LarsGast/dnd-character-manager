@@ -9,15 +9,15 @@ import { globals } from "../../../../../../store/load-globals.js";
  * Clicking the checkbox will update the PC's proficiency and notify any listeners via a custom event.
  */
 export class WeaponProficiencyCheckbox extends HTMLInputElement {
+    weapon: Weapon;
 
     /**
      * Create a WeaponProficiencyCheckbox.
-     * @param {Weapon} weapon A Weapon object representing the weapon to display.
+     * @param weapon A Weapon object representing the weapon to display.
      */
-    constructor(weapon) {
+    constructor(weapon: Weapon) {
         super();
 
-        /** @type {Weapon} */
         this.weapon = weapon;
         
         // Set the checkbox type.

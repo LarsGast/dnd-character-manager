@@ -8,12 +8,15 @@ import { ArmorProficiencyCheckbox } from "../checkboxes/ArmorProficiencyCheckbox
  * This element creates a labeled checkbox (using ArmorProficiencyCheckbox) alongside the name of the armor for visual display.
  */
 export class ArmorProficiencyDisplay extends HTMLLIElement {
+    armor: Armor;
+    proficiencyCheckbox: ArmorProficiencyCheckbox;
+    armorProficiencyLabel: HTMLLabelElement;
 
     /**
      * Create an ArmorProficiencyDisplay.
-     * @param {Armor} armor An Armor object representing the armor to display.
+     * @param armor An Armor object representing the armor to display.
      */
-    constructor(armor) {
+    constructor(armor: Armor) {
         super();
 
         /** @type {Armor} */

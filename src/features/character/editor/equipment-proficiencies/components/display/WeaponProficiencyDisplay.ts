@@ -8,15 +8,17 @@ import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckb
  * This element creates a labeled checkbox (using WeaponProficiencyCheckbox) alongside the weapon's name for a visual representation of proficiency.
  */
 export class WeaponProficiencyDisplay extends HTMLLIElement {
+    weapon: Weapon;
+    proficiencyCheckbox: WeaponProficiencyCheckbox;
+    weaponProficiencyLabel: HTMLLabelElement;
 
     /**
      * Create a WeaponProficiencyDisplay.
-     * @param {Weapon} weapon A Weapon object representing the weapon to display.
+     * @param weapon A Weapon object representing the weapon to display.
      */
-    constructor(weapon) {
+    constructor(weapon: Weapon) {
         super();
 
-        /** @type {Weapon} */
         this.weapon = weapon;
 
         // Create the proficiency checkbox for the given weapon.

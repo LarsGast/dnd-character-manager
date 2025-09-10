@@ -1,5 +1,4 @@
 import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../../types/api/resources/ApiObjectInfo.js";
 import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
 import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
 import { EquipmentCategory } from "../../../../../../types/api/resources/EquipmentCategory.js";
@@ -13,6 +12,8 @@ import { WeaponProficiencyDisplay } from "../display/WeaponProficiencyDisplay.js
  * Depending on the type (armor or weapon), this component dynamically loads and appends either ArmorProficiencyDisplay or WeaponProficiencyDisplay items.
  */
 export class EquipmentProficienciesList extends HTMLUListElement {
+    equipmentCategoryIndex: string;
+    isArmor: string;
 
     /**
      * Create an EquipmentProficienciesList.
@@ -25,8 +26,8 @@ export class EquipmentProficienciesList extends HTMLUListElement {
         super();
         
         // Attributes stored on the element for fetching data.
-        this.equipmentCategoryIndex = this.getAttribute("equipmentCategoryIndex");
-        this.isArmor = this.getAttribute("isArmor");
+        this.equipmentCategoryIndex = this.getAttribute("equipmentCategoryIndex")!;
+        this.isArmor = this.getAttribute("isArmor")!;
 
         // Setup base CSS classes for list styling.
         this.classList.add('no-style-list', 'proficiencies-list');
@@ -54,15 +55,18 @@ export class EquipmentProficienciesList extends HTMLUListElement {
         }
 
         // Apply a CSS class to manage the number of columns based on item count.
-        this.classList.add(this.getNumberOfColumnsClassName(results.equipment.length));
+        const className = this.getNumberOfColumnsClassName(results.equipment.length);
+        if (className) {
+            this.classList.add(className);
+        }
     }
 
     /**
      * Get the appropriate number-of-columns class name for styling.
-     * @param {number} listLength The total number of equipment items.
-     * @returns {string} The CSS class name defining column layout.
+     * @param listLength The total number of equipment items.
+     * @returnsThe CSS class name defining column layout.
      */
-    getNumberOfColumnsClassName(listLength) {
+    getNumberOfColumnsClassName(listLength: number): string | undefined {
         if (listLength >= 9) {
             return 'three-columns-list';
         }
@@ -70,6 +74,8 @@ export class EquipmentProficienciesList extends HTMLUListElement {
         if (listLength >= 4) {
             return 'two-columns-list';
         }
+
+        return undefined;
     }
 }
 
