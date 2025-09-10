@@ -7,6 +7,14 @@ import { globals } from "../../../../../store/load-globals.js";
  * The dialog warns the user about data loss, upon confirmation deletes the selected homebrew object.
  */
 export class HomebrewDeleteDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    warningText: HTMLElement;
+    deleteButton: HTMLButtonElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: (event: any) => void;
+    homebrewId?: string;
     
     constructor() {
         super();
@@ -52,7 +60,7 @@ export class HomebrewDeleteDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Registers an event listener for "homebrewDeleteButtonClicked".
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("homebrewDeleteButtonClicked", this._updateHandler);
     }
@@ -61,15 +69,15 @@ export class HomebrewDeleteDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("homebrewDeleteButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("homebrewDeleteButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog.
-     * @param {CustomEvent} event Custom event containing information about the selected homebrew object.
+     * @param event Custom event containing information about the selected homebrew object.
      */
-    showDialog(event) {
+    showDialog(event: CustomEvent): void {
 
         // Set the PC ID here to use on confirmation.
         this.homebrewId = event.detail.homebrewId;
@@ -81,9 +89,9 @@ export class HomebrewDeleteDialog extends HTMLDialogElement {
      * Handles reset button clicks.
      * Simply remove the homebrew object from the bank, close the dialog, and reload the UI.
      */
-    handleDeleteButtonClick() {
+    handleDeleteButtonClick(): void {
 
-        globals.homebrewBank.removeHomebrewFromBank(this.homebrewId);
+        globals.homebrewBank.removeHomebrewFromBank(this.homebrewId!);
         globals.homebrewBank.save();
 
         this.close();
@@ -94,7 +102,7 @@ export class HomebrewDeleteDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

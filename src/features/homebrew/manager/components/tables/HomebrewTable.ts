@@ -11,6 +11,10 @@ import { HomebrewExportButton } from "../buttons/HomebrewExportButton.js";
  * This table will be filled with homebrew objects when the manage homebrew dialog is opened.
  */
 export class HomebrewTable extends HTMLTableElement {
+    tableCaption: HTMLElement;
+    tableHead: HTMLTableSectionElement;
+    tableBody: HTMLTableSectionElement;
+    _updateHandler?: () => Promise<void>;
     
     constructor() {
         super();
@@ -30,7 +34,7 @@ export class HomebrewTable extends HTMLTableElement {
      * Called when the element is connected to the DOM.
      * Listens for events to update the body of the table.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = async () => this.updateTableBody();
 
         document.addEventListener("manageHomebrewDialogOpened", this._updateHandler);
@@ -43,18 +47,18 @@ export class HomebrewTable extends HTMLTableElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listeners.
      */
-    disconnectedCallback() {
-        document.removeEventListener("manageHomebrewDialogOpened", this._updateHandler);
-        document.removeEventListener("newHomebrewCreated", this._updateHandler);
-        document.removeEventListener("homebrewImported", this._updateHandler);
-        document.removeEventListener("homebrewDeleted", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("manageHomebrewDialogOpened", this._updateHandler!);
+        document.removeEventListener("newHomebrewCreated", this._updateHandler!);
+        document.removeEventListener("homebrewImported", this._updateHandler!);
+        document.removeEventListener("homebrewDeleted", this._updateHandler!);
     }
 
     /**
      * Creates the table head with the column titles.
-     * @returns {HTMLTableSectionElement} The table head element.
+     * @returns The table head element.
      */
-    getTableHead() {
+    getTableHead(): HTMLTableSectionElement {
         const head = document.createElement('thead');
 
         const row = document.createElement('tr');
@@ -72,13 +76,13 @@ export class HomebrewTable extends HTMLTableElement {
      * Updates the table body with the current homebrew entries.
      * This method sorts the entries by last edited date and populates the table body.
      */
-    updateTableBody() {
+    updateTableBody(): void {
         this.tableBody.replaceChildren();
 
         const homebrewEntry = globals.homebrewBank.homebrewBankEntries;
 
         // Sort them from last edited -> first edited, so the most used homebrew objects are generally at the top.
-        const sortedEntries = homebrewEntry.sort((a, b) => b.lastEdit - a.lastEdit);
+        const sortedEntries = homebrewEntry.sort((a, b) => b.lastEdit.getTime() - a.lastEdit.getTime());
 
         for (const entry of sortedEntries) {
             this.tableBody.appendChild(this.getTableBodyRow(entry));
@@ -87,16 +91,16 @@ export class HomebrewTable extends HTMLTableElement {
 
     /**
      * Creates a table row for a homebrew entry.
-     * @param {HomebrewBankEntry} entry The homebrew entry to create the row for.
-     * @returns {HTMLTableRowElement} The table row element containing the entry's data.
+     * @param entry The homebrew entry to create the row for.
+     * @returns The table row element containing the entry's data.
      */
-    getTableBodyRow(entry) {
+    getTableBodyRow(entry: HomebrewBankEntry): HTMLTableRowElement {
 
         const row = document.createElement('tr');
 
         row.appendChild(this.getButtonsColumnValue(entry));
         row.appendChild(getElementWithTextContent('td', entry.homebrewObject.name));
-        row.appendChild(getElementWithTextContent('td', new ApiCategory(entry.apiCategoryName).getSingularName()));
+        row.appendChild(getElementWithTextContent('td', new ApiCategory(entry.apiCategoryName).getSingularName()!));
 
         return row;
     }
@@ -104,10 +108,10 @@ export class HomebrewTable extends HTMLTableElement {
     /**
      * Creates the buttons column for a homebrew entry.
      * This column contains buttons for editing, exporting, and deleting the homebrew entry.
-     * @param {HomebrewBankEntry} entry The homebrew entry to create the buttons for.
-     * @returns {HTMLTableCellElement} The table cell containing the buttons.
+     * @param entry The homebrew entry to create the buttons for.
+     * @returns The table cell containing the buttons.
      */
-    getButtonsColumnValue(entry) {
+    getButtonsColumnValue(entry: HomebrewBankEntry): HTMLTableCellElement {
         const td = document.createElement('td');
 
         td.appendChild(new HomebrewEditButton(entry.id));

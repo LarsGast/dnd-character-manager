@@ -9,6 +9,19 @@ import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
  * The file's contents can be previewed, and clicking the import button replaces the current PC data and reloads the page.
  */
 export class HomebrewImportDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    secondParagraph: HTMLParagraphElement;
+    thirdParagraph: HTMLParagraphElement;
+    importButtonAndLabel: HTMLDivElement;
+    importButton: HTMLButtonElement;
+    fileInput: HTMLInputElement;
+    previewLabel: HTMLLabelElement;
+    previewTextarea: HTMLTextAreaElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: () => void;
+    _importHandlingUpdateHandler?: () => void;
     
     constructor() {
         super();
@@ -86,7 +99,7 @@ export class HomebrewImportDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Listens for the "homebrewImportButtonClicked" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = () => this.showDialog();
         document.addEventListener("homebrewImportButtonClicked", this._updateHandler);
 
@@ -99,38 +112,41 @@ export class HomebrewImportDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("homebrewImportButtonClicked", this._updateHandler);
-        document.removeEventListener("homebrewImportCancelled", this._updateHandler);
-        document.removeEventListener("homebrewImported", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("homebrewImportButtonClicked", this._updateHandler!);
+        document.removeEventListener("homebrewImportCancelled", this._updateHandler!);
+        document.removeEventListener("homebrewImported", this._updateHandler!);
     }
 
     /**
      * Displays the dialog and resets any previous file selections or preview.
      */
-    showDialog() {
+    showDialog(): void {
         this.showModal();
 
         // Clear previous input and disable the import button.
-        this.fileInput.value = null;
-        this.previewTextarea.value = null;
+        this.fileInput.value = "";
+        this.previewTextarea.value = "";
         this.importButton.disabled = true;
     }
   
     /**
      * Handles file input change events.
      * Reads the selected file as JSON, displays a preview, and enables the import button if valid.
-     * @param {Event} event The file input change event.
+     * @param event The file input change event.
      */
-    handleFileInputChange(event) {
+    handleFileInputChange(event: Event) {
         const reader = new FileReader();
+        
+        const target = event.target as HTMLInputElement;
+        const file = target.files![0];
 
-        reader.readAsText(event.target.files[0]);
+        reader.readAsText(file);
         reader.onload = (readerEvent) => {
             try {
 
                 // Try parsing the JSON data.
-                var homebrewObject = JSON.parse(readerEvent.target.result);
+                var homebrewObject = JSON.parse(readerEvent.target!.result!.toString());
 
                 // Display the JSON preview.
                 this.previewTextarea.value = JSON.stringify(homebrewObject, null, 2);
@@ -148,7 +164,7 @@ export class HomebrewImportDialog extends HTMLDialogElement {
      * Handles the import button click. 
      * Adds the imported data to the PC bank, closes the dialog, and updates the UI.
      */
-    handleImportButtonClick() {
+    handleImportButtonClick(): void {
 
         // Create a new Homebrew from the JSON data.
         const homebrewBankEntry = new HomebrewBankEntry(JSON.parse(this.previewTextarea.value));
@@ -175,11 +191,11 @@ export class HomebrewImportDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.hideDialog();
     }
 
-    hideDialog() {
+    hideDialog(): void {
         this.close();
     }
 }

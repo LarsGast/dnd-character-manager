@@ -18,7 +18,7 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
      * Handles the change event of the select element.
      * Dispatches a custom event to notify that the type has changed.
      */
-    handleChange() {
+    handleChange(): void {
         document.dispatchEvent(new CustomEvent("customElementTypeChanged", {
             detail: { 
                 apiCategoryName: this.value 
@@ -30,9 +30,9 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
     /**
      * Creates and returns all options for the select element.
      * This includes an empty option and options for each API category.
-     * @returns {DocumentFragment} A fragment containing all the options.
+     * @returns A fragment containing all the options.
      */
-    getAllOptions() {
+    getAllOptions(): DocumentFragment {
         const fragment = document.createDocumentFragment();
 
         fragment.appendChild(getEmptyOption("-- Select a type --"));
@@ -43,9 +43,9 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
     
     /**
      * Creates the options for each API category.
-     * @returns {DocumentFragment} A fragment containing the options for each API category.
+     * @returns A fragment containing the options for each API category.
      */
-    getTypeSelectOptions() {
+    getTypeSelectOptions(): DocumentFragment {
         const fragment = document.createDocumentFragment();
 
         fragment.appendChild(this.getTypeSelectOption(ApiCategory.Races));
@@ -56,11 +56,11 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 
     /**
      * Creates a select option for a given API category.
-     * @param {ApiCategory} apiCategory The API category to create the option for.
-     * @returns {HTMLOptionElement} The created option element.
+     * @param apiCategory The API category to create the option for.
+     * @returns The created option element.
      */
-    getTypeSelectOption(apiCategory) {
-        return getSelectOption(apiCategory.getSingularName(), apiCategory.name);
+    getTypeSelectOption(apiCategory: ApiCategory): HTMLOptionElement {
+        return getSelectOption(apiCategory.getSingularName()!, apiCategory.name);
     }
 }
 

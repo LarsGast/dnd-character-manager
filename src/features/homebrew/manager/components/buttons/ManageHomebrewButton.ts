@@ -16,7 +16,7 @@ export class ManageHomebrewButton extends HTMLButtonElement {
     /**
      * Handles the button click.
      */
-    handleClick() {
+    handleClick(): void {
         document.dispatchEvent(new Event('manageHomebrewButtonClicked'));
     }
 }
