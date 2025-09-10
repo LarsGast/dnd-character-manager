@@ -3,6 +3,11 @@ name: Deploy site and create release
 on:
   workflow_dispatch:
     inputs:
+      should_create_release:
+        description: 'Whether a new GitHub release should be created for this deployment.'
+        required: true
+        type: boolean
+        default: true
       release_name:
         description: 'Name of the release without the tag. Results in "<tag> <release_name>" or "<tag>".'
         required: false
@@ -87,6 +92,7 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     needs: deploy
+    if: ${{ github.event.inputs.should_create_release == true }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
