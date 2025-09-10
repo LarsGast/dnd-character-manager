@@ -5,8 +5,9 @@ import { globals } from "../../../../../store/load-globals.js";
  * Extends HTMLButtonElement.
  */
 export class CharacterSelectButton extends HTMLButtonElement {
+    characterId: string;
     
-    constructor(characterId) {
+    constructor(characterId: string) {
         super();
         
         // Set type and text.
@@ -22,7 +23,7 @@ export class CharacterSelectButton extends HTMLButtonElement {
      * Handles the button click.
      * Sets the selected character to be active and reloads the page to display the new information.
      */
-    handleClick() {
+    handleClick(): void {
         globals.playerCharacterBank.setActiveCharacter(this.characterId);
         globals.playerCharacterBank.save();
         

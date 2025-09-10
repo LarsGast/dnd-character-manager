@@ -3,8 +3,9 @@
  * Extends HTMLButtonElement.
  */
 export class CharacterExportButton extends HTMLButtonElement {
+    characterId: string;
     
-    constructor(characterId) {
+    constructor(characterId: string) {
         super();
         
         // Set the button type and label.
@@ -19,7 +20,7 @@ export class CharacterExportButton extends HTMLButtonElement {
     /**
      * Handles the click event. Dispatches a custom event that the export dialog listens for.
      */
-    handleClick() {
+    handleClick(): void {
         
         // Fire an event that signals the Character Export Dialog should be shown.
         document.dispatchEvent(new CustomEvent("characterExportButtonClicked", {

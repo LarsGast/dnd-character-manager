@@ -9,7 +9,6 @@ import { Race } from "../../../../../types/api/resources/Race.js";
 import { Subrace } from "../../../../../types/api/resources/Subrace.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
 import { Subclass } from "../../../../../types/api/resources/Subclass.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
@@ -17,12 +16,17 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  * Extends HTMLTableElement.
  */
 export class CharacterBankTable extends HTMLTableElement {
+    isForCurrentCharacter: boolean;
+    tableCaption: HTMLElement;
+    tableHead: HTMLTableSectionElement;
+    tableBody: HTMLTableSectionElement;
+    _updateHandler?: () => Promise<void>;
 
     /**
      * Built the non-changing HTML.
-     * @param {boolean} isForActiveCharacter Wether the table shows the active characters, or all inactive characters.
+     * @param isForActiveCharacter Wether the table shows the active characters, or all inactive characters.
      */
-    constructor(isForActiveCharacter) {
+    constructor(isForActiveCharacter: boolean) {
         super();
 
         this.isForCurrentCharacter = isForActiveCharacter;
@@ -42,7 +46,7 @@ export class CharacterBankTable extends HTMLTableElement {
      * Called when the element is connected to the DOM.
      * Listens for events to update the body of the table.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = async () => await this.updateTableBodyAsync();
 
         document.addEventListener("manageCharactersDialogOpened", this._updateHandler);
@@ -58,18 +62,18 @@ export class CharacterBankTable extends HTMLTableElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listeners.
      */
-    disconnectedCallback() {
-        document.removeEventListener("manageCharactersDialogOpened", this._updateHandler);
-        document.removeEventListener("newCharacterCreated", this._updateHandler);
-        document.removeEventListener("characterImported", this._updateHandler);
-        document.removeEventListener("playerCharacterDeleted", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("manageCharactersDialogOpened", this._updateHandler!);
+        document.removeEventListener("newCharacterCreated", this._updateHandler!);
+        document.removeEventListener("characterImported", this._updateHandler!);
+        document.removeEventListener("playerCharacterDeleted", this._updateHandler!);
     }
 
     /**
      * Get the head with column names for the table.
-     * @returns {HTMLTableSectionElement}
+     * @returns
      */
-    getTableHead() {
+    getTableHead(): HTMLTableSectionElement {
         const heading = document.createElement("thead");
 
         const row = document.createElement('tr');
@@ -87,13 +91,13 @@ export class CharacterBankTable extends HTMLTableElement {
     /**
      * Asynchronously updates the body of the table to have the current data of the characters in storage.
      */
-    async updateTableBodyAsync() {
+    async updateTableBodyAsync(): Promise<void> {
         this.tableBody.replaceChildren();
 
         const playerCharacters = this.getPlayerCharactersForTable();
 
         // Sort them from last edited -> first edited, so the most used PCs are generally at the top.
-        const sortedCharacters = playerCharacters.sort((a, b) => b.lastEdit - a.lastEdit);
+        const sortedCharacters = playerCharacters.sort((a, b) => b.lastEdit.getTime() - a.lastEdit.getTime());
         for (const playerCharacter of sortedCharacters) {
             this.tableBody.appendChild(await this.getTableRowAsync(playerCharacter));
         }
@@ -101,9 +105,9 @@ export class CharacterBankTable extends HTMLTableElement {
 
     /**
      * Get all characters that need to be displayed in the table.
-     * @returns {PlayerCharacterBankEntry[]} Array that either contains only thew active PC or all inactive PCs.
+     * @returns Array that either contains only thew active PC or all inactive PCs.
      */
-    getPlayerCharactersForTable() {
+    getPlayerCharactersForTable(): PlayerCharacterBankEntry[] {
         if (this.isForCurrentCharacter) {
             return [globals.playerCharacterBank.getActivePlayerCharacterBankEntry()];
         }
@@ -115,10 +119,10 @@ export class CharacterBankTable extends HTMLTableElement {
     /**
      * 
      * Asynchronously builds a single row for the table containing PC information.
-     * @param {PlayerCharacterBankEntry} playerCharacterEntry
-     * @returns {HTMLTableRowElement}
+     * @param playerCharacterEntry
+     * @returns
      */
-    async getTableRowAsync(playerCharacterEntry) {
+    async getTableRowAsync(playerCharacterEntry: PlayerCharacterBankEntry): Promise<HTMLTableRowElement> {
         const row = document.createElement('tr');
 
         const playerCharacter = playerCharacterEntry.playerCharacter;
@@ -133,10 +137,10 @@ export class CharacterBankTable extends HTMLTableElement {
 
     /**
      * Get the data for the buttons column for the given PC.
-     * @param {PlayerCharacterBankEntry} playerCharacterEntry
-     * @returns {HTMLTableCellElement}
+     * @param playerCharacterEntry
+     * @returns
      */
-    getButtonsColumnValue(playerCharacterEntry) {
+    getButtonsColumnValue(playerCharacterEntry: PlayerCharacterBankEntry): HTMLTableCellElement {
 
         const td = document.createElement('td');
 
@@ -158,10 +162,10 @@ export class CharacterBankTable extends HTMLTableElement {
 
     /**
      * Get the data for the race and subrace column for the given PC.
-     * @param {PlayerCharacter} playerCharacter
-     * @returns {string} Ex "Dwarf, Hill Dwarf", "Dragonborn" etc.
+     * @param playerCharacter
+     * @returns Ex "Dwarf, Hill Dwarf", "Dragonborn" etc.
      */
-    async getRaceSubraceColumnValueAsync(playerCharacter) {
+    async getRaceSubraceColumnValueAsync(playerCharacter: PlayerCharacter): Promise<string> {
         if (!playerCharacter.race) {
             return 'Not selected';
         }
@@ -181,26 +185,26 @@ export class CharacterBankTable extends HTMLTableElement {
 
     /**
      * Get the data for the class, subclass, and level column for the given PC.
-     * @param {PlayerCharacter} playerCharacter
-     * @returns {string} Ex "Barbarian 5 (Berserker), Bard 3 (Lore), Paladin 1".
+     * @param playerCharacter
+     * @returns Ex "Barbarian 5 (Berserker), Bard 3 (Lore), Paladin 1".
      */
-    async getClassLevelColumnValueAsync(playerCharacter) {
+    async getClassLevelColumnValueAsync(playerCharacter: PlayerCharacter): Promise<string> {
 
         if (playerCharacter.classes.length === 0) {
             return "Not selected";
         }
 
-        const values = await Promise.all(playerCharacter.classes.map(classObject => this.getClassSubclassLevelValue(classObject)));
+        const values = await Promise.all(playerCharacter.classes.map((classObject: any) => this.getClassSubclassLevelValue(classObject)));
 
         return values.join(', ');
     }
 
     /**
      * Get the display string of a single class object to display in the Classes column.
-     * @param {object} classObject 
-     * @returns {string} Ex "Barbarian 5 (Berserker)", "Paladin 1", etc.
+     * @param classObject 
+     * @returns Ex "Barbarian 5 (Berserker)", "Paladin 1", etc.
      */
-    async getClassSubclassLevelValue(classObject) {
+    async getClassSubclassLevelValue(classObject: any): Promise<string> {
 
         // Get the actual class from the API to get the display name.
         const classApiObject = await ApiBaseObject.getAsync(classObject.index, Class);

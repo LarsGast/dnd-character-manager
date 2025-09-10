@@ -9,6 +9,17 @@ import { globals } from "../../../../../store/load-globals.js";
  * The file's contents can be previewed, and clicking the import button replaces the current PC data and reloads the page.
  */
 export class CharacterImportDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    secondParagraph: HTMLParagraphElement;
+    importButtonAndLabel: HTMLDivElement;
+    importButton: HTMLButtonElement;
+    fileInput: HTMLInputElement;
+    previewLabel: HTMLLabelElement;
+    previewTextarea: HTMLTextAreaElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: () => void;
     
     constructor() {
         super();
@@ -81,7 +92,7 @@ export class CharacterImportDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Listens for the "characterImportButtonClicked" event to show the dialog.
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = () => this.showDialog();
         document.addEventListener("characterImportButtonClicked", this._updateHandler);
     }
@@ -90,36 +101,39 @@ export class CharacterImportDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("characterImportButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("characterImportButtonClicked", this._updateHandler!);
     }
 
     /**
      * Displays the dialog and resets any previous file selections or preview.
      */
-    showDialog() {
+    showDialog(): void {
         this.showModal();
 
         // Clear previous input and disable the import button.
-        this.fileInput.value = null;
-        this.previewTextarea.value = null;
+        this.fileInput.value = "";
+        this.previewTextarea.value = "";
         this.importButton.disabled = true;
     }
   
     /**
      * Handles file input change events.
      * Reads the selected file as JSON, displays a preview, and enables the import button if valid.
-     * @param {Event} event The file input change event.
+     * @param event The file input change event.
      */
-    handleFileInputChange(event) {
+    handleFileInputChange(event: Event): void {
         const reader = new FileReader();
 
-        reader.readAsText(event.target.files[0]);
+        const target = event.target as HTMLInputElement;
+        const file = target.files![0];
+
+        reader.readAsText(file);
         reader.onload = (readerEvent) => {
             try {
 
                 // Try parsing the JSON data.
-                var playerCharacter = JSON.parse(readerEvent.target.result);
+                var playerCharacter = JSON.parse(readerEvent.target!.result!.toString());
 
                 // Display the JSON preview.
                 this.previewTextarea.value = JSON.stringify(playerCharacter, null, 2);
@@ -137,10 +151,10 @@ export class CharacterImportDialog extends HTMLDialogElement {
      * Handles the import button click. 
      * Adds the imported data to the PC bank, closes the dialog, and updates the UI.
      */
-    handleImportButtonClick() {
+    handleImportButtonClick(): void {
 
         // Create a new PlayerCharacter from the JSON data.
-        const playerCharacter = new PlayerCharacter(JSON.parse(this.previewTextarea.value));
+        const playerCharacter = new PlayerCharacter(JSON.parse(this.previewTextarea.value) as Partial<PlayerCharacter>);
         globals.playerCharacterBank.addNewCharacter(playerCharacter);
         globals.playerCharacterBank.save();
 
@@ -152,7 +166,7 @@ export class CharacterImportDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }

@@ -1,4 +1,5 @@
 import { globals } from "../../../../../store/load-globals.js";
+import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
 
 /**
  * Custom HTML element for displaying the Character Export Dialog.
@@ -8,6 +9,17 @@ import { globals } from "../../../../../store/load-globals.js";
  * It listens for the "characterExportButtonClicked" event to open the dialog.
  */
 export class CharacterExportDialog extends HTMLDialogElement {
+    dialogContent: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    firstParagraph: HTMLParagraphElement;
+    secondParagraph: HTMLParagraphElement;
+    exportButtonAndLabel: HTMLDivElement;
+    exportButton: HTMLButtonElement;
+    previewLabel: HTMLLabelElement;
+    previewTextarea: HTMLTextAreaElement;
+    closeButton: HTMLButtonElement;
+    _updateHandler?: (event: any) => void;
+    playerCharacter?: PlayerCharacter;
     
     constructor() {
         super();
@@ -72,7 +84,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
      * Called when the element is connected to the DOM.
      * Registers an event listener for "characterExportButtonClicked".
      */
-    connectedCallback() {
+    connectedCallback(): void {
         this._updateHandler = (event) => this.showDialog(event);
         document.addEventListener("characterExportButtonClicked", this._updateHandler);
     }
@@ -81,17 +93,17 @@ export class CharacterExportDialog extends HTMLDialogElement {
      * Called when the element is disconnected from the DOM.
      * Removes the event listener.
      */
-    disconnectedCallback() {
-        document.removeEventListener("characterExportButtonClicked", this._updateHandler);
+    disconnectedCallback(): void {
+        document.removeEventListener("characterExportButtonClicked", this._updateHandler!);
     }
 
     /**
      * Opens the dialog and populates the preview textarea with the character data as JSON.
-     * @param {CustomEvent} event
+     * @param event
      */
-    showDialog(event) {
+    showDialog(event: CustomEvent): void {
 
-        this.playerCharacter = globals.playerCharacterBank.getCharacterBankEntryById(event.detail.characterId).playerCharacter;
+        this.playerCharacter = globals.playerCharacterBank.getCharacterBankEntryById(event.detail.characterId)!.playerCharacter;
         
         // Display the current active PC as formatted JSON.
         this.previewTextarea.value = JSON.stringify(this.playerCharacter, null, 2);
@@ -102,7 +114,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
     /**
      * Handles the export button click by creating a downloadable JSON file.
      */
-    handleExportButtonClick() {
+    handleExportButtonClick(): void {
 
         // Create a Blob from the character JSON data.
         const blob = new Blob(
@@ -115,7 +127,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
         // That's why we create an anchor tag and trigger a click here.
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${this.playerCharacter.name}.json`;
+        a.download = `${this.playerCharacter!.name}.json`;
         a.click();
 
         URL.revokeObjectURL(url);
@@ -126,7 +138,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
     /**
      * Closes the dialog.
      */
-    handleCloseButtonClick() {
+    handleCloseButtonClick(): void {
         this.close();
     }
 }
