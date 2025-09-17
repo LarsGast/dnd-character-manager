@@ -1,8 +1,8 @@
 import { AbilityBonusApiDto } from "../helpers/AbilityBonusApiDto.js"
 import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface RaceApiDto extends ApiObjectInfoApiDto {
+export interface RaceApiDto extends BaseResourceApiDto {
 
     /**
      * Speed of the race in feet per round.
@@ -37,7 +37,7 @@ export interface RaceApiDto extends ApiObjectInfoApiDto {
     /**
      * Starting languages for all new characters of this race.
      */
-    languages: ApiObjectInfoApiDto[];
+    languages: BaseResourceApiDto[];
 
     /**
      * Starting language options for all new characters of this race.
@@ -52,10 +52,10 @@ export interface RaceApiDto extends ApiObjectInfoApiDto {
     /**
      * A list of traits the race has.
      */
-    traits: ApiObjectInfoApiDto[];
+    traits: BaseResourceApiDto[];
 
     /**
      * A list of subraces the race has, if any.
      */
-    subraces: ApiObjectInfoApiDto[];
+    subraces: BaseResourceApiDto[];
 }

@@ -1,7 +1,7 @@
 import { AbilityBonusApiDto } from "../../../../../types/api/helpers/AbilityBonusApiDto.js";
 import { AbilityScoreApiDto } from "../../../../../types/api/resources/AbilityScoreApiDto.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
 /**

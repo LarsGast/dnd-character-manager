@@ -1,5 +1,5 @@
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
@@ -16,7 +16,7 @@ export class ObjectSelect extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from
      * @param selectedObject The object that is currently selected, if any.
      */
-    constructor(possibleObjects: ApiBaseObjectList, selectedObject?: ApiObjectInfoApiDto) {
+    constructor(possibleObjects: ApiBaseObjectList, selectedObject?: BaseResourceApiDto) {
         super();
         
         this.possibleObjects = possibleObjects;
@@ -33,7 +33,7 @@ export class ObjectSelect extends HTMLElement {
      * @param defaultValue The default value to set in the select
      * @returns The select element with options for each possible object.
      */
-    getSelect(defaultValue?: ApiObjectInfoApiDto): HTMLSelectElement {
+    getSelect(defaultValue?: BaseResourceApiDto): HTMLSelectElement {
         const select = document.createElement('select');
 
         select.appendChild(getEmptyOption());
@@ -62,7 +62,7 @@ export class ObjectSelect extends HTMLElement {
      * Gets the value of the selected object.
      * @returns An ApiObjectInfo object containing the index and name of the selected object.
      */
-    getValue(): ApiObjectInfoApiDto {
+    getValue(): BaseResourceApiDto {
         const data = new ApiObjectInfo();
 
         data.index = this.select.value;

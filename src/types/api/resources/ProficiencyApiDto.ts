@@ -1,6 +1,6 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface ProficiencyApiDto extends ApiObjectInfoApiDto {
+export interface ProficiencyApiDto extends BaseResourceApiDto {
 
     /**
      * The general category of the proficiency.
@@ -10,14 +10,14 @@ export interface ProficiencyApiDto extends ApiObjectInfoApiDto {
     /**
      * Classes that start with this proficiency.
      */
-    classes: ApiObjectInfoApiDto[]
+    classes: BaseResourceApiDto[]
     /**
      * Races that start with this proficiency.
      */
-    races: ApiObjectInfoApiDto[];
+    races: BaseResourceApiDto[];
 
     /**
      * Reference to the full description of the related resource.
      */
-    reference: ApiObjectInfoApiDto;
+    reference: BaseResourceApiDto;
 }

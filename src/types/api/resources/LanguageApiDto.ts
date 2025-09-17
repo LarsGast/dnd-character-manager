@@ -1,6 +1,6 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface LanguageApiDto extends ApiObjectInfoApiDto {
+export interface LanguageApiDto extends BaseResourceApiDto {
 
     /**
      * Brief description of the language.

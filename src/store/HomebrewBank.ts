@@ -1,5 +1,5 @@
 import { ApiCategory } from "../services/api.js";
-import { ApiObjectInfoApiDto } from "../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
 import { RaceApiDto } from "../types/api/resources/RaceApiDto.js";
 import { TraitApiDto } from "../types/api/resources/TraitApiDto.js";
 
@@ -108,7 +108,7 @@ export class HomebrewBank {
      * @param homebrewObject 
      * @param apiCategoryName 
      */
-    addNewHomebrew(homebrewObject: ApiObjectInfoApiDto, apiCategoryName: string) {
+    addNewHomebrew(homebrewObject: BaseResourceApiDto, apiCategoryName: string) {
 
         const bankEntry = new HomebrewBankEntry();
 
@@ -150,7 +150,7 @@ export class HomebrewBank {
      * @param id UUID.
      * @return The homebrew object if found, otherwise undefined.
      */
-    getHomebrewObjectByIndex(id: string): ApiObjectInfoApiDto | undefined  {
+    getHomebrewObjectByIndex(id: string): BaseResourceApiDto | undefined  {
         return this.homebrewBankEntries.find(entry => entry.homebrewObject.index === id)?.homebrewObject;
     }
 
@@ -159,7 +159,7 @@ export class HomebrewBank {
      * @param apiCategory The API category to filter by.
      * @return An array of homebrew objects that belong to the specified category.
      */
-    getHomebrewObjectsByCategory(apiCategory: ApiCategory): ApiObjectInfoApiDto[] {
+    getHomebrewObjectsByCategory(apiCategory: ApiCategory): BaseResourceApiDto[] {
         return this.homebrewBankEntries
             .filter(entry => entry.apiCategoryName === apiCategory.name)
             .map(entry => entry.homebrewObject);
@@ -190,7 +190,7 @@ export class HomebrewBankEntry {
     /**
      * All data required for a homebrew object.
      */
-    homebrewObject: ApiObjectInfoApiDto;
+    homebrewObject: BaseResourceApiDto;
 
     /**
      * Name of the API category this homebrew object belongs to.
@@ -231,7 +231,7 @@ export class HomebrewBankEntry {
      * This is necessary because the homebrewObject can be of different types depending on the category.
      * @returns The initialized homebrew object.
      */
-    private getHomebrewObject(homebrewObject: Partial<ApiObjectInfoApiDto> = {}): ApiObjectInfoApiDto {
+    private getHomebrewObject(homebrewObject: Partial<BaseResourceApiDto> = {}): BaseResourceApiDto {
         switch (this.apiCategoryName) {
             case ApiCategory.Races.name: return new Race(homebrewObject);
             case ApiCategory.Traits.name: return new Trait(homebrewObject);

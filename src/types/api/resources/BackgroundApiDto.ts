@@ -1,12 +1,12 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-export interface BackgroundApiDto extends ApiObjectInfoApiDto {
+export interface BackgroundApiDto extends BaseResourceApiDto {
 
     /**
      * Starting proficiencies for all new characters of this background.
      */
-    starting_proficiencies: ApiObjectInfoApiDto[];
+    starting_proficiencies: BaseResourceApiDto[];
 
     /**
      * Choice of languages for all new characters of this background.
@@ -16,7 +16,7 @@ export interface BackgroundApiDto extends ApiObjectInfoApiDto {
     /**
      * Starting equipment for all new characters of this background.
      */
-    starting_equipment: ApiObjectInfoApiDto[];
+    starting_equipment: BaseResourceApiDto[];
 
     /**
      * Choice of equipment for all new characters of this background.

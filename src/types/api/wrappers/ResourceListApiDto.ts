@@ -1,6 +1,6 @@
-import { ApiObjectInfoApiDto } from "./ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "./BaseResourceApiDto.js";
 
-export interface ResourceListApiDto<T extends ApiObjectInfoApiDto> {
+export interface ResourceListApiDto<T extends BaseResourceApiDto> {
 
     /**
      * Total count of all results.

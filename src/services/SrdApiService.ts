@@ -1,6 +1,7 @@
 import { ICacheService } from "../interfaces/ICacheService";
 import { ISrdApiService } from "../interfaces/ISrdApiService";
-import { ResourceList } from "../types/api/helpers/ResourceList";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
+import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto";
 
 export class SrdApiService implements ISrdApiService {
 
@@ -50,14 +51,14 @@ export class SrdApiService implements ISrdApiService {
     /**
      * @inheritdoc
      */
-    public async getResourceListAsync(resource: string): Promise<ResourceList> {
-        return await this.getByUrlAsync<ResourceList>(new URL(`${SrdApiService.baseUrl}/${resource}`));
+    public async getResourceListAsync<T extends BaseResourceApiDto>(resource: string): Promise<ResourceListApiDto<T>> {
+        return await this.getByUrlAsync<ResourceListApiDto<T>>(new URL(`${SrdApiService.baseUrl}/${resource}`));
     }
 
     /**
      * @inheritdoc
      */
-    public async getByIndexAsync<T>(resource: string, index: string): Promise<T> {
+    public async getByIndexAsync<T extends BaseResourceApiDto>(resource: string, index: string): Promise<T> {
         return await this.getByUrlAsync<T>(new URL(`${SrdApiService.baseUrl}/${resource}/${index}`));
     }
 
@@ -72,8 +73,7 @@ export class SrdApiService implements ISrdApiService {
 
         // Success.
         if (response.ok) {
-            const json = await response.json();
-            return json as T;
+            return await response.json();
         }
 
         // Too Many Requests (HTTP 429) - rate limiting.
@@ -86,7 +86,7 @@ export class SrdApiService implements ISrdApiService {
             const retryAfterMs = 1000; // The `retry-after` header is not provided by the API, so we use a fixed delay.
             console.warn(`Rate limit hit. Retrying after ${retryAfterMs} ms...`);
             await new Promise(resolve => setTimeout(resolve, retryAfterMs));
-            return await this.getApiDataAsync(url, retryCount++);
+            return await this.getApiDataAsync<T>(url, retryCount + 1);
         }
 
         // Any other error status.

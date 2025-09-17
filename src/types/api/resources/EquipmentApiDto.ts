@@ -1,6 +1,6 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface EquipmentApiDto extends ApiObjectInfoApiDto {
+export interface EquipmentApiDto extends BaseResourceApiDto {
 
     /**
      * Flavour description of the equipment.
@@ -15,7 +15,7 @@ export interface EquipmentApiDto extends ApiObjectInfoApiDto {
     /**
      * The Equipment Category that this equipment belongs to.
      */
-    equipment_category: ApiObjectInfoApiDto;
+    equipment_category: BaseResourceApiDto;
 
     /**
      * The cost of the piece of equipment.

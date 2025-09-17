@@ -1,8 +1,8 @@
 import { AbilityBonusApiDto } from "../helpers/AbilityBonusApiDto.js";
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-export interface SubraceApiDto extends ApiObjectInfoApiDto {
+export interface SubraceApiDto extends BaseResourceApiDto {
 
     /**
      * Flavor description of the subrace.
@@ -12,7 +12,7 @@ export interface SubraceApiDto extends ApiObjectInfoApiDto {
     /**
      * The race that the subrace is a part of.
      */
-    race: ApiObjectInfoApiDto;
+    race: BaseResourceApiDto;
 
     /**
      * Bonuses to abilities this subrace gives.
@@ -22,12 +22,12 @@ export interface SubraceApiDto extends ApiObjectInfoApiDto {
     /**
      * A list of proficiencies the subrace starts with.
      */
-    starting_proficiencies: ApiObjectInfoApiDto[];
+    starting_proficiencies: BaseResourceApiDto[];
 
     /**
      * List of languages the subrace always learns.
      */
-    languages: ApiObjectInfoApiDto[];
+    languages: BaseResourceApiDto[];
 
     /**
      * If applicable, a choice in languages that the player can make choosing this subrace.
@@ -37,5 +37,5 @@ export interface SubraceApiDto extends ApiObjectInfoApiDto {
     /**
      * A list of traits the subrace has.
      */
-    racial_traits: ApiObjectInfoApiDto[];
+    racial_traits: BaseResourceApiDto[];
 }

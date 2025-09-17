@@ -1,6 +1,6 @@
 import { OptionApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
@@ -9,7 +9,7 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  */
 export class ChoiceOptionElement extends HTMLElement {
     possibleObjects: ApiBaseObjectList;
-    defaultValue?: ApiObjectInfoApiDto;
+    defaultValue?: BaseResourceApiDto;
     select: HTMLSelectElement;
     
     /**
@@ -17,7 +17,7 @@ export class ChoiceOptionElement extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from
      * @param defaultValue The default value to set in the select element
      */
-    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: ApiObjectInfoApiDto) {
+    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: BaseResourceApiDto) {
         super();
         
         this.possibleObjects = possibleObjects;

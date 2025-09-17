@@ -1,4 +1,4 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 import { EquipmentApiDto } from "./EquipmentApiDto.js";
 
 export interface WeaponApiDto extends EquipmentApiDto {
@@ -38,7 +38,7 @@ export interface WeaponApiDto extends EquipmentApiDto {
     /**
      * Extra properties this weapon has.
      */
-    properties: ApiObjectInfoApiDto[];
+    properties: BaseResourceApiDto[];
 }
 
 interface DamageApiDto {
@@ -51,7 +51,7 @@ interface DamageApiDto {
     /**
      * The type of damage that is dealt.
      */
-    damage_type: ApiObjectInfoApiDto
+    damage_type: BaseResourceApiDto
 }
 
 interface RangeApiDto {

@@ -1,4 +1,5 @@
-import { ResourceList } from "../types/api/helpers/ResourceList";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
+import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto";
 
 /**
  * Interface for the SRD API service.
@@ -17,7 +18,7 @@ export interface ISrdApiService {
      * @param resource The resource type (e.g., "spells", "monsters").
      * @return A ResourceList containing the resources of the specified type.
      */
-    getResourceListAsync(resource: string): Promise<ResourceList>;
+    getResourceListAsync<T extends BaseResourceApiDto>(resource: string): Promise<ResourceListApiDto<T>>;
 
     /**
      * Fetch a specific resource by its type and index.
@@ -25,5 +26,5 @@ export interface ISrdApiService {
      * @param index The index identifier of the specific resource.
      * @return The resource object.
      */
-    getByIndexAsync<T>(resource: string, index: string): Promise<T>;
+    getByIndexAsync<T extends BaseResourceApiDto>(resource: string, index: string): Promise<T>;
 }

@@ -1,6 +1,6 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface SkillApiDto extends ApiObjectInfoApiDto {
+export interface SkillApiDto extends BaseResourceApiDto {
 
     /**
      * Flavor description of the skill.
@@ -10,5 +10,5 @@ export interface SkillApiDto extends ApiObjectInfoApiDto {
     /**
      * The ability score that the skill is typically used as.
      */
-    ability_score: ApiObjectInfoApiDto;
+    ability_score: BaseResourceApiDto;
 }

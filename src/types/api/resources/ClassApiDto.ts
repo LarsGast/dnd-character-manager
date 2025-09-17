@@ -1,7 +1,7 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-export interface ClassApiDto extends ApiObjectInfoApiDto {
+export interface ClassApiDto extends BaseResourceApiDto {
 
     /**
      * Hit die of the class. (ex: 12 == 1d12).
@@ -46,17 +46,17 @@ export interface ClassApiDto extends ApiObjectInfoApiDto {
     /**
      * List of starting proficiencies for all new characters of this class.
      */
-    proficiencies: ApiObjectInfoApiDto[];
+    proficiencies: BaseResourceApiDto[];
 
     /**
      * Saving throws the class is proficient in.
      */
-    saving_throws: ApiObjectInfoApiDto[];
+    saving_throws: BaseResourceApiDto[];
 
     /**
      * List of all possible subclasses this class can specialize in.
      */
-    subclasses: ApiObjectInfoApiDto[];
+    subclasses: BaseResourceApiDto[];
 }
 
 interface MultiClassingApiDto {
@@ -74,7 +74,7 @@ interface MultiClassingApiDto {
     /**
      * List of proficiencies available when multi-classing.
      */
-    proficiencies: ApiObjectInfoApiDto[];
+    proficiencies: BaseResourceApiDto[];
 
     /**
      * List of choices of proficiencies that are given when multi-classing.
@@ -87,7 +87,7 @@ interface PrerequisiteApiDto {
     /**
      * The ability score that must have a minimum score to multi-class.
      */
-    ability_score: ApiObjectInfoApiDto;
+    ability_score: BaseResourceApiDto;
 
     /**
      * Minimum score to meet the prerequisite.
@@ -110,7 +110,7 @@ interface SpellCastingApiDto {
     /**
      * Reference to the AbilityScore used for spellcasting by the class.
      */
-    spellcasting_ability: ApiObjectInfoApiDto;
+    spellcasting_ability: BaseResourceApiDto;
 }
 
 interface SpellCastingInfoApiDto {
@@ -128,5 +128,5 @@ interface StartingEquipmentApiDto {
     /**
      * Information about the equipment.
      */
-    equipment: ApiObjectInfoApiDto;
+    equipment: BaseResourceApiDto;
 }

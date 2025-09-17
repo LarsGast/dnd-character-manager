@@ -1,5 +1,5 @@
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getTextInputSection } from '../../services/FormElementsBuilder.js';
 
 /**
@@ -13,7 +13,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
      * Creates an instance of HomebrewBaseForm.
      * @param homebrewObject 
      */
-    constructor(homebrewObject: ApiObjectInfoApiDto) {
+    constructor(homebrewObject: BaseResourceApiDto) {
         super();
 
         // "Name" is the only required field for all homebrew objects.
@@ -52,7 +52,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
      * Override this method in subclasses to add additional fields.
      * @returns Homebrew object data collected from the form.
      */
-    async getFormDataAsync(): Promise<ApiObjectInfoApiDto> {
+    async getFormDataAsync(): Promise<BaseResourceApiDto> {
         const formData = new FormData(this);
 
         // Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.

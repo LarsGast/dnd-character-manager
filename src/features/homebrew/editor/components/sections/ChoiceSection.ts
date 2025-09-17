@@ -1,6 +1,6 @@
 import { ChoiceApiDto, OptionSetApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 
@@ -118,7 +118,7 @@ export class ChoiceSection extends HTMLElement {
      * Adds a new choice option element to the section.
      * @param defaultValue The default value to set in the new choice option element.
      */
-    addOption(defaultValue?: ApiObjectInfoApiDto) {
+    addOption(defaultValue?: BaseResourceApiDto) {
         this.appendChild(new ChoiceOptionElement(this.possibleObjects, defaultValue));
     }
 

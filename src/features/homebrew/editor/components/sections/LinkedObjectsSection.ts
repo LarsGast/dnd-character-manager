@@ -1,5 +1,5 @@
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ObjectSelect } from "./ObjectSelect.js";
 
@@ -16,7 +16,7 @@ export class LinkedObjectsSection extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from.
      * @param selectedObjects The list of objects that are currently selected
      */
-    constructor(label: string, possibleObjects: ApiBaseObjectList, selectedObjects: ApiObjectInfoApiDto[], tooltip: string) {
+    constructor(label: string, possibleObjects: ApiBaseObjectList, selectedObjects: BaseResourceApiDto[], tooltip: string) {
         super();
         
         this.possibleObjects = possibleObjects;
@@ -63,7 +63,7 @@ export class LinkedObjectsSection extends HTMLElement {
      * Adds a new ObjectSelect element to the section.
      * @param selectedObject Optional default value for the new ObjectSelect
      */
-    addObjectSelect(selectedObject?: ApiObjectInfoApiDto): void {
+    addObjectSelect(selectedObject?: BaseResourceApiDto): void {
         this.appendChild(new ObjectSelect(this.possibleObjects, selectedObject));
     }
 
@@ -71,7 +71,7 @@ export class LinkedObjectsSection extends HTMLElement {
      * Gets the form data from the linked objects section.
      * @returns An array of ApiObjectInfo objects containing the selected values.
      */
-    getValue(): ApiObjectInfoApiDto[] {
+    getValue(): BaseResourceApiDto[] {
         const objectSelects: ObjectSelect[] = Array.from(this.querySelectorAll('object-select'));
 
         return objectSelects.map(objectSelect => objectSelect.getValue());

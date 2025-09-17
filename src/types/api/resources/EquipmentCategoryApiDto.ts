@@ -1,9 +1,9 @@
-import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-export interface EquipmentCategoryApiDto extends ApiObjectInfoApiDto {
+export interface EquipmentCategoryApiDto extends BaseResourceApiDto {
 
     /**
      * All equipments that fall under this category.
      */
-    equipment: ApiObjectInfoApiDto[];
+    equipment: BaseResourceApiDto[];
 }
