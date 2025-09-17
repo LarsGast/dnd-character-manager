@@ -5,10 +5,10 @@ import { CharacterDeleteButton } from "../buttons/CharacterDeleteButton.js";
 import { CharacterSelectButton } from "../buttons/CharacterSelectButton.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
-import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
+import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
+import { ClassApiDto } from "../../../../../types/api/resources/ClassApiDto.js";
+import { SubclassApiDto } from "../../../../../types/api/resources/SubclassApiDto.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**

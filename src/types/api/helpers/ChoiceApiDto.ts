@@ -1,9 +1,9 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
  */
-export interface Choice {
+export interface ChoiceApiDto {
     
     /**
      * Description of the choice to be made.
@@ -24,13 +24,13 @@ export interface Choice {
     /**
      * The options to choose from.
      */
-    from: OptionSet;
+    from: OptionSetApiDto;
 }
 
 /**
  * Object for storing information about the specific choices a player can make when gaining a feature that let's them choose.
  */
-export interface OptionSet {
+export interface OptionSetApiDto {
     
     /**
      * Type of option set.
@@ -54,13 +54,13 @@ export interface OptionSet {
      * The options to choose from.
      * undefined if option_set_type is not options_array.
      */
-    options: Option[];
+    options: OptionApiDto[];
 }
 
 /**
  * Option that the player can choose from when gaining a feature that let's them choose.
  */
-export interface Option {
+export interface OptionApiDto {
     
     /**
      * Indicates the structure of the option.
@@ -104,7 +104,7 @@ export interface Option {
     /**
      * Reference to the object in the API of the actual choice.
      */
-    item: ApiObjectInfo;
+    item: ApiObjectInfoApiDto;
 
     /**
      * The name of the action, according to its `name` attribute.
@@ -124,12 +124,12 @@ export interface Option {
     /**
      * An array of Option objects. All of them must be taken if the option is chosen.
      */
-    items: Option[];
+    items: OptionApiDto[];
 
     /**
      * The Choice to resolve.
      */
-    choice: Choice;
+    choice: ChoiceApiDto;
 
     /**
      * The string.
@@ -144,17 +144,17 @@ export interface Option {
     /**
      *  A list of alignments of those who might follow the ideal.
      */
-    alignments: ApiObjectInfo[];
+    alignments: ApiObjectInfoApiDto[];
 
     /**
      * Thing being referenced.
      */
-    of: ApiObjectInfo;
+    of: ApiObjectInfoApiDto;
 
     /**
      * Ability score being referenced.
      */
-    ability_score: ApiObjectInfo;
+    ability_score: ApiObjectInfoApiDto;
 
     /**
      * The minimum score required to satisfy the prerequisite.
@@ -184,7 +184,7 @@ export interface Option {
     /**
      * Reference to type of damage.
      */
-    damage_type: ApiObjectInfo;
+    damage_type: ApiObjectInfoApiDto;
 
     /**
      * Damage expressed in dice (e.g. "13d6").

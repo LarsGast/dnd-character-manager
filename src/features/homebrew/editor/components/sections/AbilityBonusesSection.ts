@@ -1,7 +1,7 @@
-import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
-import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
+import { AbilityBonusApiDto } from "../../../../../types/api/helpers/AbilityBonusApiDto.js";
+import { AbilityScoreApiDto } from "../../../../../types/api/resources/AbilityScoreApiDto.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
 /**
@@ -14,14 +14,14 @@ export class AbilityBonusesSection extends HTMLElement {
      * Default order of ability scores.
      */
     abilityScoreOrder: string[] = ["str", "dex", "con", "int", "wis", "cha"];
-    abilityBonuses: AbilityBonus[];
+    abilityBonuses: AbilityBonusApiDto[];
 
     /**
      * Creates an instance of AbilityBonusesSection.
      * @param abilityBonuses Initial ability bonuses to display.
      * @param tooltip Tooltip text for the section.
      */
-    constructor(abilityBonuses: AbilityBonus[], tooltip: string) {
+    constructor(abilityBonuses: AbilityBonusApiDto[], tooltip: string) {
         super();
 
         this.abilityBonuses = abilityBonuses;
@@ -65,7 +65,7 @@ export class AbilityBonusesSection extends HTMLElement {
      * Retrieves the values of all ability bonuses from the section.
      * @returns Array of AbilityBonus objects representing the selected values.
      */
-    async getValueAsync(): Promise<AbilityBonus[]> {
+    async getValueAsync(): Promise<AbilityBonusApiDto[]> {
         const inputs = this.querySelectorAll('input[type="number"]') as NodeListOf<HTMLInputElement>;
         const abilityBonuses = [];
 

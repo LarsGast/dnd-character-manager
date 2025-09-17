@@ -1,7 +1,7 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
-import { Equipment } from "./Equipment.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { EquipmentApiDto } from "./EquipmentApiDto.js";
 
-export interface Weapon extends Equipment {
+export interface WeaponApiDto extends EquipmentApiDto {
 
     /**
      * Category of weapon, such as "Martial" and "Simple".
@@ -22,26 +22,26 @@ export interface Weapon extends Equipment {
      * Information about the damage this weapon deals.
      * undefined for nets.
      */
-    damage: Damage | undefined;
+    damage: DamageApiDto | undefined;
 
     /**
      * Information about the range (in feet) this weapon has.
      */
-    range: Range;
+    range: RangeApiDto;
 
     /**
      * Information about the throwing range (in feet) this weapon has.
      * undefined if the weapon cannot be thrown.
      */
-    throw_range: Range | undefined;
+    throw_range: RangeApiDto | undefined;
 
     /**
      * Extra properties this weapon has.
      */
-    properties: ApiObjectInfo[];
+    properties: ApiObjectInfoApiDto[];
 }
 
-interface Damage {
+interface DamageApiDto {
 
     /**
      * The dice used for rolling for damage.
@@ -51,10 +51,10 @@ interface Damage {
     /**
      * The type of damage that is dealt.
      */
-    damage_type: ApiObjectInfo
+    damage_type: ApiObjectInfoApiDto
 }
 
-interface Range {
+interface RangeApiDto {
 
     /**
      * The normal range of the weapon in feet.

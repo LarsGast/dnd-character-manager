@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Feature extends ApiObjectInfo {
+export interface FeatureApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Description of the resource.
@@ -15,18 +15,18 @@ export interface Feature extends ApiObjectInfo {
     /**
      * The class that this feature is a prt of.
      */
-    class: ApiObjectInfo;
+    class: ApiObjectInfoApiDto;
 
     /**
      * The subclass that this feature is a prt of.
      */
-    subclass: ApiObjectInfo;
+    subclass: ApiObjectInfoApiDto;
 
     /**
      * The parent feature that this feature is a part of.
      * undefined if this features does not have a parent.
      */
-    parent: ApiObjectInfo;
+    parent: ApiObjectInfoApiDto;
 
     /**
      * The prerequisites for this feature.

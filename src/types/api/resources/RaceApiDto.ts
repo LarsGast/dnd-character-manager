@@ -1,8 +1,8 @@
-import { AbilityBonus } from "../helpers/AbilityBonus.js"
-import { Choice } from "../helpers/Choice.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { AbilityBonusApiDto } from "../helpers/AbilityBonusApiDto.js"
+import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Race extends ApiObjectInfo {
+export interface RaceApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Speed of the race in feet per round.
@@ -12,7 +12,7 @@ export interface Race extends ApiObjectInfo {
     /**
      * Bonuses to abilities this race gives.
      */
-    ability_bonuses: AbilityBonus[];
+    ability_bonuses: AbilityBonusApiDto[];
 
     /**
      * Flavor description of the typical age of the race.
@@ -37,12 +37,12 @@ export interface Race extends ApiObjectInfo {
     /**
      * Starting languages for all new characters of this race.
      */
-    languages: ApiObjectInfo[];
+    languages: ApiObjectInfoApiDto[];
 
     /**
      * Starting language options for all new characters of this race.
      */
-    language_options: Choice;
+    language_options: ChoiceApiDto;
 
     /**
      * Flavor description of the languages known by the race.
@@ -52,10 +52,10 @@ export interface Race extends ApiObjectInfo {
     /**
      * A list of traits the race has.
      */
-    traits: ApiObjectInfo[];
+    traits: ApiObjectInfoApiDto[];
 
     /**
      * A list of subraces the race has, if any.
      */
-    subraces: ApiObjectInfo[];
+    subraces: ApiObjectInfoApiDto[];
 }

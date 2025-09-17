@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../types/api/resources/WeaponApiDto.js";
 import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckbox.js";
 
 /**
@@ -8,7 +8,7 @@ import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckb
  * This element creates a labeled checkbox (using WeaponProficiencyCheckbox) alongside the weapon's name for a visual representation of proficiency.
  */
 export class WeaponProficiencyDisplay extends HTMLLIElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
     proficiencyCheckbox: WeaponProficiencyCheckbox;
     weaponProficiencyLabel: HTMLLabelElement;
 
@@ -16,7 +16,7 @@ export class WeaponProficiencyDisplay extends HTMLLIElement {
      * Create a WeaponProficiencyDisplay.
      * @param weapon A Weapon object representing the weapon to display.
      */
-    constructor(weapon: Weapon) {
+    constructor(weapon: WeaponApiDto) {
         super();
 
         this.weapon = weapon;

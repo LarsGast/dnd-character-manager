@@ -1,5 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
-import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 
 /**
  * Custom table cell element that contains action buttons for a weapon entry.
@@ -8,7 +8,7 @@ import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
  * It provides a "Delete" button that removes the weapon from the global inventory and dispatches an "inventoryWeaponDeleted" event.
  */
 export class InventoryWeaponButtonsCell extends HTMLTableCellElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
     rowIndex: number;
     deleteButton: HTMLButtonElement;
 
@@ -17,7 +17,7 @@ export class InventoryWeaponButtonsCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The inventory row index of the weapon.
      */
-    constructor(weapon: Weapon, rowIndex: number) {
+    constructor(weapon: WeaponApiDto, rowIndex: number) {
         super();
 
         this.weapon = weapon;

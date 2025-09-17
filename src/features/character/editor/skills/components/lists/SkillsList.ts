@@ -1,5 +1,5 @@
 import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
-import { Skill } from "../../../../../../types/api/resources/Skill.js";
+import { SkillApiDto } from "../../../../../../types/api/resources/SkillApiDto.js";
 import { SkillDisplay } from "../display/SkillDisplay.js";
 
 /**

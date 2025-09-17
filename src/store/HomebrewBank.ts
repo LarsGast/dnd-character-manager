@@ -1,7 +1,7 @@
 import { ApiCategory } from "../services/api.js";
-import { ApiObjectInfo } from "../types/api/wrappers/ApiObjectInfo.js";
-import { Race } from "../types/api/resources/Race.js";
-import { Trait } from "../types/api/resources/Trait.js";
+import { ApiObjectInfoApiDto } from "../types/api/wrappers/ApiObjectInfoApiDto.js";
+import { RaceApiDto } from "../types/api/resources/RaceApiDto.js";
+import { TraitApiDto } from "../types/api/resources/TraitApiDto.js";
 
 /**
  * Key used for saving and loading the homebrew bank from localStorage.
@@ -108,7 +108,7 @@ export class HomebrewBank {
      * @param homebrewObject 
      * @param apiCategoryName 
      */
-    addNewHomebrew(homebrewObject: ApiObjectInfo, apiCategoryName: string) {
+    addNewHomebrew(homebrewObject: ApiObjectInfoApiDto, apiCategoryName: string) {
 
         const bankEntry = new HomebrewBankEntry();
 
@@ -150,7 +150,7 @@ export class HomebrewBank {
      * @param id UUID.
      * @return The homebrew object if found, otherwise undefined.
      */
-    getHomebrewObjectByIndex(id: string): ApiObjectInfo | undefined  {
+    getHomebrewObjectByIndex(id: string): ApiObjectInfoApiDto | undefined  {
         return this.homebrewBankEntries.find(entry => entry.homebrewObject.index === id)?.homebrewObject;
     }
 
@@ -159,7 +159,7 @@ export class HomebrewBank {
      * @param apiCategory The API category to filter by.
      * @return An array of homebrew objects that belong to the specified category.
      */
-    getHomebrewObjectsByCategory(apiCategory: ApiCategory): ApiObjectInfo[] {
+    getHomebrewObjectsByCategory(apiCategory: ApiCategory): ApiObjectInfoApiDto[] {
         return this.homebrewBankEntries
             .filter(entry => entry.apiCategoryName === apiCategory.name)
             .map(entry => entry.homebrewObject);
@@ -190,7 +190,7 @@ export class HomebrewBankEntry {
     /**
      * All data required for a homebrew object.
      */
-    homebrewObject: ApiObjectInfo;
+    homebrewObject: ApiObjectInfoApiDto;
 
     /**
      * Name of the API category this homebrew object belongs to.
@@ -231,7 +231,7 @@ export class HomebrewBankEntry {
      * This is necessary because the homebrewObject can be of different types depending on the category.
      * @returns The initialized homebrew object.
      */
-    private getHomebrewObject(homebrewObject: Partial<ApiObjectInfo> = {}): ApiObjectInfo {
+    private getHomebrewObject(homebrewObject: Partial<ApiObjectInfoApiDto> = {}): ApiObjectInfoApiDto {
         switch (this.apiCategoryName) {
             case ApiCategory.Races.name: return new Race(homebrewObject);
             case ApiCategory.Traits.name: return new Trait(homebrewObject);

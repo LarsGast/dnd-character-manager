@@ -1,8 +1,8 @@
-import { AbilityBonus } from "../helpers/AbilityBonus.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
-import { Choice } from "../helpers/Choice.js";
+import { AbilityBonusApiDto } from "../helpers/AbilityBonusApiDto.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-export interface Subrace extends ApiObjectInfo {
+export interface SubraceApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Flavor description of the subrace.
@@ -12,30 +12,30 @@ export interface Subrace extends ApiObjectInfo {
     /**
      * The race that the subrace is a part of.
      */
-    race: ApiObjectInfo;
+    race: ApiObjectInfoApiDto;
 
     /**
      * Bonuses to abilities this subrace gives.
      */
-    ability_bonuses: AbilityBonus[];
+    ability_bonuses: AbilityBonusApiDto[];
 
     /**
      * A list of proficiencies the subrace starts with.
      */
-    starting_proficiencies: ApiObjectInfo[];
+    starting_proficiencies: ApiObjectInfoApiDto[];
 
     /**
      * List of languages the subrace always learns.
      */
-    languages: ApiObjectInfo[];
+    languages: ApiObjectInfoApiDto[];
 
     /**
      * If applicable, a choice in languages that the player can make choosing this subrace.
      */
-    language_options: Choice;
+    language_options: ChoiceApiDto;
 
     /**
      * A list of traits the subrace has.
      */
-    racial_traits: ApiObjectInfo[];
+    racial_traits: ApiObjectInfoApiDto[];
 }

@@ -1,5 +1,5 @@
 import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
+import { ClassApiDto } from "../../../../../types/api/resources/ClassApiDto.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**

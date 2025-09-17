@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface AbilityScore extends ApiObjectInfo {
+export interface AbilityScoreApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Description of the resource.
@@ -15,5 +15,5 @@ export interface AbilityScore extends ApiObjectInfo {
     /**
      * List of skills that use this ability score.
      */
-    skills: ApiObjectInfo[];
+    skills: ApiObjectInfoApiDto[];
 }

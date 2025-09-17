@@ -1,14 +1,14 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
 /**
  * Has information about the bonuses to abilities a race can have.
  */
-export interface AbilityBonus {
+export interface AbilityBonusApiDto {
 
     /**
      * Ability score that the bonus gets applied to.
      */
-    ability_score: ApiObjectInfo;
+    ability_score: ApiObjectInfoApiDto;
 
     /**
      * The height of the bonus.

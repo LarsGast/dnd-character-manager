@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Subclass extends ApiObjectInfo {
+export interface SubclassApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Description of the resource.
@@ -10,7 +10,7 @@ export interface Subclass extends ApiObjectInfo {
     /**
      * Class that the subclass belongs to.
      */
-    class: ApiObjectInfo;
+    class: ApiObjectInfoApiDto;
 
     /**
      * Lore-friendly flavor text for a classes respective subclass.

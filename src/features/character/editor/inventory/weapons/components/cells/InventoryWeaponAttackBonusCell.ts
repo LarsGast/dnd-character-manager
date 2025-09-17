@@ -1,5 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
-import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 
 /**
  * Custom table cell element that displays the calculated attack bonus for a weapon.
@@ -8,7 +8,7 @@ import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
  * The cell listens for updates from proficiency, ability score modifiers, weapon proficiency, and weapon ability changes to update the displayed attack bonus.
  */
 export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
     rowIndex: number;
     _updateHandler?: (event: any) => void;
 
@@ -17,7 +17,7 @@ export class InventoryWeaponAttackBonusCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The index of the weapon in the inventory.
      */
-    constructor(weapon: Weapon, rowIndex: number) {
+    constructor(weapon: WeaponApiDto, rowIndex: number) {
         super();
 
         this.weapon = weapon;

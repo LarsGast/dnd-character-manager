@@ -1,7 +1,7 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { LanguageApiDto } from "../../../../../types/api/resources/LanguageApiDto.js";
+import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
+import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
+import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { AbilityBonusesSection } from "../sections/AbilityBonusesSection.js";
@@ -12,7 +12,7 @@ import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
  * Form for editing custom homebrew Race objects.
  */
 export class RaceForm extends HomebrewBaseForm {
-    race: Race;
+    race: RaceApiDto;
     abilityBonusesSection?: AbilityBonusesSection;
     traitsSection?: LinkedObjectsSection;
     languagesSection?: LinkedObjectsSection;
@@ -23,7 +23,7 @@ export class RaceForm extends HomebrewBaseForm {
      * Creates an instance of RaceForm.
      * @param raceElement
      */
-    constructor(raceElement: Race) {
+    constructor(raceElement: RaceApiDto) {
         super(raceElement);
         
         this.race = raceElement;

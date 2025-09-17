@@ -1,4 +1,4 @@
-import { Background } from "../../../../../types/api/resources/Background.js";
+import { BackgroundApiDto } from "../../../../../types/api/resources/BackgroundApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 

@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "./ApiObjectInfoApiDto.js";
 
-export interface ResourceList<T extends ApiObjectInfo = ApiObjectInfo> {
+export interface ResourceListApiDto<T extends ApiObjectInfoApiDto = ApiObjectInfoApiDto> {
 
     /**
      * Total count of all results.

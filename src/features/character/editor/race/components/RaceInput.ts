@@ -1,4 +1,4 @@
-import { Race } from "../../../../../types/api/resources/Race.js";
+import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
 

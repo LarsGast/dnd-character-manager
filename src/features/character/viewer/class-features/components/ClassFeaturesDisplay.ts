@@ -1,8 +1,8 @@
 import { getElementWithTextContent } from "../../../../../utils/util.js";
-import { Choice } from "../../../../../types/api/helpers/Choice.js";
-import { Feature } from "../../../../../types/api/resources/Feature.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
-import { Subclass } from "../../../../../types/api/resources/Subclass.js";
+import { ChoiceApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
+import { FeatureApiDto } from "../../../../../types/api/resources/FeatureApiDto.js";
+import { ClassApiDto } from "../../../../../types/api/resources/ClassApiDto.js";
+import { SubclassApiDto } from "../../../../../types/api/resources/SubclassApiDto.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
 
 /**
@@ -14,8 +14,8 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  */
 export class ClassFeaturesDisplay extends HTMLDetailsElement {
     classLevelInfo: any;
-    class?: Class;
-    subclass?: Subclass;
+    class?: ClassApiDto;
+    subclass?: SubclassApiDto;
 
     constructor(classLevelInfo: any) {
         super();
@@ -195,7 +195,7 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * @param subclass Optional subclass object.
      * @returns A fragment describing the feature.
      */
-    async getFeatureSection(feature: Feature, subclass?: Subclass): Promise<DocumentFragment> {
+    async getFeatureSection(feature: FeatureApiDto, subclass?: SubclassApiDto): Promise<DocumentFragment> {
         const fragment = document.createDocumentFragment();
 
         // Add feature name as a header.
@@ -226,7 +226,7 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * @param choice The choice object from feature_specific.
      * @returns A ul containing the choice details.
      */
-    async getChoiceSection(choice: Choice): Promise<HTMLUListElement> {
+    async getChoiceSection(choice: ChoiceApiDto): Promise<HTMLUListElement> {
         const ul = document.createElement("ul");
 
         // For each option provided by the choice, fetch the subfeature and display it.

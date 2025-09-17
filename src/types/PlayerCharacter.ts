@@ -1,4 +1,4 @@
-import { Skill } from "./api/resources/Skill.js";
+import { SkillApiDto } from "./api/resources/SkillApiDto.js";
 import { globals } from "../store/load-globals.js";
 
 /**
@@ -200,7 +200,7 @@ export class PlayerCharacter {
      * @param skill The skill object containing its ability_score and index.
      * @returns The computed skill modifier.
      */
-    getSkillModifier(skill: Skill): number {
+    getSkillModifier(skill: SkillApiDto): number {
         let skillModifier = this.getAbilityModifier(skill.ability_score.index);
 
         if (this.isProficientInSkill(skill.index)) {

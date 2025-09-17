@@ -1,7 +1,7 @@
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
+import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -12,7 +12,7 @@ import { Trait } from "../../../../../types/api/resources/Trait.js";
  */
 export class SubraceFeaturesDisplay extends HTMLDetailsElement {
     _updateHandler?: (event: any) => Promise<void>;
-    subrace?: Subrace;
+    subrace?: SubraceApiDto;
 
     constructor() {
         super();
@@ -168,7 +168,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * @param traits An array of trait objects.
      * @returns The section element with trait headings and paragraphs.
      */
-    getTraitsSection(traits: Trait[]): HTMLElement {
+    getTraitsSection(traits: TraitApiDto[]): HTMLElement {
         const traitsSection = document.createElement('section');
 
         traitsSection.appendChild(this.getHeading("Traits"));

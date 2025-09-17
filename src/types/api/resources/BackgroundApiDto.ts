@@ -1,55 +1,55 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
-import { Choice } from "../helpers/Choice.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
+import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-export interface Background extends ApiObjectInfo {
+export interface BackgroundApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Starting proficiencies for all new characters of this background.
      */
-    starting_proficiencies: ApiObjectInfo[];
+    starting_proficiencies: ApiObjectInfoApiDto[];
 
     /**
      * Choice of languages for all new characters of this background.
      */
-    language_options: Choice;
+    language_options: ChoiceApiDto;
 
     /**
      * Starting equipment for all new characters of this background.
      */
-    starting_equipment: ApiObjectInfo[];
+    starting_equipment: ApiObjectInfoApiDto[];
 
     /**
      * Choice of equipment for all new characters of this background.
      */
-    starting_equipment_options: Choice;
+    starting_equipment_options: ChoiceApiDto;
 
     /**
      * Special feature granted to new characters of this background.
      */
-    feature: BackgroundFeature;
+    feature: BackgroundFeatureApiDto;
 
     /**
      * Choice of personality traits for all new characters of this background.
      */
-    personality_traits: Choice;
+    personality_traits: ChoiceApiDto;
 
     /**
      * Choice of ideals for all new characters of this background.
      */
-    ideals: Choice;
+    ideals: ChoiceApiDto;
 
     /**
      * Choice of bonds for all new characters of this background.
      */
-    bonds: Choice;
+    bonds: ChoiceApiDto;
 
     /**
      * Choice of flaws for all new characters of this background.
      */
-    flaws: Choice;
+    flaws: ChoiceApiDto;
 }
 
-interface BackgroundFeature {
+interface BackgroundFeatureApiDto {
     name: string;
     desc: string[];
 }

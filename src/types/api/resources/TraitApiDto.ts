@@ -1,7 +1,7 @@
-import { Choice } from "../helpers/Choice.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Trait extends ApiObjectInfo {
+export interface TraitApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Description of the trait.
@@ -12,27 +12,27 @@ export interface Trait extends ApiObjectInfo {
     /**
      * List of races that get this trait.
      */
-    races: ApiObjectInfo[];
+    races: ApiObjectInfoApiDto[];
 
     /**
      * List of subraces that get this trait.
      */
-    subraces: ApiObjectInfo[];
+    subraces: ApiObjectInfoApiDto[];
 
     /**
      * List of proficiencies that this trait provides.
      */
-    proficiencies: ApiObjectInfo[];
+    proficiencies: ApiObjectInfoApiDto[];
 
     /**
      * If applicable, a choice in proficiencies that the player can make when getting this trait.
      */
-    proficiency_choices: Choice;
+    proficiency_choices: ChoiceApiDto;
 
     /**
      * If applicable, a choice in languages that the player can make when getting this trait.
      */
-    language_options: Choice;
+    language_options: ChoiceApiDto;
 
     /**
      * Any extra trait-specific information.

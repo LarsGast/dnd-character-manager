@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 import { globals } from "../../../../../../../store/load-globals.js";
 
 /**
@@ -9,7 +9,7 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * It listens for changes in ability score modifiers and weapon ability selection to update its display.
  */
 export class InventoryDamageCell extends HTMLTableCellElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
     rowIndex: number;
     damageBonusSpan: HTMLSpanElement;
     _updateHandler?: (event: any) => void;
@@ -19,7 +19,7 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The index of the weapon in the inventory.
      */
-    constructor(weapon: Weapon, rowIndex: number) {
+    constructor(weapon: WeaponApiDto, rowIndex: number) {
         super();
         
         this.weapon = weapon;

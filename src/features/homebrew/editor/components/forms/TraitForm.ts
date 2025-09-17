@@ -1,6 +1,6 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Proficiency } from "../../../../../types/api/resources/Proficiency.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { LanguageApiDto } from "../../../../../types/api/resources/LanguageApiDto.js";
+import { ProficiencyApiDto } from "../../../../../types/api/resources/ProficiencyApiDto.js";
+import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 import { getTextareaSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
@@ -10,7 +10,7 @@ import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
  * Form for editing custom homebrew Trait objects.
  */
 export class TraitForm extends HomebrewBaseForm {
-    trait: Trait;
+    trait: TraitApiDto;
     descriptionSection?: HTMLElement;
     proficienciesSection?: LinkedObjectsSection;
     proficiencyChoicesSection?: ChoiceSection;
@@ -20,7 +20,7 @@ export class TraitForm extends HomebrewBaseForm {
      * Creates an instance of TraitForm.
      * @param traitObject
      */
-    constructor(traitObject: Trait) {
+    constructor(traitObject: TraitApiDto) {
         super(traitObject);
         
         this.trait = traitObject;
@@ -77,7 +77,7 @@ export class TraitForm extends HomebrewBaseForm {
     /**
      * @override Trait specific properties.
      */
-    override async getFormDataAsync(): Promise<Trait> {
+    override async getFormDataAsync(): Promise<TraitApiDto> {
     
         const data = new Trait(await super.getFormDataAsync());
 

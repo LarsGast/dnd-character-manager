@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 import { getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
 
@@ -12,7 +12,7 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * When the select value changes, the active player's inventory is updated and an "inventoryWeaponAbilityChanged" event is dispatched.
  */
 export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
     rowIndex: number;
     select?: HTMLSelectElement;
 
@@ -21,7 +21,7 @@ export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The index of the weapon in the global inventory.
      */
-    constructor(weapon: Weapon, rowIndex: number) {
+    constructor(weapon: WeaponApiDto, rowIndex: number) {
         super();
 
         this.weapon = weapon;

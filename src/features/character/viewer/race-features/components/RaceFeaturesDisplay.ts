@@ -1,7 +1,7 @@
-import { Race } from "../../../../../types/api/resources/Race.js";
+import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
+import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -12,7 +12,7 @@ import { Trait } from "../../../../../types/api/resources/Trait.js";
  */
 export class RaceFeaturesDisplay extends HTMLDetailsElement {
     _updateHandler?: (event: any) => Promise<void>;
-    race?: Race;
+    race?: RaceApiDto;
 
     constructor() {
         super();
@@ -189,7 +189,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
      * @param traits An array of trait objects.
      * @returns The section element containing trait headings and descriptions.
      */
-    getTraitsSection(traits: Trait[]): HTMLElement {
+    getTraitsSection(traits: TraitApiDto[]): HTMLElement {
         const traitsSection = document.createElement('section');
         
         traitsSection.appendChild(this.getHeading("Traits"));

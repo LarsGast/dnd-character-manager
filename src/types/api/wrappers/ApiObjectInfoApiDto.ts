@@ -1,4 +1,4 @@
-export interface ApiObjectInfo {
+export interface ApiObjectInfoApiDto {
 
     /**
      * Unique identifier in the 5e SRD API.

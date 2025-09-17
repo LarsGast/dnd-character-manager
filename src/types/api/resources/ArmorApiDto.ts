@@ -1,6 +1,6 @@
-import { Equipment } from "./Equipment.js";
+import { EquipmentApiDto } from "./EquipmentApiDto.js";
 
-export interface Armor extends Equipment {
+export interface ArmorApiDto extends EquipmentApiDto {
 
     /**
      * Category of armor, such as "Light", "Medium", and "Heavy".
@@ -10,7 +10,7 @@ export interface Armor extends Equipment {
     /**
      * The base armor class of the armor. Can be used to calculate effective armor class.
      */
-    armor_class: ArmorClass;
+    armor_class: ArmorClassApiDto;
 
     /**
      * The minimum STR score required to don this armor.
@@ -26,7 +26,7 @@ export interface Armor extends Equipment {
 /**
  * Holds information about the armor class of a piece of armor.
  */
-interface ArmorClass {
+interface ArmorClassApiDto {
 
     /**
      * Base AC every character gets while wearing the armor.

@@ -1,6 +1,6 @@
-import { Choice, OptionSet } from "../../../../../types/api/helpers/Choice.js";
+import { ChoiceApiDto, OptionSetApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 
@@ -10,7 +10,7 @@ import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
  */
 export class ChoiceSection extends HTMLElement {
     possibleObjects: ApiBaseObjectList;
-    defaultValue: Choice;
+    defaultValue: ChoiceApiDto;
     descTextarea: HTMLTextAreaElement;
     chooseInput: HTMLInputElement;
     typeInput: HTMLInputElement;
@@ -22,7 +22,7 @@ export class ChoiceSection extends HTMLElement {
      * @param defaultValue The default choice value to initialize the section.
      * @param tooltip Optional tooltip text for the section.
      */
-    constructor(sectionLabel: string, possibleObjects: ApiBaseObjectList, defaultValue: Choice, tooltip: string) {
+    constructor(sectionLabel: string, possibleObjects: ApiBaseObjectList, defaultValue: ChoiceApiDto, tooltip: string) {
         super();
 
         this.possibleObjects = possibleObjects;
@@ -118,7 +118,7 @@ export class ChoiceSection extends HTMLElement {
      * Adds a new choice option element to the section.
      * @param defaultValue The default value to set in the new choice option element.
      */
-    addOption(defaultValue?: ApiObjectInfo) {
+    addOption(defaultValue?: ApiObjectInfoApiDto) {
         this.appendChild(new ChoiceOptionElement(this.possibleObjects, defaultValue));
     }
 
@@ -126,7 +126,7 @@ export class ChoiceSection extends HTMLElement {
      * Gets the form data from the choice section.
      * @returns The constructed Choice object containing the description, number of choices,
      */
-    getValue(): Choice {
+    getValue(): ChoiceApiDto {
 
         const choice = new Choice();
 

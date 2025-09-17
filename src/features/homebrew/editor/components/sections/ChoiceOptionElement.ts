@@ -1,6 +1,6 @@
-import { Option } from "../../../../../types/api/helpers/Choice.js";
+import { OptionApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../../../../../types/api/wrappers/ApiObjectInfoApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
@@ -9,7 +9,7 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  */
 export class ChoiceOptionElement extends HTMLElement {
     possibleObjects: ApiBaseObjectList;
-    defaultValue?: ApiObjectInfo;
+    defaultValue?: ApiObjectInfoApiDto;
     select: HTMLSelectElement;
     
     /**
@@ -17,7 +17,7 @@ export class ChoiceOptionElement extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from
      * @param defaultValue The default value to set in the select element
      */
-    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: ApiObjectInfo) {
+    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: ApiObjectInfoApiDto) {
         super();
         
         this.possibleObjects = possibleObjects;
@@ -63,7 +63,7 @@ export class ChoiceOptionElement extends HTMLElement {
      * Gets the value of the choice option element.
      * @returns The constructed Option object containing the selected index and name.
      */
-    getValue(): Option {
+    getValue(): OptionApiDto {
         const option = new Option();
 
         option.option_type = "reference";

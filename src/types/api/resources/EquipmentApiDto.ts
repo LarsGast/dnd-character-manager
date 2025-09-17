@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Equipment extends ApiObjectInfo {
+export interface EquipmentApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Flavour description of the equipment.
@@ -15,12 +15,12 @@ export interface Equipment extends ApiObjectInfo {
     /**
      * The Equipment Category that this equipment belongs to.
      */
-    equipment_category: ApiObjectInfo;
+    equipment_category: ApiObjectInfoApiDto;
 
     /**
      * The cost of the piece of equipment.
      */
-    cost: Cost;
+    cost: CostApiDto;
 
     /**
      * The weight of the equipment in pounds (lbs).
@@ -31,7 +31,7 @@ export interface Equipment extends ApiObjectInfo {
 /**
  * Represents the cost of an item or piece of equipment
  */
-interface Cost {
+interface CostApiDto {
 
     /**
      * The amount of the given unit of cost.

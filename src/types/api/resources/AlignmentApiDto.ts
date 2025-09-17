@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { ApiObjectInfoApiDto } from "../wrappers/ApiObjectInfoApiDto.js";
 
-export interface Alignment extends ApiObjectInfo {
+export interface AlignmentApiDto extends ApiObjectInfoApiDto {
 
     /**
      * Abbreviation/initials/acronym for the alignment.

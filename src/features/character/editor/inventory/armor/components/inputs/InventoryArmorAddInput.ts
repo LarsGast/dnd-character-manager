@@ -1,7 +1,7 @@
 import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
 import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
+import { EquipmentCategoryApiDto } from "../../../../../../../types/api/resources/EquipmentCategoryApiDto.js";
 import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
 import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
 

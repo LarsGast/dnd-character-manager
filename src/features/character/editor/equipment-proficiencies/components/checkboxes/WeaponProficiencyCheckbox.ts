@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../types/api/resources/Weapon.js";
+import { WeaponApiDto } from "../../../../../../types/api/resources/WeaponApiDto.js";
 import { globals } from "../../../../../../store/load-globals.js";
 
 /**
@@ -9,13 +9,13 @@ import { globals } from "../../../../../../store/load-globals.js";
  * Clicking the checkbox will update the PC's proficiency and notify any listeners via a custom event.
  */
 export class WeaponProficiencyCheckbox extends HTMLInputElement {
-    weapon: Weapon;
+    weapon: WeaponApiDto;
 
     /**
      * Create a WeaponProficiencyCheckbox.
      * @param weapon A Weapon object representing the weapon to display.
      */
-    constructor(weapon: Weapon) {
+    constructor(weapon: WeaponApiDto) {
         super();
 
         this.weapon = weapon;
