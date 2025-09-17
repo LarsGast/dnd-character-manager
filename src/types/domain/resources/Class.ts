@@ -1,7 +1,7 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 import { Choice } from "../helpers/Choice.js";
 
-export interface Class extends ApiObjectInfo {
+export interface Class extends BaseResource {
 
     /**
      * Hit die of the class. (ex: 12 == 1d12).
@@ -46,17 +46,17 @@ export interface Class extends ApiObjectInfo {
     /**
      * List of starting proficiencies for all new characters of this class.
      */
-    proficiencies: ApiObjectInfo[];
+    proficiencies: BaseResource[];
 
     /**
      * Saving throws the class is proficient in.
      */
-    saving_throws: ApiObjectInfo[];
+    saving_throws: BaseResource[];
 
     /**
      * List of all possible subclasses this class can specialize in.
      */
-    subclasses: ApiObjectInfo[];
+    subclasses: BaseResource[];
 }
 
 interface MultiClassing {
@@ -74,7 +74,7 @@ interface MultiClassing {
     /**
      * List of proficiencies available when multi-classing.
      */
-    proficiencies: ApiObjectInfo[];
+    proficiencies: BaseResource[];
 
     /**
      * List of choices of proficiencies that are given when multi-classing.
@@ -87,7 +87,7 @@ interface Prerequisite {
     /**
      * The ability score that must have a minimum score to multi-class.
      */
-    ability_score: ApiObjectInfo;
+    ability_score: BaseResource;
 
     /**
      * Minimum score to meet the prerequisite.
@@ -110,7 +110,7 @@ interface SpellCasting {
     /**
      * Reference to the AbilityScore used for spellcasting by the class.
      */
-    spellcasting_ability: ApiObjectInfo;
+    spellcasting_ability: BaseResource;
 }
 
 interface SpellCastingInfo {
@@ -128,5 +128,5 @@ interface StartingEquipment {
     /**
      * Information about the equipment.
      */
-    equipment: ApiObjectInfo;
+    equipment: BaseResource;
 }

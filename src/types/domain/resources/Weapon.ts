@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 import { Equipment } from "./Equipment.js";
 
 export interface Weapon extends Equipment {
@@ -38,7 +38,7 @@ export interface Weapon extends Equipment {
     /**
      * Extra properties this weapon has.
      */
-    properties: ApiObjectInfo[];
+    properties: BaseResource[];
 }
 
 interface Damage {
@@ -51,7 +51,7 @@ interface Damage {
     /**
      * The type of damage that is dealt.
      */
-    damage_type: ApiObjectInfo
+    damage_type: BaseResource
 }
 
 interface Range {

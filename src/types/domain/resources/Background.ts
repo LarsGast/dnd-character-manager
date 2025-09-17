@@ -1,12 +1,12 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 import { Choice } from "../helpers/Choice.js";
 
-export interface Background extends ApiObjectInfo {
+export interface Background extends BaseResource {
 
     /**
      * Starting proficiencies for all new characters of this background.
      */
-    starting_proficiencies: ApiObjectInfo[];
+    starting_proficiencies: BaseResource[];
 
     /**
      * Choice of languages for all new characters of this background.
@@ -16,7 +16,7 @@ export interface Background extends ApiObjectInfo {
     /**
      * Starting equipment for all new characters of this background.
      */
-    starting_equipment: ApiObjectInfo[];
+    starting_equipment: BaseResource[];
 
     /**
      * Choice of equipment for all new characters of this background.

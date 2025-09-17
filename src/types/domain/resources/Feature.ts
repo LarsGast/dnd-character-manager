@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Feature extends ApiObjectInfo {
+export interface Feature extends BaseResource {
 
     /**
      * Description of the resource.
@@ -15,18 +15,18 @@ export interface Feature extends ApiObjectInfo {
     /**
      * The class that this feature is a prt of.
      */
-    class: ApiObjectInfo;
+    class: BaseResource;
 
     /**
      * The subclass that this feature is a prt of.
      */
-    subclass: ApiObjectInfo;
+    subclass: BaseResource;
 
     /**
      * The parent feature that this feature is a part of.
      * undefined if this features does not have a parent.
      */
-    parent: ApiObjectInfo;
+    parent: BaseResource;
 
     /**
      * The prerequisites for this feature.

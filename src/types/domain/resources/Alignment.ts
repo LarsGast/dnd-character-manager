@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Alignment extends ApiObjectInfo {
+export interface Alignment extends BaseResource {
 
     /**
      * Abbreviation/initials/acronym for the alignment.

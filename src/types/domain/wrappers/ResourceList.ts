@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "./ApiObjectInfo.js";
+import { BaseResource } from "./BaseResource.js";
 
-export interface ResourceList<T extends ApiObjectInfo = ApiObjectInfo> {
+export interface ResourceList<T extends BaseResource> {
 
     /**
      * Total count of all results.

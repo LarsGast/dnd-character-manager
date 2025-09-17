@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Equipment extends ApiObjectInfo {
+export interface Equipment extends BaseResource {
 
     /**
      * Flavour description of the equipment.
@@ -15,7 +15,7 @@ export interface Equipment extends ApiObjectInfo {
     /**
      * The Equipment Category that this equipment belongs to.
      */
-    equipment_category: ApiObjectInfo;
+    equipment_category: BaseResource;
 
     /**
      * The cost of the piece of equipment.

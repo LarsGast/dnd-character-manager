@@ -1,8 +1,8 @@
 import { AbilityBonus } from "../helpers/AbilityBonus.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 import { Choice } from "../helpers/Choice.js";
 
-export interface Subrace extends ApiObjectInfo {
+export interface Subrace extends BaseResource {
 
     /**
      * Flavor description of the subrace.
@@ -12,7 +12,7 @@ export interface Subrace extends ApiObjectInfo {
     /**
      * The race that the subrace is a part of.
      */
-    race: ApiObjectInfo;
+    race: BaseResource;
 
     /**
      * Bonuses to abilities this subrace gives.
@@ -22,12 +22,12 @@ export interface Subrace extends ApiObjectInfo {
     /**
      * A list of proficiencies the subrace starts with.
      */
-    starting_proficiencies: ApiObjectInfo[];
+    starting_proficiencies: BaseResource[];
 
     /**
      * List of languages the subrace always learns.
      */
-    languages: ApiObjectInfo[];
+    languages: BaseResource[];
 
     /**
      * If applicable, a choice in languages that the player can make choosing this subrace.
@@ -37,5 +37,5 @@ export interface Subrace extends ApiObjectInfo {
     /**
      * A list of traits the subrace has.
      */
-    racial_traits: ApiObjectInfo[];
+    racial_traits: BaseResource[];
 }

@@ -1,7 +1,7 @@
 import { Choice } from "../helpers/Choice.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Trait extends ApiObjectInfo {
+export interface Trait extends BaseResource {
 
     /**
      * Description of the trait.
@@ -12,17 +12,17 @@ export interface Trait extends ApiObjectInfo {
     /**
      * List of races that get this trait.
      */
-    races: ApiObjectInfo[];
+    races: BaseResource[];
 
     /**
      * List of subraces that get this trait.
      */
-    subraces: ApiObjectInfo[];
+    subraces: BaseResource[];
 
     /**
      * List of proficiencies that this trait provides.
      */
-    proficiencies: ApiObjectInfo[];
+    proficiencies: BaseResource[];
 
     /**
      * If applicable, a choice in proficiencies that the player can make when getting this trait.

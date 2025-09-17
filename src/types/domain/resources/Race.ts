@@ -1,8 +1,8 @@
 import { AbilityBonus } from "../helpers/AbilityBonus.js"
 import { Choice } from "../helpers/Choice.js";
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Race extends ApiObjectInfo {
+export interface Race extends BaseResource {
 
     /**
      * Speed of the race in feet per round.
@@ -37,7 +37,7 @@ export interface Race extends ApiObjectInfo {
     /**
      * Starting languages for all new characters of this race.
      */
-    languages: ApiObjectInfo[];
+    languages: BaseResource[];
 
     /**
      * Starting language options for all new characters of this race.
@@ -52,10 +52,10 @@ export interface Race extends ApiObjectInfo {
     /**
      * A list of traits the race has.
      */
-    traits: ApiObjectInfo[];
+    traits: BaseResource[];
 
     /**
      * A list of subraces the race has, if any.
      */
-    subraces: ApiObjectInfo[];
+    subraces: BaseResource[];
 }

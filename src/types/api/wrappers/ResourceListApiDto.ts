@@ -1,6 +1,6 @@
 import { ApiObjectInfoApiDto } from "./ApiObjectInfoApiDto.js";
 
-export interface ResourceListApiDto<T extends ApiObjectInfoApiDto = ApiObjectInfoApiDto> {
+export interface ResourceListApiDto<T extends ApiObjectInfoApiDto> {
 
     /**
      * Total count of all results.

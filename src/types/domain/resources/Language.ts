@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Language extends ApiObjectInfo {
+export interface Language extends BaseResource {
 
     /**
      * Brief description of the language.

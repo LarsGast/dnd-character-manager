@@ -1,6 +1,6 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface Skill extends ApiObjectInfo {
+export interface Skill extends BaseResource {
 
     /**
      * Flavor description of the skill.
@@ -10,5 +10,5 @@ export interface Skill extends ApiObjectInfo {
     /**
      * The ability score that the skill is typically used as.
      */
-    ability_score: ApiObjectInfo;
+    ability_score: BaseResource;
 }

@@ -1,4 +1,4 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
@@ -104,7 +104,7 @@ export interface Option {
     /**
      * Reference to the object in the API of the actual choice.
      */
-    item: ApiObjectInfo;
+    item: BaseResource;
 
     /**
      * The name of the action, according to its `name` attribute.
@@ -144,17 +144,17 @@ export interface Option {
     /**
      *  A list of alignments of those who might follow the ideal.
      */
-    alignments: ApiObjectInfo[];
+    alignments: BaseResource[];
 
     /**
      * Thing being referenced.
      */
-    of: ApiObjectInfo;
+    of: BaseResource;
 
     /**
      * Ability score being referenced.
      */
-    ability_score: ApiObjectInfo;
+    ability_score: BaseResource;
 
     /**
      * The minimum score required to satisfy the prerequisite.
@@ -184,7 +184,7 @@ export interface Option {
     /**
      * Reference to type of damage.
      */
-    damage_type: ApiObjectInfo;
+    damage_type: BaseResource;
 
     /**
      * Damage expressed in dice (e.g. "13d6").

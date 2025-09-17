@@ -1,9 +1,9 @@
-import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
+import { BaseResource } from "../wrappers/BaseResource.js";
 
-export interface EquipmentCategory extends ApiObjectInfo {
+export interface EquipmentCategory extends BaseResource {
 
     /**
      * All equipments that fall under this category.
      */
-    equipment: ApiObjectInfo[];
+    equipment: BaseResource[];
 }
