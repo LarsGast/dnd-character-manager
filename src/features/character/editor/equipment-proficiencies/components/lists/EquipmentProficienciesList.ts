@@ -1,6 +1,6 @@
 import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
 import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
-import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
+import { Weapon } from "../../../../../../types/api/resources/Weapon.js";
 import { EquipmentCategory } from "../../../../../../types/api/resources/EquipmentCategory.js";
 import { ArmorProficiencyDisplay } from "../display/ArmorProficiencyDisplay.js";
 import { WeaponProficiencyDisplay } from "../display/WeaponProficiencyDisplay.js";

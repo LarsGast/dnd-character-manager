@@ -1,6 +1,6 @@
 import { Option } from "../../../../../types/api/helpers/Choice.js";
 import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiObjectInfo } from "../../../../../types/api/wrappers/ApiObjectInfo.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**

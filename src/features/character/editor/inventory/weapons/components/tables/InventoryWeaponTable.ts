@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
+import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
 import { InventoryWeaponRow } from "../rows/InventoryWeaponRow.js";
 import { globals } from "../../../../../../../store/load-globals.js";
 import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";

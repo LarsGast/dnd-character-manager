@@ -1,5 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
+import { Weapon } from "../../../../../../../types/api/resources/Weapon.js";
 
 /**
  * Custom table cell element that contains action buttons for a weapon entry.

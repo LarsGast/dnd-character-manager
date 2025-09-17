@@ -1,6 +1,6 @@
 import { getElementWithTextContent } from "../../../../../utils/util.js";
 import { Choice } from "../../../../../types/api/helpers/Choice.js";
-import { Feature } from "../../../../../types/api/helpers/Feature.js";
+import { Feature } from "../../../../../types/api/resources/Feature.js";
 import { Class } from "../../../../../types/api/resources/Class.js";
 import { Subclass } from "../../../../../types/api/resources/Subclass.js";
 import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";

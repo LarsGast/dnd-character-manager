@@ -1,4 +1,4 @@
-import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
+import { Weapon } from "../../../../../../types/api/resources/Weapon.js";
 import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckbox.js";
 
 /**

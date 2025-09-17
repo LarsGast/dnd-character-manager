@@ -1,7 +1,7 @@
-import { ApiObjectInfo } from "../ApiObjectInfo.js";
+import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
 import { Equipment } from "./Equipment.js";
 
-export class Weapon extends Equipment {
+export interface Weapon extends Equipment {
 
     /**
      * Category of weapon, such as "Martial" and "Simple".
@@ -39,37 +39,9 @@ export class Weapon extends Equipment {
      * Extra properties this weapon has.
      */
     properties: ApiObjectInfo[];
-
-    /**
-     * Constructor.
-     * @param data Full object as specified in the 5e SRD API.
-     */
-    constructor(data: Partial<Weapon> = {}) {
-        super(data);
-
-        this.weapon_category = data.weapon_category ?? "";
-        this.weapon_range = data.weapon_range ?? "";
-        this.category_range = data.category_range ?? "";
-        this.damage = data.damage ? new Damage(data.damage) : new Damage();
-        this.range = data.range ? new Range(data.range) : new Range();
-        this.throw_range = data.throw_range ? new Range(data.throw_range) : undefined;
-        this.properties = (data.properties ?? []).map(property => new ApiObjectInfo(property));
-    }
-
-    hasMultipleAbilities() {
-        return this.properties.some(property => property.index === "finesse");
-    }
-
-    getStandardAbility() {
-        if (this.weapon_range === "Melee") {
-            return "str";
-        }
-
-        return "dex";
-    }
 }
 
-class Damage {
+interface Damage {
 
     /**
      * The dice used for rolling for damage.
@@ -80,14 +52,9 @@ class Damage {
      * The type of damage that is dealt.
      */
     damage_type: ApiObjectInfo
-
-    constructor(data: Partial<Damage> = {}) {
-        this.damage_dice = data.damage_dice ?? "";
-        this.damage_type = data.damage_type ? new ApiObjectInfo(data.damage_type) : new ApiObjectInfo();
-    }
 }
 
-class Range {
+interface Range {
 
     /**
      * The normal range of the weapon in feet.
@@ -104,9 +71,4 @@ class Range {
      * undefined for non-thrown melee weapons.
      */
     long: number;
-
-    constructor(data: Partial<Range> = {}) {
-        this.normal = data.normal ?? 0;
-        this.long = data.long ?? 0;
-    }
 }

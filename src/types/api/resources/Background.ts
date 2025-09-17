@@ -1,21 +1,7 @@
-import { ApiCategory } from "../../../services/api.js";
-import { ApiBaseObject } from "./ApiBaseObject.js";
-import { ApiObjectInfo } from "./ApiObjectInfo.js";
+import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
 import { Choice } from "../helpers/Choice.js";
 
-class BackgroundFeature {
-    name: string;
-    desc: string[];
-
-    constructor(data: Partial<BackgroundFeature> = {}) {
-        this.name = data.name ?? "";
-        this.desc = data.desc ?? [];
-    }
-}
-
-export class Background extends ApiBaseObject {
-
-    static override apiCategory = ApiCategory.Backgrounds;
+export interface Background extends ApiObjectInfo {
 
     /**
      * Starting proficiencies for all new characters of this background.
@@ -61,22 +47,9 @@ export class Background extends ApiBaseObject {
      * Choice of flaws for all new characters of this background.
      */
     flaws: Choice;
+}
 
-    /**
-     * Constructor.
-     * @param data Full object as specified in the 5e SRD API.
-     */
-    constructor(data: Partial<Background> = {}) {
-        super(data);
-        
-        this.starting_proficiencies = (data.starting_proficiencies ?? []).map(prof => new ApiObjectInfo(prof));
-        this.language_options = new Choice(data.language_options);
-        this.starting_equipment = (data.starting_equipment ?? []).map(equip => new ApiObjectInfo(equip));
-        this.starting_equipment_options = new Choice(data.starting_equipment_options);
-        this.feature = data.feature ? new BackgroundFeature(data.feature) : new BackgroundFeature();
-        this.personality_traits = new Choice(data.personality_traits);
-        this.ideals = new Choice(data.ideals);
-        this.bonds = new Choice(data.bonds);
-        this.flaws = new Choice(data.flaws);
-    }
+interface BackgroundFeature {
+    name: string;
+    desc: string[];
 }

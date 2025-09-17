@@ -1,5 +1,5 @@
 import { ApiCategory } from "../services/api.js";
-import { ApiObjectInfo } from "../types/api/resources/ApiObjectInfo.js";
+import { ApiObjectInfo } from "../types/api/wrappers/ApiObjectInfo.js";
 import { Race } from "../types/api/resources/Race.js";
 import { Trait } from "../types/api/resources/Trait.js";
 

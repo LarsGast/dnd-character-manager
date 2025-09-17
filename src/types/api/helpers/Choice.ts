@@ -1,9 +1,9 @@
-import { ApiObjectInfo } from "../resources/ApiObjectInfo.js";
+import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
  */
-export class Choice {
+export interface Choice {
     
     /**
      * Description of the choice to be made.
@@ -25,19 +25,12 @@ export class Choice {
      * The options to choose from.
      */
     from: OptionSet;
-
-    constructor(data: Partial<Choice> = {}) {
-        this.desc = data.desc ?? '';
-        this.choose = data.choose ?? 0;
-        this.type = data.type ?? '';
-        this.from = data.from ? new OptionSet(data.from) : new OptionSet();
-    }
 }
 
 /**
  * Object for storing information about the specific choices a player can make when gaining a feature that let's them choose.
  */
-export class OptionSet {
+export interface OptionSet {
     
     /**
      * Type of option set.
@@ -61,20 +54,13 @@ export class OptionSet {
      * The options to choose from.
      * undefined if option_set_type is not options_array.
      */
-    options: Option[] = [];
-
-    constructor(data: Partial<OptionSet> = {}) {
-        this.option_set_type = data.option_set_type ?? '';
-        this.resource_list_url = data.resource_list_url ?? '';
-        this.equipment_category = data.equipment_category ?? '';
-        this.options = (data.options ?? []).map(o => new Option(o));
-    }
+    options: Option[];
 }
 
 /**
  * Option that the player can choose from when gaining a feature that let's them choose.
  */
-export class Option {
+export interface Option {
     
     /**
      * Indicates the structure of the option.
@@ -209,27 +195,4 @@ export class Option {
      * Information regarding the damage.
      */
     notes: string;
-
-    constructor(data: Partial<Option> = {}) {
-        this.option_type = data.option_type ?? '';
-        this.item = data.item ? new ApiObjectInfo(data.item) : new ApiObjectInfo();
-        this.action_name = data.action_name ?? '';
-        this.count = data.count ?? 0;
-        this.type = data.type;
-        this.items = (data.items ?? []).map(i => new Option(i));
-        this.choice = data.choice ? new Choice(data.choice) : new Choice();
-        this.string = data.string ?? '';
-        this.desc = data.desc ?? '';
-        this.alignments = (data.alignments ?? []).map(a => new ApiObjectInfo(a));
-        this.of = data.of ? new ApiObjectInfo(data.of) : new ApiObjectInfo();
-        this.ability_score = data.ability_score ? new ApiObjectInfo(data.ability_score) : new ApiObjectInfo();
-        this.minimum_score = data.minimum_score ?? 0;
-        this.bonus = data.bonus ?? 0;
-        this.name = data.name ?? '';
-        this.dc = data.dc ?? 0;
-        this.damage = data.damage ?? '';
-        this.damage_type = data.damage_type ? new ApiObjectInfo(data.damage_type) : new ApiObjectInfo();
-        this.damage_dice = data.damage_dice ?? '';
-        this.notes = data.notes ?? '';
-    }
 }

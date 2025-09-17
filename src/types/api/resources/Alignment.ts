@@ -1,9 +1,6 @@
-import { ApiCategory } from "../../../services/api.js";
-import { ApiBaseObject } from "./ApiBaseObject.js";
+import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
 
-export class Alignment extends ApiBaseObject {
-
-    static override apiCategory = ApiCategory.Alignments;
+export interface Alignment extends ApiObjectInfo {
 
     /**
      * Abbreviation/initials/acronym for the alignment.
@@ -14,15 +11,4 @@ export class Alignment extends ApiBaseObject {
      * Brief description of the alignment.
      */
     desc: string;
-    
-    /**
-     * Constructor.
-     * @param data Full object as specified in the 5e SRD API.
-     */
-    constructor(data: Partial<Alignment> = {}) {
-        super(data);
-        
-        this.abbreviation = data.abbreviation ?? "";
-        this.desc = data.desc ?? "";
-    }
 }

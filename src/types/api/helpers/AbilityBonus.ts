@@ -1,9 +1,9 @@
-import { ApiObjectInfo } from "../resources/ApiObjectInfo.js";
+import { ApiObjectInfo } from "../wrappers/ApiObjectInfo.js";
 
 /**
  * Has information about the bonuses to abilities a race can have.
  */
-export class AbilityBonus {
+export interface AbilityBonus {
 
     /**
      * Ability score that the bonus gets applied to.
@@ -14,9 +14,4 @@ export class AbilityBonus {
      * The height of the bonus.
      */
     bonus: number;
-
-    constructor(data: Partial<AbilityBonus> = {}) {
-        this.ability_score = new ApiObjectInfo(data.ability_score ?? {});
-        this.bonus = data.bonus ?? 0;
-    }
 }

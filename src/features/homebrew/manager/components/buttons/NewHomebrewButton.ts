@@ -1,5 +1,5 @@
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { ApiObjectInfo } from "../../../../../types/api/wrappers/ApiObjectInfo.js";
 
 export class NewHomebrewButton extends HTMLButtonElement {
     _updateHandler?: (event: any) => void;
