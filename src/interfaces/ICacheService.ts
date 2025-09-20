@@ -1,5 +1,5 @@
 /**
- * Interface for a simple cache service.
+ * Interface for a cache service.
  */
 export interface ICacheService {
 
@@ -16,4 +16,10 @@ export interface ICacheService {
      * @param data The value to cache.
      */
     set<T>(key: string, data: T): void;
+
+    /**
+     * Delete a value from the cache.
+     * @param key Identifier of the cached value.
+     */
+    delete(key: string): void;
 }

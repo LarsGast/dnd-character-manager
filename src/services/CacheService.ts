@@ -1,24 +1,28 @@
 import { ICacheService } from "../interfaces/ICacheService";
+import { IStorageService } from "../interfaces/IStorageService";
 
 export class CacheService implements ICacheService {
 
     /**
-     * Prefix for all cache keys to avoid collisions in local storage.
+     * Prefix for all cache keys to avoid collisions in storage.
      */
-    private static readonly CACHE_KEY_PREFIX = "cache";
+    private static readonly CACHE_KEY_PREFIX = "cache_";
+
+    /**
+     * Storage service where the cache is stored in.
+     */
+    private readonly storageService: IStorageService;
+
+    public constructor(storageService: IStorageService) {
+        this.storageService = storageService;
+    }
 
     /**
      * @inheritdoc
      */
     public get<T>(key: string): T | undefined {
-
         const cacheKey = this.getCacheKey(key);
-        const value = localStorage.getItem(cacheKey);
-        if (!value) {
-            return undefined;
-        }
-
-        return JSON.parse(value) as T;
+        return this.storageService.get(cacheKey);
     }
 
     /**
@@ -26,9 +30,15 @@ export class CacheService implements ICacheService {
      */
     public set<T>(key: string, data: T): void {
         const cacheKey = this.getCacheKey(key);
-        const dataAsString = JSON.stringify(data);
+        this.storageService.set(cacheKey, data);
+    }
 
-        localStorage.setItem(cacheKey, dataAsString);
+    /**
+     * @inheritdoc
+     */
+    public delete(key: string): void {
+        const cacheKey = this.getCacheKey(key);
+        this.storageService.delete(cacheKey);
     }
 
     /**
@@ -37,6 +47,6 @@ export class CacheService implements ICacheService {
      * @returns The full cache key with prefix.
      */
     private getCacheKey(key: string): string {
-        return `${CacheService.CACHE_KEY_PREFIX}-${key}`;
+        return `${CacheService.CACHE_KEY_PREFIX}${key}`;
     }
 }
