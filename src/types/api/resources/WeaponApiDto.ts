@@ -41,7 +41,7 @@ export interface WeaponApiDto extends EquipmentApiDto {
     properties: BaseResourceApiDto[];
 }
 
-interface DamageApiDto {
+export interface DamageApiDto {
 
     /**
      * The dice used for rolling for damage.
@@ -54,7 +54,7 @@ interface DamageApiDto {
     damage_type: BaseResourceApiDto
 }
 
-interface RangeApiDto {
+export interface RangeApiDto {
 
     /**
      * The normal range of the weapon in feet.

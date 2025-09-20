@@ -26,7 +26,7 @@ export interface Armor extends Equipment {
 /**
  * Holds information about the armor class of a piece of armor.
  */
-interface ArmorClass {
+export interface ArmorClass {
 
     /**
      * Base AC every character gets while wearing the armor.

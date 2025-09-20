@@ -26,7 +26,7 @@ export interface ArmorApiDto extends EquipmentApiDto {
 /**
  * Holds information about the armor class of a piece of armor.
  */
-interface ArmorClassApiDto {
+export interface ArmorClassApiDto {
 
     /**
      * Base AC every character gets while wearing the armor.

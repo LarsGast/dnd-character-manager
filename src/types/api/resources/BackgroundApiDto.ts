@@ -49,7 +49,7 @@ export interface BackgroundApiDto extends BaseResourceApiDto {
     flaws: ChoiceApiDto;
 }
 
-interface BackgroundFeatureApiDto {
+export interface BackgroundFeatureApiDto {
     name: string;
     desc: string[];
 }

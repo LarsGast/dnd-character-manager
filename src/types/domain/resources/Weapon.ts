@@ -41,7 +41,7 @@ export interface Weapon extends Equipment {
     properties: BaseResource[];
 }
 
-interface Damage {
+export interface Damage {
 
     /**
      * The dice used for rolling for damage.
@@ -54,7 +54,7 @@ interface Damage {
     damage_type: BaseResource
 }
 
-interface Range {
+export interface Range {
 
     /**
      * The normal range of the weapon in feet.

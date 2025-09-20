@@ -59,7 +59,7 @@ export interface Class extends BaseResource {
     subclasses: BaseResource[];
 }
 
-interface MultiClassing {
+export interface MultiClassing {
 
     /**
      * List of prerequisites that must be met.
@@ -82,7 +82,7 @@ interface MultiClassing {
     proficiency_choices: Choice[];
 }
 
-interface Prerequisite {
+export interface Prerequisite {
 
     /**
      * The ability score that must have a minimum score to multi-class.
@@ -95,7 +95,7 @@ interface Prerequisite {
     minimum_score: number;
 }
 
-interface SpellCasting {
+export interface SpellCasting {
 
     /**
      * Level at which the class can start using its spellcasting abilities.
@@ -113,12 +113,12 @@ interface SpellCasting {
     spellcasting_ability: BaseResource;
 }
 
-interface SpellCastingInfo {
+export interface SpellCastingInfo {
     name: string;
     desc: string[];
 }
 
-interface StartingEquipment {
+export interface StartingEquipment {
 
     /**
      * Number of pieces of equipment is given.

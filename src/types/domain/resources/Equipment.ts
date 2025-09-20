@@ -31,7 +31,7 @@ export interface Equipment extends BaseResource {
 /**
  * Represents the cost of an item or piece of equipment
  */
-interface Cost {
+export interface Cost {
 
     /**
      * The amount of the given unit of cost.

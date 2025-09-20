@@ -31,7 +31,7 @@ export interface EquipmentApiDto extends BaseResourceApiDto {
 /**
  * Represents the cost of an item or piece of equipment
  */
-interface CostApiDto {
+export interface CostApiDto {
 
     /**
      * The amount of the given unit of cost.

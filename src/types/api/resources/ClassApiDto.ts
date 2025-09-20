@@ -59,7 +59,7 @@ export interface ClassApiDto extends BaseResourceApiDto {
     subclasses: BaseResourceApiDto[];
 }
 
-interface MultiClassingApiDto {
+export interface MultiClassingApiDto {
 
     /**
      * List of prerequisites that must be met.
@@ -82,7 +82,7 @@ interface MultiClassingApiDto {
     proficiency_choices: ChoiceApiDto[];
 }
 
-interface PrerequisiteApiDto {
+export interface PrerequisiteApiDto {
 
     /**
      * The ability score that must have a minimum score to multi-class.
@@ -95,7 +95,7 @@ interface PrerequisiteApiDto {
     minimum_score: number;
 }
 
-interface SpellCastingApiDto {
+export interface SpellCastingApiDto {
 
     /**
      * Level at which the class can start using its spellcasting abilities.
@@ -113,12 +113,12 @@ interface SpellCastingApiDto {
     spellcasting_ability: BaseResourceApiDto;
 }
 
-interface SpellCastingInfoApiDto {
+export interface SpellCastingInfoApiDto {
     name: string;
     desc: string[];
 }
 
-interface StartingEquipmentApiDto {
+export interface StartingEquipmentApiDto {
 
     /**
      * Number of pieces of equipment is given.

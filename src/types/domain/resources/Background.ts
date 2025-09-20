@@ -49,7 +49,7 @@ export interface Background extends BaseResource {
     flaws: Choice;
 }
 
-interface BackgroundFeature {
+export interface BackgroundFeature {
     name: string;
     desc: string[];
 }

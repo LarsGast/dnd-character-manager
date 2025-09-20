@@ -1,7 +1,21 @@
 import { AbilityBonusMapper } from "../mappers/AbilityBonusMapper";
+import { AlignmentMapper } from "../mappers/AlignmentMapper";
+import { ArmorMapper } from "../mappers/ArmorMapper";
+import { BackgroundMapper } from "../mappers/BackgroundMapper";
 import { BaseResourceMapper } from "../mappers/BaseResourceMapper";
 import { ChoiceMapper } from "../mappers/ChoiceMapper";
+import { ClassMapper } from "../mappers/ClassMapper";
+import { EquipmentCategoryMapper } from "../mappers/EquipmentCategoryMapper";
+import { EquipmentMapper } from "../mappers/EquipmentMapper";
+import { FeatureMapper } from "../mappers/FeatureMapper";
+import { LanguageMapper } from "../mappers/LanguageMapper";
+import { ProficiencyMapper } from "../mappers/ProficiencyMapper";
 import { RaceMapper } from "../mappers/RaceMapper";
+import { SkillMapper } from "../mappers/SkillMapper";
+import { SubclassMapper } from "../mappers/SubclassMapper";
+import { SubraceMapper } from "../mappers/SubraceMapper";
+import { TraitMapper } from "../mappers/TraitMapper";
+import { WeaponMapper } from "../mappers/WeaponMapper";
 import { BaseResourceRepository } from "../repositories/BaseResourceRepository";
 import { HomebrewRepository } from "../repositories/HomebrewRepository";
 import { CacheService } from "../services/CacheService";
@@ -28,10 +42,39 @@ const baseResourceMapper = new BaseResourceMapper();
 const abilityBonusMapper = new AbilityBonusMapper(baseResourceMapper);
 const choiceMapper = new ChoiceMapper(baseResourceMapper);
 
+const equipmentMapper = new EquipmentMapper(baseResourceMapper);
+
+const alignmentMapper = new AlignmentMapper(baseResourceMapper);
+const armorMapper = new ArmorMapper(equipmentMapper);
+const backgroundMapper = new BackgroundMapper(baseResourceMapper, choiceMapper);
+const classMapper = new ClassMapper(baseResourceMapper, choiceMapper);
+const equipmentCategoryMapper = new EquipmentCategoryMapper(baseResourceMapper);
+const featureMapper = new FeatureMapper(baseResourceMapper);
+const languageMapper = new LanguageMapper(baseResourceMapper);
+const proficiencyMapper = new ProficiencyMapper(baseResourceMapper);
 const raceMapper = new RaceMapper(baseResourceMapper, abilityBonusMapper, choiceMapper);
+const skillMapper = new SkillMapper(baseResourceMapper);
+const subclassMapper = new SubclassMapper(baseResourceMapper);
+const subraceMapper = new SubraceMapper(baseResourceMapper, abilityBonusMapper, choiceMapper);
+const traitMapper = new TraitMapper(baseResourceMapper, choiceMapper);
+const weaponMapper = new WeaponMapper(baseResourceMapper, equipmentMapper);
 
 // --------------------
 // Repositories
 // --------------------
 const homebrewRepository = new HomebrewRepository(localStorageService);
-const raceRepository = new BaseResourceRepository("races", homebrewRepository, srdApiService, baseResourceMapper, raceMapper);
+
+export const alignmentRepository = new BaseResourceRepository("alignments", homebrewRepository, srdApiService, baseResourceMapper, alignmentMapper);
+export const armorRepository = new BaseResourceRepository("armor", homebrewRepository, srdApiService, baseResourceMapper, armorMapper);
+export const backgroundRepository = new BaseResourceRepository("backgrounds", homebrewRepository, srdApiService, baseResourceMapper, backgroundMapper);
+export const classRepository = new BaseResourceRepository("classes", homebrewRepository, srdApiService, baseResourceMapper, classMapper);
+export const equipmentCategoryRepository = new BaseResourceRepository("equipmentCategory", homebrewRepository, srdApiService, baseResourceMapper, equipmentCategoryMapper);
+export const featureRepository = new BaseResourceRepository("features", homebrewRepository, srdApiService, baseResourceMapper, featureMapper);
+export const languageRepository = new BaseResourceRepository("languages", homebrewRepository, srdApiService, baseResourceMapper, languageMapper);
+export const proficiencyRepository = new BaseResourceRepository("proficiencies", homebrewRepository, srdApiService, baseResourceMapper, proficiencyMapper);
+export const raceRepository = new BaseResourceRepository("races", homebrewRepository, srdApiService, baseResourceMapper, raceMapper);
+export const skillRepository = new BaseResourceRepository("skills", homebrewRepository, srdApiService, baseResourceMapper, skillMapper);
+export const subclassRepository = new BaseResourceRepository("subclasses", homebrewRepository, srdApiService, baseResourceMapper, subclassMapper);
+export const subraceRepository = new BaseResourceRepository("subraces", homebrewRepository, srdApiService, baseResourceMapper, subraceMapper);
+export const traitRepository = new BaseResourceRepository("traits", homebrewRepository, srdApiService, baseResourceMapper, traitMapper);
+export const weaponRepository = new BaseResourceRepository("weapons", homebrewRepository, srdApiService, baseResourceMapper, weaponMapper);
