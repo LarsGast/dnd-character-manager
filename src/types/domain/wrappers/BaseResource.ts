@@ -21,4 +21,9 @@ export interface BaseResource {
      * @example "classes", "races", "monsters".
      */
     resourceType: string;
+
+    /**
+     * Wether this resource is created within this application (true), or fetched from an external source (false).
+     */
+    isHomebrew: boolean;
 }
