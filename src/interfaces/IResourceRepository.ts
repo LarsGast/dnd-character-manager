@@ -10,7 +10,7 @@ export interface IResourceRepository<T extends BaseResource> {
     /**
      * Get a resource from the repository.
      * @param id Identifier of the resource.
-     * @returns undefined if no resource exists in with given id.
+     * @returns undefined if no resource exists in storage with given id.
      */
     getAsync(id: string): Promise<T | undefined>;
 
