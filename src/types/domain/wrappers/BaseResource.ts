@@ -15,4 +15,10 @@ export interface BaseResource {
      * Url to the object within the API.
      */
     url: URL;
+
+    /**
+     * Type of the resource
+     * @example "classes", "races", "monsters".
+     */
+    resourceType: string;
 }

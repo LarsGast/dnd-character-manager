@@ -1,6 +1,6 @@
 import { BaseResourceApiDto } from "./BaseResourceApiDto.js";
 
-export interface ResourceListApiDto<T extends BaseResourceApiDto> {
+export interface ResourceListApiDto {
 
     /**
      * Total count of all results.
@@ -12,5 +12,5 @@ export interface ResourceListApiDto<T extends BaseResourceApiDto> {
      * Information about the each resource.
      * Not the full resource, but includes the index, name, and url to the resource.
      */
-    results: T[];
+    results: BaseResourceApiDto[];
 }

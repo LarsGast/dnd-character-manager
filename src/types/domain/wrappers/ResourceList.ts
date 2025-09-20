@@ -1,6 +1,6 @@
 import { BaseResource } from "./BaseResource.js";
 
-export interface ResourceList<T extends BaseResource> {
+export interface ResourceList {
 
     /**
      * Total count of all results.
@@ -12,5 +12,5 @@ export interface ResourceList<T extends BaseResource> {
      * Information about the each resource.
      * Not the full resource, but includes the index, name, and url to the resource.
      */
-    results: T[];
+    results: BaseResource[];
 }

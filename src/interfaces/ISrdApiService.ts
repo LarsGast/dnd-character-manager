@@ -18,7 +18,7 @@ export interface ISrdApiService {
      * @param resource The resource type (e.g., "spells", "monsters").
      * @return A ResourceList containing the resources of the specified type.
      */
-    getResourceListAsync<T extends BaseResourceApiDto>(resource: string): Promise<ResourceListApiDto<T>>;
+    getResourceListAsync(resource: string): Promise<ResourceListApiDto>;
 
     /**
      * Fetch a specific resource by its type and index.
