@@ -1,4 +1,5 @@
 import { IHomebrewRepository } from "../interfaces/IHomebrewRepository";
+import { IMapper } from "../interfaces/IMapper";
 import { IResourceRepository } from "../interfaces/IResourceRepository";
 import { ISrdApiService } from "../interfaces/ISrdApiService";
 import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
@@ -7,10 +8,10 @@ import { ResourceList } from "../types/domain/wrappers/ResourceList";
 
 /**
  * Base implementation of IResourceRepository.
- * Used as a basis for all specific resource repositories.
- * Extend this class in specific resource implementations like RaceRepository.
+ * Used as a basis for all resources.
+ * Extend this class in specific resource implementations if a resource has more ways to be fetched than just "get" and "get all".
  */
-export abstract class BaseResourceRepository<
+export class BaseResourceRepository<
     TApi extends BaseResourceApiDto, 
     TDomain extends BaseResource
 > implements IResourceRepository<TDomain> {
@@ -31,10 +32,22 @@ export abstract class BaseResourceRepository<
      */
     protected readonly apiService: ISrdApiService;
 
-    protected constructor(resource: string, homebrewRepository: IHomebrewRepository, apiService: ISrdApiService) {
+    /**
+     * A mapper for mapping minimal data from API to internal objects.
+     */
+    protected readonly baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>;
+
+    /**
+     * A mapper for mapping full API resources to internal objects.
+     */
+    protected readonly resourceMapper: IMapper<TApi, TDomain>;
+
+    protected constructor(resource: string, homebrewRepository: IHomebrewRepository, apiService: ISrdApiService, baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>, resourceMapper: IMapper<TApi, TDomain>) {
         this.resource = resource;
         this.homebrewRepository = homebrewRepository;
         this.apiService = apiService;
+        this.baseResourceMapper = baseResourceMapper;
+        this.resourceMapper = resourceMapper;
     }
     
     /**
@@ -54,7 +67,7 @@ export abstract class BaseResourceRepository<
         const valueFromApi = await this.apiService.getByIndexAsync<TApi>(this.resource, id);
         if (valueFromApi !== undefined) {
             // Map the API resource to an internal object.
-            return this.mapToDomain(valueFromApi);
+            return this.resourceMapper.map(valueFromApi);
         }
 
         return undefined;
@@ -71,32 +84,7 @@ export abstract class BaseResourceRepository<
 
         return {
             count: homebrewValues.length + valueFromApi.count,
-            results: [...homebrewValues, ...valueFromApi.results.map(r => this.mapBaseApiResourceToDomain(r))]
+            results: [...homebrewValues, ...valueFromApi.results.map(r => this.baseResourceMapper.map(r))]
         }
     }
-
-    /**
-     * Map a BaseResourceApiDto to a BaseResource.
-     * This is the adapter layer that makes sure we only use internal objects in the source code, not API specified objects.
-     * @param apiDto API resource.
-     * @returns Internal resource.
-     */
-    private mapBaseApiResourceToDomain(apiDto: BaseResourceApiDto): BaseResource {
-        return {
-            index: apiDto.index,
-            name: apiDto.name,
-            url: apiDto.url,
-            resourceType: this.resource,
-            isHomebrew: false
-        }
-    }
-
-    /**
-     * Map an API resource to the internal equivalent.
-     * This is the adapter layer that makes sure we only use internal objects in the source code, not API specified objects.
-     * Override this method in each class that extends BaseResourceRepository.
-     * @param apiDto API resource.
-     * @returns Internal resource.
-     */
-    protected abstract mapToDomain(apiDto: TApi): TDomain;
 }
