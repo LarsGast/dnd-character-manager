@@ -42,7 +42,7 @@ export class BaseResourceRepository<
      */
     protected readonly resourceMapper: IMapper<TApi, TDomain>;
 
-    protected constructor(resource: string, homebrewRepository: IHomebrewRepository, apiService: ISrdApiService, baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>, resourceMapper: IMapper<TApi, TDomain>) {
+    public constructor(resource: string, homebrewRepository: IHomebrewRepository, apiService: ISrdApiService, baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>, resourceMapper: IMapper<TApi, TDomain>) {
         this.resource = resource;
         this.homebrewRepository = homebrewRepository;
         this.apiService = apiService;
