@@ -1,6 +1,6 @@
-import { AlignmentApiDto } from "../../../../../types/api/resources/AlignmentApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { alignmentRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom select element for choosing an alignment.
@@ -25,7 +25,7 @@ export class AlignmentInput extends HTMLSelectElement {
     async connectedCallback(): Promise<void> {
 
         // Retrieve all alignments.
-        const allAlignments = await Alignment.getAllAsync();
+        const allAlignments = await alignmentRepository.getAllAsync();
 
         // Add a blank option first.
         this.appendChild(getEmptyOption());

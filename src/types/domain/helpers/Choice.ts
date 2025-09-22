@@ -42,19 +42,19 @@ export interface OptionSet {
      * A URL leading to all options.
      * undefined if option_set_type is not resource_list_url.
      */
-    resource_list_url: string;
+    resource_list_url?: string;
 
     /**
      * Object with information about the equipment category of the choice.
      * undefined if option_set_type is not equipment_category.
      */
-    equipment_category: string;
+    equipment_category?: string;
 
     /**
      * The options to choose from.
      * undefined if option_set_type is not options_array.
      */
-    options: Option[];
+    options?: Option[];
 }
 
 /**
@@ -104,95 +104,95 @@ export interface Option {
     /**
      * Reference to the object in the API of the actual choice.
      */
-    item: BaseResource;
+    item?: BaseResource;
 
     /**
      * The name of the action, according to its `name` attribute.
      */
-    action_name: string;
+    action_name?: string;
 
     /**
      * The number of times this action can be repeated if this option is chosen.
      */
-    count: string | number;
+    count?: string | number;
 
     /**
      * For attack actions that can be either melee, ranged, abilities, or magic.
      */
-    type: string | undefined;
+    type?: string | undefined;
 
     /**
      * An array of Option objects. All of them must be taken if the option is chosen.
      */
-    items: Option[];
+    items?: Option[];
 
     /**
      * The Choice to resolve.
      */
-    choice: Choice;
+    choice?: Choice;
 
     /**
      * The string.
      */
-    string: string;
+    string?: string;
 
     /**
      * A description of the ideal.
      */
-    desc: string;
+    desc?: string;
 
     /**
      *  A list of alignments of those who might follow the ideal.
      */
-    alignments: BaseResource[];
+    alignments?: BaseResource[];
 
     /**
      * Thing being referenced.
      */
-    of: BaseResource;
+    of?: BaseResource;
 
     /**
      * Ability score being referenced.
      */
-    ability_score: BaseResource;
+    ability_score?: BaseResource;
 
     /**
      * The minimum score required to satisfy the prerequisite.
      */
-    minimum_score: number;
+    minimum_score?: number;
 
     /**
      * The bonus being applied to the ability score.
      */
-    bonus: number;
+    bonus?: number;
 
     /**
      * Name of the breath.
      */
-    name: string;
+    name?: string;
 
     /**
      * Difficulty check of the breath attack.
      */
-    dc: number;
+    dc?: number;
 
     /**
      * Damage dealt by the breath attack, if any.
      */
-    damage: string;
+    damage?: string;
 
     /**
      * Reference to type of damage.
      */
-    damage_type: BaseResource;
+    damage_type?: BaseResource;
 
     /**
      * Damage expressed in dice (e.g. "13d6").
      */
-    damage_dice: string;
+    damage_dice?: string;
 
     /**
      * Information regarding the damage.
      */
-    notes: string;
+    notes?: string;
 }

@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Import ID Already Exists Dialog.
@@ -16,7 +16,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
     closeButton: HTMLButtonElement;
     buttonGroup: HTMLDivElement;
     _updateHandler?: (event: any) => void;
-    homebrewBankEntry?: HomebrewBankEntry;
+    homebrewResource?: BaseResource;
     
     constructor() {
         super();
@@ -101,13 +101,10 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
     showDialog(event: CustomEvent): void {
         this.showModal();
 
-        this.homebrewBankEntry = event.detail.homebrewBankEntry;
+        this.homebrewResource = event.detail.homebrewBankEntry;
 
-        this.homebrewIdentifierAnchor.textContent = `${this.homebrewBankEntry!.apiCategoryName}: ${this.homebrewBankEntry!.homebrewObject.name}`;
-
-        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry!.homebrewObject.index);
-
-        this.homebrewIdentifierAnchor.href = `homebrew/?id=${existingEntry!.id}`;
+        this.homebrewIdentifierAnchor.textContent = `${this.homebrewResource!.resourceType}: ${this.homebrewResource!.name}`;
+        this.homebrewIdentifierAnchor.href = `homebrew/?id=${this.homebrewResource!.index}`;
         this.homebrewIdentifierAnchor.target = "_blank";
     }
   
@@ -125,11 +122,8 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * Overwrites the existing homebrew object with the new one and saves the homebrew bank
      */
     handleOverwriteButtonClick(): void {
-        
-        const existingEntry = globals.homebrewBank.getHomebrewBankEntryByObjectIndex(this.homebrewBankEntry!.homebrewObject.index)!;
-        existingEntry.homebrewObject = this.homebrewBankEntry!.homebrewObject;
 
-        globals.homebrewBank.save();
+        homebrewRepository.save(this.homebrewResource!.index, this.homebrewResource!);
 
         this.close();
 
@@ -142,11 +136,10 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
      * The new object will have the same properties as the existing one, but with a modified name.
      */
     handleKeepBothButtonClick(): void {
-        this.homebrewBankEntry!.homebrewObject.index = self.crypto.randomUUID();
-        this.homebrewBankEntry!.homebrewObject.name += " (copy)";
+        this.homebrewResource!.index = self.crypto.randomUUID();
+        this.homebrewResource!.name += " (copy)";
 
-        globals.homebrewBank.addNewHomebrew(this.homebrewBankEntry!.homebrewObject, this.homebrewBankEntry!.apiCategoryName);
-        globals.homebrewBank.save();
+        homebrewRepository.save(this.homebrewResource!.index, this.homebrewResource!);
 
         this.close();
 

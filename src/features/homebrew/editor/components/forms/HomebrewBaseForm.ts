@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 import { getTextInputSection } from '../../services/FormElementsBuilder.js';
 
 /**
@@ -13,7 +13,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
      * Creates an instance of HomebrewBaseForm.
      * @param homebrewObject 
      */
-    constructor(homebrewObject: BaseResourceApiDto) {
+    constructor(homebrewObject: BaseResource) {
         super();
 
         // "Name" is the only required field for all homebrew objects.
@@ -41,8 +41,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
 
         const data = await this.getFormDataAsync();
 
-        globals.activeHomebrewEntry.homebrewObject = data;
-        globals.homebrewBank.save();
+        homebrewRepository.save(data.index, data);
 
         window.location.reload();
     }
@@ -52,11 +51,13 @@ export class HomebrewBaseForm extends HTMLFormElement {
      * Override this method in subclasses to add additional fields.
      * @returns Homebrew object data collected from the form.
      */
-    async getFormDataAsync(): Promise<BaseResourceApiDto> {
+    async getFormDataAsync(): Promise<BaseResource> {
         const formData = new FormData(this);
 
         // Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
-        const data = new ApiObjectInfo(globals.activeHomebrewEntry.homebrewObject);
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id')!;
+        const data = homebrewRepository.get(id)!;
 
         // Overwrite the properties of the ApiObjectInfo instance with the form data.
         for (const [key, value] of formData) {

@@ -1,7 +1,6 @@
-import { ApiCategory } from "../../../../../services/api.js";
-import { globals } from "../../../../../store/load-globals.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
 import { getElementWithTextContent } from "../../../../../utils/util.js";
-import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 import { HomebrewDeleteButton } from "../buttons/HomebrewDeleteButton.js";
 import { HomebrewEditButton } from "../buttons/HomebrewEditButton.js";
 import { HomebrewExportButton } from "../buttons/HomebrewExportButton.js";
@@ -79,10 +78,10 @@ export class HomebrewTable extends HTMLTableElement {
     updateTableBody(): void {
         this.tableBody.replaceChildren();
 
-        const homebrewEntry = globals.homebrewBank.homebrewBankEntries;
+        const homebrewResources = homebrewRepository.getAll();
 
         // Sort them from last edited -> first edited, so the most used homebrew objects are generally at the top.
-        const sortedEntries = homebrewEntry.sort((a, b) => b.lastEdit.getTime() - a.lastEdit.getTime());
+        const sortedEntries = homebrewResources.sort();
 
         for (const entry of sortedEntries) {
             this.tableBody.appendChild(this.getTableBodyRow(entry));
@@ -91,16 +90,16 @@ export class HomebrewTable extends HTMLTableElement {
 
     /**
      * Creates a table row for a homebrew entry.
-     * @param entry The homebrew entry to create the row for.
+     * @param resource The homebrew entry to create the row for.
      * @returns The table row element containing the entry's data.
      */
-    getTableBodyRow(entry: HomebrewBankEntry): HTMLTableRowElement {
+    getTableBodyRow(resource: BaseResource): HTMLTableRowElement {
 
         const row = document.createElement('tr');
 
-        row.appendChild(this.getButtonsColumnValue(entry));
-        row.appendChild(getElementWithTextContent('td', entry.homebrewObject.name));
-        row.appendChild(getElementWithTextContent('td', new ApiCategory(entry.apiCategoryName).getSingularName()!));
+        row.appendChild(this.getButtonsColumnValue(resource));
+        row.appendChild(getElementWithTextContent('td', resource.name));
+        row.appendChild(getElementWithTextContent('td', resource.resourceType));
 
         return row;
     }
@@ -108,15 +107,15 @@ export class HomebrewTable extends HTMLTableElement {
     /**
      * Creates the buttons column for a homebrew entry.
      * This column contains buttons for editing, exporting, and deleting the homebrew entry.
-     * @param entry The homebrew entry to create the buttons for.
+     * @param resource The homebrew entry to create the buttons for.
      * @returns The table cell containing the buttons.
      */
-    getButtonsColumnValue(entry: HomebrewBankEntry): HTMLTableCellElement {
+    getButtonsColumnValue(resource: BaseResource): HTMLTableCellElement {
         const td = document.createElement('td');
 
-        td.appendChild(new HomebrewEditButton(entry.id));
-        td.appendChild(new HomebrewExportButton(entry.id));
-        td.appendChild(new HomebrewDeleteButton(entry.id));
+        td.appendChild(new HomebrewEditButton(resource.index));
+        td.appendChild(new HomebrewExportButton(resource.index));
+        td.appendChild(new HomebrewDeleteButton(resource.index));
 
         return td;
     }

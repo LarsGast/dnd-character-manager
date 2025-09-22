@@ -5,11 +5,7 @@ import { CharacterDeleteButton } from "../buttons/CharacterDeleteButton.js";
 import { CharacterSelectButton } from "../buttons/CharacterSelectButton.js";
 import { globals } from "../../../../../store/load-globals.js";
 import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
-import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
-import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
-import { ClassApiDto } from "../../../../../types/api/resources/ClassApiDto.js";
-import { SubclassApiDto } from "../../../../../types/api/resources/SubclassApiDto.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { classRepository, raceRepository, subclassRepository, subraceRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom HTML element for displaying active and inactive characters stored in the PlayerCharacterBank.
@@ -171,12 +167,12 @@ export class CharacterBankTable extends HTMLTableElement {
         }
 
         // Get the actual race from the API to get the display name.
-        const race = await ApiBaseObject.getAsync(playerCharacter.race, Race);
+        const race = (await raceRepository.getAsync(playerCharacter.race))!;
 
         let value = race.name;
         if (playerCharacter.subrace) {
             // Get the actual subrace from the API to get the display name.
-            const subrace = await ApiBaseObject.getAsync(playerCharacter.subrace, Subrace);
+            const subrace = (await subraceRepository.getAsync(playerCharacter.subrace))!;
             value += `, ${subrace.name}`;
         }
 
@@ -207,12 +203,12 @@ export class CharacterBankTable extends HTMLTableElement {
     async getClassSubclassLevelValue(classObject: any): Promise<string> {
 
         // Get the actual class from the API to get the display name.
-        const classApiObject = await ApiBaseObject.getAsync(classObject.index, Class);
+        const classApiObject = (await classRepository.getAsync(classObject.index))!;
 
         let value = `${classApiObject.name} ${classObject.level}`;
         if (classObject.subclass) {
             // Get the actual subclass from the API to get the display name.
-            const subclass = await ApiBaseObject.getAsync(classObject.subclass, Subclass);
+            const subclass = (await subclassRepository.getAsync(classObject.subclass))!;
             value += ` (${subclass.name})`;
         }
 

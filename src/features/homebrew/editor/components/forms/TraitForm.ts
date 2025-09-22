@@ -1,16 +1,15 @@
-import { LanguageApiDto } from "../../../../../types/api/resources/LanguageApiDto.js";
-import { ProficiencyApiDto } from "../../../../../types/api/resources/ProficiencyApiDto.js";
-import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 import { getTextareaSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
 import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
+import { Trait } from "../../../../../types/domain/resources/Trait.js";
+import { languageRepository, proficiencyRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Form for editing custom homebrew Trait objects.
  */
 export class TraitForm extends HomebrewBaseForm {
-    trait: TraitApiDto;
+    trait: Trait;
     descriptionSection?: HTMLElement;
     proficienciesSection?: LinkedObjectsSection;
     proficiencyChoicesSection?: ChoiceSection;
@@ -20,7 +19,7 @@ export class TraitForm extends HomebrewBaseForm {
      * Creates an instance of TraitForm.
      * @param traitObject
      */
-    constructor(traitObject: TraitApiDto) {
+    constructor(traitObject: Trait) {
         super(traitObject);
         
         this.trait = traitObject;
@@ -49,7 +48,7 @@ export class TraitForm extends HomebrewBaseForm {
 
         this.proficienciesSection = new LinkedObjectsSection(
             "Proficiencies",
-            (await Proficiency.getAllAsync()),
+            (await proficiencyRepository.getAllAsync()),
             this.trait.proficiencies,
             "List of proficiencies that this trait provides."
         );
@@ -57,7 +56,7 @@ export class TraitForm extends HomebrewBaseForm {
 
         this.proficiencyChoicesSection = new ChoiceSection(
             "Proficiency choices",
-            (await Proficiency.getAllAsync()),
+            (await proficiencyRepository.getAllAsync()),
             this.trait.proficiency_choices,
             "If applicable, a choice in proficiencies that the player can make when getting this trait."
         );
@@ -65,7 +64,7 @@ export class TraitForm extends HomebrewBaseForm {
 
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
-            (await Language.getAllAsync()),
+            (await languageRepository.getAllAsync()),
             this.trait.language_options,
             "If applicable, a choice in languages that the player can make when getting this trait."
         );
@@ -77,9 +76,9 @@ export class TraitForm extends HomebrewBaseForm {
     /**
      * @override Trait specific properties.
      */
-    override async getFormDataAsync(): Promise<TraitApiDto> {
+    override async getFormDataAsync(): Promise<Trait> {
     
-        const data = new Trait(await super.getFormDataAsync());
+        const data = (await super.getFormDataAsync()) as Trait;
 
         data.desc = this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0);
         data.proficiencies = this.proficienciesSection!.getValue();

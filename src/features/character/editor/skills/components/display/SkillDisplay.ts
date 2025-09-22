@@ -1,7 +1,7 @@
-import { SkillApiDto } from "../../../../../../types/api/resources/SkillApiDto.js";
 import { SkillModifierDisplay } from "./SkillModifierDisplay.js";
 import { SkillProficiencyCheckbox } from "../checkboxes/SkillProficiencyCheckbox.js";
 import { SkillExpertiseCheckbox } from "../checkboxes/SkillExpertiseCheckbox.js";
+import { Skill } from "../../../../../../types/domain/resources/Skill.js";
 
 /**
  * Custom list item element for displaying a single skill.
@@ -14,7 +14,7 @@ import { SkillExpertiseCheckbox } from "../checkboxes/SkillExpertiseCheckbox.js"
  * - A text element showing the skill name and corresponding ability.
  */
 export class SkillDisplay extends HTMLLIElement {
-    skill: SkillApiDto;
+    skill: Skill;
     proficiencyCheckbox: SkillProficiencyCheckbox;
     expertiseCheckbox: SkillExpertiseCheckbox;
     modifierDisplay: SkillModifierDisplay;
@@ -24,7 +24,7 @@ export class SkillDisplay extends HTMLLIElement {
      * Creates an instance of SkillDisplay.
      * @param skill The skill object.
      */
-    constructor(skill: SkillApiDto) {
+    constructor(skill: Skill) {
         super();
 
         this.skill = skill;

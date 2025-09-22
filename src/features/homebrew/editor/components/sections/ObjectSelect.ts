@@ -1,5 +1,5 @@
-import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
@@ -7,7 +7,7 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  * It allows the user to select an object and provides a delete button to remove the selection.
  */
 export class ObjectSelect extends HTMLElement {
-    possibleObjects: ApiBaseObjectList;
+    possibleObjects: ResourceList;
     select: HTMLSelectElement;
     deleteButton: HTMLButtonElement;
 
@@ -16,7 +16,7 @@ export class ObjectSelect extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from
      * @param selectedObject The object that is currently selected, if any.
      */
-    constructor(possibleObjects: ApiBaseObjectList, selectedObject?: BaseResourceApiDto) {
+    constructor(possibleObjects: ResourceList, selectedObject?: BaseResource) {
         super();
         
         this.possibleObjects = possibleObjects;
@@ -33,7 +33,7 @@ export class ObjectSelect extends HTMLElement {
      * @param defaultValue The default value to set in the select
      * @returns The select element with options for each possible object.
      */
-    getSelect(defaultValue?: BaseResourceApiDto): HTMLSelectElement {
+    getSelect(defaultValue?: BaseResource): HTMLSelectElement {
         const select = document.createElement('select');
 
         select.appendChild(getEmptyOption());
@@ -62,11 +62,13 @@ export class ObjectSelect extends HTMLElement {
      * Gets the value of the selected object.
      * @returns An ApiObjectInfo object containing the index and name of the selected object.
      */
-    getValue(): BaseResourceApiDto {
-        const data = new ApiObjectInfo();
-
-        data.index = this.select.value;
-        data.name = this.select.options[this.select.selectedIndex].text;
+    getValue(): BaseResource {
+        const data: BaseResource = {
+            index: this.select.value,
+            name: this.select.options[this.select.selectedIndex].text,
+            resourceType: "",
+            isHomebrew: false
+        }
 
         return data;
     }

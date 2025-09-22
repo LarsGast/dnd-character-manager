@@ -1,5 +1,5 @@
-import { SkillApiDto } from "../../../../../../types/api/resources/SkillApiDto.js";
 import { globals } from "../../../../../../store/load-globals.js";
+import { Skill } from "../../../../../../types/domain/resources/Skill.js";
 
 /**
  * Custom element to display the calculated skill modifier.
@@ -8,14 +8,14 @@ import { globals } from "../../../../../../store/load-globals.js";
  * This element listens for changes in proficiency, expertise, ability modifier, and proficiency bonus, and updates its displayed value accordingly.
  */
 export class SkillModifierDisplay extends HTMLElement {
-    skill: SkillApiDto;
+    skill: Skill;
     _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of SkillModifierDisplay.
      * @param skill The skill object.
      */
-    constructor(skill: SkillApiDto) {
+    constructor(skill: Skill) {
         super();
         this.skill = skill;
     }

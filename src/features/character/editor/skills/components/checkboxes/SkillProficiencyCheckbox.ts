@@ -1,5 +1,5 @@
-import { SkillApiDto } from "../../../../../../types/api/resources/SkillApiDto.js";
 import { globals } from "../../../../../../store/load-globals.js";
+import { Skill } from "../../../../../../types/domain/resources/Skill.js";
 
 /**
  * Custom input element (checkbox) for toggling skill proficiency.
@@ -9,14 +9,14 @@ import { globals } from "../../../../../../store/load-globals.js";
  * It disables itself if the PC has expertise in the skill already.
  */
 export class SkillProficiencyCheckbox extends HTMLInputElement {
-    skill: SkillApiDto;
+    skill: Skill;
     _updateHandler?: (event: any) => void;
 
     /**
      * Creates an instance of SkillProficiencyCheckbox.
      * @param skill The skill object.
      */
-    constructor(skill: SkillApiDto) {
+    constructor(skill: Skill) {
         super();
 
         this.skill = skill;

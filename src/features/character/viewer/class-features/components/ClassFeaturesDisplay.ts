@@ -1,9 +1,9 @@
+import { Choice } from "../../../../../types/domain/helpers/Choice.js";
+import { Class } from "../../../../../types/domain/resources/Class.js";
+import { Feature } from "../../../../../types/domain/resources/Feature.js";
+import { Subclass } from "../../../../../types/domain/resources/Subclass.js";
 import { getElementWithTextContent } from "../../../../../utils/util.js";
-import { ChoiceApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
-import { FeatureApiDto } from "../../../../../types/api/resources/FeatureApiDto.js";
-import { ClassApiDto } from "../../../../../types/api/resources/ClassApiDto.js";
-import { SubclassApiDto } from "../../../../../types/api/resources/SubclassApiDto.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { classRepository, featureRepository, subclassRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected class.
@@ -14,8 +14,8 @@ import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.
  */
 export class ClassFeaturesDisplay extends HTMLDetailsElement {
     classLevelInfo: any;
-    class?: ClassApiDto;
-    subclass?: SubclassApiDto;
+    class?: Class;
+    subclass?: Subclass;
 
     constructor(classLevelInfo: any) {
         super();
@@ -28,9 +28,9 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * Immediately updates the display.
      */
     async connectedCallback(): Promise<void> {
-        this.class = await ApiBaseObject.getAsync(this.classLevelInfo.index, Class);
+        this.class = (await classRepository.getAsync(this.classLevelInfo.index))!;
         if (this.classLevelInfo.subclass && this.classLevelInfo.subclass != "null") {
-            this.subclass = await ApiBaseObject.getAsync(this.classLevelInfo.subclass, Subclass);
+            this.subclass = (await subclassRepository.getAsync(this.classLevelInfo.subclass))!;
         }
 
         await this.updateClassFeaturesDisplay();
@@ -195,7 +195,7 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * @param subclass Optional subclass object.
      * @returns A fragment describing the feature.
      */
-    async getFeatureSection(feature: FeatureApiDto, subclass?: SubclassApiDto): Promise<DocumentFragment> {
+    async getFeatureSection(feature: Feature, subclass?: Subclass): Promise<DocumentFragment> {
         const fragment = document.createDocumentFragment();
 
         // Add feature name as a header.
@@ -226,12 +226,12 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * @param choice The choice object from feature_specific.
      * @returns A ul containing the choice details.
      */
-    async getChoiceSection(choice: ChoiceApiDto): Promise<HTMLUListElement> {
+    async getChoiceSection(choice: Choice): Promise<HTMLUListElement> {
         const ul = document.createElement("ul");
 
         // For each option provided by the choice, fetch the subfeature and display it.
         for (const option of choice.from.options) {
-            const subfeature = await ApiBaseObject.getAsync(option.item.index, Feature);
+            const subfeature = (await featureRepository.getAsync(option.item.index))!;
             
             const li = getElementWithTextContent("li", `${subfeature.name}. `);
             

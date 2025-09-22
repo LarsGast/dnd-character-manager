@@ -1,4 +1,5 @@
 import { AbilityBonusMapper } from "../mappers/AbilityBonusMapper";
+import { AbilityScoreMapper } from "../mappers/AbilityScoreMapper";
 import { AlignmentMapper } from "../mappers/AlignmentMapper";
 import { ArmorMapper } from "../mappers/ArmorMapper";
 import { BackgroundMapper } from "../mappers/BackgroundMapper";
@@ -44,6 +45,7 @@ const choiceMapper = new ChoiceMapper(baseResourceMapper);
 
 const equipmentMapper = new EquipmentMapper(baseResourceMapper);
 
+const abilityScoreMapper = new AbilityScoreMapper(baseResourceMapper);
 const alignmentMapper = new AlignmentMapper(baseResourceMapper);
 const armorMapper = new ArmorMapper(equipmentMapper);
 const backgroundMapper = new BackgroundMapper(baseResourceMapper, choiceMapper);
@@ -62,8 +64,9 @@ const weaponMapper = new WeaponMapper(baseResourceMapper, equipmentMapper);
 // --------------------
 // Repositories
 // --------------------
-const homebrewRepository = new HomebrewRepository(localStorageService);
+export const homebrewRepository = new HomebrewRepository(localStorageService);
 
+export const abilityScoreRepository = new BaseResourceRepository("ability-scores", homebrewRepository, srdApiService, baseResourceMapper, abilityScoreMapper);
 export const alignmentRepository = new BaseResourceRepository("alignments", homebrewRepository, srdApiService, baseResourceMapper, alignmentMapper);
 export const armorRepository = new BaseResourceRepository("armor", homebrewRepository, srdApiService, baseResourceMapper, armorMapper);
 export const backgroundRepository = new BaseResourceRepository("backgrounds", homebrewRepository, srdApiService, baseResourceMapper, backgroundMapper);

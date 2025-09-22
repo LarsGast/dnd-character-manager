@@ -1,4 +1,5 @@
-import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
+import { Armor } from "../../../../../../../types/domain/resources/Armor.js";
+import { getArmorClassDisplayString } from "../../../../../../../utils/util.js";
 import { InventoryArmorButtonsCell } from "../cells/InventoryArmorButtonsCell.js";
 import { InventoryArmorEffectiveArmorClassCell } from "../cells/InventoryArmorEffectiveArmorClassCell.js";
 
@@ -59,7 +60,7 @@ export class InventoryArmorRow extends HTMLTableRowElement {
         // Create and populate cell for base armor class.
         this.armorClassCell = document.createElement('td');
         this.armorClassCell.headers = 'armor_armor-class';
-        this.armorClassCell.textContent = this.armor.armor_class.getDisplayString();
+        this.armorClassCell.textContent = getArmorClassDisplayString(this.armor.armor_class);
 
         // Create cell for effective armor class using the custom element.
         this.effectiveArmorClassCell = new InventoryArmorEffectiveArmorClassCell(this.armor);

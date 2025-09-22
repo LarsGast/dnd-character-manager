@@ -1,7 +1,6 @@
 import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { raceRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom select element for choosing a subrace.
@@ -57,7 +56,7 @@ export class SubraceInput extends HTMLSelectElement {
 
         // If a race has been selected, load its subraces.
         if (globals.activePlayerCharacter.race) {
-            const race = await ApiBaseObject.getAsync(globals.activePlayerCharacter.race, Race);
+            const race = (await raceRepository.getAsync(globals.activePlayerCharacter.race))!;
             for (const subrace of race.subraces) {
                 this.appendChild(getSelectOption(subrace.name, subrace.index));
             }

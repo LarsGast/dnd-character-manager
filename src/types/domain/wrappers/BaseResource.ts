@@ -14,7 +14,7 @@ export interface BaseResource {
     /**
      * Url to the object within the API.
      */
-    url: URL;
+    url?: URL;
 
     /**
      * Type of the resource

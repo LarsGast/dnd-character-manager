@@ -1,7 +1,7 @@
-import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
+import { Race } from "../../../../../types/domain/resources/Race.js";
+import { Trait } from "../../../../../types/domain/resources/Trait.js";
+import { raceRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -12,7 +12,7 @@ import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
  */
 export class RaceFeaturesDisplay extends HTMLDetailsElement {
     _updateHandler?: (event: any) => Promise<void>;
-    race?: RaceApiDto;
+    race?: Race;
 
     constructor() {
         super();
@@ -94,7 +94,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
         }
         
         this.style.display = "block";
-        this.race = await ApiBaseObject.getAsync(globals.activePlayerCharacter.race, Race);
+        this.race = (await raceRepository.getAsync(globals.activePlayerCharacter.race))!;
 
         // Clear any existing content.
         this.replaceChildren();
@@ -189,7 +189,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
      * @param traits An array of trait objects.
      * @returns The section element containing trait headings and descriptions.
      */
-    getTraitsSection(traits: TraitApiDto[]): HTMLElement {
+    getTraitsSection(traits: Trait[]): HTMLElement {
         const traitsSection = document.createElement('section');
         
         traitsSection.appendChild(this.getHeading("Traits"));

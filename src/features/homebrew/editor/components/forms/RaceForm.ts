@@ -1,18 +1,16 @@
-import { LanguageApiDto } from "../../../../../types/api/resources/LanguageApiDto.js";
-import { RaceApiDto } from "../../../../../types/api/resources/RaceApiDto.js";
-import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
-import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { AbilityBonusesSection } from "../sections/AbilityBonusesSection.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
 import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
+import { Race } from "../../../../../types/domain/resources/Race.js";
+import { languageRepository, subraceRepository, traitRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Form for editing custom homebrew Race objects.
  */
 export class RaceForm extends HomebrewBaseForm {
-    race: RaceApiDto;
+    race: Race;
     abilityBonusesSection?: AbilityBonusesSection;
     traitsSection?: LinkedObjectsSection;
     languagesSection?: LinkedObjectsSection;
@@ -23,7 +21,7 @@ export class RaceForm extends HomebrewBaseForm {
      * Creates an instance of RaceForm.
      * @param raceElement
      */
-    constructor(raceElement: RaceApiDto) {
+    constructor(raceElement: Race) {
         super(raceElement);
         
         this.race = raceElement;
@@ -58,7 +56,7 @@ export class RaceForm extends HomebrewBaseForm {
 
         this.traitsSection = new LinkedObjectsSection(
             "Traits",
-            (await Trait.getAllAsync()),
+            (await traitRepository.getAllAsync()),
             this.race.traits,
             "Racial traits that provide benefits to its members."
         );
@@ -66,7 +64,7 @@ export class RaceForm extends HomebrewBaseForm {
 
         this.languagesSection = new LinkedObjectsSection(
             "Languages",
-            (await Language.getAllAsync()),
+            (await languageRepository.getAllAsync()),
             this.race.languages,
             "Starting languages for all new characters of this race."
         );
@@ -74,7 +72,7 @@ export class RaceForm extends HomebrewBaseForm {
 
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
-            (await Language.getAllAsync()),
+            (await languageRepository.getAllAsync()),
             this.race.language_options,
             "A choice of additional starting languages of this race"
         );
@@ -84,7 +82,7 @@ export class RaceForm extends HomebrewBaseForm {
 
         this.subracesSection = new LinkedObjectsSection(
             "Subraces",
-            (await Subrace.getAllAsync()),
+            (await subraceRepository.getAllAsync()),
             this.race.subraces,
             "All possible subraces that this race includes."
         );
@@ -98,7 +96,7 @@ export class RaceForm extends HomebrewBaseForm {
      */
     override async getFormDataAsync() {
 
-        const data = new Race(await super.getFormDataAsync());
+        const data = (await super.getFormDataAsync()) as Race;
 
         data.ability_bonuses = await this.abilityBonusesSection!.getValueAsync();
         data.traits = this.traitsSection!.getValue();

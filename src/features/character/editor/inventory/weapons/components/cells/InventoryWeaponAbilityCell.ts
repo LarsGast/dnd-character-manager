@@ -1,6 +1,6 @@
-import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
-import { getSelectOption } from "../../../../../../../utils/util.js";
+import { getSelectOption, weaponGetHasMultipleAbilities } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
+import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom table cell element that displays or allows selection of the ability used for weapon attacks.
@@ -12,7 +12,7 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * When the select value changes, the active player's inventory is updated and an "inventoryWeaponAbilityChanged" event is dispatched.
  */
 export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
-    weapon: WeaponApiDto;
+    weapon: Weapon;
     rowIndex: number;
     select?: HTMLSelectElement;
 
@@ -21,14 +21,14 @@ export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The index of the weapon in the global inventory.
      */
-    constructor(weapon: WeaponApiDto, rowIndex: number) {
+    constructor(weapon: Weapon, rowIndex: number) {
         super();
 
         this.weapon = weapon;
         this.rowIndex = rowIndex;
         
         // If the weapon offers a choice between abilities.
-        if (this.weapon.hasMultipleAbilities()) {
+        if (weaponGetHasMultipleAbilities(this.weapon)) {
 
             // Create a select element for choosing ability ("STR" or "DEX").
             this.select = document.createElement('select');

@@ -1,6 +1,5 @@
 import { PlayerCharacterBank } from "./PlayerCharacterBank.js"
 import { PlayerCharacter } from "../types/PlayerCharacter.js";
-import { HomebrewBank, HomebrewBankEntry } from "./HomebrewBank.js";
 
 /**
  * A set of global variables to be used all across the codebase.
@@ -13,28 +12,11 @@ export const globals = {
      */
     playerCharacterBank: PlayerCharacterBank.load(),
 
-
-    /**
-     * Global singleton of the homebrew bank.
-     * This includes all homebrew objects.
-     */
-    homebrewBank: HomebrewBank.load(),
-
     /**
      * The current active PC.
      * Part of the player bank, this variable can have it's properties changed by reference and will be saved if the bank is saved.
      */
     get activePlayerCharacter(): PlayerCharacter {
         return this.playerCharacterBank.getActivePlayerCharacterBankEntry().playerCharacter;
-    },
-
-    /**
-     * The current active homebrew bank entry.
-     * Part of the homebrew bank, this variable can have it's properties changed by reference and will be saved if the bank is saved.
-     */
-    get activeHomebrewEntry(): HomebrewBankEntry {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id')!;
-        return this.homebrewBank.getHomebrewBankEntryByIndex(id)!;
     }
 }

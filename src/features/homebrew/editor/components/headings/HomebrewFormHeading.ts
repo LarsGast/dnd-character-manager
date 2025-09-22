@@ -1,5 +1,5 @@
-import { ApiCategory } from "../../../../../services/api.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom heading element for homebrew forms.
@@ -11,8 +11,12 @@ export class HomebrewFormHeading extends HTMLHeadingElement {
     
     constructor() {
         super();
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id')!;
+        const homebrewObject = homebrewRepository.get(id)!;
         
-        this.textContent = `Custom ${new ApiCategory(globals.activeHomebrewEntry.apiCategoryName).getSingularName()}`;
+        this.textContent = `Custom ${homebrewObject.resourceType}`;
     }
 }
 

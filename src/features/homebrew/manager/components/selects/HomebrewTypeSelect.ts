@@ -1,4 +1,3 @@
-import { ApiCategory } from "../../../../../services/api.js";
 import { getEmptyOption, getSelectOption } from "../../../../../utils/util.js";
 
 /**
@@ -48,19 +47,20 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
     getTypeSelectOptions(): DocumentFragment {
         const fragment = document.createDocumentFragment();
 
-        fragment.appendChild(this.getTypeSelectOption(ApiCategory.Races));
-        fragment.appendChild(this.getTypeSelectOption(ApiCategory.Traits));
+        fragment.appendChild(this.getTypeSelectOption("races", "race"));
+        fragment.appendChild(this.getTypeSelectOption("traits", "trait"));
 
         return fragment;
     }
 
     /**
-     * Creates a select option for a given API category.
-     * @param apiCategory The API category to create the option for.
+     * Creates a select option for a given resource type.
+     * @param resourceType The resource type to create the option for.
+     * @param resourceTypeSingularName Singular name of the resource type.
      * @returns The created option element.
      */
-    getTypeSelectOption(apiCategory: ApiCategory): HTMLOptionElement {
-        return getSelectOption(apiCategory.getSingularName()!, apiCategory.name);
+    getTypeSelectOption(resourceType: string, resourceTypeSingularName: string): HTMLOptionElement {
+        return getSelectOption(resourceTypeSingularName, resourceType);
     }
 }
 

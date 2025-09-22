@@ -1,6 +1,6 @@
-import { ChoiceApiDto, OptionSetApiDto } from "../../../../../types/api/helpers/ChoiceApiDto.js";
-import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { BaseResourceApiDto } from "../../../../../types/api/wrappers/BaseResourceApiDto.js";
+import { Choice, OptionSet } from "../../../../../types/domain/helpers/Choice.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 
@@ -9,8 +9,8 @@ import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
  * It allows the user to select a number of options from a list of possible objects.
  */
 export class ChoiceSection extends HTMLElement {
-    possibleObjects: ApiBaseObjectList;
-    defaultValue: ChoiceApiDto;
+    possibleObjects: ResourceList;
+    defaultValue: Choice;
     descTextarea: HTMLTextAreaElement;
     chooseInput: HTMLInputElement;
     typeInput: HTMLInputElement;
@@ -22,7 +22,7 @@ export class ChoiceSection extends HTMLElement {
      * @param defaultValue The default choice value to initialize the section.
      * @param tooltip Optional tooltip text for the section.
      */
-    constructor(sectionLabel: string, possibleObjects: ApiBaseObjectList, defaultValue: ChoiceApiDto, tooltip: string) {
+    constructor(sectionLabel: string, possibleObjects: ResourceList, defaultValue: Choice, tooltip: string) {
         super();
 
         this.possibleObjects = possibleObjects;
@@ -42,7 +42,7 @@ export class ChoiceSection extends HTMLElement {
         this.appendChild(this.getLabel("Options", "List of options to choose from."));
         this.appendChild(this.getAddOptionButton());
 
-        for (const option of this.defaultValue.from.options) {
+        for (const option of this.defaultValue.from.options!) {
             this.addOption(option.item);
         }
     }
@@ -118,7 +118,7 @@ export class ChoiceSection extends HTMLElement {
      * Adds a new choice option element to the section.
      * @param defaultValue The default value to set in the new choice option element.
      */
-    addOption(defaultValue?: BaseResourceApiDto) {
+    addOption(defaultValue?: BaseResource) {
         this.appendChild(new ChoiceOptionElement(this.possibleObjects, defaultValue));
     }
 
@@ -126,21 +126,21 @@ export class ChoiceSection extends HTMLElement {
      * Gets the form data from the choice section.
      * @returns The constructed Choice object containing the description, number of choices,
      */
-    getValue(): ChoiceApiDto {
+    getValue(): Choice {
 
-        const choice = new Choice();
+        const options: ChoiceOptionElement[] = Array.from(this.querySelectorAll('choice-option-element'))
 
-        choice.desc = this.descTextarea.value;
-        choice.choose = parseInt(this.chooseInput.value);
-        choice.type = this.typeInput.value;
+        const optionSet: OptionSet = {
+            option_set_type: "options_array",
+            options: options.map(option => option.getValue())
+        }
 
-        const optionSet = new OptionSet();
-        optionSet.option_set_type = "options_array";
-
-        const options: ChoiceOptionElement[] = Array.from(this.querySelectorAll('choice-option-element'));
-        optionSet.options = options.map(option => option.getValue());
-
-        choice.from = optionSet;
+        const choice: Choice = {
+            desc: this.descTextarea.value,
+            choose: parseInt(this.chooseInput.value),
+            type: this.typeInput.value,
+            from: optionSet
+        }
 
         return choice;
     }

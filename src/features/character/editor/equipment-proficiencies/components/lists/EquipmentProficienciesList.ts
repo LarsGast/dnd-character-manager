@@ -1,7 +1,4 @@
-import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
-import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
-import { WeaponApiDto } from "../../../../../../types/api/resources/WeaponApiDto.js";
-import { EquipmentCategoryApiDto } from "../../../../../../types/api/resources/EquipmentCategoryApiDto.js";
+import { armorRepository, equipmentCategoryRepository, weaponRepository } from "../../../../../../wiring/dependencies.js";
 import { ArmorProficiencyDisplay } from "../display/ArmorProficiencyDisplay.js";
 import { WeaponProficiencyDisplay } from "../display/WeaponProficiencyDisplay.js";
 
@@ -41,21 +38,21 @@ export class EquipmentProficienciesList extends HTMLUListElement {
     async connectedCallback(): Promise<void> {
 
         // Fetch equipment information based on the category index.
-        const results = await ApiBaseObject.getAsync(this.equipmentCategoryIndex, EquipmentCategory);
+        const equipmentCategory = (await equipmentCategoryRepository.getAsync(this.equipmentCategoryIndex))!;
 
         // Iterate over each equipment item to create and append the display component.
-        for (const equipmentInfo of results.equipment) {
+        for (const equipmentInfo of equipmentCategory.equipment) {
             if (this.isArmor === "true") {
-                const armor = await ApiBaseObject.getAsync(equipmentInfo.index, Armor);
-                this.appendChild(new ArmorProficiencyDisplay(armor));
+                const armor = await armorRepository.getAsync(equipmentInfo.index);
+                this.appendChild(new ArmorProficiencyDisplay(armor!));
             } else {
-                const weapon = await ApiBaseObject.getAsync(equipmentInfo.index, Weapon);
-                this.appendChild(new WeaponProficiencyDisplay(weapon));
+                const weapon = await weaponRepository.getAsync(equipmentInfo.index);
+                this.appendChild(new WeaponProficiencyDisplay(weapon!));
             }
         }
 
         // Apply a CSS class to manage the number of columns based on item count.
-        const className = this.getNumberOfColumnsClassName(results.equipment.length);
+        const className = this.getNumberOfColumnsClassName(equipmentCategory.equipment.length);
         if (className) {
             this.classList.add(className);
         }

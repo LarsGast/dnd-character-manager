@@ -1,9 +1,6 @@
-import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
 import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { EquipmentCategoryApiDto } from "../../../../../../../types/api/resources/EquipmentCategoryApiDto.js";
-import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
-import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
+import { armorRepository } from "../../../../../../../wiring/dependencies.js";
 
 /**
  * Custom element for adding armor to the inventory.
@@ -92,7 +89,7 @@ export class InventoryArmorAddInput extends HTMLElement {
      */
     async addWeapon(): Promise<void> {
         const armorIndex = this.armorSelect.value;
-        const armor = await ApiBaseObject.getAsync(armorIndex, Armor);
+        const armor = (await armorRepository.getAsync(armorIndex))!;
 
         // Add the armor to the active player's inventory.
         globals.activePlayerCharacter.addArmorToInventory(armor.index);

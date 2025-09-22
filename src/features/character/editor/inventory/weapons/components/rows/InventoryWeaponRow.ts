@@ -1,8 +1,8 @@
 import { InventoryWeaponAttackBonusCell } from "../cells/InventoryWeaponAttackBonusCell.js";
-import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 import { InventoryWeaponAbilityCell } from "../cells/InventoryWeaponAbilityCell.js";
 import { InventoryDamageCell } from "../cells/InventoryWeaponDamageCell.js";
 import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.js";
+import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom table row element that represents a weapon entry in the inventory.
@@ -11,7 +11,7 @@ import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.
  * This row assembles various cells for the weapon's name, ability, attack bonus, damage, damage type, range, weight, and action buttons.
  */
 export class InventoryWeaponRow extends HTMLTableRowElement {
-    weapon: WeaponApiDto;
+    weapon: Weapon;
     nameCell?: HTMLTableCellElement;
     abilityCell?: InventoryWeaponAbilityCell;
     attackBonusCell?: InventoryWeaponAttackBonusCell;
@@ -23,9 +23,9 @@ export class InventoryWeaponRow extends HTMLTableRowElement {
 
     /**
      * Creates an instance of InventoryWeaponRow.
-     * @param {WeaponApiDto} weapon The weapon object to display.
+     * @param weapon The weapon object to display.
      */
-    constructor(weapon: WeaponApiDto) {
+    constructor(weapon: Weapon) {
         super();
 
         this.weapon = weapon;

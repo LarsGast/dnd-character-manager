@@ -1,5 +1,5 @@
-import { Armor } from "../../../../../../types/api/resources/equipment/Armor.js";
 import { globals } from "../../../../../../store/load-globals.js";
+import { Armor } from "../../../../../../types/domain/resources/Armor.js";
 
 /**
  * Custom checkbox element representing an armor proficiency toggle.

@@ -1,5 +1,5 @@
-import { WeaponApiDto } from "../../../../../../../types/api/resources/WeaponApiDto.js";
 import { globals } from "../../../../../../../store/load-globals.js";
+import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom table cell element that displays the damage dice and damage bonus of a weapon.
@@ -9,7 +9,7 @@ import { globals } from "../../../../../../../store/load-globals.js";
  * It listens for changes in ability score modifiers and weapon ability selection to update its display.
  */
 export class InventoryDamageCell extends HTMLTableCellElement {
-    weapon: WeaponApiDto;
+    weapon: Weapon;
     rowIndex: number;
     damageBonusSpan: HTMLSpanElement;
     _updateHandler?: (event: any) => void;
@@ -19,7 +19,7 @@ export class InventoryDamageCell extends HTMLTableCellElement {
      * @param weapon The weapon object.
      * @param rowIndex The index of the weapon in the inventory.
      */
-    constructor(weapon: WeaponApiDto, rowIndex: number) {
+    constructor(weapon: Weapon, rowIndex: number) {
         super();
         
         this.weapon = weapon;

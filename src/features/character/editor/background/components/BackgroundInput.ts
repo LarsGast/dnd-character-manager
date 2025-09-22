@@ -1,6 +1,6 @@
-import { BackgroundApiDto } from "../../../../../types/api/resources/BackgroundApiDto.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { backgroundRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom select element for choosing a character background.
@@ -25,7 +25,7 @@ export class BackgroundInput extends HTMLSelectElement {
     async connectedCallback(): Promise<void> {
         
         // Retrieve all backgrounds.
-        const allBackgrounds = await Background.getAllAsync();
+        const allBackgrounds = await backgroundRepository.getAllAsync();
 
         // Add an empty option at the top.
         this.appendChild(getEmptyOption());

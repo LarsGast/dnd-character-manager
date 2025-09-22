@@ -1,4 +1,6 @@
-import { ApiBaseObjectList } from '../types/api/resources/ApiBaseObject.js'
+import { ArmorClass } from '../types/domain/resources/Armor.js';
+import { Weapon } from '../types/domain/resources/Weapon.js';
+import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
 
 /**
  * Create an HTML element and add a value to the the textContent property.
@@ -15,16 +17,19 @@ export function getElementWithTextContent(tagName: string, textContent: string |
 }
 
 /**
- * Populate a select element with options from a list of ApiBaseObject instances.
+ * Populate a select element with options from a list of resources.
  * @param select The select element to populate.
- * @param options The list of ApiBaseObject instances to populate the select with.
+ * @param resourceList The list of resources to populate the select with.
  */
-export function populateSelectWithApiObjects(select: HTMLSelectElement, options: ApiBaseObjectList) {
+export function populateSelectWithApiObjects(select: HTMLSelectElement, resourceList: ResourceList) {
 
-    select.appendChild(getSelectOptionGroup("SRD", options.srdObjects, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
+    const srdResources = resourceList.results.filter(resource => !resource.isHomebrew);
+    const homebrewResources = resourceList.results.filter(resource => resource.isHomebrew);
 
-    if (options.homebrewObjects.length > 0) {
-        select.appendChild(getSelectOptionGroup("Homebrew", options.homebrewObjects, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
+    select.appendChild(getSelectOptionGroup("SRD", srdResources, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
+
+    if (homebrewResources.length > 0) {
+        select.appendChild(getSelectOptionGroup("Homebrew", homebrewResources, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
     }
 }
 
@@ -59,6 +64,38 @@ export function getSelectOption(optionText: string, optionValue?: string): HTMLO
     option.value = optionValue ?? optionText;
 
     return option;
+}
+
+export function getEffectiveArmorClass(armorClass: ArmorClass, dexModifier?: number): number {
+    if (!armorClass.dex_bonus) {
+        return armorClass.base;
+    }
+    
+    return armorClass.base + (armorClass.max_bonus ? Math.min(armorClass.max_bonus, dexModifier!) : dexModifier!);
+}
+
+export function getArmorClassDisplayString(armorClass: ArmorClass): string {
+    if (!armorClass.dex_bonus) {
+        return armorClass.base.toString();
+    }
+
+    if (!armorClass.max_bonus) {
+        return `${armorClass.base} + DEX`;
+    }
+
+    return `${armorClass.base} + DEX (max ${armorClass.max_bonus})`;
+}
+
+export function weaponGetHasMultipleAbilities(weapon: Weapon): boolean {
+    return weapon.properties.some(property => property.index === "finesse");
+}
+
+export function weaponGetStandardAbility(weapon: Weapon): string {
+    if (weapon.weapon_range === "Melee") {
+        return "str";
+    }
+
+    return "dex";
 }
 
 /**

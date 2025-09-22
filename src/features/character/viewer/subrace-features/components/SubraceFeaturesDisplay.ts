@@ -1,7 +1,7 @@
-import { SubraceApiDto } from "../../../../../types/api/resources/SubraceApiDto.js";
 import { globals } from "../../../../../store/load-globals.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
+import { Subrace } from "../../../../../types/domain/resources/Subrace.js";
+import { Trait } from "../../../../../types/domain/resources/Trait.js";
+import { subraceRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -12,7 +12,7 @@ import { TraitApiDto } from "../../../../../types/api/resources/TraitApiDto.js";
  */
 export class SubraceFeaturesDisplay extends HTMLDetailsElement {
     _updateHandler?: (event: any) => Promise<void>;
-    subrace?: SubraceApiDto;
+    subrace?: Subrace;
 
     constructor() {
         super();
@@ -89,7 +89,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
         }
         
         this.style.display = "block";
-        this.subrace = await ApiBaseObject.getAsync(globals.activePlayerCharacter.subrace, Subrace);
+        this.subrace = (await subraceRepository.getAsync(globals.activePlayerCharacter.subrace))!;
 
         // Clear current contents.
         this.replaceChildren();
@@ -168,7 +168,7 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
      * @param traits An array of trait objects.
      * @returns The section element with trait headings and paragraphs.
      */
-    getTraitsSection(traits: TraitApiDto[]): HTMLElement {
+    getTraitsSection(traits: Trait[]): HTMLElement {
         const traitsSection = document.createElement('section');
 
         traitsSection.appendChild(this.getHeading("Traits"));
