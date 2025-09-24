@@ -1,5 +1,5 @@
-import { ICacheService } from "../interfaces/ICacheService";
-import { IStorageService } from "../interfaces/IStorageService";
+import { ICacheService } from "../interfaces/ICacheService.js";
+import { IStorageService } from "../interfaces/IStorageService.js";
 
 export class CacheService implements ICacheService {
 

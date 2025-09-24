@@ -156,9 +156,4 @@ title: DnD Character Manager
 
 <script type="module" src="{{ 'store/load-globals.js' | relative_url }}"></script>
 
-<script type="module">
-    import { loadPage } from "{{ 'load-page.js' | relative_url }}";
-    loadPage();
-</script>
-
 <script type="module" src="{{ 'register-components.js' | relative_url }}"></script>

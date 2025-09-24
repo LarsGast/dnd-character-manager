@@ -1,5 +1,6 @@
 import { ArmorClass } from '../types/domain/resources/Armor.js';
 import { Weapon } from '../types/domain/resources/Weapon.js';
+import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
 
 /**
@@ -26,10 +27,17 @@ export function populateSelectWithApiObjects(select: HTMLSelectElement, resource
     const srdResources = resourceList.results.filter(resource => !resource.isHomebrew);
     const homebrewResources = resourceList.results.filter(resource => resource.isHomebrew);
 
-    select.appendChild(getSelectOptionGroup("SRD", srdResources, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
+    const getOptionTextAndValueFunc = (obj: BaseResource): { optionText: string; optionValue: string; } => {
+        return {
+            optionText: obj.name,
+            optionValue: obj.index
+        }
+    };
+
+    select.appendChild(getSelectOptionGroup("SRD", srdResources, getOptionTextAndValueFunc));
 
     if (homebrewResources.length > 0) {
-        select.appendChild(getSelectOptionGroup("Homebrew", homebrewResources, (obj: { getOptionTextAndValueFunc: () => any; }) => obj.getOptionTextAndValueFunc()));
+        select.appendChild(getSelectOptionGroup("Homebrew", homebrewResources, getOptionTextAndValueFunc));
     }
 }
 
@@ -107,7 +115,7 @@ export function weaponGetStandardAbility(weapon: Weapon): string {
 function getSelectOptionGroup(
     label: string, 
     options: any,
-    getOptionTextAndValueFunc: { (obj: any): any; (obj: any): any; (arg0: any): { optionText: any; optionValue: any; }; 
+    getOptionTextAndValueFunc: { (obj: BaseResource): { optionText: string; optionValue: string; }; 
 }): HTMLOptGroupElement {
     const optGroup = document.createElement('optgroup');
 

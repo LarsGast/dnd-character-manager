@@ -1,4 +1,4 @@
-import { globals } from "../../../../../store/load-globals.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Delete Dialog.
@@ -91,8 +91,7 @@ export class HomebrewDeleteDialog extends HTMLDialogElement {
      */
     handleDeleteButtonClick(): void {
 
-        globals.homebrewBank.removeHomebrewFromBank(this.homebrewId!);
-        globals.homebrewBank.save();
+        homebrewRepository.delete(this.homebrewId!);
 
         this.close();
 

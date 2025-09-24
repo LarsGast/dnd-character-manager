@@ -1,12 +1,12 @@
-import { IMapper } from "../interfaces/IMapper";
-import { AbilityBonusApiDto } from "../types/api/helpers/AbilityBonusApiDto";
-import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto";
-import { RaceApiDto } from "../types/api/resources/RaceApiDto";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { AbilityBonus } from "../types/domain/helpers/AbilityBonus";
-import { Choice } from "../types/domain/helpers/Choice";
-import { Race } from "../types/domain/resources/Race";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { AbilityBonusApiDto } from "../types/api/helpers/AbilityBonusApiDto.js";
+import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto.js";
+import { RaceApiDto } from "../types/api/resources/RaceApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { AbilityBonus } from "../types/domain/helpers/AbilityBonus.js";
+import { Choice } from "../types/domain/helpers/Choice.js";
+import { Race } from "../types/domain/resources/Race.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class RaceMapper implements IMapper<RaceApiDto, Race> {
 
@@ -44,7 +44,7 @@ export class RaceMapper implements IMapper<RaceApiDto, Race> {
             size: source.size,
             size_description: source.size_description,
             languages: source.languages.map(language => this.baseResourceMapper.map(language)),
-            language_options: this.choiceMapper.map(source.language_options),
+            language_options: source.language_options === undefined ? undefined : this.choiceMapper.map(source.language_options),
             language_desc: source.language_desc,
             traits: source.traits.map(trait => this.baseResourceMapper.map(trait)),
             subraces: source.subraces.map(subrace => this.baseResourceMapper.map(subrace)),

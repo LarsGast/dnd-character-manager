@@ -1,5 +1,5 @@
-import { SkillApiDto } from "./api/resources/SkillApiDto.js";
 import { globals } from "../store/load-globals.js";
+import { Skill } from "./domain/resources/Skill.js";
 
 /**
  * The current latest version of the PC object.
@@ -200,7 +200,7 @@ export class PlayerCharacter {
      * @param skill The skill object containing its ability_score and index.
      * @returns The computed skill modifier.
      */
-    getSkillModifier(skill: SkillApiDto): number {
+    getSkillModifier(skill: Skill): number {
         let skillModifier = this.getAbilityModifier(skill.ability_score.index);
 
         if (this.isProficientInSkill(skill.index)) {

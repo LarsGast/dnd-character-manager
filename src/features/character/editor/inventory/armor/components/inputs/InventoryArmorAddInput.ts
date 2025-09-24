@@ -1,6 +1,6 @@
 import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { armorRepository } from "../../../../../../../wiring/dependencies.js";
+import { armorRepository, equipmentCategoryRepository } from "../../../../../../../wiring/dependencies.js";
 
 /**
  * Custom element for adding armor to the inventory.
@@ -47,9 +47,9 @@ export class InventoryArmorAddInput extends HTMLElement {
         this.armorSelect.appendChild(getEmptyOption());
 
         // Append groups of armor options by type.
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Light", EquipmentCategoryIndex.LightArmor));
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Medium", EquipmentCategoryIndex.MediumArmor));
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Heavy", EquipmentCategoryIndex.HeavyArmor));
+        this.armorSelect.appendChild(await this.getSelectOptionGroup("Light", "light-armor"));
+        this.armorSelect.appendChild(await this.getSelectOptionGroup("Medium", "medium-armor"));
+        this.armorSelect.appendChild(await this.getSelectOptionGroup("Heavy", "heavy-armor"));
     }
 
     /**
@@ -58,13 +58,13 @@ export class InventoryArmorAddInput extends HTMLElement {
      * @param equipmentCategoryIndex The index of the equipment category to load.
      * @returns A promise resolving to the populated optgroup element.
      */
-    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: EquipmentCategoryIndex): Promise<HTMLOptGroupElement> {
+    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: string): Promise<HTMLOptGroupElement> {
 
         const optgroup = document.createElement('optgroup');
         optgroup.label = optgroupLabel;
     
         // Get equipment data for this category.
-        const results = await ApiBaseObject.getAsync(equipmentCategoryIndex, EquipmentCategory);
+        const results = (await equipmentCategoryRepository.getAsync(equipmentCategoryIndex))!;
     
         // For each equipment entry, create an option element.
         results.equipment.forEach(equipment => {

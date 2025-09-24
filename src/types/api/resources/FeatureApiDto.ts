@@ -20,13 +20,13 @@ export interface FeatureApiDto extends BaseResourceApiDto {
     /**
      * The subclass that this feature is a prt of.
      */
-    subclass: BaseResourceApiDto;
+    subclass?: BaseResourceApiDto;
 
     /**
      * The parent feature that this feature is a part of.
      * undefined if this features does not have a parent.
      */
-    parent: BaseResourceApiDto;
+    parent?: BaseResourceApiDto;
 
     /**
      * The prerequisites for this feature.
@@ -36,5 +36,5 @@ export interface FeatureApiDto extends BaseResourceApiDto {
     /**
      * Information specific to this feature.
      */
-    feature_specific: any;
+    feature_specific?: any;
 }

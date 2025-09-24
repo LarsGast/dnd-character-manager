@@ -1,7 +1,7 @@
-import { ICacheService } from "../interfaces/ICacheService";
-import { ISrdApiService } from "../interfaces/ISrdApiService";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto";
+import { ICacheService } from "../interfaces/ICacheService.js";
+import { ISrdApiService } from "../interfaces/ISrdApiService.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto.js";
 
 export class SrdApiService implements ISrdApiService {
 
@@ -33,7 +33,9 @@ export class SrdApiService implements ISrdApiService {
     /**
      * @inheritdoc
      */
-    public async getByUrlAsync<T>(url: URL): Promise<T> {
+    public async getByEndpointAsync<T>(endpoint: string): Promise<T> {
+
+        const url = new URL(`${SrdApiService.baseUrl}/${endpoint}`)
 
         const cacheKey = url.toString();
 
@@ -51,15 +53,15 @@ export class SrdApiService implements ISrdApiService {
     /**
      * @inheritdoc
      */
-    public async getResourceListAsync<T extends BaseResourceApiDto>(resource: string): Promise<ResourceListApiDto<T>> {
-        return await this.getByUrlAsync<ResourceListApiDto<T>>(new URL(`${SrdApiService.baseUrl}/${resource}`));
+    public async getResourceListAsync(resource: string): Promise<ResourceListApiDto> {
+        return await this.getByEndpointAsync<ResourceListApiDto>(resource);
     }
 
     /**
      * @inheritdoc
      */
     public async getByIndexAsync<T extends BaseResourceApiDto>(resource: string, index: string): Promise<T> {
-        return await this.getByUrlAsync<T>(new URL(`${SrdApiService.baseUrl}/${resource}/${index}`));
+        return await this.getByEndpointAsync<T>(`${resource}/${index}`);
     }
 
     /**

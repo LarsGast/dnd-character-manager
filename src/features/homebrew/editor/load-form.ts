@@ -1,4 +1,3 @@
-import { globals } from "../../../store/load-globals.js";
 import { Race } from "../../../types/domain/resources/Race.js";
 import { Trait } from "../../../types/domain/resources/Trait.js";
 import { homebrewRepository } from "../../../wiring/dependencies.js";

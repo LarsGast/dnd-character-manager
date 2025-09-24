@@ -21,7 +21,7 @@ export interface ClassApiDto extends BaseResourceApiDto {
     /**
      * All information regarding spellcasting that this class has access to.
      */
-    spellcasting: SpellCastingApiDto;
+    spellcasting?: SpellCastingApiDto;
 
     /**
      * URL of the spell resource list for the class.
@@ -64,12 +64,12 @@ export interface MultiClassingApiDto {
     /**
      * List of prerequisites that must be met.
      */
-    prerequisites: PrerequisiteApiDto[];
+    prerequisites?: PrerequisiteApiDto[];
 
     /**
      * List of choices of prerequisites to meet for.
      */
-    prerequisite_options: ChoiceApiDto;
+    prerequisite_options?: ChoiceApiDto;
 
     /**
      * List of proficiencies available when multi-classing.
@@ -79,7 +79,7 @@ export interface MultiClassingApiDto {
     /**
      * List of choices of proficiencies that are given when multi-classing.
      */
-    proficiency_choices: ChoiceApiDto[];
+    proficiency_choices?: ChoiceApiDto[];
 }
 
 export interface PrerequisiteApiDto {

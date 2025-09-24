@@ -1,4 +1,3 @@
-import { globals } from "../../../../../store/load-globals.js";
 import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**

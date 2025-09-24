@@ -57,16 +57,16 @@ export class TraitForm extends HomebrewBaseForm {
         this.proficiencyChoicesSection = new ChoiceSection(
             "Proficiency choices",
             (await proficiencyRepository.getAllAsync()),
-            this.trait.proficiency_choices,
-            "If applicable, a choice in proficiencies that the player can make when getting this trait."
+            "If applicable, a choice in proficiencies that the player can make when getting this trait.",
+            this.trait.proficiency_choices
         );
         fragment.appendChild(this.proficiencyChoicesSection);
 
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
             (await languageRepository.getAllAsync()),
-            this.trait.language_options,
-            "If applicable, a choice in languages that the player can make when getting this trait."
+            "If applicable, a choice in languages that the player can make when getting this trait.",
+            this.trait.language_options
         );
         fragment.appendChild(this.languageOptionsSection);
 

@@ -1,6 +1,6 @@
-import { IHomebrewRepository } from "../interfaces/IHomebrewRepository";
-import { IStorageService } from "../interfaces/IStorageService";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IHomebrewRepository } from "../interfaces/IHomebrewRepository.js";
+import { IStorageService } from "../interfaces/IStorageService.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 /**
  * Implementation of IHomebrewRepository to store and manage homebrew resources.
@@ -35,6 +35,14 @@ export class HomebrewRepository implements IHomebrewRepository {
     public save<T extends BaseResource>(id: string, value: T): void {
         const storageKey = this.getStorageKey(id);
         this.storageService.set(storageKey, value);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public delete(id: string): void {
+        const storageKey = this.getStorageKey(id);
+        this.storageService.delete(storageKey);
     }
 
     /**

@@ -1,6 +1,6 @@
-import { IMapper } from "../interfaces/IMapper";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class BaseResourceMapper implements IMapper<BaseResourceApiDto, BaseResource> {
 

@@ -73,8 +73,8 @@ export class RaceForm extends HomebrewBaseForm {
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
             (await languageRepository.getAllAsync()),
-            this.race.language_options,
-            "A choice of additional starting languages of this race"
+            "A choice of additional starting languages of this race",
+            this.race?.language_options
         );
         fragment.appendChild(this.languageOptionsSection);
 

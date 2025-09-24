@@ -32,7 +32,7 @@ export interface Subrace extends BaseResource {
     /**
      * If applicable, a choice in languages that the player can make choosing this subrace.
      */
-    language_options: Choice;
+    language_options?: Choice;
 
     /**
      * A list of traits the subrace has.

@@ -32,7 +32,7 @@ export interface SubraceApiDto extends BaseResourceApiDto {
     /**
      * If applicable, a choice in languages that the player can make choosing this subrace.
      */
-    language_options: ChoiceApiDto;
+    language_options?: ChoiceApiDto;
 
     /**
      * A list of traits the subrace has.

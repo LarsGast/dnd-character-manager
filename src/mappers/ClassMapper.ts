@@ -1,10 +1,10 @@
-import { IMapper } from "../interfaces/IMapper";
-import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto";
-import { ClassApiDto, MultiClassingApiDto, PrerequisiteApiDto, SpellCastingApiDto, SpellCastingInfoApiDto, StartingEquipmentApiDto } from "../types/api/resources/ClassApiDto";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { Choice } from "../types/domain/helpers/Choice";
-import { Class, MultiClassing, Prerequisite, SpellCasting, SpellCastingInfo, StartingEquipment } from "../types/domain/resources/Class";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto.js";
+import { ClassApiDto, MultiClassingApiDto, PrerequisiteApiDto, SpellCastingApiDto, SpellCastingInfoApiDto, StartingEquipmentApiDto } from "../types/api/resources/ClassApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { Choice } from "../types/domain/helpers/Choice.js";
+import { Class, MultiClassing, Prerequisite, SpellCasting, SpellCastingInfo, StartingEquipment } from "../types/domain/resources/Class.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class ClassMapper implements IMapper<ClassApiDto, Class> {
 
@@ -42,10 +42,10 @@ export class ClassMapper implements IMapper<ClassApiDto, Class> {
 
     private mapMultiClassing(source: MultiClassingApiDto): MultiClassing {
         return {
-            prerequisites: source.prerequisites.map(prerequisite => this.mapPrerequisite(prerequisite)),
-            prerequisite_options: this.choiceMapper.map(source.prerequisite_options),
+            prerequisites: source.prerequisites === undefined ? [] : source.prerequisites.map(prerequisite => this.mapPrerequisite(prerequisite)),
+            prerequisite_options: source.prerequisite_options === undefined ? source.prerequisite_options : this.choiceMapper.map(source.prerequisite_options),
             proficiencies: source.proficiencies.map(proficiency => this.baseResourceMapper.map(proficiency)),
-            proficiency_choices: source.proficiency_choices.map(proficiencyChoice => this.choiceMapper.map(proficiencyChoice))
+            proficiency_choices: source.proficiency_choices?.map(proficiencyChoice => this.choiceMapper.map(proficiencyChoice))
         };
     }
 
@@ -56,7 +56,12 @@ export class ClassMapper implements IMapper<ClassApiDto, Class> {
         };
     }
 
-    private mapSpellcasting(source: SpellCastingApiDto): SpellCasting {
+    private mapSpellcasting(source?: SpellCastingApiDto): SpellCasting | undefined {
+
+        if (source === undefined) {
+            return undefined
+        }
+
         return {
             level: source.level,
             info: source.info.map(info => this.mapSpellCastingInfo(info)),

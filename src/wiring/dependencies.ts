@@ -1,27 +1,31 @@
-import { AbilityBonusMapper } from "../mappers/AbilityBonusMapper";
-import { AbilityScoreMapper } from "../mappers/AbilityScoreMapper";
-import { AlignmentMapper } from "../mappers/AlignmentMapper";
-import { ArmorMapper } from "../mappers/ArmorMapper";
-import { BackgroundMapper } from "../mappers/BackgroundMapper";
-import { BaseResourceMapper } from "../mappers/BaseResourceMapper";
-import { ChoiceMapper } from "../mappers/ChoiceMapper";
-import { ClassMapper } from "../mappers/ClassMapper";
-import { EquipmentCategoryMapper } from "../mappers/EquipmentCategoryMapper";
-import { EquipmentMapper } from "../mappers/EquipmentMapper";
-import { FeatureMapper } from "../mappers/FeatureMapper";
-import { LanguageMapper } from "../mappers/LanguageMapper";
-import { ProficiencyMapper } from "../mappers/ProficiencyMapper";
-import { RaceMapper } from "../mappers/RaceMapper";
-import { SkillMapper } from "../mappers/SkillMapper";
-import { SubclassMapper } from "../mappers/SubclassMapper";
-import { SubraceMapper } from "../mappers/SubraceMapper";
-import { TraitMapper } from "../mappers/TraitMapper";
-import { WeaponMapper } from "../mappers/WeaponMapper";
-import { BaseResourceRepository } from "../repositories/BaseResourceRepository";
-import { HomebrewRepository } from "../repositories/HomebrewRepository";
-import { CacheService } from "../services/CacheService";
-import { LocalStorageService } from "../services/LocalStorageService";
-import { SrdApiService } from "../services/SrdApiService";
+import { AbilityBonusMapper } from "../mappers/AbilityBonusMapper.js";
+import { AbilityScoreMapper } from "../mappers/AbilityScoreMapper.js";
+import { AlignmentMapper } from "../mappers/AlignmentMapper.js";
+import { ArmorMapper } from "../mappers/ArmorMapper.js";
+import { BackgroundMapper } from "../mappers/BackgroundMapper.js";
+import { BaseResourceMapper } from "../mappers/BaseResourceMapper.js";
+import { ChoiceMapper } from "../mappers/ChoiceMapper.js";
+import { ClassLevelMapper } from "../mappers/ClassLevelMapper.js";
+import { ClassMapper } from "../mappers/ClassMapper.js";
+import { EquipmentCategoryMapper } from "../mappers/EquipmentCategoryMapper.js";
+import { EquipmentMapper } from "../mappers/EquipmentMapper.js";
+import { FeatureMapper } from "../mappers/FeatureMapper.js";
+import { LanguageMapper } from "../mappers/LanguageMapper.js";
+import { ProficiencyMapper } from "../mappers/ProficiencyMapper.js";
+import { RaceMapper } from "../mappers/RaceMapper.js";
+import { SkillMapper } from "../mappers/SkillMapper.js";
+import { SubclassMapper } from "../mappers/SubclassMapper.js";
+import { SubraceMapper } from "../mappers/SubraceMapper.js";
+import { TraitMapper } from "../mappers/TraitMapper.js";
+import { WeaponMapper } from "../mappers/WeaponMapper.js";
+import { BaseResourceRepository } from "../repositories/BaseResourceRepository.js";
+import { ClassLevelRepository } from "../repositories/ClassLevelRepository.js";
+import { FeatureRepository } from "../repositories/FeatureRepository.js";
+import { HomebrewRepository } from "../repositories/HomebrewRepository.js";
+import { TraitRepository } from "../repositories/TraitRepository.js";
+import { CacheService } from "../services/CacheService.js";
+import { LocalStorageService } from "../services/LocalStorageService.js";
+import { SrdApiService } from "../services/SrdApiService.js";
 
 // This file contains the wiring of all dependencies that need to be injected into all services, repositories, and more within the entire codebase.
 // The file is split in different categories such as Services, Mappers, and Repositories. New dependencies should be added to the correct category.
@@ -34,7 +38,7 @@ import { SrdApiService } from "../services/SrdApiService";
 // --------------------
 const localStorageService = new LocalStorageService();
 const cacheService = new CacheService(localStorageService);
-const srdApiService = new SrdApiService(cacheService, fetch);
+const srdApiService = new SrdApiService(cacheService, globalThis.fetch.bind(globalThis));
 
 // --------------------
 // Mappers
@@ -50,6 +54,7 @@ const alignmentMapper = new AlignmentMapper(baseResourceMapper);
 const armorMapper = new ArmorMapper(equipmentMapper);
 const backgroundMapper = new BackgroundMapper(baseResourceMapper, choiceMapper);
 const classMapper = new ClassMapper(baseResourceMapper, choiceMapper);
+const classLevelMapper = new ClassLevelMapper(baseResourceMapper);
 const equipmentCategoryMapper = new EquipmentCategoryMapper(baseResourceMapper);
 const featureMapper = new FeatureMapper(baseResourceMapper);
 const languageMapper = new LanguageMapper(baseResourceMapper);
@@ -68,16 +73,17 @@ export const homebrewRepository = new HomebrewRepository(localStorageService);
 
 export const abilityScoreRepository = new BaseResourceRepository("ability-scores", homebrewRepository, srdApiService, baseResourceMapper, abilityScoreMapper);
 export const alignmentRepository = new BaseResourceRepository("alignments", homebrewRepository, srdApiService, baseResourceMapper, alignmentMapper);
-export const armorRepository = new BaseResourceRepository("armor", homebrewRepository, srdApiService, baseResourceMapper, armorMapper);
+export const armorRepository = new BaseResourceRepository("equipment", homebrewRepository, srdApiService, baseResourceMapper, armorMapper);
 export const backgroundRepository = new BaseResourceRepository("backgrounds", homebrewRepository, srdApiService, baseResourceMapper, backgroundMapper);
 export const classRepository = new BaseResourceRepository("classes", homebrewRepository, srdApiService, baseResourceMapper, classMapper);
-export const equipmentCategoryRepository = new BaseResourceRepository("equipmentCategory", homebrewRepository, srdApiService, baseResourceMapper, equipmentCategoryMapper);
-export const featureRepository = new BaseResourceRepository("features", homebrewRepository, srdApiService, baseResourceMapper, featureMapper);
+export const classLevelRepository = new ClassLevelRepository(homebrewRepository, srdApiService, baseResourceMapper, classLevelMapper);
+export const equipmentCategoryRepository = new BaseResourceRepository("equipment-categories", homebrewRepository, srdApiService, baseResourceMapper, equipmentCategoryMapper);
+export const featureRepository = new FeatureRepository(homebrewRepository, srdApiService, baseResourceMapper, featureMapper);
 export const languageRepository = new BaseResourceRepository("languages", homebrewRepository, srdApiService, baseResourceMapper, languageMapper);
 export const proficiencyRepository = new BaseResourceRepository("proficiencies", homebrewRepository, srdApiService, baseResourceMapper, proficiencyMapper);
 export const raceRepository = new BaseResourceRepository("races", homebrewRepository, srdApiService, baseResourceMapper, raceMapper);
 export const skillRepository = new BaseResourceRepository("skills", homebrewRepository, srdApiService, baseResourceMapper, skillMapper);
 export const subclassRepository = new BaseResourceRepository("subclasses", homebrewRepository, srdApiService, baseResourceMapper, subclassMapper);
 export const subraceRepository = new BaseResourceRepository("subraces", homebrewRepository, srdApiService, baseResourceMapper, subraceMapper);
-export const traitRepository = new BaseResourceRepository("traits", homebrewRepository, srdApiService, baseResourceMapper, traitMapper);
-export const weaponRepository = new BaseResourceRepository("weapons", homebrewRepository, srdApiService, baseResourceMapper, weaponMapper);
+export const traitRepository = new TraitRepository(homebrewRepository, srdApiService, baseResourceMapper, traitMapper);
+export const weaponRepository = new BaseResourceRepository("equipment", homebrewRepository, srdApiService, baseResourceMapper, weaponMapper);

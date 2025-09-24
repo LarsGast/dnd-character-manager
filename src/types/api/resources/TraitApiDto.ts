@@ -27,16 +27,16 @@ export interface TraitApiDto extends BaseResourceApiDto {
     /**
      * If applicable, a choice in proficiencies that the player can make when getting this trait.
      */
-    proficiency_choices: ChoiceApiDto;
+    proficiency_choices?: ChoiceApiDto;
 
     /**
      * If applicable, a choice in languages that the player can make when getting this trait.
      */
-    language_options: ChoiceApiDto;
+    language_options?: ChoiceApiDto;
 
     /**
      * Any extra trait-specific information.
      * Can differ in specification per trait.
      */
-    trait_specific: any;
+    trait_specific?: any;
 }

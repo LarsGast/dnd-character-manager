@@ -1,8 +1,8 @@
-import { IMapper } from "../interfaces/IMapper";
-import { ArmorApiDto, ArmorClassApiDto } from "../types/api/resources/ArmorApiDto";
-import { EquipmentApiDto } from "../types/api/resources/EquipmentApiDto";
-import { Armor, ArmorClass } from "../types/domain/resources/Armor";
-import { Equipment } from "../types/domain/resources/Equipment";
+import { IMapper } from "../interfaces/IMapper.js";
+import { ArmorApiDto, ArmorClassApiDto } from "../types/api/resources/ArmorApiDto.js";
+import { EquipmentApiDto } from "../types/api/resources/EquipmentApiDto.js";
+import { Armor, ArmorClass } from "../types/domain/resources/Armor.js";
+import { Equipment } from "../types/domain/resources/Equipment.js";
 
 export class ArmorMapper implements IMapper<ArmorApiDto, Armor> {
     /**

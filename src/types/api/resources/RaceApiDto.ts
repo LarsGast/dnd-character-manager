@@ -42,7 +42,7 @@ export interface RaceApiDto extends BaseResourceApiDto {
     /**
      * Starting language options for all new characters of this race.
      */
-    language_options: ChoiceApiDto;
+    language_options?: ChoiceApiDto;
 
     /**
      * Flavor description of the languages known by the race.

@@ -1,5 +1,5 @@
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto.js";
 
 /**
  * Interface for the SRD API service.
@@ -7,11 +7,11 @@ import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto";
 export interface ISrdApiService {
 
     /**
-     * Fetch a resource from the SRD API by its full URL.
-     * @param url The full URL to the resource.
+     * Fetch a resource from the SRD API by its endpoint.
+     * @param endpoint The endpoint to the resource without the baseURL.
      * @return The resource object.
      */
-    getByUrlAsync<T>(url: URL): Promise<T>;
+    getByEndpointAsync<T>(endpoint: string): Promise<T>;
 
     /**
      * Fetch a list of resources of a given type.

@@ -1,10 +1,10 @@
-import { IMapper } from "../interfaces/IMapper";
-import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto";
-import { TraitApiDto } from "../types/api/resources/TraitApiDto";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { Choice } from "../types/domain/helpers/Choice";
-import { Trait } from "../types/domain/resources/Trait";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { ChoiceApiDto } from "../types/api/helpers/ChoiceApiDto.js";
+import { TraitApiDto } from "../types/api/resources/TraitApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { Choice } from "../types/domain/helpers/Choice.js";
+import { Trait } from "../types/domain/resources/Trait.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class TraitMapper implements IMapper<TraitApiDto, Trait> {
 
@@ -30,8 +30,8 @@ export class TraitMapper implements IMapper<TraitApiDto, Trait> {
             races: source.races.map(race => this.baseResourceMapper.map(race)),
             subraces: source.subraces.map(subrace => this.baseResourceMapper.map(subrace)),
             proficiencies: source.proficiencies.map(proficiency => this.baseResourceMapper.map(proficiency)),
-            proficiency_choices: this.choiceMapper.map(source.proficiency_choices),
-            language_options: this.choiceMapper.map(source.language_options),
+            proficiency_choices: source.proficiency_choices === undefined ? undefined : this.choiceMapper.map(source.proficiency_choices),
+            language_options: source.language_options === undefined ? undefined : this.choiceMapper.map(source.language_options),
             trait_specific: source.trait_specific
         };
     }

@@ -1,6 +1,6 @@
 import { getEmptyOption, getSelectOption, weaponGetStandardAbility } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { weaponRepository } from "../../../../../../../wiring/dependencies.js";
+import { equipmentCategoryRepository, weaponRepository } from "../../../../../../../wiring/dependencies.js";
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.
@@ -45,10 +45,10 @@ export class InventoryWeaponAddInput extends HTMLElement {
         this.weaponSelect.appendChild(getEmptyOption());
 
         // Append groups of weapon options by type.
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Melee", EquipmentCategoryIndex.SimpleMeleeWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Melee", EquipmentCategoryIndex.MartialMeleeWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Ranged", EquipmentCategoryIndex.SimpleRangedWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Ranged", EquipmentCategoryIndex.MartialRangedWeapons));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Melee", "simple-melee-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Melee", "martial-melee-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Ranged", "simple-ranged-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Ranged", "martial-ranged-weapons"));
     }
 
     /**
@@ -57,12 +57,12 @@ export class InventoryWeaponAddInput extends HTMLElement {
      * @param equipmentCategoryIndex The category index for fetching weapon data.
      * @returns A promise that resolves to the populated optgroup element.
      */
-    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: EquipmentCategoryIndex): Promise<HTMLOptGroupElement> {
+    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: string): Promise<HTMLOptGroupElement> {
         const optgroup = document.createElement('optgroup');
         optgroup.label = optgroupLabel;
     
         // Fetch weapons for the provided category.
-        const results = await ApiBaseObject.getAsync(equipmentCategoryIndex, EquipmentCategory);
+        const results = (await equipmentCategoryRepository.getAsync(equipmentCategoryIndex))!;
     
         // For each weapon, create an option element.
         results.equipment.forEach(equipment => {

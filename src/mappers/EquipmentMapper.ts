@@ -1,8 +1,8 @@
-import { IMapper } from "../interfaces/IMapper";
-import { CostApiDto, EquipmentApiDto } from "../types/api/resources/EquipmentApiDto";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { Cost, Equipment } from "../types/domain/resources/Equipment";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { CostApiDto, EquipmentApiDto } from "../types/api/resources/EquipmentApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { Cost, Equipment } from "../types/domain/resources/Equipment.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class EquipmentMapper implements IMapper<EquipmentApiDto, Equipment> {
 

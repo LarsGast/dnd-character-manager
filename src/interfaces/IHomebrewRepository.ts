@@ -1,4 +1,4 @@
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 /**
  * Interface for a homebrew storage repository.
@@ -19,6 +19,12 @@ export interface IHomebrewRepository {
      * @param value Value of the homebrew resource.
      */
     save<T extends BaseResource>(id: string, value: T): void;
+
+    /**
+     * Delete a homebrew resource
+     * @param id Identifier of the homebrew resource.
+     */
+    delete(id: string): void;
 
     /**
      * Get all homebrew resources from the repository.

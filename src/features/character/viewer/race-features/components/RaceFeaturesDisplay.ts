@@ -1,7 +1,7 @@
 import { globals } from "../../../../../store/load-globals.js";
 import { Race } from "../../../../../types/domain/resources/Race.js";
 import { Trait } from "../../../../../types/domain/resources/Trait.js";
-import { raceRepository } from "../../../../../wiring/dependencies.js";
+import { raceRepository, traitRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -127,9 +127,15 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
         this.appendChild(this.getParagraph(this.race.language_desc));
         
         // Get and display all available traits, if any.
-        const traits = await this.race.getAllTraitsAsync();
-        if (traits.length > 0) {
-            this.appendChild(this.getTraitsSection(traits));
+        const raceTraits = await traitRepository.getAllTraitsByRaceAsync(this.race.index);
+        if (raceTraits.count > 0) {
+            const fullTraitObjects = await Promise.all(
+                raceTraits.results.map(raceTrait =>
+                    traitRepository.getAsync(raceTrait.index) as Promise<Trait>
+                )
+            );
+            
+            this.appendChild(this.getTraitsSection(fullTraitObjects));
         }
     }
 

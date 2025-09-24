@@ -1,10 +1,10 @@
-import { IMapper } from "../interfaces/IMapper";
-import { DamageApiDto, RangeApiDto, WeaponApiDto } from "../types/api/resources/WeaponApiDto";
-import { EquipmentApiDto } from "../types/api/resources/EquipmentApiDto";
-import { Damage, Range, Weapon } from "../types/domain/resources/Weapon";
-import { Equipment } from "../types/domain/resources/Equipment";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { DamageApiDto, RangeApiDto, WeaponApiDto } from "../types/api/resources/WeaponApiDto.js";
+import { EquipmentApiDto } from "../types/api/resources/EquipmentApiDto.js";
+import { Damage, Range, Weapon } from "../types/domain/resources/Weapon.js";
+import { Equipment } from "../types/domain/resources/Equipment.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class WeaponMapper implements IMapper<WeaponApiDto, Weapon> {
 

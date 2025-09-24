@@ -1,8 +1,8 @@
-import { IMapper } from "../interfaces/IMapper";
-import { AbilityBonusApiDto } from "../types/api/helpers/AbilityBonusApiDto";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto";
-import { AbilityBonus } from "../types/domain/helpers/AbilityBonus";
-import { BaseResource } from "../types/domain/wrappers/BaseResource";
+import { IMapper } from "../interfaces/IMapper.js";
+import { AbilityBonusApiDto } from "../types/api/helpers/AbilityBonusApiDto.js";
+import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
+import { AbilityBonus } from "../types/domain/helpers/AbilityBonus.js";
+import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 export class AbilityBonusMapper implements IMapper<AbilityBonusApiDto, AbilityBonus> {
 

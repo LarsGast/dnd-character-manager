@@ -42,7 +42,7 @@ export interface Race extends BaseResource {
     /**
      * Starting language options for all new characters of this race.
      */
-    language_options: Choice;
+    language_options?: Choice;
 
     /**
      * Flavor description of the languages known by the race.

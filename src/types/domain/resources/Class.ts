@@ -21,7 +21,7 @@ export interface Class extends BaseResource {
     /**
      * All information regarding spellcasting that this class has access to.
      */
-    spellcasting: SpellCasting;
+    spellcasting?: SpellCasting;
 
     /**
      * URL of the spell resource list for the class.
@@ -69,7 +69,7 @@ export interface MultiClassing {
     /**
      * List of choices of prerequisites to meet for.
      */
-    prerequisite_options: Choice;
+    prerequisite_options?: Choice;
 
     /**
      * List of proficiencies available when multi-classing.
@@ -79,7 +79,7 @@ export interface MultiClassing {
     /**
      * List of choices of proficiencies that are given when multi-classing.
      */
-    proficiency_choices: Choice[];
+    proficiency_choices?: Choice[];
 }
 
 export interface Prerequisite {

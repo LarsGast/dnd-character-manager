@@ -20,13 +20,13 @@ export interface Feature extends BaseResource {
     /**
      * The subclass that this feature is a prt of.
      */
-    subclass: BaseResource;
+    subclass?: BaseResource;
 
     /**
      * The parent feature that this feature is a part of.
      * undefined if this features does not have a parent.
      */
-    parent: BaseResource;
+    parent?: BaseResource;
 
     /**
      * The prerequisites for this feature.
@@ -36,5 +36,5 @@ export interface Feature extends BaseResource {
     /**
      * Information specific to this feature.
      */
-    feature_specific: any;
+    feature_specific?: any;
 }

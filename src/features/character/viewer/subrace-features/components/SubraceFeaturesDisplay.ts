@@ -1,7 +1,7 @@
 import { globals } from "../../../../../store/load-globals.js";
 import { Subrace } from "../../../../../types/domain/resources/Subrace.js";
 import { Trait } from "../../../../../types/domain/resources/Trait.js";
-import { subraceRepository } from "../../../../../wiring/dependencies.js";
+import { subraceRepository, traitRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected subrace.
@@ -106,9 +106,15 @@ export class SubraceFeaturesDisplay extends HTMLDetailsElement {
         this.appendChild(this.getAbilityBonusBody());
         
         // If traits exist, create a traits section.
-        const traits = await this.subrace.getAllTraitsAsync();
-        if (traits.length > 0) {
-            this.appendChild(this.getTraitsSection(traits));
+        const subraceTraits = await traitRepository.getAllTraitsBySubraceAsync(this.subrace.index);
+        if (subraceTraits.count > 0) {
+            const fullTraitObjects = await Promise.all(
+                subraceTraits.results.map(subraceTrait =>
+                    traitRepository.getAsync(subraceTrait.index) as Promise<Trait>
+                )
+            );
+            
+            this.appendChild(this.getTraitsSection(fullTraitObjects));
         }
     }
 
