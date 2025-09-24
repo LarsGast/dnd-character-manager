@@ -42,7 +42,7 @@ export class ChoiceSection extends HTMLElement {
         this.appendChild(this.getLabel("Options", "List of options to choose from."));
         this.appendChild(this.getAddOptionButton());
 
-        for (const option of this.defaultValue?.from.options!) {
+        for (const option of this.defaultValue?.from.options ?? []) {
             this.addOption(option.item);
         }
     }

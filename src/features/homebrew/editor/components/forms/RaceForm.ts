@@ -45,19 +45,19 @@ export class RaceForm extends HomebrewBaseForm {
     async getFormBody(): Promise<DocumentFragment> {
         const fragment = document.createDocumentFragment();
 
-        this.abilityBonusesSection = new AbilityBonusesSection(this.race.ability_bonuses, "Racial bonuses to ability scores.");
+        this.abilityBonusesSection = new AbilityBonusesSection(this.race.ability_bonuses ?? [], "Racial bonuses to ability scores.");
         fragment.appendChild(this.abilityBonusesSection);
 
         fragment.appendChild(getTextareaSection("Age", 'age', this.race.age, true, "Flavor description of possible ages for this race."));
         fragment.appendChild(getTextareaSection("Alignment", 'alignment', this.race.alignment, true, "Flavor description of likely alignments this race takes."));
         fragment.appendChild(getSelectSection("Size", "size", this.race.size, ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"], true, "Size class of this race."));
         fragment.appendChild(getTextareaSection("Size description", 'size_description', this.race.size_description, true, "Flavor description of height and weight for this race."));
-        fragment.appendChild(getNumberInputSection("Speed", 'speed', this.race.speed, true, "Base move speed for this race (in feet per round).", 0));
+        fragment.appendChild(getNumberInputSection("Speed", 'speed', this.race.speed ?? 0, true, "Base move speed for this race (in feet per round).", 0));
 
         this.traitsSection = new LinkedObjectsSection(
             "Traits",
             (await traitRepository.getAllAsync()),
-            this.race.traits,
+            this.race.traits ?? [],
             "Racial traits that provide benefits to its members."
         );
         fragment.appendChild(this.traitsSection);
@@ -65,7 +65,7 @@ export class RaceForm extends HomebrewBaseForm {
         this.languagesSection = new LinkedObjectsSection(
             "Languages",
             (await languageRepository.getAllAsync()),
-            this.race.languages,
+            this.race.languages ?? [],
             "Starting languages for all new characters of this race."
         );
         fragment.appendChild(this.languagesSection);
@@ -83,7 +83,7 @@ export class RaceForm extends HomebrewBaseForm {
         this.subracesSection = new LinkedObjectsSection(
             "Subraces",
             (await subraceRepository.getAllAsync()),
-            this.race.subraces,
+            this.race.subraces ?? [],
             "All possible subraces that this race includes."
         );
         fragment.appendChild(this.subracesSection);
