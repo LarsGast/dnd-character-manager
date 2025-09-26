@@ -94,7 +94,7 @@ export class RaceForm extends HomebrewBaseForm {
     /**
      * @override Race specific properties.
      */
-    override async getFormDataAsync() {
+    override async getFormDataAsync(): Promise<Race> {
 
         const data = (await super.getFormDataAsync()) as Race;
 
