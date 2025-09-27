@@ -39,14 +39,8 @@ import { SrdApiService } from "../services/SrdApiService.js";
  * When adding new dependencies:
  * 1. Add them to the appropriate category section
  * 2. Ensure dependencies are wired in the correct order (dependencies before dependents)
- * 3. Export them at the bottom of the file
+ * 3. Export them if they should be used directly by other parts of the application
  */
-
-// This file contains the wiring of all dependencies that need to be injected into all services, repositories, and more within the entire codebase.
-// The file is split in different categories such as Services, Mappers, and Repositories. New dependencies should be added to the correct category.
-// Dependencies need to be wired bottom-up to ensure the dependency exists for use in a dependent service.
-// To use any of these dependencies, simply import them and invoke their methods.
-// Each individual dependency can be mocked out for testing.
 
 // --------------------
 // Services

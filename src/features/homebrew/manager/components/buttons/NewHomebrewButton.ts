@@ -6,6 +6,7 @@ import { homebrewRepository } from "../../../../../wiring/dependencies.js";
  * Extends HTMLButtonElement to provide functionality for adding custom content to the homebrew repository.
  */
 export class NewHomebrewButton extends HTMLButtonElement {
+    
     /**
      * Event handler for custom element type changes.
      * This is used to track changes to the homebrew category selection.

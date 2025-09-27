@@ -6,8 +6,7 @@ import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
 /**
  * Maps choice API DTOs to domain model choices.
- * Handles the complex nested structure of choices, option sets, and individual options
- * that represent player decisions in D&D 5e features.
+ * Handles the complex nested structure of choices, option sets, and individual options that represent player decisions in D&D 5e features.
  */
 export class ChoiceMapper implements IMapper<ChoiceApiDto, Choice> {
 

@@ -15,8 +15,7 @@ export const globals = {
 
     /**
      * The currently active player character.
-     * This is a reference to a character within the player bank, so changes
-     * made to this object will be automatically saved when the bank is saved.
+     * This is a reference to a character within the player bank, so changes made to this object will be automatically saved when the bank is saved.
      */
     get activePlayerCharacter(): PlayerCharacter {
         return this.playerCharacterBank.getActivePlayerCharacterBankEntry().playerCharacter;
