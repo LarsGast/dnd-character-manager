@@ -8,7 +8,7 @@ export interface LanguageApiDto extends BaseResourceApiDto {
     desc: string;
 
     /**
-     * CPossible values: [Standard, Exotic].
+     * Possible values: [Standard, Exotic].
      */
     type: string;
 
