@@ -13,6 +13,7 @@ import {
 	subraceRepository,
 	traitRepository,
 } from '../../../../../wiring/dependencies.js';
+import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js';
 
 /**
  * Form for editing custom homebrew Race objects.
@@ -155,7 +156,7 @@ export class RaceForm extends HomebrewBaseForm {
 	/**
 	 * @override Race specific properties.
 	 */
-	override async getFormDataAsync(): Promise<Race> {
+	override async getFormDataAsync(): Promise<RaceRecord> {
 		const formData = new FormData(this);
 
 		const baseResource = await super.getFormDataAsync();

@@ -1,4 +1,5 @@
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 import { getTextInputSection } from '../../services/FormElementsBuilder.js';
 
@@ -48,7 +49,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
 
 		const data = await this.getFormDataAsync();
 
-		homebrewRepository.save(data.index, data);
+		homebrewRepository.save(data.id, data);
 
 		window.location.reload();
 	}
@@ -58,7 +59,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
 	 * Override this method in subclasses to add additional fields.
 	 * @returns Homebrew object data collected from the form.
 	 */
-	async getFormDataAsync(): Promise<BaseResource> {
+	async getFormDataAsync(): Promise<BaseResourceRecord> {
 		const formData = new FormData(this);
 
 		// Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
@@ -67,10 +68,9 @@ export class HomebrewBaseForm extends HTMLFormElement {
 		const oldResource = homebrewRepository.get(id)!;
 
 		return Promise.resolve({
-			index: oldResource.index,
+			id: oldResource.id,
 			name: formData.get('name')!.toString(),
 			resourceType: oldResource.resourceType,
-			isHomebrew: true,
 		});
 	}
 

@@ -11,7 +11,7 @@ import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
 import { BaseResourceRepository } from './BaseResourceRepository.js';
 
 export class FeatureRepository
-	extends BaseResourceRepository<FeatureApiDto, Feature>
+	extends BaseResourceRepository<Feature, FeatureApiDto>
 	implements IFeatureRepository
 {
 	/**
@@ -39,22 +39,15 @@ export class FeatureRepository
 		classId: string,
 		level: number,
 	): Promise<ResourceList> {
-		const allHomebrewFeatures =
-			this.homebrewRepository.getAllByResourceType<Feature>('features');
-		const homebrewFeatures = allHomebrewFeatures.filter(
-			(feature) => feature.class.index === classId && feature.level === level,
-		);
-
 		const endpoint = `classes/${classId}/levels/${level}/features`;
 		const apiClassLevels =
 			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
 
 		return {
-			count: homebrewFeatures.length + apiClassLevels.count,
+			count: apiClassLevels.count,
 			results: [
-				...homebrewFeatures,
 				...apiClassLevels.results.map((dto) =>
-					this.baseResourceMapper.map(dto),
+					this.baseResourceApiToDomainMapper.map(dto),
 				),
 			],
 		};
@@ -67,23 +60,15 @@ export class FeatureRepository
 		subclassId: string,
 		level: number,
 	): Promise<ResourceList> {
-		const allHomebrewFeatures =
-			this.homebrewRepository.getAllByResourceType<Feature>('features');
-		const homebrewFeatures = allHomebrewFeatures.filter(
-			(feature) =>
-				feature.subclass?.index === subclassId && feature.level === level,
-		);
-
 		const endpoint = `subclasses/${subclassId}/levels/${level}/features`;
 		const apiClassLevels =
 			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
 
 		return {
-			count: homebrewFeatures.length + apiClassLevels.count,
+			count: apiClassLevels.count,
 			results: [
-				...homebrewFeatures,
 				...apiClassLevels.results.map((dto) =>
-					this.baseResourceMapper.map(dto),
+					this.baseResourceApiToDomainMapper.map(dto),
 				),
 			],
 		};

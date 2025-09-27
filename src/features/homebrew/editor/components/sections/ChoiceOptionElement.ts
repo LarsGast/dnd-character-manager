@@ -1,6 +1,7 @@
-import { Option } from '../../../../../types/domain/helpers/Choice.js';
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import { OptionRecord } from '../../../../../types/storage/helpers/ChoiceRecord.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
@@ -68,16 +69,14 @@ export class ChoiceOptionElement extends HTMLElement {
 	 * Gets the value of the choice option element.
 	 * @returns The constructed Option object containing the selected index and name.
 	 */
-	getValue(): Option {
-		const item: BaseResource = {
-			index: this.select.value,
+	getValue(): OptionRecord {
+		const item: BaseResourceRecord = {
+			id: this.select.value,
 			name: this.select.options[this.select.selectedIndex].text,
-			url: undefined,
 			resourceType: '',
-			isHomebrew: false,
 		};
 
-		const option: Option = {
+		const option: OptionRecord = {
 			option_type: 'reference',
 			item: item,
 		};

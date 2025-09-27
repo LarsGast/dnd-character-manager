@@ -227,6 +227,8 @@ export const raceRepository = new BaseResourceRepository(
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	raceApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
+	raceRecordToDomainMapper,
 );
 export const skillRepository = new BaseResourceRepository(
 	'skills',
@@ -254,6 +256,8 @@ export const traitRepository = new TraitRepository(
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	traitApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
+	traitRecordToDomainMapper,
 );
 export const weaponRepository = new BaseResourceRepository(
 	'equipment',

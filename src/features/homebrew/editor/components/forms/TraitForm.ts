@@ -7,6 +7,7 @@ import {
 	languageRepository,
 	proficiencyRepository,
 } from '../../../../../wiring/dependencies.js';
+import { TraitRecord } from '../../../../../types/storage/resources/TraitRecord.js';
 
 /**
  * Form for editing custom homebrew Trait objects.
@@ -85,7 +86,7 @@ export class TraitForm extends HomebrewBaseForm {
 	/**
 	 * @override Trait specific properties.
 	 */
-	override async getFormDataAsync(): Promise<Trait> {
+	override async getFormDataAsync(): Promise<TraitRecord> {
 		const baseResource = await super.getFormDataAsync();
 
 		return {

@@ -1,9 +1,10 @@
-import {
-	Choice,
-	OptionSet,
-} from '../../../../../types/domain/helpers/Choice.js';
+import { Choice } from '../../../../../types/domain/helpers/Choice.js';
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import {
+	ChoiceRecord,
+	OptionSetRecord,
+} from '../../../../../types/storage/helpers/ChoiceRecord.js';
 import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
 import { ChoiceOptionElement } from './ChoiceOptionElement.js';
 
@@ -149,17 +150,17 @@ export class ChoiceSection extends HTMLElement {
 	 * Gets the form data from the choice section.
 	 * @returns The constructed Choice object containing the description, number of choices,
 	 */
-	getValue(): Choice {
+	getValue(): ChoiceRecord {
 		const options: ChoiceOptionElement[] = Array.from(
 			this.querySelectorAll('choice-option-element'),
 		);
 
-		const optionSet: OptionSet = {
+		const optionSet: OptionSetRecord = {
 			option_set_type: 'options_array',
 			options: options.map((option) => option.getValue()),
 		};
 
-		const choice: Choice = {
+		const choice: ChoiceRecord = {
 			desc: this.descTextarea.value,
 			choose: parseInt(this.chooseInput.value),
 			type: this.typeInput.value,

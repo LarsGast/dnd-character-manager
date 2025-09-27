@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -64,14 +64,13 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	 * Creates a new resource with a unique ID and default properties, then dispatches an event.
 	 */
 	handleClick(): void {
-		const newHomebrewResource: BaseResource = {
-			index: self.crypto.randomUUID(),
+		const newHomebrewResource: BaseResourceRecord = {
+			id: self.crypto.randomUUID(),
 			name: 'New Custom Object',
 			resourceType: this.apiCategoryName!,
-			isHomebrew: true,
 		};
 
-		homebrewRepository.save(newHomebrewResource.index, newHomebrewResource);
+		homebrewRepository.save(newHomebrewResource.id, newHomebrewResource);
 
 		document.dispatchEvent(new Event('newHomebrewCreated'));
 	}

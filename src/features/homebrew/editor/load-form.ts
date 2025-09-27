@@ -1,6 +1,8 @@
-import { Race } from '../../../types/domain/resources/Race.js';
-import { Trait } from '../../../types/domain/resources/Trait.js';
-import { homebrewRepository } from '../../../wiring/dependencies.js';
+import {
+	homebrewRepository,
+	raceRepository,
+	traitRepository,
+} from '../../../wiring/dependencies.js';
 import { RaceForm } from './components/forms/RaceForm.js';
 import { TraitForm } from './components/forms/TraitForm.js';
 
@@ -14,18 +16,22 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get('id')!;
 const homebrewResource = homebrewRepository.get(id)!;
 
-let form;
-switch (homebrewResource.resourceType) {
-	case 'races':
-		form = new RaceForm(homebrewResource as Race);
-		break;
-	case 'traits':
-		form = new TraitForm(homebrewResource as Trait);
-		break;
-	default:
-		throw new Error(
-			`No form available for resource type ${homebrewResource.resourceType}`,
-		);
-}
+(async () => {
+	let form;
+	switch (homebrewResource.resourceType) {
+		case 'races':
+			const race = await raceRepository.getAsync(homebrewResource.id);
+			form = new RaceForm(race!);
+			break;
+		case 'traits':
+			const trait = await traitRepository.getAsync(homebrewResource.id);
+			form = new TraitForm(trait!);
+			break;
+		default:
+			throw new Error(
+				`No form available for resource type ${homebrewResource.resourceType}`,
+			);
+	}
 
-pageContent.appendChild(form);
+	pageContent.appendChild(form);
+})();

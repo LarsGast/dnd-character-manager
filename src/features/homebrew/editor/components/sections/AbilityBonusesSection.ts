@@ -1,5 +1,6 @@
 import { AbilityBonus } from '../../../../../types/domain/helpers/AbilityBonus.js';
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { AbilityBonusRecord } from '../../../../../types/storage/helpers/AbilityBonusRecord.js';
 import { abilityScoreRepository } from '../../../../../wiring/dependencies.js';
 import {
 	getNumberInputWithLabel,
@@ -73,7 +74,7 @@ export class AbilityBonusesSection extends HTMLElement {
 	 * Retrieves the values of all ability bonuses from the section.
 	 * @returns Array of AbilityBonus objects representing the selected values.
 	 */
-	async getValueAsync(): Promise<AbilityBonus[]> {
+	async getValueAsync(): Promise<AbilityBonusRecord[]> {
 		const inputs = this.querySelectorAll(
 			'input[type="number"]',
 		) as NodeListOf<HTMLInputElement>;
@@ -92,8 +93,12 @@ export class AbilityBonusesSection extends HTMLElement {
 				abilityScoreIndex,
 			)) as BaseResource;
 
-			const abilityBonus: AbilityBonus = {
-				ability_score: abilityScore,
+			const abilityBonus: AbilityBonusRecord = {
+				ability_score: {
+					id: abilityScore.index,
+					name: abilityScore.name,
+					resourceType: 'ability-scores',
+				},
 				bonus: bonusValue,
 			};
 

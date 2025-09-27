@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -18,7 +18,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
 	previewTextarea: HTMLTextAreaElement;
 	closeButton: HTMLButtonElement;
 	_updateHandler?: (event: any) => void;
-	homebrewResource?: BaseResource;
+	homebrewResource?: BaseResourceRecord;
 
 	constructor() {
 		super();
