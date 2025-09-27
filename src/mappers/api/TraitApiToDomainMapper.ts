@@ -32,6 +32,10 @@ export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
+			races: source.races.map((race) => this.baseResourceMapper.map(race)),
+			subraces: source.subraces.map((subrace) =>
+				this.baseResourceMapper.map(subrace),
+			),
 			proficiencies: source.proficiencies.map((proficiency) =>
 				this.baseResourceMapper.map(proficiency),
 			),

@@ -15,17 +15,6 @@ export interface BaseResource {
 	name: string;
 
 	/**
-	 * URL to the resource within the API (optional).
-	 */
-	url?: string;
-
-	/**
-	 * Type of the resource indicating its category.
-	 * @example "classes", "races", "monsters"
-	 */
-	resourceType: string;
-
-	/**
 	 * Whether this resource is user-created homebrew (true) or from the official SRD (false).
 	 */
 	isHomebrew: boolean;

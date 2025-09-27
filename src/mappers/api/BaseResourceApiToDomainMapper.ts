@@ -16,8 +16,6 @@ export class BaseResourceApiToDomainMapper
 		return {
 			index: source.index,
 			name: source.name,
-			url: source.url,
-			resourceType: '',
 			isHomebrew: false,
 		};
 	}

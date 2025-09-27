@@ -9,8 +9,6 @@ export class BaseResourceRecordToDomainMapper
 		return {
 			index: source.id,
 			name: source.name,
-			url: '', // Storage records may not have a URL
-			resourceType: source.resourceType,
 			isHomebrew: true,
 		};
 	}
