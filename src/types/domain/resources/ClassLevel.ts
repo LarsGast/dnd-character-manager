@@ -60,4 +60,4 @@ export interface Spellcasting {
     spell_slots_level_8: number;
 
     spell_slots_level_9: number;
-} 
+}
