@@ -18,8 +18,11 @@ function siteStartupCleanup(): void {
                 parsed.homebrewBankEntries.forEach((entry: any) => {
                     if (entry && entry.id && entry.homebrewObject) {
 
-                        // Set resourceType if missing, using apiCategoryName if available.
+                        // Set resourceType using apiCategoryName.
                         entry.homebrewObject.resourceType = entry.apiCategoryName;
+                        
+                        // Ensure isHomebrew is true for all migrated objects.
+                        entry.homebrewObject.isHomebrew = true;
 
                         // Remove races and subraces from Trait objects.
                         if (entry.apiCategoryName === "traits") {
