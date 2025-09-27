@@ -29,7 +29,7 @@ import { SrdApiService } from "../services/SrdApiService.js";
 
 // This file contains the wiring of all dependencies that need to be injected into all services, repositories, and more within the entire codebase.
 // The file is split in different categories such as Services, Mappers, and Repositories. New dependencies should be added to the correct category.
-// Dependencies need to be wired bottom-up to ensure the dependency exists for use in a dependant service.
+// Dependencies need to be wired bottom-up to ensure the dependency exists for use in a dependent service.
 // To use any of these dependencies, simply import them and invoke their methods.
 // Each individual dependency can be mocked out for testing.
 
