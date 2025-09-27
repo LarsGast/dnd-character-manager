@@ -73,15 +73,15 @@ export class HomebrewTable extends HTMLTableElement {
 
     /**
      * Updates the table body with the current homebrew entries.
-     * This method sorts the entries by last edited date and populates the table body.
+     * This method sorts the entries by name and populates the table body.
      */
     updateTableBody(): void {
         this.tableBody.replaceChildren();
 
         const homebrewResources = homebrewRepository.getAll();
 
-        // Sort them from last edited -> first edited, so the most used homebrew objects are generally at the top.
-        const sortedEntries = homebrewResources.sort();
+        // Sort by name.
+        const sortedEntries = homebrewResources.sort((a, b) => a.name.localeCompare(b.name));
 
         for (const entry of sortedEntries) {
             this.tableBody.appendChild(this.getTableBodyRow(entry));
