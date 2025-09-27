@@ -2,6 +2,7 @@
   "devDependencies": {
     "concurrently": "^9.2.1",
     "cpy-cli": "^6.0.0",
+    "prettier": "3.6.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.9.2"
   },
