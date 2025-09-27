@@ -1,5 +1,5 @@
-import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
-import { globals } from "../../../../../store/load-globals.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Export Dialog.
@@ -18,7 +18,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
     previewTextarea: HTMLTextAreaElement;
     closeButton: HTMLButtonElement;
     _updateHandler?: (event: any) => void;
-    homebrewBankEntry?: HomebrewBankEntry;
+    homebrewResource?: BaseResource;
     
     constructor() {
         super();
@@ -102,10 +102,10 @@ export class HomebrewExportDialog extends HTMLDialogElement {
      */
     showDialog(event: CustomEvent): void {
 
-        this.homebrewBankEntry = globals.homebrewBank.getHomebrewBankEntryByIndex(event.detail.homebrewId);
+        this.homebrewResource = homebrewRepository.get(event.detail.homebrewId);
         
         // Display the selected homebrew object as formatted JSON.
-        this.previewTextarea.value = JSON.stringify(this.homebrewBankEntry, null, 2);
+        this.previewTextarea.value = JSON.stringify(this.homebrewResource, null, 2);
 
         this.showModal();
     }
@@ -117,7 +117,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
 
         // Create a Blob from the homebrew JSON data.
         const blob = new Blob(
-            [JSON.stringify(this.homebrewBankEntry, null, 2)],
+            [JSON.stringify(this.homebrewResource, null, 2)],
             { type: 'application/json' }
         );
         const url = URL.createObjectURL(blob);
@@ -126,7 +126,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
         // That's why we create an anchor tag and trigger a click here.
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${this.homebrewBankEntry!.homebrewObject.name}.json`;
+        a.download = `${this.homebrewResource!.name}.json`;
         a.click();
 
         URL.revokeObjectURL(url);

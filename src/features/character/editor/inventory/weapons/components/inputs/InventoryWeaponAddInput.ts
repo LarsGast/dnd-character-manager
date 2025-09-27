@@ -1,9 +1,6 @@
-import { EquipmentCategoryIndex } from "../../../../../../../services/api.js";
-import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
+import { getEmptyOption, getSelectOption, weaponGetStandardAbility } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { EquipmentCategory } from "../../../../../../../types/api/resources/EquipmentCategory.js";
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
-import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
+import { equipmentCategoryRepository, weaponRepository } from "../../../../../../../wiring/dependencies.js";
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.
@@ -48,10 +45,10 @@ export class InventoryWeaponAddInput extends HTMLElement {
         this.weaponSelect.appendChild(getEmptyOption());
 
         // Append groups of weapon options by type.
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Melee", EquipmentCategoryIndex.SimpleMeleeWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Melee", EquipmentCategoryIndex.MartialMeleeWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Ranged", EquipmentCategoryIndex.SimpleRangedWeapons));
-        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Ranged", EquipmentCategoryIndex.MartialRangedWeapons));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Melee", "simple-melee-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Melee", "martial-melee-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Simple Ranged", "simple-ranged-weapons"));
+        this.weaponSelect.appendChild(await this.getSelectOptionGroup("Martial Ranged", "martial-ranged-weapons"));
     }
 
     /**
@@ -60,12 +57,12 @@ export class InventoryWeaponAddInput extends HTMLElement {
      * @param equipmentCategoryIndex The category index for fetching weapon data.
      * @returns A promise that resolves to the populated optgroup element.
      */
-    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: EquipmentCategoryIndex): Promise<HTMLOptGroupElement> {
+    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: string): Promise<HTMLOptGroupElement> {
         const optgroup = document.createElement('optgroup');
         optgroup.label = optgroupLabel;
     
         // Fetch weapons for the provided category.
-        const results = await ApiBaseObject.getAsync(equipmentCategoryIndex, EquipmentCategory);
+        const results = (await equipmentCategoryRepository.getAsync(equipmentCategoryIndex))!;
     
         // For each weapon, create an option element.
         results.equipment.forEach(equipment => {
@@ -91,10 +88,10 @@ export class InventoryWeaponAddInput extends HTMLElement {
      */
     async addWeapon(): Promise<void> {
         const weaponIndex = this.weaponSelect.value;
-        const weapon = await ApiBaseObject.getAsync(weaponIndex, Weapon);
+        const weapon = (await weaponRepository.getAsync(weaponIndex))!;
 
         // Add the weapon to the PC's inventory using its standard ability.
-        globals.activePlayerCharacter.addWeaponToInventory(weapon.index, weapon.getStandardAbility());
+        globals.activePlayerCharacter.addWeaponToInventory(weapon.index, weaponGetStandardAbility(weapon));
 
         // Notify that a new weapon has been added.
         document.dispatchEvent(new Event("inventoryWeaponAdded"));

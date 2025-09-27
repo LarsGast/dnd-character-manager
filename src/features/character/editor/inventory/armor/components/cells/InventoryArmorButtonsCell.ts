@@ -1,5 +1,5 @@
 import { globals } from "../../../../../../../store/load-globals.js";
-import { Armor } from "../../../../../../../types/api/resources/equipment/Armor.js";
+import { Armor } from "../../../../../../../types/domain/resources/Armor.js";
 
 /**
  * Custom table cell element containing buttons for inventory armor actions.

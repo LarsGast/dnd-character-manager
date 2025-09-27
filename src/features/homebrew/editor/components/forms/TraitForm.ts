@@ -1,10 +1,9 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Proficiency } from "../../../../../types/api/resources/Proficiency.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
 import { getTextareaSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
 import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
+import { Trait } from "../../../../../types/domain/resources/Trait.js";
+import { languageRepository, proficiencyRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Form for editing custom homebrew Trait objects.
@@ -49,25 +48,25 @@ export class TraitForm extends HomebrewBaseForm {
 
         this.proficienciesSection = new LinkedObjectsSection(
             "Proficiencies",
-            (await Proficiency.getAllAsync()),
-            this.trait.proficiencies,
+            (await proficiencyRepository.getAllAsync()),
+            this.trait.proficiencies ?? [],
             "List of proficiencies that this trait provides."
         );
         fragment.appendChild(this.proficienciesSection);
 
         this.proficiencyChoicesSection = new ChoiceSection(
             "Proficiency choices",
-            (await Proficiency.getAllAsync()),
-            this.trait.proficiency_choices,
-            "If applicable, a choice in proficiencies that the player can make when getting this trait."
+            (await proficiencyRepository.getAllAsync()),
+            "If applicable, a choice in proficiencies that the player can make when getting this trait.",
+            this.trait.proficiency_choices
         );
         fragment.appendChild(this.proficiencyChoicesSection);
 
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
-            (await Language.getAllAsync()),
-            this.trait.language_options,
-            "If applicable, a choice in languages that the player can make when getting this trait."
+            (await languageRepository.getAllAsync()),
+            "If applicable, a choice in languages that the player can make when getting this trait.",
+            this.trait.language_options
         );
         fragment.appendChild(this.languageOptionsSection);
 
@@ -78,15 +77,16 @@ export class TraitForm extends HomebrewBaseForm {
      * @override Trait specific properties.
      */
     override async getFormDataAsync(): Promise<Trait> {
-    
-        const data = new Trait(await super.getFormDataAsync());
 
-        data.desc = this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0);
-        data.proficiencies = this.proficienciesSection!.getValue();
-        data.proficiency_choices = this.proficiencyChoicesSection!.getValue();
-        data.language_options = this.languageOptionsSection!.getValue();
+        const baseResource = await super.getFormDataAsync();
 
-        return data;
+        return {
+            ...baseResource,
+            desc: this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0),
+            proficiencies: this.proficienciesSection!.getValue(),
+            proficiency_choices: this.proficiencyChoicesSection!.getValue(),
+            language_options: this.languageOptionsSection!.getValue()
+        };
     }
 }
 

@@ -1,7 +1,6 @@
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
 import { InventoryWeaponRow } from "../rows/InventoryWeaponRow.js";
 import { globals } from "../../../../../../../store/load-globals.js";
-import { ApiBaseObject } from "../../../../../../../types/api/resources/ApiBaseObject.js";
+import { weaponRepository } from "../../../../../../../wiring/dependencies.js";
 
 /**
  * Custom element that displays a table of inventory weapons.
@@ -113,7 +112,7 @@ export class InventoryWeaponTable extends HTMLElement {
 
             // Create a row for each weapon currently in the global inventory.
             for (const inventoryWeapon of globals.activePlayerCharacter.inventoryWeapons) {
-                const weapon = await ApiBaseObject.getAsync((inventoryWeapon as any).index, Weapon);
+                const weapon = (await weaponRepository.getAsync((inventoryWeapon as any).index))!;
                 tableBody.appendChild(new InventoryWeaponRow(weapon));
             }
         }

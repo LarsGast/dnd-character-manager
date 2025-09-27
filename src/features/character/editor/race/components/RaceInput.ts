@@ -1,6 +1,6 @@
-import { Race } from "../../../../../types/api/resources/Race.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 import { globals } from "../../../../../store/load-globals.js";
+import { raceRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom select element for choosing a race.
@@ -40,7 +40,7 @@ export class RaceInput extends HTMLSelectElement {
         this.replaceChildren();
 
         // Retrieve all races.
-        const allRaces = await Race.getAllAsync();
+        const allRaces = await raceRepository.getAllAsync();
 
         // Add an empty default option.
         this.appendChild(getEmptyOption());

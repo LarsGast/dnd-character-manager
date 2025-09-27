@@ -1,5 +1,5 @@
-import { Skill } from "./api/resources/Skill.js";
 import { globals } from "../store/load-globals.js";
+import { Skill } from "./domain/resources/Skill.js";
 
 /**
  * The current latest version of the PC object.

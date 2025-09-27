@@ -1,9 +1,9 @@
+import { Choice } from "../../../../../types/domain/helpers/Choice.js";
+import { Class } from "../../../../../types/domain/resources/Class.js";
+import { Feature } from "../../../../../types/domain/resources/Feature.js";
+import { Subclass } from "../../../../../types/domain/resources/Subclass.js";
 import { getElementWithTextContent } from "../../../../../utils/util.js";
-import { Choice } from "../../../../../types/api/helpers/Choice.js";
-import { Feature } from "../../../../../types/api/helpers/Feature.js";
-import { Class } from "../../../../../types/api/resources/Class.js";
-import { Subclass } from "../../../../../types/api/resources/Subclass.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
+import { classRepository, featureRepository, subclassRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom details element that displays the features of the selected class.
@@ -28,9 +28,9 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
      * Immediately updates the display.
      */
     async connectedCallback(): Promise<void> {
-        this.class = await ApiBaseObject.getAsync(this.classLevelInfo.index, Class);
+        this.class = (await classRepository.getAsync(this.classLevelInfo.index))!;
         if (this.classLevelInfo.subclass && this.classLevelInfo.subclass != "null") {
-            this.subclass = await ApiBaseObject.getAsync(this.classLevelInfo.subclass, Subclass);
+            this.subclass = (await subclassRepository.getAsync(this.classLevelInfo.subclass))!;
         }
 
         await this.updateClassFeaturesDisplay();
@@ -170,17 +170,19 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
         fragment.appendChild(getElementWithTextContent("h5", `Level ${levelNumber}`));
         
         // Fetch level-specific data for this class.
-        const levelObject = await this.class!.getLevelAsync(levelNumber);
+        const classLevelFeatures = await featureRepository.getFeaturesByClassAndLevelAsync(this.class!.index, levelNumber);
 
         // For each feature at this level, add the feature section.
-        for (const feature of await levelObject.getAllFeaturesAsync()) {
+        for (const featureBaseResource of classLevelFeatures.results) {
+            const feature = (await featureRepository.getAsync(featureBaseResource.index))!;
             fragment.appendChild(await this.getFeatureSection(feature));
         }
 
         // If a subclass is chosen, display the features the subclass gets for the given level.
         if (this.subclass) {
-            const subclassFeatures = await this.subclass.getFeaturesForLevelAsync(levelNumber);
-            for (const feature of subclassFeatures) {
+            const subclassLevelFeatures = await featureRepository.getFeaturesBySubclassAndLevelAsync(this.subclass!.index, levelNumber);
+            for (const featureBaseResource of subclassLevelFeatures.results) {
+                const feature = (await featureRepository.getAsync(featureBaseResource.index))!;
                 fragment.appendChild(await this.getFeatureSection(feature, this.subclass));
             }
         }
@@ -230,8 +232,8 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
         const ul = document.createElement("ul");
 
         // For each option provided by the choice, fetch the subfeature and display it.
-        for (const option of choice.from.options) {
-            const subfeature = await ApiBaseObject.getAsync(option.item.index, Feature);
+        for (const option of choice.from.options!) {
+            const subfeature = (await featureRepository.getAsync(option.item!.index))!;
             
             const li = getElementWithTextContent("li", `${subfeature.name}. `);
             

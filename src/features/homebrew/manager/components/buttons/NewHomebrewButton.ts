@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 export class NewHomebrewButton extends HTMLButtonElement {
     _updateHandler?: (event: any) => void;
@@ -47,8 +47,15 @@ export class NewHomebrewButton extends HTMLButtonElement {
      * Handles the button click.
      */
     handleClick(): void {
-        globals.homebrewBank.addNewHomebrew(ApiObjectInfo.getDefault(), this.apiCategoryName!);
-        globals.homebrewBank.save();
+
+        const newHomebrewResource: BaseResource = {
+            index: self.crypto.randomUUID(),
+            name: "New Custom Object",
+            resourceType: this.apiCategoryName!,
+            isHomebrew: true
+        };
+
+        homebrewRepository.save(newHomebrewResource.index, newHomebrewResource);
 
         document.dispatchEvent(new Event("newHomebrewCreated"));
     }

@@ -1,7 +1,7 @@
-import { Skill } from "../../../../../../types/api/resources/Skill.js";
 import { SkillModifierDisplay } from "./SkillModifierDisplay.js";
 import { SkillProficiencyCheckbox } from "../checkboxes/SkillProficiencyCheckbox.js";
 import { SkillExpertiseCheckbox } from "../checkboxes/SkillExpertiseCheckbox.js";
+import { Skill } from "../../../../../../types/domain/resources/Skill.js";
 
 /**
  * Custom list item element for displaying a single skill.

@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { HomebrewBankEntry } from "../../../../../store/HomebrewBank.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Custom HTML element for displaying the Homebrew Import Dialog.
@@ -167,14 +167,13 @@ export class HomebrewImportDialog extends HTMLDialogElement {
     handleImportButtonClick(): void {
 
         // Create a new Homebrew from the JSON data.
-        const homebrewBankEntry = new HomebrewBankEntry(JSON.parse(this.previewTextarea.value));
+        const homebrewBankEntry = JSON.parse(this.previewTextarea.value) as BaseResource;
+        const existingHomebrewResource = homebrewRepository.get(homebrewBankEntry.index);
 
-        if (!globals.homebrewBank.getDoesHomebrewObjectExistByIndex(homebrewBankEntry.homebrewObject.index)) {
+        if (!existingHomebrewResource) {
 
             // Add to the bank.
-            // The ID of the object itself won't change, the ID of the entry will be generated and overwritten.
-            globals.homebrewBank.addNewHomebrew(homebrewBankEntry.homebrewObject, homebrewBankEntry.apiCategoryName);
-            globals.homebrewBank.save();
+            homebrewRepository.save(homebrewBankEntry.index, homebrewBankEntry);
 
             document.dispatchEvent(new Event("homebrewImported"));
         }

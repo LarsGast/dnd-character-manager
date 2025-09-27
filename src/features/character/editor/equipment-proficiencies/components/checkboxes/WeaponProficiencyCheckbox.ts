@@ -1,5 +1,5 @@
-import { Weapon } from "../../../../../../types/api/resources/equipment/Weapon.js";
 import { globals } from "../../../../../../store/load-globals.js";
+import { Weapon } from "../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom checkbox element representing a weapon proficiency toggle.

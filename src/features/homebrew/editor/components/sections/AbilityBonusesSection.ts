@@ -1,7 +1,6 @@
-import { AbilityBonus } from "../../../../../types/api/helpers/AbilityBonus.js";
-import { AbilityScore } from "../../../../../types/api/resources/AbilityScore.js";
-import { ApiBaseObject } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { AbilityBonus } from "../../../../../types/domain/helpers/AbilityBonus.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { abilityScoreRepository } from "../../../../../wiring/dependencies.js";
 import { getNumberInputWithLabel, getTooltipSpan } from "../../services/FormElementsBuilder.js";
 
 /**
@@ -30,9 +29,9 @@ export class AbilityBonusesSection extends HTMLElement {
     }
 
     async connectedCallback(): Promise<void> {
-        const abilityScores = await AbilityScore.getAllAsync();
+        const abilityScores = await abilityScoreRepository.getAllAsync();
 
-        const sortedAbilityScores = abilityScores.srdObjects.sort((a, b) => {
+        const sortedAbilityScores = abilityScores.results.sort((a, b) => {
             const posA = this.abilityScoreOrder.indexOf(a.index);
             const posB = this.abilityScoreOrder.indexOf(b.index);
             return posA - posB;
@@ -78,11 +77,12 @@ export class AbilityBonusesSection extends HTMLElement {
                 continue;
             }
 
-            const abilityScore = new ApiObjectInfo(await ApiBaseObject.getAsync(abilityScoreIndex, AbilityScore));
+            const abilityScore = await abilityScoreRepository.getAsync(abilityScoreIndex) as BaseResource;
 
-            const abilityBonus = new AbilityBonus();
-            abilityBonus.ability_score = abilityScore;
-            abilityBonus.bonus = bonusValue;
+            const abilityBonus: AbilityBonus = {
+                ability_score: abilityScore,
+                bonus: bonusValue
+            }
 
             abilityBonuses.push(abilityBonus);
         }

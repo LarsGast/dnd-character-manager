@@ -1,5 +1,4 @@
-import { ApiBaseObject } from "../../../../../../types/api/resources/ApiBaseObject.js";
-import { Skill } from "../../../../../../types/api/resources/Skill.js";
+import { skillRepository } from "../../../../../../wiring/dependencies.js";
 import { SkillDisplay } from "../display/SkillDisplay.js";
 
 /**
@@ -22,10 +21,10 @@ export class SkillsList extends HTMLUListElement {
      * Asynchronously populates the list with skills.
      */
     async connectedCallback() {
-        const allSkills = await Skill.getAllAsync();
+        const allSkills = await skillRepository.getAllAsync();
         
-        for (const skillInfo of allSkills.srdObjects) {
-            const skill = await ApiBaseObject.getAsync(skillInfo.index, Skill);
+        for (const skillInfo of allSkills.results) {
+            const skill = (await skillRepository.getAsync(skillInfo.index))!;
             this.appendChild(new SkillDisplay(skill));
         }
     }

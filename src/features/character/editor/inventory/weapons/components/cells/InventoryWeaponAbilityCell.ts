@@ -1,6 +1,6 @@
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
-import { getSelectOption } from "../../../../../../../utils/util.js";
+import { getSelectOption, weaponGetHasMultipleAbilities } from "../../../../../../../utils/util.js";
 import { globals } from "../../../../../../../store/load-globals.js";
+import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom table cell element that displays or allows selection of the ability used for weapon attacks.
@@ -28,7 +28,7 @@ export class InventoryWeaponAbilityCell extends HTMLTableCellElement {
         this.rowIndex = rowIndex;
         
         // If the weapon offers a choice between abilities.
-        if (this.weapon.hasMultipleAbilities()) {
+        if (weaponGetHasMultipleAbilities(this.weapon)) {
 
             // Create a select element for choosing ability ("STR" or "DEX").
             this.select = document.createElement('select');

@@ -10,11 +10,6 @@ On this page, you can build your own homebrew objects. a homebrew object in this
 
 <script type="module" src="{{ 'store/load-globals.js' | relative_url }}"></script>
 
-<script type="module">
-    import { loadPage } from "{{ 'load-page.js' | relative_url }}";
-    loadPage();
-</script>
-
 <script type="module" src="{{ 'register-components.js' | relative_url }}"></script>
 
 <script type="module" src="{{ 'features/homebrew/editor/load-form.js' | relative_url }}"></script>

@@ -1,6 +1,6 @@
-import { Option } from "../../../../../types/api/helpers/Choice.js";
-import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { Option } from "../../../../../types/domain/helpers/Choice.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
 import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
 
 /**
@@ -8,8 +8,8 @@ import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../uti
  * It allows the user to select an object from a list of possible objects.
  */
 export class ChoiceOptionElement extends HTMLElement {
-    possibleObjects: ApiBaseObjectList;
-    defaultValue?: ApiObjectInfo;
+    possibleObjects: ResourceList;
+    defaultValue?: BaseResource;
     select: HTMLSelectElement;
     
     /**
@@ -17,7 +17,7 @@ export class ChoiceOptionElement extends HTMLElement {
      * @param possibleObjects The list of possible objects to select from
      * @param defaultValue The default value to set in the select element
      */
-    constructor(possibleObjects: ApiBaseObjectList, defaultValue?: ApiObjectInfo) {
+    constructor(possibleObjects: ResourceList, defaultValue?: BaseResource) {
         super();
         
         this.possibleObjects = possibleObjects;
@@ -64,15 +64,18 @@ export class ChoiceOptionElement extends HTMLElement {
      * @returns The constructed Option object containing the selected index and name.
      */
     getValue(): Option {
-        const option = new Option();
+        const item: BaseResource = {
+            index: this.select.value,
+            name: this.select.options[this.select.selectedIndex].text,
+            url: undefined,
+            resourceType: "",
+            isHomebrew: false
+        }
 
-        option.option_type = "reference";
-
-        const item = new ApiObjectInfo();
-        item.index = this.select.value;
-        item.name = this.select.options[this.select.selectedIndex].text;
-
-        option.item = item;
+        const option: Option = {
+            option_type: "reference",
+            item: item
+        }
 
         return option;
     }

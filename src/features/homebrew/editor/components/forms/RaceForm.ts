@@ -1,12 +1,10 @@
-import { Language } from "../../../../../types/api/resources/Language.js";
-import { Race } from "../../../../../types/api/resources/Race.js";
-import { Subrace } from "../../../../../types/api/resources/Subrace.js";
-import { Trait } from "../../../../../types/api/resources/Trait.js";
 import { getSelectSection, getTextareaSection, getNumberInputSection } from "../../services/FormElementsBuilder.js";
 import { HomebrewBaseForm } from "./HomebrewBaseForm.js";
 import { AbilityBonusesSection } from "../sections/AbilityBonusesSection.js";
 import { ChoiceSection } from "../sections/ChoiceSection.js";
 import { LinkedObjectsSection } from "../sections/LinkedObjectsSection.js";
+import { Race } from "../../../../../types/domain/resources/Race.js";
+import { languageRepository, subraceRepository, traitRepository } from "../../../../../wiring/dependencies.js";
 
 /**
  * Form for editing custom homebrew Race objects.
@@ -47,36 +45,36 @@ export class RaceForm extends HomebrewBaseForm {
     async getFormBody(): Promise<DocumentFragment> {
         const fragment = document.createDocumentFragment();
 
-        this.abilityBonusesSection = new AbilityBonusesSection(this.race.ability_bonuses, "Racial bonuses to ability scores.");
+        this.abilityBonusesSection = new AbilityBonusesSection(this.race.ability_bonuses ?? [], "Racial bonuses to ability scores.");
         fragment.appendChild(this.abilityBonusesSection);
 
         fragment.appendChild(getTextareaSection("Age", 'age', this.race.age, true, "Flavor description of possible ages for this race."));
         fragment.appendChild(getTextareaSection("Alignment", 'alignment', this.race.alignment, true, "Flavor description of likely alignments this race takes."));
         fragment.appendChild(getSelectSection("Size", "size", this.race.size, ["Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"], true, "Size class of this race."));
         fragment.appendChild(getTextareaSection("Size description", 'size_description', this.race.size_description, true, "Flavor description of height and weight for this race."));
-        fragment.appendChild(getNumberInputSection("Speed", 'speed', this.race.speed, true, "Base move speed for this race (in feet per round).", 0));
+        fragment.appendChild(getNumberInputSection("Speed", 'speed', this.race.speed ?? 0, true, "Base move speed for this race (in feet per round).", 0));
 
         this.traitsSection = new LinkedObjectsSection(
             "Traits",
-            (await Trait.getAllAsync()),
-            this.race.traits,
+            (await traitRepository.getAllAsync()),
+            this.race.traits ?? [],
             "Racial traits that provide benefits to its members."
         );
         fragment.appendChild(this.traitsSection);
 
         this.languagesSection = new LinkedObjectsSection(
             "Languages",
-            (await Language.getAllAsync()),
-            this.race.languages,
+            (await languageRepository.getAllAsync()),
+            this.race.languages ?? [],
             "Starting languages for all new characters of this race."
         );
         fragment.appendChild(this.languagesSection);
 
         this.languageOptionsSection = new ChoiceSection(
             "Language options",
-            (await Language.getAllAsync()),
-            this.race.language_options,
-            "A choice of additional starting languages of this race"
+            (await languageRepository.getAllAsync()),
+            "A choice of additional starting languages of this race",
+            this.race?.language_options
         );
         fragment.appendChild(this.languageOptionsSection);
 
@@ -84,8 +82,8 @@ export class RaceForm extends HomebrewBaseForm {
 
         this.subracesSection = new LinkedObjectsSection(
             "Subraces",
-            (await Subrace.getAllAsync()),
-            this.race.subraces,
+            (await subraceRepository.getAllAsync()),
+            this.race.subraces ?? [],
             "All possible subraces that this race includes."
         );
         fragment.appendChild(this.subracesSection);
@@ -96,17 +94,25 @@ export class RaceForm extends HomebrewBaseForm {
     /**
      * @override Race specific properties.
      */
-    override async getFormDataAsync() {
+    override async getFormDataAsync(): Promise<Race> {
+        const formData = new FormData(this);
 
-        const data = new Race(await super.getFormDataAsync());
+        const baseResource = await super.getFormDataAsync();
 
-        data.ability_bonuses = await this.abilityBonusesSection!.getValueAsync();
-        data.traits = this.traitsSection!.getValue();
-        data.languages = this.languagesSection!.getValue();
-        data.language_options = this.languageOptionsSection!.getValue();
-        data.subraces = this.subracesSection!.getValue();
-
-        return data;
+        return {
+            ...baseResource,
+            ability_bonuses: await this.abilityBonusesSection!.getValueAsync(),
+            age: formData.get("age")!.toString(),
+            alignment: formData.get("alignment")!.toString(),
+            size: formData.get("size")!.toString(),
+            size_description: formData.get("size_description")!.toString(),
+            speed: parseInt(formData.get("speed")!.toString(), 10),
+            traits: this.traitsSection!.getValue(),
+            languages: this.languagesSection!.getValue(),
+            language_options: this.languageOptionsSection!.getValue(),
+            language_desc: formData.get("language_desc")!.toString(),
+            subraces: this.subracesSection!.getValue(),
+        }
     }
 }
 

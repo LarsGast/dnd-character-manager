@@ -1,8 +1,8 @@
 import { InventoryWeaponAttackBonusCell } from "../cells/InventoryWeaponAttackBonusCell.js";
-import { Weapon } from "../../../../../../../types/api/resources/equipment/Weapon.js";
 import { InventoryWeaponAbilityCell } from "../cells/InventoryWeaponAbilityCell.js";
 import { InventoryDamageCell } from "../cells/InventoryWeaponDamageCell.js";
 import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.js";
+import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
 
 /**
  * Custom table row element that represents a weapon entry in the inventory.
@@ -23,7 +23,7 @@ export class InventoryWeaponRow extends HTMLTableRowElement {
 
     /**
      * Creates an instance of InventoryWeaponRow.
-     * @param {Weapon} weapon The weapon object to display.
+     * @param weapon The weapon object to display.
      */
     constructor(weapon: Weapon) {
         super();

@@ -1,7 +1,6 @@
-import { ApiCategory } from "../../../services/api.js";
-import { globals } from "../../../store/load-globals.js";
-import { Race } from "../../../types/api/resources/Race.js";
-import { Trait } from "../../../types/api/resources/Trait.js";
+import { Race } from "../../../types/domain/resources/Race.js";
+import { Trait } from "../../../types/domain/resources/Trait.js";
+import { homebrewRepository } from "../../../wiring/dependencies.js";
 import { RaceForm } from "./components/forms/RaceForm.js";
 import { TraitForm } from "./components/forms/TraitForm.js";
 
@@ -11,16 +10,20 @@ import { TraitForm } from "./components/forms/TraitForm.js";
 
 const pageContent = document.getElementsByClassName("post-content")[0];
 
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id')!;
+const homebrewResource = homebrewRepository.get(id)!;
+
 let form;
-switch (globals.activeHomebrewEntry.apiCategoryName) {
-    case ApiCategory.Races.name:
-        form = new RaceForm(globals.activeHomebrewEntry.homebrewObject as Race);
+switch (homebrewResource.resourceType) {
+    case "races":
+        form = new RaceForm(homebrewResource as Race);
         break;
-    case ApiCategory.Traits.name:
-        form = new TraitForm(globals.activeHomebrewEntry.homebrewObject as Trait);
+    case "traits":
+        form = new TraitForm(homebrewResource as Trait);
         break;
     default:
-        throw new Error(`No form available for API category ${globals.activeHomebrewEntry.apiCategoryName}`);
+        throw new Error(`No form available for resource type ${homebrewResource.resourceType}`);
 }
 
 pageContent.appendChild(form);

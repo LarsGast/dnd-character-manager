@@ -1,6 +1,6 @@
-import { Choice, OptionSet } from "../../../../../types/api/helpers/Choice.js";
-import { ApiBaseObjectList } from "../../../../../types/api/resources/ApiBaseObject.js";
-import { ApiObjectInfo } from "../../../../../types/api/resources/ApiObjectInfo.js";
+import { Choice, OptionSet } from "../../../../../types/domain/helpers/Choice.js";
+import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
+import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
 import { getTooltipSpan } from "../../services/FormElementsBuilder.js";
 import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
 
@@ -9,8 +9,8 @@ import { ChoiceOptionElement } from "./ChoiceOptionElement.js";
  * It allows the user to select a number of options from a list of possible objects.
  */
 export class ChoiceSection extends HTMLElement {
-    possibleObjects: ApiBaseObjectList;
-    defaultValue: Choice;
+    possibleObjects: ResourceList;
+    defaultValue?: Choice;
     descTextarea: HTMLTextAreaElement;
     chooseInput: HTMLInputElement;
     typeInput: HTMLInputElement;
@@ -19,10 +19,10 @@ export class ChoiceSection extends HTMLElement {
      * Creates an instance of ChoiceSection.
      * @param sectionLabel The label for the section.
      * @param possibleObjects The list of possible objects to choose from.
-     * @param defaultValue The default choice value to initialize the section.
      * @param tooltip Optional tooltip text for the section.
+     * @param defaultValue The default choice value to initialize the section.
      */
-    constructor(sectionLabel: string, possibleObjects: ApiBaseObjectList, defaultValue: Choice, tooltip: string) {
+    constructor(sectionLabel: string, possibleObjects: ResourceList, tooltip: string, defaultValue?: Choice) {
         super();
 
         this.possibleObjects = possibleObjects;
@@ -42,7 +42,7 @@ export class ChoiceSection extends HTMLElement {
         this.appendChild(this.getLabel("Options", "List of options to choose from."));
         this.appendChild(this.getAddOptionButton());
 
-        for (const option of this.defaultValue.from.options) {
+        for (const option of this.defaultValue?.from.options ?? []) {
             this.addOption(option.item);
         }
     }
@@ -70,7 +70,7 @@ export class ChoiceSection extends HTMLElement {
     getDescTextarea(): HTMLTextAreaElement {
         const textarea = document.createElement('textarea');
 
-        textarea.value = this.defaultValue.desc;
+        textarea.value = this.defaultValue?.desc ?? "";
 
         return textarea;
     }
@@ -83,7 +83,7 @@ export class ChoiceSection extends HTMLElement {
         const input = document.createElement('input');
 
         input.type = 'number';
-        input.value = this.defaultValue.choose.toString();
+        input.value = this.defaultValue?.choose.toString() ?? "";
 
         return input;
     }
@@ -95,7 +95,7 @@ export class ChoiceSection extends HTMLElement {
     getTypeInput(): HTMLInputElement {
         const input = document.createElement('input');
 
-        input.value = this.defaultValue.type;
+        input.value = this.defaultValue?.type ?? "";
 
         return input;
     }
@@ -118,7 +118,7 @@ export class ChoiceSection extends HTMLElement {
      * Adds a new choice option element to the section.
      * @param defaultValue The default value to set in the new choice option element.
      */
-    addOption(defaultValue?: ApiObjectInfo) {
+    addOption(defaultValue?: BaseResource) {
         this.appendChild(new ChoiceOptionElement(this.possibleObjects, defaultValue));
     }
 
@@ -128,19 +128,19 @@ export class ChoiceSection extends HTMLElement {
      */
     getValue(): Choice {
 
-        const choice = new Choice();
+        const options: ChoiceOptionElement[] = Array.from(this.querySelectorAll('choice-option-element'))
 
-        choice.desc = this.descTextarea.value;
-        choice.choose = parseInt(this.chooseInput.value);
-        choice.type = this.typeInput.value;
+        const optionSet: OptionSet = {
+            option_set_type: "options_array",
+            options: options.map(option => option.getValue())
+        }
 
-        const optionSet = new OptionSet();
-        optionSet.option_set_type = "options_array";
-
-        const options: ChoiceOptionElement[] = Array.from(this.querySelectorAll('choice-option-element'));
-        optionSet.options = options.map(option => option.getValue());
-
-        choice.from = optionSet;
+        const choice: Choice = {
+            desc: this.descTextarea.value,
+            choose: parseInt(this.chooseInput.value),
+            type: this.typeInput.value,
+            from: optionSet
+        }
 
         return choice;
     }
