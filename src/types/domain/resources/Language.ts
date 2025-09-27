@@ -8,7 +8,7 @@ export interface Language extends BaseResource {
     desc: string;
 
     /**
-     * CPossible values: [Standard, Exotic].
+     * Possible values: [Standard, Exotic].
      */
     type: string;
 
