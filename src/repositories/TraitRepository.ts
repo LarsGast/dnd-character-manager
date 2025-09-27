@@ -42,6 +42,24 @@ export class TraitRepository
 	/**
 	 * @inheritdoc
 	 */
+	public override async getAsync(id: string): Promise<Trait | undefined> {
+		const trait = await super.getAsync(id);
+
+		if (trait?.isHomebrew) {
+			// Add relations.
+			// Since homebrew traits can only be used by other homebrew resources, we only need to look in the homebrew repository for these relations.
+			trait.races = this.homebrewRepository
+				.getAllByResourceType<RaceRecord>('races')
+				.filter((race) => race.traits.some((trait) => trait.id === id))
+				.map((race) => this.baseResourceStorageToDomainMapper!.map(race));
+		}
+
+		return trait;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public async getAllTraitsByRaceAsync(raceId: string): Promise<ResourceList> {
 		const homebrewRace = this.homebrewRepository.get<RaceRecord>(raceId)!;
 		const homebrewTraits = homebrewRace.traits;
