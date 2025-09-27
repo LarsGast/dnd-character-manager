@@ -1,13 +1,12 @@
 import { IMapper } from '../interfaces/IMapper.js';
-import {
-	CostApiDto,
-	EquipmentApiDto,
-} from '../types/api/resources/EquipmentApiDto.js';
+import { LanguageApiDto } from '../types/api/resources/LanguageApiDto.js';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Cost, Equipment } from '../types/domain/resources/Equipment.js';
+import { Language } from '../types/domain/resources/Language.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class EquipmentMapper implements IMapper<EquipmentApiDto, Equipment> {
+export class LanguageApiToDomainMapper
+	implements IMapper<LanguageApiDto, Language>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
@@ -22,23 +21,13 @@ export class EquipmentMapper implements IMapper<EquipmentApiDto, Equipment> {
 		this.baseResourceMapper = baseResourceMapper;
 	}
 
-	public map(source: EquipmentApiDto): Equipment {
+	map(source: LanguageApiDto): Language {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			special: source.special,
-			equipment_category: this.baseResourceMapper.map(
-				source.equipment_category,
-			),
-			cost: this.mapCost(source.cost),
-			weight: source.weight,
-		};
-	}
-
-	private mapCost(source: CostApiDto): Cost {
-		return {
-			quantity: source.quantity,
-			unit: source.unit,
+			type: source.type,
+			script: source.script,
+			typical_speakers: source.typical_speakers,
 		};
 	}
 }

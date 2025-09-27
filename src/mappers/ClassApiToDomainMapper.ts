@@ -20,7 +20,7 @@ import {
 } from '../types/domain/resources/Class.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class ClassMapper implements IMapper<ClassApiDto, Class> {
+export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

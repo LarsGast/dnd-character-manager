@@ -8,7 +8,9 @@ import { Choice } from '../types/domain/helpers/Choice.js';
 import { Subrace } from '../types/domain/resources/Subrace.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class SubraceMapper implements IMapper<SubraceApiDto, Subrace> {
+export class SubraceApiToDomainMapper
+	implements IMapper<SubraceApiDto, Subrace>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

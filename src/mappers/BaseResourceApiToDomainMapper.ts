@@ -6,7 +6,7 @@ import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
  * Maps base resource API DTOs to domain model base resources.
  * Handles the conversion from external API data structure to internal domain representation.
  */
-export class BaseResourceMapper
+export class BaseResourceApiToDomainMapper
 	implements IMapper<BaseResourceApiDto, BaseResource>
 {
 	/**

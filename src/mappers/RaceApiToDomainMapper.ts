@@ -8,7 +8,7 @@ import { Choice } from '../types/domain/helpers/Choice.js';
 import { Race } from '../types/domain/resources/Race.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class RaceMapper implements IMapper<RaceApiDto, Race> {
+export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

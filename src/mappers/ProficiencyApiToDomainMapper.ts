@@ -4,7 +4,7 @@ import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js'
 import { Proficiency } from '../types/domain/resources/Proficiency.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class ProficiencyMapper
+export class ProficiencyApiToDomainMapper
 	implements IMapper<ProficiencyApiDto, Proficiency>
 {
 	/**

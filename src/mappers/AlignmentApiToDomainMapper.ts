@@ -1,10 +1,12 @@
 import { IMapper } from '../interfaces/IMapper.js';
-import { LanguageApiDto } from '../types/api/resources/LanguageApiDto.js';
+import { AlignmentApiDto } from '../types/api/resources/AlignmentApiDto.js';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Language } from '../types/domain/resources/Language.js';
+import { Alignment } from '../types/domain/resources/Alignment.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class LanguageMapper implements IMapper<LanguageApiDto, Language> {
+export class AlignmentApiToDomainMapper
+	implements IMapper<AlignmentApiDto, Alignment>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
@@ -19,13 +21,11 @@ export class LanguageMapper implements IMapper<LanguageApiDto, Language> {
 		this.baseResourceMapper = baseResourceMapper;
 	}
 
-	map(source: LanguageApiDto): Language {
+	public map(source: AlignmentApiDto): Alignment {
 		return {
 			...this.baseResourceMapper.map(source),
+			abbreviation: source.abbreviation,
 			desc: source.desc,
-			type: source.type,
-			script: source.script,
-			typical_speakers: source.typical_speakers,
 		};
 	}
 }

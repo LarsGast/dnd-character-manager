@@ -6,7 +6,7 @@ import { Choice } from '../types/domain/helpers/Choice.js';
 import { Trait } from '../types/domain/resources/Trait.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class TraitMapper implements IMapper<TraitApiDto, Trait> {
+export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

@@ -10,7 +10,9 @@ import {
 } from '../types/domain/resources/ClassLevel.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class ClassLevelMapper implements IMapper<ClassLevelApiDto, ClassLevel> {
+export class ClassLevelApiToDomainMapper
+	implements IMapper<ClassLevelApiDto, ClassLevel>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

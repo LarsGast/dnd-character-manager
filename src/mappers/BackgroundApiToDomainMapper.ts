@@ -12,7 +12,9 @@ import {
 } from '../types/domain/resources/Background.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class BackgroundMapper implements IMapper<BackgroundApiDto, Background> {
+export class BackgroundApiToDomainMapper
+	implements IMapper<BackgroundApiDto, Background>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

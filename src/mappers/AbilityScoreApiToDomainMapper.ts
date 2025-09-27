@@ -1,10 +1,12 @@
 import { IMapper } from '../interfaces/IMapper.js';
-import { AlignmentApiDto } from '../types/api/resources/AlignmentApiDto.js';
+import { AbilityScoreApiDto } from '../types/api/resources/AbilityScoreApiDto.js';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Alignment } from '../types/domain/resources/Alignment.js';
+import { AbilityScore } from '../types/domain/resources/AbilityScore.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class AlignmentMapper implements IMapper<AlignmentApiDto, Alignment> {
+export class AbilityScoreApiToDomainMapper
+	implements IMapper<AbilityScoreApiDto, AbilityScore>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
@@ -19,11 +21,12 @@ export class AlignmentMapper implements IMapper<AlignmentApiDto, Alignment> {
 		this.baseResourceMapper = baseResourceMapper;
 	}
 
-	public map(source: AlignmentApiDto): Alignment {
+	public map(source: AbilityScoreApiDto): AbilityScore {
 		return {
 			...this.baseResourceMapper.map(source),
-			abbreviation: source.abbreviation,
 			desc: source.desc,
+			full_name: source.full_name,
+			skills: source.skills.map((skill) => this.baseResourceMapper.map(skill)),
 		};
 	}
 }

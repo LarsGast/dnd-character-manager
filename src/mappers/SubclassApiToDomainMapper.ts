@@ -1,10 +1,12 @@
 import { IMapper } from '../interfaces/IMapper.js';
-import { FeatureApiDto } from '../types/api/resources/FeatureApiDto.js';
+import { SubclassApiDto } from '../types/api/resources/SubclassApiDto.js';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Feature } from '../types/domain/resources/Feature.js';
+import { Subclass } from '../types/domain/resources/Subclass.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class FeatureMapper implements IMapper<FeatureApiDto, Feature> {
+export class SubclassApiToDomainMapper
+	implements IMapper<SubclassApiDto, Subclass>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
@@ -19,22 +21,14 @@ export class FeatureMapper implements IMapper<FeatureApiDto, Feature> {
 		this.baseResourceMapper = baseResourceMapper;
 	}
 
-	map(source: FeatureApiDto): Feature {
+	map(source: SubclassApiDto): Subclass {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			level: source.level,
 			class: this.baseResourceMapper.map(source.class),
-			subclass:
-				source.subclass === undefined
-					? undefined
-					: this.baseResourceMapper.map(source.subclass),
-			parent:
-				source.parent === undefined
-					? undefined
-					: this.baseResourceMapper.map(source.parent),
-			prerequisites: source.prerequisites,
-			feature_specific: source.feature_specific,
+			subclass_flavor: source.subclass_flavor,
+			subclass_levels: source.subclass_levels,
+			spells: source.spells,
 		};
 	}
 }

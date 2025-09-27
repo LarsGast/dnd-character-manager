@@ -7,7 +7,7 @@ import { EquipmentApiDto } from '../types/api/resources/EquipmentApiDto.js';
 import { Armor, ArmorClass } from '../types/domain/resources/Armor.js';
 import { Equipment } from '../types/domain/resources/Equipment.js';
 
-export class ArmorMapper implements IMapper<ArmorApiDto, Armor> {
+export class ArmorApiToDomainMapper implements IMapper<ArmorApiDto, Armor> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

@@ -4,7 +4,7 @@ import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js'
 import { AbilityBonus } from '../types/domain/helpers/AbilityBonus.js';
 import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 
-export class AbilityBonusMapper
+export class AbilityBonusApiToDomainMapper
 	implements IMapper<AbilityBonusApiDto, AbilityBonus>
 {
 	/**
