@@ -2,6 +2,10 @@ import { IMapper } from "../interfaces/IMapper.js";
 import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
 import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
+/**
+ * Maps base resource API DTOs to domain model base resources.
+ * Handles the conversion from external API data structure to internal domain representation.
+ */
 export class BaseResourceMapper implements IMapper<BaseResourceApiDto, BaseResource> {
 
     /**

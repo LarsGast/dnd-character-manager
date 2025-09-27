@@ -262,7 +262,7 @@ export class PlayerCharacter {
     }
 
     /**
-     * Adds expertise in a skill if PC is does not already have expertise in the skill.
+     * Adds expertise in a skill if the PC does not already have expertise in the skill.
      * @param skillIndex The index of the skill.
      */
     addExpertiseInSkill(skillIndex: string): void {

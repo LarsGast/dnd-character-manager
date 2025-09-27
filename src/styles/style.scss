@@ -104,7 +104,7 @@ dialog {
     }
 }
 
-/* Abilityscores for player character page */
+/* Ability scores display for player character page */
 .ability-scores-list {
     display: flex;
     flex-direction: row;
@@ -138,7 +138,7 @@ dialog {
     }
 }
 
-/* Proficiencies list for PC page */
+/* Proficiencies list for player character page */
 .proficiencies-list {
     border: 2px solid black;
     border-radius: 10px;
@@ -171,7 +171,7 @@ summary {
         display: inline-block;
     }
 
-    /* Marker same size as an h3*/
+    /* Marker should be the same size as an h3 element */
     &::marker {
         font-size: 26px;
     }

@@ -1,17 +1,18 @@
 import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
 /**
- * Has information about the bonuses to abilities a race can have.
+ * Represents ability score bonuses that a race can provide to a character.
+ * Used in the 5e API to define racial bonuses to ability scores.
  */
 export interface AbilityBonusApiDto {
 
     /**
-     * Ability score that the bonus gets applied to.
+     * Reference to the ability score that receives the bonus.
      */
     ability_score: BaseResourceApiDto;
 
     /**
-     * The height of the bonus.
+     * The numerical bonus value applied to the ability score.
      */
     bonus: number;
 }
