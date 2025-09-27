@@ -13,12 +13,12 @@ export interface Feature extends BaseResource {
     level: number;
 
     /**
-     * The class that this feature is a prt of.
+     * The class that this feature is a part of.
      */
     class: BaseResource;
 
     /**
-     * The subclass that this feature is a prt of.
+     * The subclass that this feature is a part of.
      */
     subclass?: BaseResource;
 
