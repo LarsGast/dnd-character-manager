@@ -1,10 +1,10 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { ChoiceApiDto } from '../types/api/helpers/ChoiceApiDto.js';
-import { TraitApiDto } from '../types/api/resources/TraitApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice } from '../types/domain/helpers/Choice.js';
-import { Trait } from '../types/domain/resources/Trait.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto.js';
+import { TraitApiDto } from '../../types/api/resources/TraitApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Choice } from '../../types/domain/helpers/Choice.js';
+import { Trait } from '../../types/domain/resources/Trait.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 	/**

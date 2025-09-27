@@ -1,12 +1,12 @@
-import { IMapper } from '../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { Choice, Option, OptionSet } from '../../types/domain/helpers/Choice';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 import {
 	ChoiceRecord,
 	OptionSetRecord,
 	OptionRecord,
-} from '../types/storage/helpers/ChoiceRecord.js';
-import { Choice, OptionSet, Option } from '../types/domain/helpers/Choice.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+} from '../../types/storage/helpers/ChoiceRecord';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class ChoiceRecordToDomainMapper
 	implements IMapper<ChoiceRecord, Choice>

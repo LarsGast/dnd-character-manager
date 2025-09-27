@@ -1,12 +1,12 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { Race } from '../types/domain/resources/Race.js';
-import { RaceRecord } from '../types/storage/resources/RaceRecord.js';
-import { AbilityBonus } from '../types/domain/helpers/AbilityBonus.js';
-import { Choice } from '../types/domain/helpers/Choice.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
-import { AbilityBonusRecord } from '../types/storage/helpers/AbilityBonusRecord.js';
-import { ChoiceRecord } from '../types/storage/helpers/ChoiceRecord.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
+import { Choice } from '../../types/domain/helpers/Choice';
+import { Race } from '../../types/domain/resources/Race';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { AbilityBonusRecord } from '../../types/storage/helpers/AbilityBonusRecord';
+import { ChoiceRecord } from '../../types/storage/helpers/ChoiceRecord';
+import { RaceRecord } from '../../types/storage/resources/RaceRecord';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 	/**

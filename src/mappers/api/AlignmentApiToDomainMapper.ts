@@ -1,8 +1,8 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { AlignmentApiDto } from '../types/api/resources/AlignmentApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Alignment } from '../types/domain/resources/Alignment.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { AlignmentApiDto } from '../../types/api/resources/AlignmentApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Alignment } from '../../types/domain/resources/Alignment.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class AlignmentApiToDomainMapper
 	implements IMapper<AlignmentApiDto, Alignment>

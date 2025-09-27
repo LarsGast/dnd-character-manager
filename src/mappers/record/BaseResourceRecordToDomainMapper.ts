@@ -1,6 +1,6 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class BaseResourceRecordToDomainMapper
 	implements IMapper<BaseResourceRecord, BaseResource>

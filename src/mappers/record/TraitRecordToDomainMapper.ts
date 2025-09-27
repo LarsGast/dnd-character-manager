@@ -1,10 +1,10 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { TraitRecord } from '../types/storage/resources/TraitRecord.js';
-import { Trait } from '../types/domain/resources/Trait.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
-import { ChoiceRecord } from '../types/storage/helpers/ChoiceRecord.js';
-import { Choice } from '../types/domain/helpers/Choice.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { Choice } from '../../types/domain/helpers/Choice';
+import { Trait } from '../../types/domain/resources/Trait';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ChoiceRecord } from '../../types/storage/helpers/ChoiceRecord';
+import { TraitRecord } from '../../types/storage/resources/TraitRecord';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class TraitRecordToDomainMapper implements IMapper<TraitRecord, Trait> {
 	/**

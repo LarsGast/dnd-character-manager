@@ -1,8 +1,8 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { SkillApiDto } from '../types/api/resources/SkillApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Skill } from '../types/domain/resources/Skill.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { SkillApiDto } from '../../types/api/resources/SkillApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Skill } from '../../types/domain/resources/Skill.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class SkillApiToDomainMapper implements IMapper<SkillApiDto, Skill> {
 	/**

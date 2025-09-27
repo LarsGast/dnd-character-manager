@@ -1,8 +1,8 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { LanguageApiDto } from '../types/api/resources/LanguageApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Language } from '../types/domain/resources/Language.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { LanguageApiDto } from '../../types/api/resources/LanguageApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Language } from '../../types/domain/resources/Language.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class LanguageApiToDomainMapper
 	implements IMapper<LanguageApiDto, Language>

@@ -1,12 +1,16 @@
-import { IMapper } from '../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	ChoiceApiDto,
 	OptionApiDto,
 	OptionSetApiDto,
-} from '../types/api/helpers/ChoiceApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice, Option, OptionSet } from '../types/domain/helpers/Choice.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+} from '../../types/api/helpers/ChoiceApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import {
+	Choice,
+	Option,
+	OptionSet,
+} from '../../types/domain/helpers/Choice.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 /**
  * Maps choice API DTOs to domain model choices.

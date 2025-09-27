@@ -1,8 +1,8 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { AbilityScoreApiDto } from '../types/api/resources/AbilityScoreApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { AbilityScore } from '../types/domain/resources/AbilityScore.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { AbilityScoreApiDto } from '../../types/api/resources/AbilityScoreApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { AbilityScore } from '../../types/domain/resources/AbilityScore.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class AbilityScoreApiToDomainMapper
 	implements IMapper<AbilityScoreApiDto, AbilityScore>

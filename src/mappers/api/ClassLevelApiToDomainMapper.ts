@@ -1,14 +1,14 @@
-import { IMapper } from '../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	ClassLevelApiDto,
 	SpellcastingApiDto,
-} from '../types/api/resources/ClassLevelApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
+} from '../../types/api/resources/ClassLevelApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
 import {
 	ClassLevel,
 	Spellcasting,
-} from '../types/domain/resources/ClassLevel.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+} from '../../types/domain/resources/ClassLevel.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class ClassLevelApiToDomainMapper
 	implements IMapper<ClassLevelApiDto, ClassLevel>

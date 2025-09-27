@@ -1,8 +1,8 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { EquipmentCategoryApiDto } from '../types/api/resources/EquipmentCategoryApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { EquipmentCategory } from '../types/domain/resources/EquipmentCategory.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { EquipmentCategoryApiDto } from '../../types/api/resources/EquipmentCategoryApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { EquipmentCategory } from '../../types/domain/resources/EquipmentCategory.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 export class EquipmentCategoryApiToDomainMapper
 	implements IMapper<EquipmentCategoryApiDto, EquipmentCategory>
