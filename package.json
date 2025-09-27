@@ -1,27 +1,28 @@
 {
-  "devDependencies": {
-    "concurrently": "^9.2.1",
-    "cpy-cli": "^6.0.0",
-    "prettier": "3.6.2",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.9.2"
-  },
-  "scripts": {
-    "clean": "rimraf build _site",
-    "prebuild": "npm run clean",
-    "predev": "npm run clean",
-
-    "format:check": "prettier . --check",
-    "format:write": "prettier . --write",
-
-    "watch:ts": "tsc --watch",
-    "watch:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build --watch",
-    "serve:jekyll": "bundle exec jekyll serve",
-    "dev": "concurrently \"npm:watch:ts\" \"npm:watch:static\" \"npm:serve:jekyll\" -c yellow,cyan,magenta",
-
-    "build:ts": "tsc",
-    "build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
-    "build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
-    "build": "npm run build:ts && npm run build:static && npm run build:jekyll"
-  }
+	"devDependencies": {
+		"concurrently": "^9.2.1",
+		"cpy-cli": "^6.0.0",
+		"prettier": "3.6.2",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.9.2"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"format:check": "prettier . --check",
+		"format:write": "prettier . --write",
+		"clean": "rimraf build _site",
+		"prebuild": "npm run clean",
+		"predev": "npm run clean",
+		"watch:ts": "tsc --watch",
+		"watch:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build --watch",
+		"serve:jekyll": "bundle exec jekyll serve",
+		"dev": "concurrently \"npm:watch:ts\" \"npm:watch:static\" \"npm:serve:jekyll\" -c yellow,cyan,magenta",
+		"build:ts": "tsc",
+		"build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
+		"build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
+		"build": "npm run build:ts && npm run build:static && npm run build:jekyll"
+	},
+	"lint-staged": {
+		"**/*": "prettier --write --ignore-unknown"
+	}
 }
