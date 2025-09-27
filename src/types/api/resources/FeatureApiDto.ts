@@ -13,12 +13,12 @@ export interface FeatureApiDto extends BaseResourceApiDto {
     level: number;
 
     /**
-     * The class that this feature is a prt of.
+     * The class that this feature is a part of.
      */
     class: BaseResourceApiDto;
 
     /**
-     * The subclass that this feature is a prt of.
+     * The subclass that this feature is a part of.
      */
     subclass?: BaseResourceApiDto;
 
