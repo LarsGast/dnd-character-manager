@@ -35,8 +35,8 @@ export class TraitRecordToDomainMapper implements IMapper<TraitRecord, Trait> {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			races: [],
-			subraces: [],
+			races: [], // Can be filled later if needed
+			subraces: [], // Can be filled later if needed
 			proficiencies: source.proficiencies.map((p) =>
 				this.baseResourceMapper.map(p),
 			),
