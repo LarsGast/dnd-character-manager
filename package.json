@@ -11,11 +11,14 @@
     "prebuild": "npm run clean",
     "predev": "npm run clean",
 
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write",
+
     "watch:ts": "tsc --watch",
     "watch:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build --watch",
     "serve:jekyll": "bundle exec jekyll serve",
     "dev": "concurrently \"npm:watch:ts\" \"npm:watch:static\" \"npm:serve:jekyll\" -c yellow,cyan,magenta",
-    
+
     "build:ts": "tsc",
     "build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
     "build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
