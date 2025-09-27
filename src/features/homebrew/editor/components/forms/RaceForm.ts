@@ -95,16 +95,24 @@ export class RaceForm extends HomebrewBaseForm {
      * @override Race specific properties.
      */
     override async getFormDataAsync(): Promise<Race> {
+        const formData = new FormData(this);
 
-        const data = (await super.getFormDataAsync()) as Race;
+        const baseResource = await super.getFormDataAsync();
 
-        data.ability_bonuses = await this.abilityBonusesSection!.getValueAsync();
-        data.traits = this.traitsSection!.getValue();
-        data.languages = this.languagesSection!.getValue();
-        data.language_options = this.languageOptionsSection!.getValue();
-        data.subraces = this.subracesSection!.getValue();
-
-        return data;
+        return {
+            ...baseResource,
+            ability_bonuses: await this.abilityBonusesSection!.getValueAsync(),
+            age: formData.get("age")!.toString(),
+            alignment: formData.get("alignment")!.toString(),
+            size: formData.get("size")!.toString(),
+            size_description: formData.get("size_description")!.toString(),
+            speed: parseInt(formData.get("speed")!.toString(), 10),
+            traits: this.traitsSection!.getValue(),
+            languages: this.languagesSection!.getValue(),
+            language_options: this.languageOptionsSection!.getValue(),
+            language_desc: formData.get("language_desc")!.toString(),
+            subraces: this.subracesSection!.getValue(),
+        }
     }
 }
 

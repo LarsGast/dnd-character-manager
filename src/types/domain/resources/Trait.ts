@@ -10,16 +10,6 @@ export interface Trait extends BaseResource {
     desc: string[];
 
     /**
-     * List of races that get this trait.
-     */
-    races: BaseResource[];
-
-    /**
-     * List of subraces that get this trait.
-     */
-    subraces: BaseResource[];
-
-    /**
      * List of proficiencies that this trait provides.
      */
     proficiencies: BaseResource[];

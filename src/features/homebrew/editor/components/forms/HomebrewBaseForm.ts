@@ -57,14 +57,14 @@ export class HomebrewBaseForm extends HTMLFormElement {
         // Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id')!;
-        const data = homebrewRepository.get(id)!;
+        const oldResource = homebrewRepository.get(id)!;
 
-        // Overwrite the properties of the ApiObjectInfo instance with the form data.
-        for (const [key, value] of formData) {
-            (data as any)[key] = value;
-        }
-        
-        return Promise.resolve(data);
+        return Promise.resolve({
+            index: oldResource.index,
+            name: formData.get("name")!.toString(),
+            resourceType: oldResource.resourceType,
+            isHomebrew: true
+        });
     }
 
     /**

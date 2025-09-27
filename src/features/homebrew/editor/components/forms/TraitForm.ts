@@ -49,7 +49,7 @@ export class TraitForm extends HomebrewBaseForm {
         this.proficienciesSection = new LinkedObjectsSection(
             "Proficiencies",
             (await proficiencyRepository.getAllAsync()),
-            this.trait.proficiencies,
+            this.trait.proficiencies ?? [],
             "List of proficiencies that this trait provides."
         );
         fragment.appendChild(this.proficienciesSection);
@@ -77,15 +77,16 @@ export class TraitForm extends HomebrewBaseForm {
      * @override Trait specific properties.
      */
     override async getFormDataAsync(): Promise<Trait> {
-    
-        const data = (await super.getFormDataAsync()) as Trait;
 
-        data.desc = this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0);
-        data.proficiencies = this.proficienciesSection!.getValue();
-        data.proficiency_choices = this.proficiencyChoicesSection!.getValue();
-        data.language_options = this.languageOptionsSection!.getValue();
+        const baseResource = await super.getFormDataAsync();
 
-        return data;
+        return {
+            ...baseResource,
+            desc: this.descriptionSection!.getElementsByTagName('textarea')[0].value.split('\n').map((p: string) => p.trim()).filter((p: string | any[]) => p.length > 0),
+            proficiencies: this.proficienciesSection!.getValue(),
+            proficiency_choices: this.proficiencyChoicesSection!.getValue(),
+            language_options: this.languageOptionsSection!.getValue()
+        };
     }
 }
 

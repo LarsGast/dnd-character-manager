@@ -9,6 +9,8 @@ import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 import { ResourceList } from "../types/domain/wrappers/ResourceList.js";
 import { BaseResourceRepository } from "./BaseResourceRepository.js";
 import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto.js";
+import { Subrace } from "../types/domain/resources/Subrace.js";
+import { Race } from "../types/domain/resources/Race.js";
 
 export class TraitRepository extends BaseResourceRepository<TraitApiDto, Trait> implements ITraitRepository {
 
@@ -29,8 +31,8 @@ export class TraitRepository extends BaseResourceRepository<TraitApiDto, Trait> 
      */
     public async getAllTraitsByRaceAsync(raceId: string): Promise<ResourceList> {
 
-        const allHomebrewTraits = this.homebrewRepository.getAllByResourceType<Trait>("traits");
-        const homebrewTraits = allHomebrewTraits.filter(trait => trait.races.some(race => race.index === raceId));
+        const homebrewRace = this.homebrewRepository.get<Race>(raceId)!;
+        const homebrewTraits = homebrewRace.traits;
 
         const endpoint = `races/${raceId}/traits`;
         const apiClassLevels = await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
@@ -46,8 +48,8 @@ export class TraitRepository extends BaseResourceRepository<TraitApiDto, Trait> 
      */
     public async getAllTraitsBySubraceAsync(subraceId: string): Promise<ResourceList> {
 
-        const allHomebrewTraits = this.homebrewRepository.getAllByResourceType<Trait>("traits");
-        const homebrewTraits = allHomebrewTraits.filter(trait => trait.subraces.some(subrace => subrace.index === subraceId));
+        const homebrewSubrace = this.homebrewRepository.get<Subrace>(subraceId)!;
+        const homebrewTraits = homebrewSubrace.racial_traits;
 
         const endpoint = `subraces/${subraceId}/traits`;
         const apiClassLevels = await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);

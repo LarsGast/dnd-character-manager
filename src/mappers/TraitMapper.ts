@@ -27,8 +27,6 @@ export class TraitMapper implements IMapper<TraitApiDto, Trait> {
         return {
             ...this.baseResourceMapper.map(source),
             desc: source.desc,
-            races: source.races.map(race => this.baseResourceMapper.map(race)),
-            subraces: source.subraces.map(subrace => this.baseResourceMapper.map(subrace)),
             proficiencies: source.proficiencies.map(proficiency => this.baseResourceMapper.map(proficiency)),
             proficiency_choices: source.proficiency_choices === undefined ? undefined : this.choiceMapper.map(source.proficiency_choices),
             language_options: source.language_options === undefined ? undefined : this.choiceMapper.map(source.language_options),
