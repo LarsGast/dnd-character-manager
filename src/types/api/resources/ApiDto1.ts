@@ -1,1 +1,0 @@
-<content of src/types/api/resources/ApiDto1.ts from main>

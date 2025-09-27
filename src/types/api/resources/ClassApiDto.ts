@@ -1,14 +1,10 @@
 import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 import { ChoiceApiDto } from "../helpers/ChoiceApiDto.js";
 
-/**
- * API DTO representing a D&D 5e character class.
- * Contains all information about a class including hit die, multiclassing rules, and starting equipment.
- */
 export interface ClassApiDto extends BaseResourceApiDto {
 
     /**
-     * The hit die size for the class (e.g., 12 represents a d12 hit die).
+     * Hit die of the class. (ex: 12 == 1d12).
      */
     hit_die: number;
 
