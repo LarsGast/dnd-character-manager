@@ -2,7 +2,7 @@ import { AbilityBonusRecord } from '../helpers/AbilityBonusRecord.js';
 import { ChoiceRecord } from '../helpers/ChoiceRecord.js';
 import { BaseResourceRecord } from '../wrappers/BaseResourceRecord.js';
 
-export interface Race extends BaseResourceRecord {
+export interface RaceRecord extends BaseResourceRecord {
 	/**
 	 * Speed of the race in feet per round.
 	 */

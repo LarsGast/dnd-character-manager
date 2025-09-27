@@ -13,5 +13,5 @@ export interface BaseResourceApiDto {
 	/**
 	 * Url to the object within the API.
 	 */
-	url: URL;
+	url: string;
 }

@@ -17,7 +17,7 @@ export interface BaseResource {
 	/**
 	 * URL to the resource within the API (optional).
 	 */
-	url?: URL;
+	url?: string;
 
 	/**
 	 * Type of the resource indicating its category.

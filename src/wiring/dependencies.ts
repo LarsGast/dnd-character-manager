@@ -18,6 +18,11 @@ import { SubclassApiToDomainMapper } from '../mappers/SubclassApiToDomainMapper.
 import { SubraceApiToDomainMapper } from '../mappers/SubraceApiToDomainMapper.js';
 import { TraitApiToDomainMapper } from '../mappers/TraitApiToDomainMapper.js';
 import { WeaponApiToDomainMapper } from '../mappers/WeaponApiToDomainMapper.js';
+import { BaseResourceRecordToDomainMapper } from '../mappers/BaseResourceRecordToDomainMapper.js';
+import { AbilityBonusRecordToDomainMapper } from '../mappers/AbilityBonusRecordToDomainMapper.js';
+import { ChoiceRecordToDomainMapper } from '../mappers/ChoiceRecordToDomainMapper.js';
+import { TraitRecordToDomainMapper } from '../mappers/TraitRecordToDomainMapper.js';
+import { RaceRecordToDomainMapper } from '../mappers/RaceRecordToDomainMapper.js';
 import { BaseResourceRepository } from '../repositories/BaseResourceRepository.js';
 import { ClassLevelRepository } from '../repositories/ClassLevelRepository.js';
 import { FeatureRepository } from '../repositories/FeatureRepository.js';
@@ -53,7 +58,7 @@ const srdApiService = new SrdApiService(
 );
 
 // --------------------
-// Mappers
+// API to Domain Mappers
 // --------------------
 const baseResourceApiToDomainMapper = new BaseResourceApiToDomainMapper();
 const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
@@ -121,6 +126,26 @@ const traitApiToDomainMapper = new TraitApiToDomainMapper(
 const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	equipmentApiToDomainMapper,
+);
+
+// --------------------
+// Record to Domain Mappers
+// --------------------
+const baseResourceRecordToDomainMapper = new BaseResourceRecordToDomainMapper();
+const abilityBonusRecordToDomainMapper = new AbilityBonusRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+);
+const choiceRecordToDomainMapper = new ChoiceRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+);
+const traitRecordToDomainMapper = new TraitRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+	choiceRecordToDomainMapper,
+);
+const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+	abilityBonusRecordToDomainMapper,
+	choiceRecordToDomainMapper,
 );
 
 // --------------------
