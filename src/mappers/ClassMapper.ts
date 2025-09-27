@@ -43,7 +43,7 @@ export class ClassMapper implements IMapper<ClassApiDto, Class> {
     private mapMultiClassing(source: MultiClassingApiDto): MultiClassing {
         return {
             prerequisites: source.prerequisites === undefined ? [] : source.prerequisites.map(prerequisite => this.mapPrerequisite(prerequisite)),
-            prerequisite_options: source.prerequisite_options === undefined ? source.prerequisite_options : this.choiceMapper.map(source.prerequisite_options),
+            prerequisite_options: source.prerequisite_options === undefined ? undefined : this.choiceMapper.map(source.prerequisite_options),
             proficiencies: source.proficiencies.map(proficiency => this.baseResourceMapper.map(proficiency)),
             proficiency_choices: source.proficiency_choices?.map(proficiencyChoice => this.choiceMapper.map(proficiencyChoice))
         };
