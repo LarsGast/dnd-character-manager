@@ -41,6 +41,25 @@ function siteStartupCleanup(): void {
 			console.error('Error parsing homebrewBank:', error);
 		}
 	}
+
+	// v0.4.0: rename "index" to "id" in homebrew resources.
+	Object.keys(localStorage).forEach((key) => {
+		if (key.startsWith('homebrew_')) {
+			const item = localStorage.getItem(key);
+			if (item) {
+				try {
+					const parsed = JSON.parse(item);
+					if (parsed && parsed.index) {
+						parsed.id = parsed.index;
+						delete parsed.index;
+						localStorage.setItem(key, JSON.stringify(parsed));
+					}
+				} catch (error) {
+					console.error(`Error parsing ${key}:`, error);
+				}
+			}
+		}
+	});
 }
 
 // Run cleanup immediately on page load.
