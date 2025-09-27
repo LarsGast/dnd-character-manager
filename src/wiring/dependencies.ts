@@ -1,23 +1,23 @@
-import { AbilityBonusMapper } from '../mappers/AbilityBonusMapper.js';
-import { AbilityScoreMapper } from '../mappers/AbilityScoreMapper.js';
-import { AlignmentMapper } from '../mappers/AlignmentMapper.js';
-import { ArmorMapper } from '../mappers/ArmorMapper.js';
-import { BackgroundMapper } from '../mappers/BackgroundMapper.js';
-import { BaseResourceMapper } from '../mappers/BaseResourceMapper.js';
-import { ChoiceMapper } from '../mappers/ChoiceMapper.js';
-import { ClassLevelMapper } from '../mappers/ClassLevelMapper.js';
-import { ClassMapper } from '../mappers/ClassMapper.js';
-import { EquipmentCategoryMapper } from '../mappers/EquipmentCategoryMapper.js';
-import { EquipmentMapper } from '../mappers/EquipmentMapper.js';
-import { FeatureMapper } from '../mappers/FeatureMapper.js';
-import { LanguageMapper } from '../mappers/LanguageMapper.js';
-import { ProficiencyMapper } from '../mappers/ProficiencyMapper.js';
-import { RaceMapper } from '../mappers/RaceMapper.js';
-import { SkillMapper } from '../mappers/SkillMapper.js';
-import { SubclassMapper } from '../mappers/SubclassMapper.js';
-import { SubraceMapper } from '../mappers/SubraceMapper.js';
-import { TraitMapper } from '../mappers/TraitMapper.js';
-import { WeaponMapper } from '../mappers/WeaponMapper.js';
+import { AbilityBonusApiToDomainMapper } from '../mappers/api/AbilityBonusApiToDomainMapper.js';
+import { AbilityScoreApiToDomainMapper } from '../mappers/api/AbilityScoreApiToDomainMapper.js';
+import { AlignmentApiToDomainMapper } from '../mappers/api/AlignmentApiToDomainMapper.js';
+import { ArmorApiToDomainMapper } from '../mappers/api/ArmorApiToDomainMapper.js';
+import { BackgroundApiToDomainMapper } from '../mappers/api/BackgroundApiToDomainMapper.js';
+import { BaseResourceApiToDomainMapper } from '../mappers/api/BaseResourceApiToDomainMapper.js';
+import { ChoiceApiToDomainMapper } from '../mappers/api/ChoiceApiToDomainMapper.js';
+import { ClassLevelApiToDomainMapper } from '../mappers/api/ClassLevelApiToDomainMapper.js';
+import { ClassApiToDomainMapper } from '../mappers/api/ClassApiToDomainMapper.js';
+import { EquipmentCategoryApiToDomainMapper } from '../mappers/api/EquipmentCategoryApiToDomainMapper.js';
+import { EquipmentApiToDomainMapper } from '../mappers/api/EquipmentApiToDomainMapper.js';
+import { FeatureApiToDomainMapper } from '../mappers/api/FeatureApiToDomainMapper.js';
+import { LanguageApiToDomainMapper } from '../mappers/api/LanguageApiToDomainMapper.js';
+import { ProficiencyApiToDomainMapper } from '../mappers/api/ProficiencyApiToDomainMapper.js';
+import { RaceApiToDomainMapper } from '../mappers/api/RaceApiToDomainMapper.js';
+import { SkillApiToDomainMapper } from '../mappers/api/SkillApiToDomainMapper.js';
+import { SubclassApiToDomainMapper } from '../mappers/api/SubclassApiToDomainMapper.js';
+import { SubraceApiToDomainMapper } from '../mappers/api/SubraceApiToDomainMapper.js';
+import { TraitApiToDomainMapper } from '../mappers/api/TraitApiToDomainMapper.js';
+import { WeaponApiToDomainMapper } from '../mappers/api/WeaponApiToDomainMapper.js';
 import { BaseResourceRepository } from '../repositories/BaseResourceRepository.js';
 import { ClassLevelRepository } from '../repositories/ClassLevelRepository.js';
 import { FeatureRepository } from '../repositories/FeatureRepository.js';
@@ -26,6 +26,11 @@ import { TraitRepository } from '../repositories/TraitRepository.js';
 import { CacheService } from '../services/CacheService.js';
 import { LocalStorageService } from '../services/LocalStorageService.js';
 import { SrdApiService } from '../services/SrdApiService.js';
+import { AbilityBonusRecordToDomainMapper } from '../mappers/record/AbilityBonusRecordToDomainMapper.js';
+import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResourceRecordToDomainMapper.js';
+import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper.js';
+import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper.js';
+import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -53,38 +58,95 @@ const srdApiService = new SrdApiService(
 );
 
 // --------------------
-// Mappers
+// API to Domain Mappers
 // --------------------
-const baseResourceMapper = new BaseResourceMapper();
-const abilityBonusMapper = new AbilityBonusMapper(baseResourceMapper);
-const choiceMapper = new ChoiceMapper(baseResourceMapper);
-
-const equipmentMapper = new EquipmentMapper(baseResourceMapper);
-
-const abilityScoreMapper = new AbilityScoreMapper(baseResourceMapper);
-const alignmentMapper = new AlignmentMapper(baseResourceMapper);
-const armorMapper = new ArmorMapper(equipmentMapper);
-const backgroundMapper = new BackgroundMapper(baseResourceMapper, choiceMapper);
-const classMapper = new ClassMapper(baseResourceMapper, choiceMapper);
-const classLevelMapper = new ClassLevelMapper(baseResourceMapper);
-const equipmentCategoryMapper = new EquipmentCategoryMapper(baseResourceMapper);
-const featureMapper = new FeatureMapper(baseResourceMapper);
-const languageMapper = new LanguageMapper(baseResourceMapper);
-const proficiencyMapper = new ProficiencyMapper(baseResourceMapper);
-const raceMapper = new RaceMapper(
-	baseResourceMapper,
-	abilityBonusMapper,
-	choiceMapper,
+const baseResourceApiToDomainMapper = new BaseResourceApiToDomainMapper();
+const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
+	baseResourceApiToDomainMapper,
 );
-const skillMapper = new SkillMapper(baseResourceMapper);
-const subclassMapper = new SubclassMapper(baseResourceMapper);
-const subraceMapper = new SubraceMapper(
-	baseResourceMapper,
-	abilityBonusMapper,
-	choiceMapper,
+const choiceApiToDomainMapper = new ChoiceApiToDomainMapper(
+	baseResourceApiToDomainMapper,
 );
-const traitMapper = new TraitMapper(baseResourceMapper, choiceMapper);
-const weaponMapper = new WeaponMapper(baseResourceMapper, equipmentMapper);
+
+const equipmentApiToDomainMapper = new EquipmentApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+
+const abilityScoreApiToDomainMapper = new AbilityScoreApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const alignmentApiToDomainMapper = new AlignmentApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const armorApiToDomainMapper = new ArmorApiToDomainMapper(
+	equipmentApiToDomainMapper,
+);
+const backgroundApiToDomainMapper = new BackgroundApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	choiceApiToDomainMapper,
+);
+const classApiToDomainMapper = new ClassApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	choiceApiToDomainMapper,
+);
+const classLevelApiToDomainMapper = new ClassLevelApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const equipmentCategoryApiToDomainMapper =
+	new EquipmentCategoryApiToDomainMapper(baseResourceApiToDomainMapper);
+const featureApiToDomainMapper = new FeatureApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const languageApiToDomainMapper = new LanguageApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const proficiencyApiToDomainMapper = new ProficiencyApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const raceApiToDomainMapper = new RaceApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	abilityBonusApiToDomainMapper,
+	choiceApiToDomainMapper,
+);
+const skillApiToDomainMapper = new SkillApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const subclassApiToDomainMapper = new SubclassApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+const subraceApiToDomainMapper = new SubraceApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	abilityBonusApiToDomainMapper,
+	choiceApiToDomainMapper,
+);
+const traitApiToDomainMapper = new TraitApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	choiceApiToDomainMapper,
+);
+const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+	equipmentApiToDomainMapper,
+);
+
+// --------------------
+// Record to Domain Mappers
+// --------------------
+const baseResourceRecordToDomainMapper = new BaseResourceRecordToDomainMapper();
+const abilityBonusRecordToDomainMapper = new AbilityBonusRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+);
+const choiceRecordToDomainMapper = new ChoiceRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+);
+const traitRecordToDomainMapper = new TraitRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+	choiceRecordToDomainMapper,
+);
+const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+	abilityBonusRecordToDomainMapper,
+	choiceRecordToDomainMapper,
+);
 
 // --------------------
 // Repositories
@@ -95,108 +157,112 @@ export const abilityScoreRepository = new BaseResourceRepository(
 	'ability-scores',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	abilityScoreMapper,
+	baseResourceApiToDomainMapper,
+	abilityScoreApiToDomainMapper,
 );
 export const alignmentRepository = new BaseResourceRepository(
 	'alignments',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	alignmentMapper,
+	baseResourceApiToDomainMapper,
+	alignmentApiToDomainMapper,
 );
 export const armorRepository = new BaseResourceRepository(
 	'equipment',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	armorMapper,
+	baseResourceApiToDomainMapper,
+	armorApiToDomainMapper,
 );
 export const backgroundRepository = new BaseResourceRepository(
 	'backgrounds',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	backgroundMapper,
+	baseResourceApiToDomainMapper,
+	backgroundApiToDomainMapper,
 );
 export const classRepository = new BaseResourceRepository(
 	'classes',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	classMapper,
+	baseResourceApiToDomainMapper,
+	classApiToDomainMapper,
 );
 export const classLevelRepository = new ClassLevelRepository(
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	classLevelMapper,
+	baseResourceApiToDomainMapper,
+	classLevelApiToDomainMapper,
 );
 export const equipmentCategoryRepository = new BaseResourceRepository(
 	'equipment-categories',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	equipmentCategoryMapper,
+	baseResourceApiToDomainMapper,
+	equipmentCategoryApiToDomainMapper,
 );
 export const featureRepository = new FeatureRepository(
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	featureMapper,
+	baseResourceApiToDomainMapper,
+	featureApiToDomainMapper,
 );
 export const languageRepository = new BaseResourceRepository(
 	'languages',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	languageMapper,
+	baseResourceApiToDomainMapper,
+	languageApiToDomainMapper,
 );
 export const proficiencyRepository = new BaseResourceRepository(
 	'proficiencies',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	proficiencyMapper,
+	baseResourceApiToDomainMapper,
+	proficiencyApiToDomainMapper,
 );
 export const raceRepository = new BaseResourceRepository(
 	'races',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	raceMapper,
+	baseResourceApiToDomainMapper,
+	raceApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
+	raceRecordToDomainMapper,
 );
 export const skillRepository = new BaseResourceRepository(
 	'skills',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	skillMapper,
+	baseResourceApiToDomainMapper,
+	skillApiToDomainMapper,
 );
 export const subclassRepository = new BaseResourceRepository(
 	'subclasses',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	subclassMapper,
+	baseResourceApiToDomainMapper,
+	subclassApiToDomainMapper,
 );
 export const subraceRepository = new BaseResourceRepository(
 	'subraces',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	subraceMapper,
+	baseResourceApiToDomainMapper,
+	subraceApiToDomainMapper,
 );
 export const traitRepository = new TraitRepository(
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	traitMapper,
+	baseResourceApiToDomainMapper,
+	traitApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
+	traitRecordToDomainMapper,
 );
 export const weaponRepository = new BaseResourceRepository(
 	'equipment',
 	homebrewRepository,
 	srdApiService,
-	baseResourceMapper,
-	weaponMapper,
+	baseResourceApiToDomainMapper,
+	weaponApiToDomainMapper,
 );

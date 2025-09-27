@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -183,23 +183,23 @@ export class HomebrewImportDialog extends HTMLDialogElement {
 	 */
 	handleImportButtonClick(): void {
 		// Create a new Homebrew from the JSON data.
-		const homebrewBankEntry = JSON.parse(
+		const baseResourceRecord = JSON.parse(
 			this.previewTextarea.value,
-		) as BaseResource;
+		) as BaseResourceRecord;
 		const existingHomebrewResource = homebrewRepository.get(
-			homebrewBankEntry.index,
+			baseResourceRecord.id,
 		);
 
 		if (!existingHomebrewResource) {
 			// Add to the bank.
-			homebrewRepository.save(homebrewBankEntry.index, homebrewBankEntry);
+			homebrewRepository.save(baseResourceRecord.id, baseResourceRecord);
 
 			document.dispatchEvent(new Event('homebrewImported'));
 		} else {
 			document.dispatchEvent(
 				new CustomEvent('homebrewImportIdAlreadyExists', {
 					detail: {
-						homebrewBankEntry: homebrewBankEntry,
+						homebrewBankEntry: baseResourceRecord,
 					},
 					bubbles: true,
 				}),

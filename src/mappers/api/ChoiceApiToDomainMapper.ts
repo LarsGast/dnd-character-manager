@@ -1,18 +1,22 @@
-import { IMapper } from '../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	ChoiceApiDto,
 	OptionApiDto,
 	OptionSetApiDto,
-} from '../types/api/helpers/ChoiceApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice, Option, OptionSet } from '../types/domain/helpers/Choice.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+} from '../../types/api/helpers/ChoiceApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import {
+	Choice,
+	Option,
+	OptionSet,
+} from '../../types/domain/helpers/Choice.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
 /**
  * Maps choice API DTOs to domain model choices.
  * Handles the complex nested structure of choices, option sets, and individual options that represent player decisions in D&D 5e features.
  */
-export class ChoiceMapper implements IMapper<ChoiceApiDto, Choice> {
+export class ChoiceApiToDomainMapper implements IMapper<ChoiceApiDto, Choice> {
 	/**
 	 * Mapper for converting base resource API DTOs to domain objects.
 	 */

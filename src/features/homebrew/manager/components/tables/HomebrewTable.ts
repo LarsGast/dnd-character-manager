@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { getElementWithTextContent } from '../../../../../utils/util.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 import { HomebrewDeleteButton } from '../buttons/HomebrewDeleteButton.js';
@@ -104,7 +104,7 @@ export class HomebrewTable extends HTMLTableElement {
 	 * @param resource The homebrew entry to create the row for.
 	 * @returns The table row element containing the entry's data.
 	 */
-	getTableBodyRow(resource: BaseResource): HTMLTableRowElement {
+	getTableBodyRow(resource: BaseResourceRecord): HTMLTableRowElement {
 		const row = document.createElement('tr');
 
 		row.appendChild(this.getButtonsColumnValue(resource));
@@ -120,12 +120,12 @@ export class HomebrewTable extends HTMLTableElement {
 	 * @param resource The homebrew entry to create the buttons for.
 	 * @returns The table cell containing the buttons.
 	 */
-	getButtonsColumnValue(resource: BaseResource): HTMLTableCellElement {
+	getButtonsColumnValue(resource: BaseResourceRecord): HTMLTableCellElement {
 		const td = document.createElement('td');
 
-		td.appendChild(new HomebrewEditButton(resource.index));
-		td.appendChild(new HomebrewExportButton(resource.index));
-		td.appendChild(new HomebrewDeleteButton(resource.index));
+		td.appendChild(new HomebrewEditButton(resource.id));
+		td.appendChild(new HomebrewExportButton(resource.id));
+		td.appendChild(new HomebrewDeleteButton(resource.id));
 
 		return td;
 	}

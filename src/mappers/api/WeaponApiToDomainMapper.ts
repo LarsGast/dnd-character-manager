@@ -1,16 +1,16 @@
-import { IMapper } from '../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	DamageApiDto,
 	RangeApiDto,
 	WeaponApiDto,
-} from '../types/api/resources/WeaponApiDto.js';
-import { EquipmentApiDto } from '../types/api/resources/EquipmentApiDto.js';
-import { Damage, Range, Weapon } from '../types/domain/resources/Weapon.js';
-import { Equipment } from '../types/domain/resources/Equipment.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+} from '../../types/api/resources/WeaponApiDto.js';
+import { EquipmentApiDto } from '../../types/api/resources/EquipmentApiDto.js';
+import { Damage, Range, Weapon } from '../../types/domain/resources/Weapon.js';
+import { Equipment } from '../../types/domain/resources/Equipment.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
-export class WeaponMapper implements IMapper<WeaponApiDto, Weapon> {
+export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

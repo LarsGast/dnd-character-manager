@@ -1,7 +1,7 @@
-import { Choice } from '../helpers/Choice.js';
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { ChoiceRecord } from '../helpers/ChoiceRecord.js';
+import { BaseResourceRecord } from '../wrappers/BaseResourceRecord.js';
 
-export interface Trait extends BaseResource {
+export interface TraitRecord extends BaseResourceRecord {
 	/**
 	 * Description of the trait.
 	 * Can consist of multiple paragraphs.
@@ -9,29 +9,19 @@ export interface Trait extends BaseResource {
 	desc: string[];
 
 	/**
-	 * List of races that get this trait.
-	 */
-	races: BaseResource[];
-
-	/**
-	 * List of subraces that get this trait.
-	 */
-	subraces: BaseResource[];
-
-	/**
 	 * List of proficiencies that this trait provides.
 	 */
-	proficiencies: BaseResource[];
+	proficiencies: BaseResourceRecord[];
 
 	/**
 	 * If applicable, a choice in proficiencies that the player can make when getting this trait.
 	 */
-	proficiency_choices?: Choice;
+	proficiency_choices?: ChoiceRecord;
 
 	/**
 	 * If applicable, a choice in languages that the player can make when getting this trait.
 	 */
-	language_options?: Choice;
+	language_options?: ChoiceRecord;
 
 	/**
 	 * Any extra trait-specific information.

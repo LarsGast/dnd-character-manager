@@ -1,4 +1,4 @@
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
 
 /**
  * Interface for a homebrew storage repository.
@@ -10,14 +10,14 @@ export interface IHomebrewRepository {
 	 * @param key Identifier of the homebrew resource.
 	 * @returns undefined if no homebrew resource exists in storage with given key.
 	 */
-	get<T extends BaseResource>(id: string): T | undefined;
+	get<T extends BaseResourceRecord>(id: string): T | undefined;
 
 	/**
 	 * Save a homebrew resource to the repository.
 	 * @param key Identifier of the homebrew resource.
 	 * @param value Value of the homebrew resource.
 	 */
-	save<T extends BaseResource>(id: string, value: T): void;
+	save<T extends BaseResourceRecord>(id: string, value: T): void;
 
 	/**
 	 * Delete a homebrew resource
@@ -29,12 +29,12 @@ export interface IHomebrewRepository {
 	 * Get all homebrew resources from the repository.
 	 * @returns Array of all homebrew resources in storage
 	 */
-	getAll(): BaseResource[];
+	getAll(): BaseResourceRecord[];
 
 	/**
 	 * Get all homebrew resources from the repository by resource type
 	 * @param resourceType Resource to get all homebrew resources from (e.g. "classes", "races", "spells").
 	 * @returns All homebrew resources of given resource type.
 	 */
-	getAllByResourceType<T extends BaseResource>(resourceType: string): T[];
+	getAllByResourceType<T extends BaseResourceRecord>(resourceType: string): T[];
 }

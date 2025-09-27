@@ -1,10 +1,12 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { FeatureApiDto } from '../types/api/resources/FeatureApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Feature } from '../types/domain/resources/Feature.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { FeatureApiDto } from '../../types/api/resources/FeatureApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Feature } from '../../types/domain/resources/Feature.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
-export class FeatureMapper implements IMapper<FeatureApiDto, Feature> {
+export class FeatureApiToDomainMapper
+	implements IMapper<FeatureApiDto, Feature>
+{
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

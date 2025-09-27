@@ -9,11 +9,12 @@ import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
 import { BaseResourceRepository } from './BaseResourceRepository.js';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto.js';
-import { Subrace } from '../types/domain/resources/Subrace.js';
-import { Race } from '../types/domain/resources/Race.js';
+import { TraitRecord } from '../types/storage/resources/TraitRecord.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { RaceRecord } from '../types/storage/resources/RaceRecord.js';
 
 export class TraitRepository
-	extends BaseResourceRepository<TraitApiDto, Trait>
+	extends BaseResourceRepository<Trait, TraitApiDto, TraitRecord>
 	implements ITraitRepository
 {
 	/**
@@ -22,23 +23,45 @@ export class TraitRepository
 	public constructor(
 		homebrewRepository: IHomebrewRepository,
 		apiService: ISrdApiService,
-		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
-		traitMapper: IMapper<TraitApiDto, Trait>,
+		baseResourceApiToDomainMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		traitApiToDomainMapper: IMapper<TraitApiDto, Trait>,
+		baseResourceRecordToDomainMapper: IMapper<BaseResourceRecord, BaseResource>,
+		traitRecordToDomainMapper: IMapper<TraitRecord, Trait>,
 	) {
 		super(
 			'traits',
 			homebrewRepository,
 			apiService,
-			baseResourceMapper,
-			traitMapper,
+			baseResourceApiToDomainMapper,
+			traitApiToDomainMapper,
+			baseResourceRecordToDomainMapper,
+			traitRecordToDomainMapper,
 		);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
+	public override async getAsync(id: string): Promise<Trait | undefined> {
+		const trait = await super.getAsync(id);
+
+		if (trait?.isHomebrew) {
+			// Add relations.
+			// Since homebrew traits can only be used by other homebrew resources, we only need to look in the homebrew repository for these relations.
+			trait.races = this.homebrewRepository
+				.getAllByResourceType<RaceRecord>('races')
+				.filter((race) => race.traits.some((trait) => trait.id === id))
+				.map((race) => this.baseResourceStorageToDomainMapper!.map(race));
+		}
+
+		return trait;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
 	public async getAllTraitsByRaceAsync(raceId: string): Promise<ResourceList> {
-		const homebrewRace = this.homebrewRepository.get<Race>(raceId)!;
+		const homebrewRace = this.homebrewRepository.get<RaceRecord>(raceId)!;
 		const homebrewTraits = homebrewRace.traits;
 
 		const endpoint = `races/${raceId}/traits`;
@@ -48,9 +71,11 @@ export class TraitRepository
 		return {
 			count: homebrewTraits.length + apiClassLevels.count,
 			results: [
-				...homebrewTraits,
+				...homebrewTraits.map((record) =>
+					this.baseResourceStorageToDomainMapper!.map(record),
+				),
 				...apiClassLevels.results.map((dto) =>
-					this.baseResourceMapper.map(dto),
+					this.baseResourceApiToDomainMapper.map(dto),
 				),
 			],
 		};
@@ -62,19 +87,15 @@ export class TraitRepository
 	public async getAllTraitsBySubraceAsync(
 		subraceId: string,
 	): Promise<ResourceList> {
-		const homebrewSubrace = this.homebrewRepository.get<Subrace>(subraceId)!;
-		const homebrewTraits = homebrewSubrace.racial_traits;
-
 		const endpoint = `subraces/${subraceId}/traits`;
 		const apiClassLevels =
 			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
 
 		return {
-			count: homebrewTraits.length + apiClassLevels.count,
+			count: apiClassLevels.count,
 			results: [
-				...homebrewTraits,
 				...apiClassLevels.results.map((dto) =>
-					this.baseResourceMapper.map(dto),
+					this.baseResourceApiToDomainMapper.map(dto),
 				),
 			],
 		};

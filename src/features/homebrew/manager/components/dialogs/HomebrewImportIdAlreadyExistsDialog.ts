@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -16,7 +16,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
 	closeButton: HTMLButtonElement;
 	buttonGroup: HTMLDivElement;
 	_updateHandler?: (event: any) => void;
-	homebrewResource?: BaseResource;
+	homebrewResource?: BaseResourceRecord;
 
 	constructor() {
 		super();
@@ -117,7 +117,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
 		this.homebrewResource = event.detail.homebrewBankEntry;
 
 		this.homebrewIdentifierAnchor.textContent = `${this.homebrewResource!.resourceType}: ${this.homebrewResource!.name}`;
-		this.homebrewIdentifierAnchor.href = `homebrew/?id=${this.homebrewResource!.index}`;
+		this.homebrewIdentifierAnchor.href = `homebrew/?id=${this.homebrewResource!.id}`;
 		this.homebrewIdentifierAnchor.target = '_blank';
 	}
 
@@ -135,10 +135,7 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
 	 * Overwrites the existing homebrew object with the new one and saves the homebrew bank
 	 */
 	handleOverwriteButtonClick(): void {
-		homebrewRepository.save(
-			this.homebrewResource!.index,
-			this.homebrewResource!,
-		);
+		homebrewRepository.save(this.homebrewResource!.id, this.homebrewResource!);
 
 		this.close();
 
@@ -151,13 +148,10 @@ export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
 	 * The new object will have the same properties as the existing one, but with a modified name.
 	 */
 	handleKeepBothButtonClick(): void {
-		this.homebrewResource!.index = self.crypto.randomUUID();
+		this.homebrewResource!.id = self.crypto.randomUUID();
 		this.homebrewResource!.name += ' (copy)';
 
-		homebrewRepository.save(
-			this.homebrewResource!.index,
-			this.homebrewResource!,
-		);
+		homebrewRepository.save(this.homebrewResource!.id, this.homebrewResource!);
 
 		this.close();
 

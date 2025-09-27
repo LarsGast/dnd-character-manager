@@ -1,5 +1,5 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { ChoiceApiDto } from '../types/api/helpers/ChoiceApiDto.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto.js';
 import {
 	ClassApiDto,
 	MultiClassingApiDto,
@@ -7,9 +7,9 @@ import {
 	SpellCastingApiDto,
 	SpellCastingInfoApiDto,
 	StartingEquipmentApiDto,
-} from '../types/api/resources/ClassApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice } from '../types/domain/helpers/Choice.js';
+} from '../../types/api/resources/ClassApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Choice } from '../../types/domain/helpers/Choice.js';
 import {
 	Class,
 	MultiClassing,
@@ -17,10 +17,10 @@ import {
 	SpellCasting,
 	SpellCastingInfo,
 	StartingEquipment,
-} from '../types/domain/resources/Class.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+} from '../../types/domain/resources/Class.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
-export class ClassMapper implements IMapper<ClassApiDto, Class> {
+export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */

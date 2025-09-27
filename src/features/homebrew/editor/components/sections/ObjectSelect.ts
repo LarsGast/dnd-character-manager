@@ -1,5 +1,6 @@
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
@@ -67,15 +68,12 @@ export class ObjectSelect extends HTMLElement {
 	 * Gets the value of the selected object.
 	 * @returns An ApiObjectInfo object containing the index and name of the selected object.
 	 */
-	getValue(): BaseResource {
-		const data: BaseResource = {
-			index: this.select.value,
+	getValue(): BaseResourceRecord {
+		return {
+			id: this.select.value,
 			name: this.select.options[this.select.selectedIndex].text,
 			resourceType: '',
-			isHomebrew: false,
 		};
-
-		return data;
 	}
 }
 

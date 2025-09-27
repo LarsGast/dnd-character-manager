@@ -1,5 +1,6 @@
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
 import { ObjectSelect } from './ObjectSelect.js';
 
@@ -78,7 +79,7 @@ export class LinkedObjectsSection extends HTMLElement {
 	 * Gets the form data from the linked objects section.
 	 * @returns An array of ApiObjectInfo objects containing the selected values.
 	 */
-	getValue(): BaseResource[] {
+	getValue(): BaseResourceRecord[] {
 		const objectSelects: ObjectSelect[] = Array.from(
 			this.querySelectorAll('object-select'),
 		);

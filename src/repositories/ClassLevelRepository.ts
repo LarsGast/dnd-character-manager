@@ -47,17 +47,11 @@ export class ClassLevelRepository implements IClassLevelRepository {
 	 * @inheritdoc
 	 */
 	public async getAllAsync(classId: string): Promise<ClassLevel[]> {
-		const allHomebrewClassLevels =
-			this.homebrewRepository.getAllByResourceType<ClassLevel>('classLevels');
-
 		const getEndpoint = this.getEndpoint(classId);
 		const allApiClassLevels =
 			await this.apiService.getByEndpointAsync<ClassLevelApiDto[]>(getEndpoint);
 
-		return [
-			...allHomebrewClassLevels,
-			...allApiClassLevels.map((dto) => this.classLevelMapper.map(dto)),
-		];
+		return allApiClassLevels.map((dto) => this.classLevelMapper.map(dto));
 	}
 
 	/**
@@ -67,16 +61,6 @@ export class ClassLevelRepository implements IClassLevelRepository {
 		classId: string,
 		level: number,
 	): Promise<ClassLevel> {
-		const allHomebrewClassLevels =
-			this.homebrewRepository.getAllByResourceType<ClassLevel>('classLevels');
-		const homebrewClassLevels = allHomebrewClassLevels.find(
-			(classLevel) =>
-				classLevel.class.index === classId && classLevel.level === level,
-		);
-		if (homebrewClassLevels !== undefined) {
-			return homebrewClassLevels;
-		}
-
 		const endpoint = this.getEndpoint(classId, level);
 		const apiClassLevels =
 			await this.apiService.getByEndpointAsync<ClassLevelApiDto>(endpoint);

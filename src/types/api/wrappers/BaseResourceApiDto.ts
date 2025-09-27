@@ -1,7 +1,6 @@
 export interface BaseResourceApiDto {
 	/**
 	 * Unique identifier in the 5e SRD API.
-	 * UUID for homebrew objects.
 	 */
 	index: string;
 
@@ -13,5 +12,5 @@ export interface BaseResourceApiDto {
 	/**
 	 * Url to the object within the API.
 	 */
-	url: URL;
+	url: string;
 }

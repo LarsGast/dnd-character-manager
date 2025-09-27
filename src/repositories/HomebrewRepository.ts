@@ -1,6 +1,6 @@
 import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
 import { IStorageService } from '../interfaces/IStorageService.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
 
 /**
  * Implementation of IHomebrewRepository to store and manage homebrew resources.
@@ -23,7 +23,7 @@ export class HomebrewRepository implements IHomebrewRepository {
 	/**
 	 * @inheritdoc
 	 */
-	public get<T extends BaseResource>(id: string): T | undefined {
+	public get<T extends BaseResourceRecord>(id: string): T | undefined {
 		const storageKey = this.getStorageKey(id);
 		return this.storageService.get(storageKey);
 	}
@@ -31,7 +31,7 @@ export class HomebrewRepository implements IHomebrewRepository {
 	/**
 	 * @inheritdoc
 	 */
-	public save<T extends BaseResource>(id: string, value: T): void {
+	public save<T extends BaseResourceRecord>(id: string, value: T): void {
 		const storageKey = this.getStorageKey(id);
 		this.storageService.set(storageKey, value);
 	}
@@ -47,21 +47,21 @@ export class HomebrewRepository implements IHomebrewRepository {
 	/**
 	 * @inheritdoc
 	 */
-	public getAll(): BaseResource[] {
+	public getAll(): BaseResourceRecord[] {
 		const allKeys = this.storageService.getAllKeys();
 		const allKeysWithPrefix = allKeys.filter((key) =>
 			key.startsWith(HomebrewRepository.HOMEBREW_PREFIX),
 		);
 
 		return allKeysWithPrefix.map((key) =>
-			this.storageService.get<BaseResource>(key),
-		) as BaseResource[];
+			this.storageService.get<BaseResourceRecord>(key),
+		) as BaseResourceRecord[];
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public getAllByResourceType<T extends BaseResource>(
+	public getAllByResourceType<T extends BaseResourceRecord>(
 		resourceType: string,
 	): T[] {
 		const allResources = this.getAll();

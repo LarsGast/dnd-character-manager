@@ -1,12 +1,12 @@
-import { IMapper } from '../interfaces/IMapper.js';
-import { ChoiceApiDto } from '../types/api/helpers/ChoiceApiDto.js';
-import { TraitApiDto } from '../types/api/resources/TraitApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice } from '../types/domain/helpers/Choice.js';
-import { Trait } from '../types/domain/resources/Trait.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper.js';
+import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto.js';
+import { TraitApiDto } from '../../types/api/resources/TraitApiDto.js';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+import { Choice } from '../../types/domain/helpers/Choice.js';
+import { Trait } from '../../types/domain/resources/Trait.js';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
-export class TraitMapper implements IMapper<TraitApiDto, Trait> {
+export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
@@ -32,6 +32,10 @@ export class TraitMapper implements IMapper<TraitApiDto, Trait> {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
+			races: source.races.map((race) => this.baseResourceMapper.map(race)),
+			subraces: source.subraces.map((subrace) =>
+				this.baseResourceMapper.map(subrace),
+			),
 			proficiencies: source.proficiencies.map((proficiency) =>
 				this.baseResourceMapper.map(proficiency),
 			),
