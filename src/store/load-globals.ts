@@ -2,19 +2,20 @@ import { PlayerCharacterBank } from "./PlayerCharacterBank.js"
 import { PlayerCharacter } from "../types/PlayerCharacter.js";
 
 /**
- * A set of global variables to be used all across the codebase.
+ * Global variables and application state management.
+ * Provides centralized access to the player character bank and active character.
  */
 export const globals = {
 
     /**
-     * Global singleton of the player character bank.
-     * This includes all PCs, both active and inactive.
+     * Global singleton instance of the player character bank.
+     * Contains all player characters, both active and inactive.
      */
     playerCharacterBank: PlayerCharacterBank.load(),
 
     /**
-     * The current active PC.
-     * Part of the player bank, this variable can have it's properties changed by reference and will be saved if the bank is saved.
+     * The currently active player character.
+     * This is a reference to a character within the player bank, so changes made to this object will be automatically saved when the bank is saved.
      */
     get activePlayerCharacter(): PlayerCharacter {
         return this.playerCharacterBank.getActivePlayerCharacterBankEntry().playerCharacter;

@@ -33,7 +33,7 @@ export class PlayerCharacterBankEntry {
     id: string;
 
     /**
-     * Wether the playerCharacter of this entry is the active one.
+     * Whether the playerCharacter of this entry is the active one.
      * There can only be one active PC at a time.
      */
     isActive: boolean;

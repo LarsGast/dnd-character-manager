@@ -1,8 +1,21 @@
 import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
 import { homebrewRepository } from "../../../../../wiring/dependencies.js";
 
+/**
+ * Custom HTML button element for creating new homebrew objects.
+ * Extends HTMLButtonElement to provide functionality for adding custom content to the homebrew repository.
+ */
 export class NewHomebrewButton extends HTMLButtonElement {
+    
+    /**
+     * Event handler for custom element type changes.
+     * This is used to track changes to the homebrew category selection.
+     */
     _updateHandler?: (event: any) => void;
+    
+    /**
+     * The API category name for the type of homebrew object being created.
+     */
     apiCategoryName?: string;
     
     constructor() {
@@ -35,8 +48,9 @@ export class NewHomebrewButton extends HTMLButtonElement {
     }
 
     /**
-     * 
-     * @param event 
+     * Updates the button state based on the selected homebrew category.
+     * Enables the button and sets the API category name when a valid category is selected.
+     * @param event The custom event containing the selected API category information.
      */
     updateButtonData(event: CustomEvent): void {
         this.apiCategoryName = event.detail.apiCategoryName;
@@ -44,7 +58,8 @@ export class NewHomebrewButton extends HTMLButtonElement {
     }
     
     /**
-     * Handles the button click.
+     * Handles the button click event by creating and saving a new homebrew object.
+     * Creates a new resource with a unique ID and default properties, then dispatches an event.
      */
     handleClick(): void {
 

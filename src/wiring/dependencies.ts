@@ -27,11 +27,20 @@ import { CacheService } from "../services/CacheService.js";
 import { LocalStorageService } from "../services/LocalStorageService.js";
 import { SrdApiService } from "../services/SrdApiService.js";
 
-// This file contains the wiring of all dependencies that need to be injected into all services, repositories, and more within the entire codebase.
-// The file is split in different categories such as Services, Mappers, and Repositories. New dependencies should be added to the correct category.
-// Dependencies need to be wired bottom-up to ensure the dependency exists for use in a dependent service.
-// To use any of these dependencies, simply import them and invoke their methods.
-// Each individual dependency can be mocked out for testing.
+/**
+ * Dependency injection container for the entire application.
+ * 
+ * This file contains the wiring of all dependencies including services, repositories, and mappers.
+ * Dependencies are organized into categories and wired bottom-up to ensure proper initialization order.
+ * 
+ * To use any dependency, simply import it from this module and invoke its methods.
+ * Each dependency can be mocked out individually for testing purposes.
+ * 
+ * When adding new dependencies:
+ * 1. Add them to the appropriate category section
+ * 2. Ensure dependencies are wired in the correct order (dependencies before dependents)
+ * 3. Export them if they should be used directly by other parts of the application
+ */
 
 // --------------------
 // Services

@@ -1,29 +1,33 @@
+/**
+ * Base interface for all D&D 5e resources in the domain model.
+ * Provides common properties shared by all game resources like classes, races, spells, etc.
+ */
 export interface BaseResource {
 
     /**
      * Unique identifier in the 5e SRD API.
-     * UUID for homebrew objects.
+     * For homebrew objects, this will be a UUID.
      */
     index: string;
 
     /**
-     * Display name of the object.
+     * Human-readable display name of the resource.
      */
     name: string;
 
     /**
-     * Url to the object within the API.
+     * URL to the resource within the API (optional).
      */
     url?: URL;
 
     /**
-     * Type of the resource
-     * @example "classes", "races", "monsters".
+     * Type of the resource indicating its category.
+     * @example "classes", "races", "monsters"
      */
     resourceType: string;
 
     /**
-     * Wether this resource is created within this application (true), or fetched from an external source (false).
+     * Whether this resource is user-created homebrew (true) or from the official SRD (false).
      */
     isHomebrew: boolean;
 }

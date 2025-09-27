@@ -1,6 +1,6 @@
 import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
 
-/**
+/** 
  * Has information about the bonuses to abilities a race can have.
  */
 export interface AbilityBonusApiDto {
