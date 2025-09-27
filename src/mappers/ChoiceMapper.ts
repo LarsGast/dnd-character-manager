@@ -4,10 +4,15 @@ import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js"
 import { Choice, Option, OptionSet } from "../types/domain/helpers/Choice.js";
 import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
 
+/**
+ * Maps choice API DTOs to domain model choices.
+ * Handles the complex nested structure of choices, option sets, and individual options
+ * that represent player decisions in D&D 5e features.
+ */
 export class ChoiceMapper implements IMapper<ChoiceApiDto, Choice> {
 
     /**
-     * For mapping minimal API data to an internal object.
+     * Mapper for converting base resource API DTOs to domain objects.
      */
     private readonly baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>;
 
@@ -28,9 +33,9 @@ export class ChoiceMapper implements IMapper<ChoiceApiDto, Choice> {
     }
 
     /**
-     * Map the optionset from API to internal object.
-     * @param source Optionset as described in API spec.
-     * @returns Optionset as internal object.
+     * Maps an option set from API format to domain format.
+     * @param source The option set data from the API.
+     * @returns The mapped option set domain object.
      */
     private mapOptionSet(source: OptionSetApiDto): OptionSet {
         return {

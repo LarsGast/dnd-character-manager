@@ -1,6 +1,10 @@
 import { ICacheService } from "../interfaces/ICacheService.js";
 import { IStorageService } from "../interfaces/IStorageService.js";
 
+/**
+ * Implementation of ICacheService that provides caching functionality using an underlying storage service.
+ * Adds a prefix to all cache keys to avoid collisions with other stored data.
+ */
 export class CacheService implements ICacheService {
 
     /**
