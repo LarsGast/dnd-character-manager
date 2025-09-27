@@ -3,24 +3,25 @@
  * Extends HTMLButtonElement.
  */
 export class CharacterImportButton extends HTMLButtonElement {
-    
-    constructor() {
-        super();
-        
-        // Set type and display text.
-        this.type = 'button';
-        this.textContent = "Import";
+	constructor() {
+		super();
 
-        // Bind click event to dispatch an event to open the import dialog.
-        this.onclick = () => this.handleClick();
-    }
-    
-    /**
-     * Handles the button click and dispatches a "characterImportButtonClicked" event.
-     */
-    handleClick(): void {
-        document.dispatchEvent(new Event('characterImportButtonClicked'));
-    }
+		// Set type and display text.
+		this.type = 'button';
+		this.textContent = 'Import';
+
+		// Bind click event to dispatch an event to open the import dialog.
+		this.onclick = () => this.handleClick();
+	}
+
+	/**
+	 * Handles the button click and dispatches a "characterImportButtonClicked" event.
+	 */
+	handleClick(): void {
+		document.dispatchEvent(new Event('characterImportButtonClicked'));
+	}
 }
 
-customElements.define('character-import-button', CharacterImportButton, { extends: 'button' });
+customElements.define('character-import-button', CharacterImportButton, {
+	extends: 'button',
+});

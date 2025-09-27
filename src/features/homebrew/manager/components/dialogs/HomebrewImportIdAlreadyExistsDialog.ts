@@ -1,157 +1,179 @@
-import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
-import { homebrewRepository } from "../../../../../wiring/dependencies.js";
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
  * Custom HTML element for displaying the Homebrew Import ID Already Exists Dialog.
  * Extends HTMLDialogElement.
  */
 export class HomebrewImportIdAlreadyExistsDialog extends HTMLDialogElement {
-    dialogContent: HTMLDivElement;
-    heading: HTMLHeadingElement;
-    homebrewIdentifierAnchor: HTMLAnchorElement;
-    firstParagraph: HTMLParagraphElement;
-    cancelImportButton: HTMLButtonElement;
-    overwriteButton: HTMLButtonElement;
-    keepBothButton: HTMLButtonElement;
-    closeButton: HTMLButtonElement;
-    buttonGroup: HTMLDivElement;
-    _updateHandler?: (event: any) => void;
-    homebrewResource?: BaseResource;
-    
-    constructor() {
-        super();
+	dialogContent: HTMLDivElement;
+	heading: HTMLHeadingElement;
+	homebrewIdentifierAnchor: HTMLAnchorElement;
+	firstParagraph: HTMLParagraphElement;
+	cancelImportButton: HTMLButtonElement;
+	overwriteButton: HTMLButtonElement;
+	keepBothButton: HTMLButtonElement;
+	closeButton: HTMLButtonElement;
+	buttonGroup: HTMLDivElement;
+	_updateHandler?: (event: any) => void;
+	homebrewResource?: BaseResource;
 
-        // Container for dialog content for styling.
-        this.dialogContent = document.createElement('div');
-        this.dialogContent.classList.add("dialog-content");
+	constructor() {
+		super();
 
-        // Create dialog heading.
-        this.heading = document.createElement('h2');
-        this.heading.textContent = "Object already exists";
+		// Container for dialog content for styling.
+		this.dialogContent = document.createElement('div');
+		this.dialogContent.classList.add('dialog-content');
 
-        // Create description paragraphs.
-        this.homebrewIdentifierAnchor = document.createElement('a');
-        this.firstParagraph = document.createElement('p');
-        this.firstParagraph.appendChild(document.createTextNode("We found an existing homebrew object with the same ID as the one you're trying to import ("));
-        this.firstParagraph.appendChild(this.homebrewIdentifierAnchor);
-        this.firstParagraph.appendChild(document.createTextNode("). Please choose from the options below."));
+		// Create dialog heading.
+		this.heading = document.createElement('h2');
+		this.heading.textContent = 'Object already exists';
 
-        // Cancel button.
-        this.cancelImportButton = document.createElement('button');
-        this.cancelImportButton.textContent = "Keep current only";
-        this.cancelImportButton.type = 'button';
-        this.cancelImportButton.onclick = () => this.handleCancelImportButtonClick();
+		// Create description paragraphs.
+		this.homebrewIdentifierAnchor = document.createElement('a');
+		this.firstParagraph = document.createElement('p');
+		this.firstParagraph.appendChild(
+			document.createTextNode(
+				"We found an existing homebrew object with the same ID as the one you're trying to import (",
+			),
+		);
+		this.firstParagraph.appendChild(this.homebrewIdentifierAnchor);
+		this.firstParagraph.appendChild(
+			document.createTextNode('). Please choose from the options below.'),
+		);
 
-        // Overwrite button.
-        this.overwriteButton = document.createElement('button');
-        this.overwriteButton.textContent = "Keep new only";
-        this.overwriteButton.type = 'button';
-        this.overwriteButton.onclick = () => this.handleOverwriteButtonClick();
+		// Cancel button.
+		this.cancelImportButton = document.createElement('button');
+		this.cancelImportButton.textContent = 'Keep current only';
+		this.cancelImportButton.type = 'button';
+		this.cancelImportButton.onclick = () =>
+			this.handleCancelImportButtonClick();
 
-        // Keep both button.
-        this.keepBothButton = document.createElement('button');
-        this.keepBothButton.textContent = "Keep both";
-        this.keepBothButton.type = 'button';
-        this.keepBothButton.onclick = () => this.handleKeepBothButtonClick();
+		// Overwrite button.
+		this.overwriteButton = document.createElement('button');
+		this.overwriteButton.textContent = 'Keep new only';
+		this.overwriteButton.type = 'button';
+		this.overwriteButton.onclick = () => this.handleOverwriteButtonClick();
 
-        // Close button for the dialog.
-        this.closeButton = document.createElement('button');
-        this.closeButton.textContent = "Close";
-        this.closeButton.type = 'button';
-        this.closeButton.classList.add('close');
-        this.closeButton.onclick = () => this.handleCloseButtonClick();
+		// Keep both button.
+		this.keepBothButton = document.createElement('button');
+		this.keepBothButton.textContent = 'Keep both';
+		this.keepBothButton.type = 'button';
+		this.keepBothButton.onclick = () => this.handleKeepBothButtonClick();
 
-        this.buttonGroup = document.createElement('div');
-        this.buttonGroup.classList.add('button-group');
-        this.buttonGroup.appendChild(this.cancelImportButton);
-        this.buttonGroup.appendChild(this.overwriteButton);
-        this.buttonGroup.appendChild(this.keepBothButton);
+		// Close button for the dialog.
+		this.closeButton = document.createElement('button');
+		this.closeButton.textContent = 'Close';
+		this.closeButton.type = 'button';
+		this.closeButton.classList.add('close');
+		this.closeButton.onclick = () => this.handleCloseButtonClick();
 
-        // Add all elements to the dialog content.
-        this.dialogContent.appendChild(this.heading);
-        this.dialogContent.appendChild(this.firstParagraph);
-        this.dialogContent.appendChild(this.buttonGroup);
-        this.dialogContent.appendChild(this.closeButton);
+		this.buttonGroup = document.createElement('div');
+		this.buttonGroup.classList.add('button-group');
+		this.buttonGroup.appendChild(this.cancelImportButton);
+		this.buttonGroup.appendChild(this.overwriteButton);
+		this.buttonGroup.appendChild(this.keepBothButton);
 
-        // Append the content to the dialog.
-        this.appendChild(this.dialogContent);        
-    }
+		// Add all elements to the dialog content.
+		this.dialogContent.appendChild(this.heading);
+		this.dialogContent.appendChild(this.firstParagraph);
+		this.dialogContent.appendChild(this.buttonGroup);
+		this.dialogContent.appendChild(this.closeButton);
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Listens for the "homebrewImportIdAlreadyExists" event to show the dialog.
-     */
-    connectedCallback(): void {
-        this._updateHandler = (event) => this.showDialog(event);
-        document.addEventListener("homebrewImportIdAlreadyExists", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes the event listener.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("homebrewImportIdAlreadyExists", this._updateHandler!);
-    }
+		// Append the content to the dialog.
+		this.appendChild(this.dialogContent);
+	}
 
-    /**
-     * Displays the dialog and resets any previous file selections or preview.
-     * @param event The event that triggered the dialog to open.
-     */
-    showDialog(event: CustomEvent): void {
-        this.showModal();
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Listens for the "homebrewImportIdAlreadyExists" event to show the dialog.
+	 */
+	connectedCallback(): void {
+		this._updateHandler = (event) => this.showDialog(event);
+		document.addEventListener(
+			'homebrewImportIdAlreadyExists',
+			this._updateHandler,
+		);
+	}
 
-        this.homebrewResource = event.detail.homebrewBankEntry;
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes the event listener.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener(
+			'homebrewImportIdAlreadyExists',
+			this._updateHandler!,
+		);
+	}
 
-        this.homebrewIdentifierAnchor.textContent = `${this.homebrewResource!.resourceType}: ${this.homebrewResource!.name}`;
-        this.homebrewIdentifierAnchor.href = `homebrew/?id=${this.homebrewResource!.index}`;
-        this.homebrewIdentifierAnchor.target = "_blank";
-    }
-  
-    /**
-     * Handles the cancel import button click.
-     * Closes the dialog and dispatches an event to indicate import cancellation.
-     */
-    handleCancelImportButtonClick(): void {
-        this.close();
-        document.dispatchEvent(new Event("homebrewImportCancelled"));
-    }
+	/**
+	 * Displays the dialog and resets any previous file selections or preview.
+	 * @param event The event that triggered the dialog to open.
+	 */
+	showDialog(event: CustomEvent): void {
+		this.showModal();
 
-    /**
-     * Handles the overwrite button click.
-     * Overwrites the existing homebrew object with the new one and saves the homebrew bank
-     */
-    handleOverwriteButtonClick(): void {
+		this.homebrewResource = event.detail.homebrewBankEntry;
 
-        homebrewRepository.save(this.homebrewResource!.index, this.homebrewResource!);
+		this.homebrewIdentifierAnchor.textContent = `${this.homebrewResource!.resourceType}: ${this.homebrewResource!.name}`;
+		this.homebrewIdentifierAnchor.href = `homebrew/?id=${this.homebrewResource!.index}`;
+		this.homebrewIdentifierAnchor.target = '_blank';
+	}
 
-        this.close();
+	/**
+	 * Handles the cancel import button click.
+	 * Closes the dialog and dispatches an event to indicate import cancellation.
+	 */
+	handleCancelImportButtonClick(): void {
+		this.close();
+		document.dispatchEvent(new Event('homebrewImportCancelled'));
+	}
 
-        document.dispatchEvent(new Event("homebrewImported"));
-    }
+	/**
+	 * Handles the overwrite button click.
+	 * Overwrites the existing homebrew object with the new one and saves the homebrew bank
+	 */
+	handleOverwriteButtonClick(): void {
+		homebrewRepository.save(
+			this.homebrewResource!.index,
+			this.homebrewResource!,
+		);
 
-    /**
-     * Handles the keep both button click.
-     * Creates a new homebrew object with a new UUID and appends it to the homebrew bank.
-     * The new object will have the same properties as the existing one, but with a modified name.
-     */
-    handleKeepBothButtonClick(): void {
-        this.homebrewResource!.index = self.crypto.randomUUID();
-        this.homebrewResource!.name += " (copy)";
+		this.close();
 
-        homebrewRepository.save(this.homebrewResource!.index, this.homebrewResource!);
+		document.dispatchEvent(new Event('homebrewImported'));
+	}
 
-        this.close();
+	/**
+	 * Handles the keep both button click.
+	 * Creates a new homebrew object with a new UUID and appends it to the homebrew bank.
+	 * The new object will have the same properties as the existing one, but with a modified name.
+	 */
+	handleKeepBothButtonClick(): void {
+		this.homebrewResource!.index = self.crypto.randomUUID();
+		this.homebrewResource!.name += ' (copy)';
 
-        document.dispatchEvent(new Event("homebrewImported"));
-    }
-  
-    /**
-     * Closes the dialog.
-     */
-    handleCloseButtonClick(): void {
-        this.close();
-    }
+		homebrewRepository.save(
+			this.homebrewResource!.index,
+			this.homebrewResource!,
+		);
+
+		this.close();
+
+		document.dispatchEvent(new Event('homebrewImported'));
+	}
+
+	/**
+	 * Closes the dialog.
+	 */
+	handleCloseButtonClick(): void {
+		this.close();
+	}
 }
 
-customElements.define('homebrew-object-import-id-already-exists-dialog', HomebrewImportIdAlreadyExistsDialog, { extends: 'dialog' });
+customElements.define(
+	'homebrew-object-import-id-already-exists-dialog',
+	HomebrewImportIdAlreadyExistsDialog,
+	{ extends: 'dialog' },
+);

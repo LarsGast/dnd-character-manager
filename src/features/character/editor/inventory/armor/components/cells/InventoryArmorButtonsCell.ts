@@ -1,5 +1,5 @@
-import { globals } from "../../../../../../../store/load-globals.js";
-import { Armor } from "../../../../../../../types/domain/resources/Armor.js";
+import { globals } from '../../../../../../../store/load-globals.js';
+import { Armor } from '../../../../../../../types/domain/resources/Armor.js';
 
 /**
  * Custom table cell element containing buttons for inventory armor actions.
@@ -8,40 +8,44 @@ import { Armor } from "../../../../../../../types/domain/resources/Armor.js";
  * In this implementation, it contains a "Delete" button to remove the armor from the PC's inventory. The cell takes an Armor instance and a row index.
  */
 export class InventoryArmorButtonsCell extends HTMLTableCellElement {
-    armor: Armor;
-    rowIndex: number;
-    deleteButton: HTMLButtonElement;
+	armor: Armor;
+	rowIndex: number;
+	deleteButton: HTMLButtonElement;
 
-    /**
-     * Creates an instance of InventoryArmorButtonsCell.
-     * @param armor The armor object.
-     * @param rowIndex The row index in the table (used to identify the inventory entry). Points to the same object in the globals.activePlayerCharacter.inventoryArmor array.
-     */
-    constructor(armor: Armor, rowIndex: number) {
-        super();
+	/**
+	 * Creates an instance of InventoryArmorButtonsCell.
+	 * @param armor The armor object.
+	 * @param rowIndex The row index in the table (used to identify the inventory entry). Points to the same object in the globals.activePlayerCharacter.inventoryArmor array.
+	 */
+	constructor(armor: Armor, rowIndex: number) {
+		super();
 
-        this.armor = armor;
-        this.rowIndex = rowIndex;
+		this.armor = armor;
+		this.rowIndex = rowIndex;
 
-        // Create a delete button.
-        this.deleteButton = document.createElement('button');
-        this.deleteButton.type = "button";
-        this.deleteButton.textContent = "Delete";
+		// Create a delete button.
+		this.deleteButton = document.createElement('button');
+		this.deleteButton.type = 'button';
+		this.deleteButton.textContent = 'Delete';
 
-        this.appendChild(this.deleteButton);
+		this.appendChild(this.deleteButton);
 
-        // Bind deletion handler.
-        this.deleteButton.onclick = () => this.deleteRow();
-    }
+		// Bind deletion handler.
+		this.deleteButton.onclick = () => this.deleteRow();
+	}
 
-    /**
-     * Deletes the row by removing the corresponding armor from the inventory and dispatching an "inventoryArmorDeleted" event.
-     */
-    deleteRow(): void {
-        globals.activePlayerCharacter.removeArmorFromInventory(this.rowIndex);
-        document.dispatchEvent(new Event("inventoryArmorDeleted"));
-    }
+	/**
+	 * Deletes the row by removing the corresponding armor from the inventory and dispatching an "inventoryArmorDeleted" event.
+	 */
+	deleteRow(): void {
+		globals.activePlayerCharacter.removeArmorFromInventory(this.rowIndex);
+		document.dispatchEvent(new Event('inventoryArmorDeleted'));
+	}
 }
 
 // Register the custom element, extending the built-in "td" element.
-customElements.define("inventory-armor-buttons-cell", InventoryArmorButtonsCell, { extends: 'td' });
+customElements.define(
+	'inventory-armor-buttons-cell',
+	InventoryArmorButtonsCell,
+	{ extends: 'td' },
+);

@@ -1,5 +1,9 @@
-import { getEmptyOption, getSelectOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
-import { classRepository } from "../../../../../wiring/dependencies.js";
+import {
+	getEmptyOption,
+	getSelectOption,
+	populateSelectWithApiObjects,
+} from '../../../../../utils/util.js';
+import { classRepository } from '../../../../../wiring/dependencies.js';
 
 /**
  * Custom list item element that represents a class-level input.
@@ -13,156 +17,156 @@ import { classRepository } from "../../../../../wiring/dependencies.js";
  * It dispatches events when the class changes, the level changes, or when the entry is deleted.
  */
 export class ClassLevelInput extends HTMLLIElement {
-    classIndex?: string;
-    subclassIndex?: string;
-    level?: number;
-    classSelect: HTMLSelectElement;
-    subclassSelect: HTMLSelectElement;
-    levelInput: HTMLInputElement;
-    deleteButton: HTMLButtonElement;
+	classIndex?: string;
+	subclassIndex?: string;
+	level?: number;
+	classSelect: HTMLSelectElement;
+	subclassSelect: HTMLSelectElement;
+	levelInput: HTMLInputElement;
+	deleteButton: HTMLButtonElement;
 
-    /**
-     * Creates a new ClassLevelInput element.
-     * @param classIndex The currently selected class index.
-     * @param subclassIndex The currently selected subclass index.
-     * @param level The current class level.
-     */
-    constructor(classIndex?: string, subclassIndex?: string, level?: number) {
-        super();
+	/**
+	 * Creates a new ClassLevelInput element.
+	 * @param classIndex The currently selected class index.
+	 * @param subclassIndex The currently selected subclass index.
+	 * @param level The current class level.
+	 */
+	constructor(classIndex?: string, subclassIndex?: string, level?: number) {
+		super();
 
-        // Store current class and level values.
-        this.classIndex = classIndex;
-        this.subclassIndex = subclassIndex;
-        this.level = level;
-        
-        // Create a select element for choosing a class.
-        this.classSelect = document.createElement("select");
+		// Store current class and level values.
+		this.classIndex = classIndex;
+		this.subclassIndex = subclassIndex;
+		this.level = level;
 
-        // Create a select element for choosing a subclass.
-        this.subclassSelect = document.createElement("select");
+		// Create a select element for choosing a class.
+		this.classSelect = document.createElement('select');
 
-        // Create an input element for entering the level.
-        this.levelInput = document.createElement("input");
-        this.levelInput.type = "number";
-        this.levelInput.min = "1";
-        this.levelInput.max = "20";
-        this.levelInput.value = "1";
+		// Create a select element for choosing a subclass.
+		this.subclassSelect = document.createElement('select');
 
-        // Create a button to allow removal of the class entry.
-        this.deleteButton = document.createElement("button");
-        this.deleteButton.type = "button";
-        this.deleteButton.textContent = "Remove class";
-        
-        // Append elements to the list item.
-        this.appendChild(this.classSelect);
-        this.appendChild(this.subclassSelect);
-        this.appendChild(this.levelInput);
-        this.appendChild(this.deleteButton);
+		// Create an input element for entering the level.
+		this.levelInput = document.createElement('input');
+		this.levelInput.type = 'number';
+		this.levelInput.min = '1';
+		this.levelInput.max = '20';
+		this.levelInput.value = '1';
 
-        // Bind event handlers.
-        this.classSelect.onchange = () => this.handleClassChange();
-        this.subclassSelect.onchange = () => this.handleSubclassChange();
-        this.levelInput.onchange = () => this.handleLevelChange();
-        this.deleteButton.onclick = () => this.handleDelete();
-    }
+		// Create a button to allow removal of the class entry.
+		this.deleteButton = document.createElement('button');
+		this.deleteButton.type = 'button';
+		this.deleteButton.textContent = 'Remove class';
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Loads class options into the classSelect element.
-     */
-    async connectedCallback(): Promise<void> {
-        await this.loadOptions();
-    }
+		// Append elements to the list item.
+		this.appendChild(this.classSelect);
+		this.appendChild(this.subclassSelect);
+		this.appendChild(this.levelInput);
+		this.appendChild(this.deleteButton);
 
-    /**
-     * Loads class options asynchronously.
-     * Populates the select element with class options including an empty option.
-     */
-    async loadOptions(): Promise<void> {
-        await this.loadClassOptions();
-        await this.loadSubclassOptions();
-    }
+		// Bind event handlers.
+		this.classSelect.onchange = () => this.handleClassChange();
+		this.subclassSelect.onchange = () => this.handleSubclassChange();
+		this.levelInput.onchange = () => this.handleLevelChange();
+		this.deleteButton.onclick = () => this.handleDelete();
+	}
 
-    async loadClassOptions(): Promise<void> {
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Loads class options into the classSelect element.
+	 */
+	async connectedCallback(): Promise<void> {
+		await this.loadOptions();
+	}
 
-        // Add an empty option first.
-        this.classSelect.appendChild(getEmptyOption());
+	/**
+	 * Loads class options asynchronously.
+	 * Populates the select element with class options including an empty option.
+	 */
+	async loadOptions(): Promise<void> {
+		await this.loadClassOptions();
+		await this.loadSubclassOptions();
+	}
 
-        // Retrieve all available classes.
-        const allClasses = await classRepository.getAllAsync();
+	async loadClassOptions(): Promise<void> {
+		// Add an empty option first.
+		this.classSelect.appendChild(getEmptyOption());
 
-        populateSelectWithApiObjects(this.classSelect, allClasses);
-        
-        // Set the current values, if already provided.
-        this.classSelect.value = this.classIndex ?? "null";
-        this.levelInput.value = (this.level ?? 1).toString();
-    }
+		// Retrieve all available classes.
+		const allClasses = await classRepository.getAllAsync();
 
-    async loadSubclassOptions(): Promise<void> {
+		populateSelectWithApiObjects(this.classSelect, allClasses);
 
-        this.subclassSelect.replaceChildren();
+		// Set the current values, if already provided.
+		this.classSelect.value = this.classIndex ?? 'null';
+		this.levelInput.value = (this.level ?? 1).toString();
+	}
 
-        // Add an empty option first.
-        this.subclassSelect.appendChild(getEmptyOption());
+	async loadSubclassOptions(): Promise<void> {
+		this.subclassSelect.replaceChildren();
 
-        // If no class has been selected, there is no choice in subclass.
-        if (!this.classIndex) {
-            return;
-        }
+		// Add an empty option first.
+		this.subclassSelect.appendChild(getEmptyOption());
 
-        // Retrieve all available subclasses.
-        const chosenClass = await classRepository.getAsync(this.classIndex);
-        for (const subclassInfo of chosenClass!.subclasses) {
-            this.subclassSelect.appendChild(getSelectOption(subclassInfo.name, subclassInfo.index));
-        }
-        
-        // Set the current values, if already provided.
-        this.subclassSelect.value = this.subclassIndex ?? "null";
-    }
-  
-    /**
-     * Event handler for when the class selection changes.
-     * Dispatches a "classChanged" event.
-     */
-    async handleClassChange(): Promise<void> {
-        this.classIndex = this.classSelect.value;
-        this.subclassIndex = undefined;
-        await this.loadSubclassOptions();
-        document.dispatchEvent(new Event("classChanged"));
-    }
-  
-    /**
-     * Event handler for when the subclass selection changes.
-     * Dispatches a "subclassChanged" event.
-     */
-    handleSubclassChange(): void {
-        document.dispatchEvent(new Event("subclassChanged"));
-    }
+		// If no class has been selected, there is no choice in subclass.
+		if (!this.classIndex) {
+			return;
+		}
 
-    /**
-     * Event handler for when the level input changes.
-     * Ensures the level is within range, then dispatches a "classLevelChanged" event.
-     */
-    handleLevelChange(): void {
-        if (Number(this.levelInput.value) > 20) {
-            this.levelInput.value = "20";
-        }
-        if (Number(this.levelInput.value) < 1) {
-            this.levelInput.value = "1";
-        }
+		// Retrieve all available subclasses.
+		const chosenClass = await classRepository.getAsync(this.classIndex);
+		for (const subclassInfo of chosenClass!.subclasses) {
+			this.subclassSelect.appendChild(
+				getSelectOption(subclassInfo.name, subclassInfo.index),
+			);
+		}
 
-        document.dispatchEvent(new Event("classLevelChanged"));
-    }
+		// Set the current values, if already provided.
+		this.subclassSelect.value = this.subclassIndex ?? 'null';
+	}
 
-    /**
-     * Event handler for deleting the class level input.
-     * Removes the element and dispatches a "classDeleted" event.
-     */
-    handleDelete(): void {
-        this.remove();
-        document.dispatchEvent(new Event("classDeleted"));
-    }
+	/**
+	 * Event handler for when the class selection changes.
+	 * Dispatches a "classChanged" event.
+	 */
+	async handleClassChange(): Promise<void> {
+		this.classIndex = this.classSelect.value;
+		this.subclassIndex = undefined;
+		await this.loadSubclassOptions();
+		document.dispatchEvent(new Event('classChanged'));
+	}
+
+	/**
+	 * Event handler for when the subclass selection changes.
+	 * Dispatches a "subclassChanged" event.
+	 */
+	handleSubclassChange(): void {
+		document.dispatchEvent(new Event('subclassChanged'));
+	}
+
+	/**
+	 * Event handler for when the level input changes.
+	 * Ensures the level is within range, then dispatches a "classLevelChanged" event.
+	 */
+	handleLevelChange(): void {
+		if (Number(this.levelInput.value) > 20) {
+			this.levelInput.value = '20';
+		}
+		if (Number(this.levelInput.value) < 1) {
+			this.levelInput.value = '1';
+		}
+
+		document.dispatchEvent(new Event('classLevelChanged'));
+	}
+
+	/**
+	 * Event handler for deleting the class level input.
+	 * Removes the element and dispatches a "classDeleted" event.
+	 */
+	handleDelete(): void {
+		this.remove();
+		document.dispatchEvent(new Event('classDeleted'));
+	}
 }
 
 // Register the custom element, extending the "li" element.
-customElements.define("class-level-input", ClassLevelInput, { extends: 'li' });
+customElements.define('class-level-input', ClassLevelInput, { extends: 'li' });

@@ -1,17 +1,17 @@
 {
-  "compilerOptions": {
-    "module": "es6",
-    "target": "es2017",
-    "outDir": "./build",
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noUncheckedSideEffectImports": true,
-    "noEmitOnError": true
-  },
+	"compilerOptions": {
+		"module": "es6",
+		"target": "es2017",
+		"outDir": "./build",
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noUncheckedSideEffectImports": true,
+		"noEmitOnError": true
+	},
 
-  "include": ["./src/**/*"]
+	"include": ["./src/**/*"]
 }

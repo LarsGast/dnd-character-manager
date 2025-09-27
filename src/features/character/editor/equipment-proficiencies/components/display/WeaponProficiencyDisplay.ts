@@ -1,5 +1,5 @@
-import { Weapon } from "../../../../../../types/domain/resources/Weapon.js";
-import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckbox.js";
+import { Weapon } from '../../../../../../types/domain/resources/Weapon.js';
+import { WeaponProficiencyCheckbox } from '../checkboxes/WeaponProficiencyCheckbox.js';
 
 /**
  * Custom list item element for displaying a weapon proficiency option.
@@ -8,31 +8,35 @@ import { WeaponProficiencyCheckbox } from "../checkboxes/WeaponProficiencyCheckb
  * This element creates a labeled checkbox (using WeaponProficiencyCheckbox) alongside the weapon's name for a visual representation of proficiency.
  */
 export class WeaponProficiencyDisplay extends HTMLLIElement {
-    weapon: Weapon;
-    proficiencyCheckbox: WeaponProficiencyCheckbox;
-    weaponProficiencyLabel: HTMLLabelElement;
+	weapon: Weapon;
+	proficiencyCheckbox: WeaponProficiencyCheckbox;
+	weaponProficiencyLabel: HTMLLabelElement;
 
-    /**
-     * Create a WeaponProficiencyDisplay.
-     * @param weapon A Weapon object representing the weapon to display.
-     */
-    constructor(weapon: Weapon) {
-        super();
+	/**
+	 * Create a WeaponProficiencyDisplay.
+	 * @param weapon A Weapon object representing the weapon to display.
+	 */
+	constructor(weapon: Weapon) {
+		super();
 
-        this.weapon = weapon;
+		this.weapon = weapon;
 
-        // Create the proficiency checkbox for the given weapon.
-        this.proficiencyCheckbox = new WeaponProficiencyCheckbox(this.weapon);
+		// Create the proficiency checkbox for the given weapon.
+		this.proficiencyCheckbox = new WeaponProficiencyCheckbox(this.weapon);
 
-        // Create a label and add both the checkbox and the weapon name.
-        this.weaponProficiencyLabel = document.createElement('label');
-        this.weaponProficiencyLabel.appendChild(this.proficiencyCheckbox);
-        this.weaponProficiencyLabel.appendChild(document.createTextNode(this.weapon.name));
+		// Create a label and add both the checkbox and the weapon name.
+		this.weaponProficiencyLabel = document.createElement('label');
+		this.weaponProficiencyLabel.appendChild(this.proficiencyCheckbox);
+		this.weaponProficiencyLabel.appendChild(
+			document.createTextNode(this.weapon.name),
+		);
 
-        // Append the label to the list item.
-        this.appendChild(this.weaponProficiencyLabel);
-    }
+		// Append the label to the list item.
+		this.appendChild(this.weaponProficiencyLabel);
+	}
 }
 
 // Define the custom element, extending the built-in "li" element.
-customElements.define('weapon-proficiency-display', WeaponProficiencyDisplay, { extends: 'li' });
+customElements.define('weapon-proficiency-display', WeaponProficiencyDisplay, {
+	extends: 'li',
+});

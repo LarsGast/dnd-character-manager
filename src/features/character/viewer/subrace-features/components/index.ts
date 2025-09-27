@@ -1,1 +1,1 @@
-import "./SubraceFeaturesDisplay.js";
+import './SubraceFeaturesDisplay.js';

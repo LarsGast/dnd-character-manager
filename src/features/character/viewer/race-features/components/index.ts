@@ -1,1 +1,1 @@
-import "./RaceFeaturesDisplay.js";
+import './RaceFeaturesDisplay.js';

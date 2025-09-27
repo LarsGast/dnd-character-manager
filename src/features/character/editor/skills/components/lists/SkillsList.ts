@@ -1,5 +1,5 @@
-import { skillRepository } from "../../../../../../wiring/dependencies.js";
-import { SkillDisplay } from "../display/SkillDisplay.js";
+import { skillRepository } from '../../../../../../wiring/dependencies.js';
+import { SkillDisplay } from '../display/SkillDisplay.js';
 
 /**
  * Custom unordered list element that displays all skills.
@@ -8,26 +8,29 @@ import { SkillDisplay } from "../display/SkillDisplay.js";
  * This element fetches all skills asynchronously and then creates a SkillDisplay element for each skill, appending them to the list.
  */
 export class SkillsList extends HTMLUListElement {
+	constructor() {
+		super();
 
-    constructor() {
-        super();
+		// Apply styling classes.
+		this.classList.add(
+			'no-style-list',
+			'proficiencies-list',
+			'three-columns-list',
+		);
+	}
 
-        // Apply styling classes.
-        this.classList.add('no-style-list', 'proficiencies-list', 'three-columns-list');
-    }
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Asynchronously populates the list with skills.
+	 */
+	async connectedCallback() {
+		const allSkills = await skillRepository.getAllAsync();
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Asynchronously populates the list with skills.
-     */
-    async connectedCallback() {
-        const allSkills = await skillRepository.getAllAsync();
-        
-        for (const skillInfo of allSkills.results) {
-            const skill = (await skillRepository.getAsync(skillInfo.index))!;
-            this.appendChild(new SkillDisplay(skill));
-        }
-    }
+		for (const skillInfo of allSkills.results) {
+			const skill = (await skillRepository.getAsync(skillInfo.index))!;
+			this.appendChild(new SkillDisplay(skill));
+		}
+	}
 }
 
 customElements.define('skills-list', SkillsList, { extends: 'ul' });

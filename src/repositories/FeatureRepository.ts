@@ -1,60 +1,91 @@
-import { IFeatureRepository } from "../interfaces/IFeatureRepository.js";
-import { IHomebrewRepository } from "../interfaces/IHomebrewRepository.js";
-import { IMapper } from "../interfaces/IMapper.js";
-import { ISrdApiService } from "../interfaces/ISrdApiService.js";
-import { FeatureApiDto } from "../types/api/resources/FeatureApiDto.js";
-import { BaseResourceApiDto } from "../types/api/wrappers/BaseResourceApiDto.js";
-import { ResourceListApiDto } from "../types/api/wrappers/ResourceListApiDto.js";
-import { Feature } from "../types/domain/resources/Feature.js";
-import { BaseResource } from "../types/domain/wrappers/BaseResource.js";
-import { ResourceList } from "../types/domain/wrappers/ResourceList.js";
-import { BaseResourceRepository } from "./BaseResourceRepository.js";
+import { IFeatureRepository } from '../interfaces/IFeatureRepository.js';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
+import { IMapper } from '../interfaces/IMapper.js';
+import { ISrdApiService } from '../interfaces/ISrdApiService.js';
+import { FeatureApiDto } from '../types/api/resources/FeatureApiDto.js';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
+import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto.js';
+import { Feature } from '../types/domain/resources/Feature.js';
+import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
+import { BaseResourceRepository } from './BaseResourceRepository.js';
 
-export class FeatureRepository extends BaseResourceRepository<FeatureApiDto, Feature> implements IFeatureRepository {
+export class FeatureRepository
+	extends BaseResourceRepository<FeatureApiDto, Feature>
+	implements IFeatureRepository
+{
+	/**
+	 * @inheritdoc
+	 */
+	public constructor(
+		homebrewRepository: IHomebrewRepository,
+		apiService: ISrdApiService,
+		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		featureMapper: IMapper<FeatureApiDto, Feature>,
+	) {
+		super(
+			'features',
+			homebrewRepository,
+			apiService,
+			baseResourceMapper,
+			featureMapper,
+		);
+	}
 
-    /**
-     * @inheritdoc
-     */
-    public constructor(
-        homebrewRepository: IHomebrewRepository, 
-        apiService: ISrdApiService, 
-        baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>, 
-        featureMapper: IMapper<FeatureApiDto, Feature>
-    ) {
-        super("features", homebrewRepository, apiService, baseResourceMapper, featureMapper);
-    }
+	/**
+	 * @inheritdoc
+	 */
+	public async getFeaturesByClassAndLevelAsync(
+		classId: string,
+		level: number,
+	): Promise<ResourceList> {
+		const allHomebrewFeatures =
+			this.homebrewRepository.getAllByResourceType<Feature>('features');
+		const homebrewFeatures = allHomebrewFeatures.filter(
+			(feature) => feature.class.index === classId && feature.level === level,
+		);
 
-    /**
-     * @inheritdoc
-     */
-    public async getFeaturesByClassAndLevelAsync(classId: string, level: number): Promise<ResourceList> {
+		const endpoint = `classes/${classId}/levels/${level}/features`;
+		const apiClassLevels =
+			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
 
-        const allHomebrewFeatures = this.homebrewRepository.getAllByResourceType<Feature>("features");
-        const homebrewFeatures = allHomebrewFeatures.filter(feature => feature.class.index === classId && feature.level === level);
+		return {
+			count: homebrewFeatures.length + apiClassLevels.count,
+			results: [
+				...homebrewFeatures,
+				...apiClassLevels.results.map((dto) =>
+					this.baseResourceMapper.map(dto),
+				),
+			],
+		};
+	}
 
-        const endpoint = `classes/${classId}/levels/${level}/features`;
-        const apiClassLevels = await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
+	/**
+	 * @inheritdoc
+	 */
+	public async getFeaturesBySubclassAndLevelAsync(
+		subclassId: string,
+		level: number,
+	): Promise<ResourceList> {
+		const allHomebrewFeatures =
+			this.homebrewRepository.getAllByResourceType<Feature>('features');
+		const homebrewFeatures = allHomebrewFeatures.filter(
+			(feature) =>
+				feature.subclass?.index === subclassId && feature.level === level,
+		);
 
-        return {
-            count: homebrewFeatures.length + apiClassLevels.count,
-            results: [...homebrewFeatures, ...apiClassLevels.results.map(dto => this.baseResourceMapper.map(dto))]
-        };
-    }
+		const endpoint = `subclasses/${subclassId}/levels/${level}/features`;
+		const apiClassLevels =
+			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
 
-    /**
-     * @inheritdoc
-     */
-    public async getFeaturesBySubclassAndLevelAsync(subclassId: string, level: number): Promise<ResourceList> {
-
-        const allHomebrewFeatures = this.homebrewRepository.getAllByResourceType<Feature>("features");
-        const homebrewFeatures = allHomebrewFeatures.filter(feature => feature.subclass?.index === subclassId && feature.level === level);
-
-        const endpoint = `subclasses/${subclassId}/levels/${level}/features`;
-        const apiClassLevels = await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
-
-        return {
-            count: homebrewFeatures.length + apiClassLevels.count,
-            results: [...homebrewFeatures, ...apiClassLevels.results.map(dto => this.baseResourceMapper.map(dto))]
-        };
-    }
+		return {
+			count: homebrewFeatures.length + apiClassLevels.count,
+			results: [
+				...homebrewFeatures,
+				...apiClassLevels.results.map((dto) =>
+					this.baseResourceMapper.map(dto),
+				),
+			],
+		};
+	}
 }

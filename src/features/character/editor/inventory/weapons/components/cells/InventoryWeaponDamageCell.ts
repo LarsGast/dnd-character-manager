@@ -1,5 +1,5 @@
-import { globals } from "../../../../../../../store/load-globals.js";
-import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
+import { globals } from '../../../../../../../store/load-globals.js';
+import { Weapon } from '../../../../../../../types/domain/resources/Weapon.js';
 
 /**
  * Custom table cell element that displays the damage dice and damage bonus of a weapon.
@@ -9,97 +9,121 @@ import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
  * It listens for changes in ability score modifiers and weapon ability selection to update its display.
  */
 export class InventoryDamageCell extends HTMLTableCellElement {
-    weapon: Weapon;
-    rowIndex: number;
-    damageBonusSpan: HTMLSpanElement;
-    _updateHandler?: (event: any) => void;
+	weapon: Weapon;
+	rowIndex: number;
+	damageBonusSpan: HTMLSpanElement;
+	_updateHandler?: (event: any) => void;
 
-    /**
-     * Creates an instance of InventoryDamageCell.
-     * @param weapon The weapon object.
-     * @param rowIndex The index of the weapon in the inventory.
-     */
-    constructor(weapon: Weapon, rowIndex: number) {
-        super();
-        
-        this.weapon = weapon;
-        this.rowIndex = rowIndex;
+	/**
+	 * Creates an instance of InventoryDamageCell.
+	 * @param weapon The weapon object.
+	 * @param rowIndex The index of the weapon in the inventory.
+	 */
+	constructor(weapon: Weapon, rowIndex: number) {
+		super();
 
-        // Create a span to display the damage bonus.
-        this.damageBonusSpan = document.createElement('span');
+		this.weapon = weapon;
+		this.rowIndex = rowIndex;
 
-        // Append text for the damage dice and then the bonus span.
-        this.appendChild(document.createTextNode(this.weapon.damage?.damage_dice ?? ''));
-        this.appendChild(this.damageBonusSpan);
-    }
+		// Create a span to display the damage bonus.
+		this.damageBonusSpan = document.createElement('span');
 
-    /**
-     * Called when the element is added to the DOM.
-     * Updates the display immediately and registers event listeners.
-     */
-    connectedCallback(): void {
-        this.updateDisplay();
+		// Append text for the damage dice and then the bonus span.
+		this.appendChild(
+			document.createTextNode(this.weapon.damage?.damage_dice ?? ''),
+		);
+		this.appendChild(this.damageBonusSpan);
+	}
 
-        this._updateHandler = (event: any) => this.updateDisplay(event);
-        document.addEventListener("abilityScoreModifierChanged", this._updateHandler);
-        document.addEventListener("inventoryWeaponAbilityChanged", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is removed from the DOM.
-     * Removes the event listeners.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("abilityScoreModifierChanged", this._updateHandler!);
-        document.removeEventListener("inventoryWeaponAbilityChanged", this._updateHandler!);
-    }
+	/**
+	 * Called when the element is added to the DOM.
+	 * Updates the display immediately and registers event listeners.
+	 */
+	connectedCallback(): void {
+		this.updateDisplay();
 
-    /**
-     * Updates the displayed damage bonus.
-     * Applies a special CSS class if the bonus is positive.
-     * @param event An optional event that may trigger the update.
-     */
-    updateDisplay(event?: CustomEvent): void {
-        if (this.shouldUpdateDisplay(event)) {
-            const damageBonusValue = this.getDamageBonusValue();
-            this.damageBonusSpan.textContent = damageBonusValue?.toString() ?? "";
+		this._updateHandler = (event: any) => this.updateDisplay(event);
+		document.addEventListener(
+			'abilityScoreModifierChanged',
+			this._updateHandler,
+		);
+		document.addEventListener(
+			'inventoryWeaponAbilityChanged',
+			this._updateHandler,
+		);
+	}
 
-            // Add a CSS class that adds the "+" sign in front of a positive number.
-            if (damageBonusValue !== null && damageBonusValue >= 0) {
-                this.damageBonusSpan.classList.add("expressive-positive-number");
-            } else {
-                this.damageBonusSpan.classList.remove("expressive-positive-number");
-            }
-        }
-    }
+	/**
+	 * Called when the element is removed from the DOM.
+	 * Removes the event listeners.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener(
+			'abilityScoreModifierChanged',
+			this._updateHandler!,
+		);
+		document.removeEventListener(
+			'inventoryWeaponAbilityChanged',
+			this._updateHandler!,
+		);
+	}
 
-    /**
-     * Determines if the display should be updated based on the event.
-     * @param event The event to examine.
-     * @returns True if update is necessary; otherwise false.
-     */
-    shouldUpdateDisplay(event?: CustomEvent): boolean {
-        const inventoryWeapon: any = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+	/**
+	 * Updates the displayed damage bonus.
+	 * Applies a special CSS class if the bonus is positive.
+	 * @param event An optional event that may trigger the update.
+	 */
+	updateDisplay(event?: CustomEvent): void {
+		if (this.shouldUpdateDisplay(event)) {
+			const damageBonusValue = this.getDamageBonusValue();
+			this.damageBonusSpan.textContent = damageBonusValue?.toString() ?? '';
 
-        return !event || 
-            (event.type === "abilityScoreModifierChanged" && event.detail.ability === inventoryWeapon.ability) ||
-            (event.type === "inventoryWeaponAbilityChanged" && event.detail.index === this.rowIndex);
-    }
+			// Add a CSS class that adds the "+" sign in front of a positive number.
+			if (damageBonusValue !== null && damageBonusValue >= 0) {
+				this.damageBonusSpan.classList.add('expressive-positive-number');
+			} else {
+				this.damageBonusSpan.classList.remove('expressive-positive-number');
+			}
+		}
+	}
 
-    /**
-     * Retrieves the damage bonus value based on the current ability modifier.
-     * @returns The damage bonus or null if damage information is unavailable.
-     */
-    getDamageBonusValue(): number | null {
-        const inventoryWeapon: any = globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+	/**
+	 * Determines if the display should be updated based on the event.
+	 * @param event The event to examine.
+	 * @returns True if update is necessary; otherwise false.
+	 */
+	shouldUpdateDisplay(event?: CustomEvent): boolean {
+		const inventoryWeapon: any =
+			globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
 
-        if (!this.weapon.damage) {
-            return null;
-        }
+		return (
+			!event ||
+			(event.type === 'abilityScoreModifierChanged' &&
+				event.detail.ability === inventoryWeapon.ability) ||
+			(event.type === 'inventoryWeaponAbilityChanged' &&
+				event.detail.index === this.rowIndex)
+		);
+	}
 
-        return globals.activePlayerCharacter.getAbilityModifier(inventoryWeapon.ability);
-    }
+	/**
+	 * Retrieves the damage bonus value based on the current ability modifier.
+	 * @returns The damage bonus or null if damage information is unavailable.
+	 */
+	getDamageBonusValue(): number | null {
+		const inventoryWeapon: any =
+			globals.activePlayerCharacter.inventoryWeapons[this.rowIndex];
+
+		if (!this.weapon.damage) {
+			return null;
+		}
+
+		return globals.activePlayerCharacter.getAbilityModifier(
+			inventoryWeapon.ability,
+		);
+	}
 }
 
 // Register the custom element.
-customElements.define("inventory-weapon-damage-cell", InventoryDamageCell, { extends: 'td' });
+customElements.define('inventory-weapon-damage-cell', InventoryDamageCell, {
+	extends: 'td',
+});

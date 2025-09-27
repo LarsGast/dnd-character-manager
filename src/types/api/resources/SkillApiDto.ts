@@ -1,14 +1,13 @@
-import { BaseResourceApiDto } from "../wrappers/BaseResourceApiDto.js";
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
 
 export interface SkillApiDto extends BaseResourceApiDto {
+	/**
+	 * Flavor description of the skill.
+	 */
+	desc: string[];
 
-    /**
-     * Flavor description of the skill.
-     */
-    desc: string[];
-
-    /**
-     * The ability score that the skill is typically used as.
-     */
-    ability_score: BaseResourceApiDto;
+	/**
+	 * The ability score that the skill is typically used as.
+	 */
+	ability_score: BaseResourceApiDto;
 }
