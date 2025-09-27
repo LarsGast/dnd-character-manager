@@ -58,3 +58,29 @@ jobs:
       # Build
       - name: Build the site
         run: npm run build
+
+  prettier:
+    # Only run for non-draft PRs or pushes to main.
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+    steps:
+
+      # Checkout
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # Setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Check Prettier formatting
+      - name: Check Prettier formatting
+        run: npm run format:check
