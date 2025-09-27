@@ -157,3 +157,5 @@ title: DnD Character Manager
 <script type="module" src="{{ 'store/load-globals.js' | relative_url }}"></script>
 
 <script type="module" src="{{ 'register-components.js' | relative_url }}"></script>
+
+<script type="module" src="{{ 'utils/siteStartupCleanup.js' | relative_url }}"></script>
