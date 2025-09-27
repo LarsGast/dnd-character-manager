@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { ClassLevelInput } from "./ClassLevelInput.js";
+import { globals } from '../../../../../store/load-globals.js';
+import { ClassLevelInput } from './ClassLevelInput.js';
 
 /**
  * Custom element representing a section for managing classes and levels.
@@ -12,110 +12,113 @@ import { ClassLevelInput } from "./ClassLevelInput.js";
  * It listens for changes (add, update, delete) and updates the active PC's classes accordingly by dispatching a "classesChanged" event.
  */
 export class ClassLevelSection extends HTMLElement {
-    addClassButton: HTMLButtonElement;
-    classLevelList: HTMLUListElement;
-    _updateHandler?: () => void;
-    
-    constructor() {
-        super();
-        
-        // Create a button to add a new class level input.
-        this.addClassButton = document.createElement('button');
-        this.addClassButton.type = 'button';
-        this.addClassButton.textContent = 'Add class';
-        this.addClassButton.onclick = () => this.onAddClassButtonClick();
+	addClassButton: HTMLButtonElement;
+	classLevelList: HTMLUListElement;
+	_updateHandler?: () => void;
 
-        // Create an unordered list to hold class level inputs.
-        this.classLevelList = document.createElement('ul');
+	constructor() {
+		super();
 
-        // Append the add button and list into the element.
-        this.appendChild(this.addClassButton);
-        this.appendChild(this.classLevelList);
-    }
+		// Create a button to add a new class level input.
+		this.addClassButton = document.createElement('button');
+		this.addClassButton.type = 'button';
+		this.addClassButton.textContent = 'Add class';
+		this.addClassButton.onclick = () => this.onAddClassButtonClick();
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Loads existing class levels from the active player's data if available, otherwise creates a default ClassLevelInput.
-     * Registers event listeners to track changes.
-     */
-    connectedCallback(): void {
-        if (globals.activePlayerCharacter.classes.length > 0) {
-            for (const classLevel of globals.activePlayerCharacter.classes) {
-                const classLevelInput = new ClassLevelInput((classLevel as any).index, (classLevel as any).subclass, (classLevel as any).level);
-                this.classLevelList.appendChild(classLevelInput);
-            }
-        } 
-        else {
-            // No classes defined: provide an initial empty input.
-            this.classLevelList.appendChild(new ClassLevelInput());
-        }
+		// Create an unordered list to hold class level inputs.
+		this.classLevelList = document.createElement('ul');
 
-        // Register event listeners to handle any changes in class entries.
-        this._updateHandler = () => this.saveClasses();
-        document.addEventListener("classAdded", this._updateHandler);
-        document.addEventListener("classChanged", this._updateHandler);
-        document.addEventListener("subclassChanged", this._updateHandler);
-        document.addEventListener("classLevelChanged", this._updateHandler);
-        document.addEventListener("classDeleted", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes event listeners to prevent memory leaks.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("classAdded", this._updateHandler!);
-        document.removeEventListener("classChanged", this._updateHandler!);
-        document.removeEventListener("subclassChanged", this._updateHandler!);
-        document.removeEventListener("classLevelChanged", this._updateHandler!);
-        document.removeEventListener("classDeleted", this._updateHandler!);
-    }
+		// Append the add button and list into the element.
+		this.appendChild(this.addClassButton);
+		this.appendChild(this.classLevelList);
+	}
 
-    /**
-     * Event handler for the "Add class" button.
-     * Creates and appends a new ClassLevelInput element and dispatches a "classAdded" event.
-     */
-    onAddClassButtonClick(): void {
-        this.classLevelList.appendChild(new ClassLevelInput());
-        document.dispatchEvent(new Event("classAdded"));
-    }
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Loads existing class levels from the active player's data if available, otherwise creates a default ClassLevelInput.
+	 * Registers event listeners to track changes.
+	 */
+	connectedCallback(): void {
+		if (globals.activePlayerCharacter.classes.length > 0) {
+			for (const classLevel of globals.activePlayerCharacter.classes) {
+				const classLevelInput = new ClassLevelInput(
+					(classLevel as any).index,
+					(classLevel as any).subclass,
+					(classLevel as any).level,
+				);
+				this.classLevelList.appendChild(classLevelInput);
+			}
+		} else {
+			// No classes defined: provide an initial empty input.
+			this.classLevelList.appendChild(new ClassLevelInput());
+		}
 
-    /**
-     * Aggregates all class level inputs, updates the active player's classes, and dispatches a "classesChanged" event.
-     */
-    saveClasses(): void {
-        let classes: any[] = [];
+		// Register event listeners to handle any changes in class entries.
+		this._updateHandler = () => this.saveClasses();
+		document.addEventListener('classAdded', this._updateHandler);
+		document.addEventListener('classChanged', this._updateHandler);
+		document.addEventListener('subclassChanged', this._updateHandler);
+		document.addEventListener('classLevelChanged', this._updateHandler);
+		document.addEventListener('classDeleted', this._updateHandler);
+	}
 
-        // Loop through each ClassLevelInput element in the list.
-        this.classLevelList.childNodes.forEach((el) => {
-            const selects = (el as HTMLElement).querySelectorAll("select")!;
-            const input = (el as HTMLElement).querySelector("input")!;
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes event listeners to prevent memory leaks.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener('classAdded', this._updateHandler!);
+		document.removeEventListener('classChanged', this._updateHandler!);
+		document.removeEventListener('subclassChanged', this._updateHandler!);
+		document.removeEventListener('classLevelChanged', this._updateHandler!);
+		document.removeEventListener('classDeleted', this._updateHandler!);
+	}
 
-            const index = selects[0].value;
-            let subclass: string | undefined = selects[1].value;
-            const level = parseInt(input.value);
+	/**
+	 * Event handler for the "Add class" button.
+	 * Creates and appends a new ClassLevelInput element and dispatches a "classAdded" event.
+	 */
+	onAddClassButtonClick(): void {
+		this.classLevelList.appendChild(new ClassLevelInput());
+		document.dispatchEvent(new Event('classAdded'));
+	}
 
-            // Only save data if the user has actually chosen a class.
-            if (!index || index === "null") {
-                return;
-            }
+	/**
+	 * Aggregates all class level inputs, updates the active player's classes, and dispatches a "classesChanged" event.
+	 */
+	saveClasses(): void {
+		let classes: any[] = [];
 
-            // The "-- Select an option --" option has a value of "null", which we do not want to save.
-            if (subclass === "null") {
-                subclass = undefined;
-            }
+		// Loop through each ClassLevelInput element in the list.
+		this.classLevelList.childNodes.forEach((el) => {
+			const selects = (el as HTMLElement).querySelectorAll('select')!;
+			const input = (el as HTMLElement).querySelector('input')!;
 
-            classes.push({
-                index: index,
-                subclass: subclass,
-                level: level
-            });
-        });
-        
-        // Save the updated classes to the active player character.
-        globals.activePlayerCharacter.setProperty('classes', classes);
-        document.dispatchEvent(new Event("classesChanged"));
-    }
+			const index = selects[0].value;
+			let subclass: string | undefined = selects[1].value;
+			const level = parseInt(input.value);
+
+			// Only save data if the user has actually chosen a class.
+			if (!index || index === 'null') {
+				return;
+			}
+
+			// The "-- Select an option --" option has a value of "null", which we do not want to save.
+			if (subclass === 'null') {
+				subclass = undefined;
+			}
+
+			classes.push({
+				index: index,
+				subclass: subclass,
+				level: level,
+			});
+		});
+
+		// Save the updated classes to the active player character.
+		globals.activePlayerCharacter.setProperty('classes', classes);
+		document.dispatchEvent(new Event('classesChanged'));
+	}
 }
 
 // Define the custom element.

@@ -1,4 +1,4 @@
-import { globals } from "../../../../../store/load-globals.js";
+import { globals } from '../../../../../store/load-globals.js';
 
 /**
  * Custom HTML element for displaying the Character Delete Dialog.
@@ -7,104 +7,111 @@ import { globals } from "../../../../../store/load-globals.js";
  * The dialog warns the user about data loss, upon confirmation deletes the selected player character.
  */
 export class CharacterDeleteDialog extends HTMLDialogElement {
-    dialogContent: HTMLDivElement;
-    heading: HTMLHeadingElement;
-    firstParagraph: HTMLParagraphElement;
-    warningText: HTMLElement;
-    deleteButton: HTMLButtonElement;
-    closeButton: HTMLButtonElement;
-    _updateHandler?: (event: any) => void;
-    characterId?: string;
-    
-    constructor() {
-        super();
+	dialogContent: HTMLDivElement;
+	heading: HTMLHeadingElement;
+	firstParagraph: HTMLParagraphElement;
+	warningText: HTMLElement;
+	deleteButton: HTMLButtonElement;
+	closeButton: HTMLButtonElement;
+	_updateHandler?: (event: any) => void;
+	characterId?: string;
 
-        // Container div for dialog content.
-        this.dialogContent = document.createElement('div');
-        this.dialogContent.classList.add("dialog-content");
+	constructor() {
+		super();
 
-        // Dialog heading.
-        this.heading = document.createElement('h2');
-        this.heading.textContent = "Delete Character";
+		// Container div for dialog content.
+		this.dialogContent = document.createElement('div');
+		this.dialogContent.classList.add('dialog-content');
 
-        // Paragraph with a warning. It contains emphasized text.
-        this.firstParagraph = document.createElement('p');
-        this.warningText = document.createElement('strong');
-        this.warningText.textContent = "Warning: deleting this character will remove all data for the selected character. Consider exporting the character first to create a backup if you do not want to lose any data. This data cannot be recovered once deleted.";
-        this.firstParagraph.appendChild(this.warningText);
+		// Dialog heading.
+		this.heading = document.createElement('h2');
+		this.heading.textContent = 'Delete Character';
 
-        // Delete button.
-        this.deleteButton = document.createElement('button');
-        this.deleteButton.textContent = "Delete";
-        this.deleteButton.type = 'button';
-        this.deleteButton.classList.add('delete');
-        this.deleteButton.onclick = () => this.handleDeleteButtonClick();
+		// Paragraph with a warning. It contains emphasized text.
+		this.firstParagraph = document.createElement('p');
+		this.warningText = document.createElement('strong');
+		this.warningText.textContent =
+			'Warning: deleting this character will remove all data for the selected character. Consider exporting the character first to create a backup if you do not want to lose any data. This data cannot be recovered once deleted.';
+		this.firstParagraph.appendChild(this.warningText);
 
-        // Close button.
-        this.closeButton = document.createElement('button');
-        this.closeButton.textContent = "Close";
-        this.closeButton.type = 'button';
-        this.closeButton.classList.add('close');
-        this.closeButton.onclick = () => this.handleCloseButtonClick();
+		// Delete button.
+		this.deleteButton = document.createElement('button');
+		this.deleteButton.textContent = 'Delete';
+		this.deleteButton.type = 'button';
+		this.deleteButton.classList.add('delete');
+		this.deleteButton.onclick = () => this.handleDeleteButtonClick();
 
-        // Assemble dialog content.
-        this.dialogContent.appendChild(this.heading);
-        this.dialogContent.appendChild(this.firstParagraph);
-        this.dialogContent.appendChild(this.deleteButton);
-        this.dialogContent.appendChild(this.closeButton);
+		// Close button.
+		this.closeButton = document.createElement('button');
+		this.closeButton.textContent = 'Close';
+		this.closeButton.type = 'button';
+		this.closeButton.classList.add('close');
+		this.closeButton.onclick = () => this.handleCloseButtonClick();
 
-        this.appendChild(this.dialogContent);        
-    }
+		// Assemble dialog content.
+		this.dialogContent.appendChild(this.heading);
+		this.dialogContent.appendChild(this.firstParagraph);
+		this.dialogContent.appendChild(this.deleteButton);
+		this.dialogContent.appendChild(this.closeButton);
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Registers an event listener for "characterDeleteButtonClicked".
-     */
-    connectedCallback(): void {
-        this._updateHandler = (event) => this.showDialog(event);
-        document.addEventListener("characterDeleteButtonClicked", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes the event listener.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("characterDeleteButtonClicked", this._updateHandler!);
-    }
+		this.appendChild(this.dialogContent);
+	}
 
-    /**
-     * Opens the dialog.
-     * @param event Custom event containing information about the selected character.
-     */
-    showDialog(event: CustomEvent) {
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Registers an event listener for "characterDeleteButtonClicked".
+	 */
+	connectedCallback(): void {
+		this._updateHandler = (event) => this.showDialog(event);
+		document.addEventListener(
+			'characterDeleteButtonClicked',
+			this._updateHandler,
+		);
+	}
 
-        // Set the PC ID here to use on confirmation.
-        this.characterId = event.detail.characterId;
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes the event listener.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener(
+			'characterDeleteButtonClicked',
+			this._updateHandler!,
+		);
+	}
 
-        this.showModal();
-    }
-  
-    /**
-     * Handles reset button clicks.
-     * Simply remove the character from the bank, close the dialog, and reload the UI.
-     */
-    handleDeleteButtonClick(): void {
+	/**
+	 * Opens the dialog.
+	 * @param event Custom event containing information about the selected character.
+	 */
+	showDialog(event: CustomEvent) {
+		// Set the PC ID here to use on confirmation.
+		this.characterId = event.detail.characterId;
 
-        globals.playerCharacterBank.removeCharacterFromBank(this.characterId!);
-        globals.playerCharacterBank.save();
+		this.showModal();
+	}
 
-        this.close();
+	/**
+	 * Handles reset button clicks.
+	 * Simply remove the character from the bank, close the dialog, and reload the UI.
+	 */
+	handleDeleteButtonClick(): void {
+		globals.playerCharacterBank.removeCharacterFromBank(this.characterId!);
+		globals.playerCharacterBank.save();
 
-        document.dispatchEvent(new Event("playerCharacterDeleted"));
-    }
-  
-    /**
-     * Closes the dialog.
-     */
-    handleCloseButtonClick(): void {
-        this.close();
-    }
+		this.close();
+
+		document.dispatchEvent(new Event('playerCharacterDeleted'));
+	}
+
+	/**
+	 * Closes the dialog.
+	 */
+	handleCloseButtonClick(): void {
+		this.close();
+	}
 }
 
-customElements.define('character-delete-dialog', CharacterDeleteDialog, { extends: 'dialog' });
+customElements.define('character-delete-dialog', CharacterDeleteDialog, {
+	extends: 'dialog',
+});

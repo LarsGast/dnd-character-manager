@@ -1,32 +1,33 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
+import { globals } from '../../../../../store/load-globals.js';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
 
 /**
  * Custom HTML element for displaying and handling the button to add a new character.
  * Extends HTMLButtonElement.
  */
 export class NewCharacterButton extends HTMLButtonElement {
-    
-    constructor() {
-        super();
-        
-        // Set type and display text.
-        this.type = 'button';
-        this.textContent = "New";
+	constructor() {
+		super();
 
-        // Bind click event to dispatch an event to open the import dialog.
-        this.onclick = () => this.handleClick();
-    }
-    
-    /**
-     * Handles the button click.
-     */
-    handleClick(): void {
-        globals.playerCharacterBank.addNewCharacter(PlayerCharacter.getDefault());
-        globals.playerCharacterBank.save();
+		// Set type and display text.
+		this.type = 'button';
+		this.textContent = 'New';
 
-        document.dispatchEvent(new Event("newCharacterCreated"));
-    }
+		// Bind click event to dispatch an event to open the import dialog.
+		this.onclick = () => this.handleClick();
+	}
+
+	/**
+	 * Handles the button click.
+	 */
+	handleClick(): void {
+		globals.playerCharacterBank.addNewCharacter(PlayerCharacter.getDefault());
+		globals.playerCharacterBank.save();
+
+		document.dispatchEvent(new Event('newCharacterCreated'));
+	}
 }
 
-customElements.define('new-character-button', NewCharacterButton, { extends: 'button' });
+customElements.define('new-character-button', NewCharacterButton, {
+	extends: 'button',
+});

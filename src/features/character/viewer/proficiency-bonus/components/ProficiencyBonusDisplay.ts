@@ -1,4 +1,4 @@
-import { globals } from "../../../../../store/load-globals.js";
+import { globals } from '../../../../../store/load-globals.js';
 
 /**
  * Custom element for displaying the proficiency bonus.
@@ -8,47 +8,47 @@ import { globals } from "../../../../../store/load-globals.js";
  * It updates automatically when the "classesChanged" event is dispatched.
  */
 export class ProficiencyBonusDisplay extends HTMLElement {
-    _updateHandler?: () => void;
+	_updateHandler?: () => void;
 
-    constructor() {
-        super();
-    }
-    
-    /**
-     * Called when the element is connected to the DOM.
-     * Immediately updates the displayed proficiency bonus and registers an event listener for class changes.
-     */
-    connectedCallback(): void {
+	constructor() {
+		super();
+	}
 
-        // Update display immediately.
-        this.updateDisplay();
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Immediately updates the displayed proficiency bonus and registers an event listener for class changes.
+	 */
+	connectedCallback(): void {
+		// Update display immediately.
+		this.updateDisplay();
 
-        // Listen for changes in the classes data.
-        this._updateHandler = () => this.updateDisplay();
-        document.addEventListener("classesChanged", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes the event listener to prevent memory leaks.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("classesChanged", this._updateHandler!);
-    }
-    
-    /**
-     * Updates the displayed proficiency bonus.
-     * Retrieves the bonus from the PC's data and dispatches a "proficiencyBonusChanged" event.
-     */
-    updateDisplay(): void {
+		// Listen for changes in the classes data.
+		this._updateHandler = () => this.updateDisplay();
+		document.addEventListener('classesChanged', this._updateHandler);
+	}
 
-        // Update the element's text with the current proficiency bonus.
-        this.textContent = globals.activePlayerCharacter.getProficiencyBonus().toString();
-        
-        // Dispatch an event to indicate the bonus has been updated.
-        document.dispatchEvent(new Event("proficiencyBonusChanged"));
-    }
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes the event listener to prevent memory leaks.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener('classesChanged', this._updateHandler!);
+	}
+
+	/**
+	 * Updates the displayed proficiency bonus.
+	 * Retrieves the bonus from the PC's data and dispatches a "proficiencyBonusChanged" event.
+	 */
+	updateDisplay(): void {
+		// Update the element's text with the current proficiency bonus.
+		this.textContent = globals.activePlayerCharacter
+			.getProficiencyBonus()
+			.toString();
+
+		// Dispatch an event to indicate the bonus has been updated.
+		document.dispatchEvent(new Event('proficiencyBonusChanged'));
+	}
 }
-  
+
 // Define the custom element.
-customElements.define("proficiency-bonus-display", ProficiencyBonusDisplay);
+customElements.define('proficiency-bonus-display', ProficiencyBonusDisplay);

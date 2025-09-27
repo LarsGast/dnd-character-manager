@@ -3,22 +3,23 @@
  * Extends HTMLButtonElement.
  */
 export class ManageHomebrewButton extends HTMLButtonElement {
-    
-    constructor() {
-        super();
-        
-        this.type = 'button';
-        this.textContent = "Manage homebrew";
+	constructor() {
+		super();
 
-        this.onclick = () => this.handleClick();
-    }
-    
-    /**
-     * Handles the button click.
-     */
-    handleClick(): void {
-        document.dispatchEvent(new Event('manageHomebrewButtonClicked'));
-    }
+		this.type = 'button';
+		this.textContent = 'Manage homebrew';
+
+		this.onclick = () => this.handleClick();
+	}
+
+	/**
+	 * Handles the button click.
+	 */
+	handleClick(): void {
+		document.dispatchEvent(new Event('manageHomebrewButtonClicked'));
+	}
 }
 
-customElements.define('manage-homebrew-button', ManageHomebrewButton, { extends: 'button' });
+customElements.define('manage-homebrew-button', ManageHomebrewButton, {
+	extends: 'button',
+});

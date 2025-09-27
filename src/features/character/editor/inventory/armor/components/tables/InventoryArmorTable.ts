@@ -1,6 +1,6 @@
-import { InventoryArmorRow } from "../rows/InventoryArmorRow.js";
-import { globals } from "../../../../../../../store/load-globals.js";
-import { armorRepository } from "../../../../../../../wiring/dependencies.js";
+import { InventoryArmorRow } from '../rows/InventoryArmorRow.js';
+import { globals } from '../../../../../../../store/load-globals.js';
+import { armorRepository } from '../../../../../../../wiring/dependencies.js';
 
 /**
  * Custom element for displaying the inventory armor table.
@@ -11,128 +11,131 @@ import { armorRepository } from "../../../../../../../wiring/dependencies.js";
  * It listens for "inventoryArmorAdded" and "inventoryArmorDeleted" events to refresh its content.
  */
 export class InventoryArmorTable extends HTMLElement {
-    tableHead: HTMLTableSectionElement;
-    tableBody: HTMLTableSectionElement;
-    table: HTMLTableElement;
-    _updateHandler?: (event: any) => Promise<void>;
+	tableHead: HTMLTableSectionElement;
+	tableBody: HTMLTableSectionElement;
+	table: HTMLTableElement;
+	_updateHandler?: (event: any) => Promise<void>;
 
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        // Create table header.
-        this.tableHead = document.createElement('thead');
-        const tr = document.createElement('tr');
-        
-        const nameHead = document.createElement('th');
-        nameHead.id = "armor_name";
-        nameHead.textContent = "Name";
-        
-        const typeHead = document.createElement('th');
-        typeHead.id = "armor_type";
-        typeHead.textContent = "Type";
-        
-        const strengthHead = document.createElement('th');
-        strengthHead.id = "armor_strength-requirement";
-        strengthHead.textContent = "Strength";
-        
-        const stealthHead = document.createElement('th');
-        stealthHead.id = "armor_disadvantage-on-stealth";
-        stealthHead.textContent = "Stealth";
-        
-        const armorClassHead = document.createElement('th');
-        armorClassHead.id = "armor_armor-class";
-        armorClassHead.textContent = "Armor class";
-        
-        const effectiveArmorClassHead = document.createElement('th');
-        effectiveArmorClassHead.id = "armor_effective-armor-class";
-        effectiveArmorClassHead.textContent = "Effective armor class";
-        
-        const weightHead = document.createElement('th');
-        weightHead.id = "armor_weight";
-        weightHead.textContent = "Weight";
-        
-        const buttonsHead = document.createElement('th');
-        buttonsHead.id = "armor_buttons";
-        buttonsHead.textContent = "Buttons";
+		// Create table header.
+		this.tableHead = document.createElement('thead');
+		const tr = document.createElement('tr');
 
-        // Append header cells to the header row.
-        tr.appendChild(nameHead);
-        tr.appendChild(typeHead);
-        tr.appendChild(strengthHead);
-        tr.appendChild(stealthHead);
-        tr.appendChild(armorClassHead);
-        tr.appendChild(effectiveArmorClassHead);
-        tr.appendChild(weightHead);
-        tr.appendChild(buttonsHead);
+		const nameHead = document.createElement('th');
+		nameHead.id = 'armor_name';
+		nameHead.textContent = 'Name';
 
-        this.tableHead.appendChild(tr);
+		const typeHead = document.createElement('th');
+		typeHead.id = 'armor_type';
+		typeHead.textContent = 'Type';
 
-        // Create table body.
-        this.tableBody = document.createElement('tbody');
+		const strengthHead = document.createElement('th');
+		strengthHead.id = 'armor_strength-requirement';
+		strengthHead.textContent = 'Strength';
 
-        // Create the table and assemble head and body.
-        this.table = document.createElement('table');
-        this.table.appendChild(this.tableHead);
-        this.table.appendChild(this.tableBody);
+		const stealthHead = document.createElement('th');
+		stealthHead.id = 'armor_disadvantage-on-stealth';
+		stealthHead.textContent = 'Stealth';
 
-        // Append the table to this custom element.
-        this.appendChild(this.table);
-    }
+		const armorClassHead = document.createElement('th');
+		armorClassHead.id = 'armor_armor-class';
+		armorClassHead.textContent = 'Armor class';
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Updates the table display and registers event listeners for armor inventory changes.
-     */
-    connectedCallback(): void {
+		const effectiveArmorClassHead = document.createElement('th');
+		effectiveArmorClassHead.id = 'armor_effective-armor-class';
+		effectiveArmorClassHead.textContent = 'Effective armor class';
 
-        // Refresh the table immediately.
-        this.updateDisplay();
+		const weightHead = document.createElement('th');
+		weightHead.id = 'armor_weight';
+		weightHead.textContent = 'Weight';
 
-        // Set up listeners to update the table when armor is added or deleted.
-        this._updateHandler = (event) => this.updateDisplay(event);
-        document.addEventListener("inventoryArmorAdded", this._updateHandler);
-        document.addEventListener("inventoryArmorDeleted", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes event listeners.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("inventoryArmorAdded", this._updateHandler!);
-        document.removeEventListener("inventoryArmorDeleted", this._updateHandler!);
-    }
+		const buttonsHead = document.createElement('th');
+		buttonsHead.id = 'armor_buttons';
+		buttonsHead.textContent = 'Buttons';
 
-    /**
-     * Updates the table display by repopulating the body with the current armor inventory.
-     * @param event Optional event that may trigger the update.
-     */
-    async updateDisplay(event?: CustomEvent) {
-        if (this.shouldUpdateDisplay(event)) {
+		// Append header cells to the header row.
+		tr.appendChild(nameHead);
+		tr.appendChild(typeHead);
+		tr.appendChild(strengthHead);
+		tr.appendChild(stealthHead);
+		tr.appendChild(armorClassHead);
+		tr.appendChild(effectiveArmorClassHead);
+		tr.appendChild(weightHead);
+		tr.appendChild(buttonsHead);
 
-            // Clear existing table body content.
-            const tableBody = this.table.querySelector('tbody')!;
-            tableBody.replaceChildren();
+		this.tableHead.appendChild(tr);
 
-            // For each armor in the inventory, create a new row and append it.
-            for (const inventoryArmor of globals.activePlayerCharacter.inventoryArmor) {
-                const armor = (await armorRepository.getAsync((inventoryArmor as any).index))!;
-                tableBody.appendChild(new InventoryArmorRow(armor));
-            }
-        }
-    }
+		// Create table body.
+		this.tableBody = document.createElement('tbody');
 
-    /**
-     * Determines if the table display should be updated based on the event.
-     * @param event The event to evaluate.
-     * @returns True if the table should be updated; false otherwise.
-     */
-    shouldUpdateDisplay(event?: CustomEvent): boolean {
-        return !event ||
-            event.type === "inventoryArmorAdded" ||
-            event.type === "inventoryArmorDeleted";
-    }
+		// Create the table and assemble head and body.
+		this.table = document.createElement('table');
+		this.table.appendChild(this.tableHead);
+		this.table.appendChild(this.tableBody);
+
+		// Append the table to this custom element.
+		this.appendChild(this.table);
+	}
+
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Updates the table display and registers event listeners for armor inventory changes.
+	 */
+	connectedCallback(): void {
+		// Refresh the table immediately.
+		this.updateDisplay();
+
+		// Set up listeners to update the table when armor is added or deleted.
+		this._updateHandler = (event) => this.updateDisplay(event);
+		document.addEventListener('inventoryArmorAdded', this._updateHandler);
+		document.addEventListener('inventoryArmorDeleted', this._updateHandler);
+	}
+
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes event listeners.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener('inventoryArmorAdded', this._updateHandler!);
+		document.removeEventListener('inventoryArmorDeleted', this._updateHandler!);
+	}
+
+	/**
+	 * Updates the table display by repopulating the body with the current armor inventory.
+	 * @param event Optional event that may trigger the update.
+	 */
+	async updateDisplay(event?: CustomEvent) {
+		if (this.shouldUpdateDisplay(event)) {
+			// Clear existing table body content.
+			const tableBody = this.table.querySelector('tbody')!;
+			tableBody.replaceChildren();
+
+			// For each armor in the inventory, create a new row and append it.
+			for (const inventoryArmor of globals.activePlayerCharacter
+				.inventoryArmor) {
+				const armor = (await armorRepository.getAsync(
+					(inventoryArmor as any).index,
+				))!;
+				tableBody.appendChild(new InventoryArmorRow(armor));
+			}
+		}
+	}
+
+	/**
+	 * Determines if the table display should be updated based on the event.
+	 * @param event The event to evaluate.
+	 * @returns True if the table should be updated; false otherwise.
+	 */
+	shouldUpdateDisplay(event?: CustomEvent): boolean {
+		return (
+			!event ||
+			event.type === 'inventoryArmorAdded' ||
+			event.type === 'inventoryArmorDeleted'
+		);
+	}
 }
 
 // Register the custom element.
-customElements.define("inventory-armor-table", InventoryArmorTable);
+customElements.define('inventory-armor-table', InventoryArmorTable);

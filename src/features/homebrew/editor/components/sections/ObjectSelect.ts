@@ -1,77 +1,82 @@
-import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
-import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import {
+	getEmptyOption,
+	populateSelectWithApiObjects,
+} from '../../../../../utils/util.js';
 
 /**
  * Custom element for selecting an object from a list of possible objects.
  * It allows the user to select an object and provides a delete button to remove the selection.
  */
 export class ObjectSelect extends HTMLElement {
-    possibleObjects: ResourceList;
-    select: HTMLSelectElement;
-    deleteButton: HTMLButtonElement;
+	possibleObjects: ResourceList;
+	select: HTMLSelectElement;
+	deleteButton: HTMLButtonElement;
 
-    /**
-     * Creates an instance of ObjectSelect.
-     * @param possibleObjects The list of possible objects to select from
-     * @param selectedObject The object that is currently selected, if any.
-     */
-    constructor(possibleObjects: ResourceList, selectedObject?: BaseResource) {
-        super();
-        
-        this.possibleObjects = possibleObjects;
+	/**
+	 * Creates an instance of ObjectSelect.
+	 * @param possibleObjects The list of possible objects to select from
+	 * @param selectedObject The object that is currently selected, if any.
+	 */
+	constructor(possibleObjects: ResourceList, selectedObject?: BaseResource) {
+		super();
 
-        this.select = this.getSelect(selectedObject);
-        this.deleteButton = this.getDeleteButton();
+		this.possibleObjects = possibleObjects;
 
-        this.appendChild(this.select);
-        this.appendChild(this.deleteButton);
-    }
+		this.select = this.getSelect(selectedObject);
+		this.deleteButton = this.getDeleteButton();
 
-    /**
-     * Creates a select element populated with the possible objects.
-     * @param defaultValue The default value to set in the select
-     * @returns The select element with options for each possible object.
-     */
-    getSelect(defaultValue?: BaseResource): HTMLSelectElement {
-        const select = document.createElement('select');
+		this.appendChild(this.select);
+		this.appendChild(this.deleteButton);
+	}
 
-        select.appendChild(getEmptyOption());
+	/**
+	 * Creates a select element populated with the possible objects.
+	 * @param defaultValue The default value to set in the select
+	 * @returns The select element with options for each possible object.
+	 */
+	getSelect(defaultValue?: BaseResource): HTMLSelectElement {
+		const select = document.createElement('select');
 
-        populateSelectWithApiObjects(select, this.possibleObjects);
+		select.appendChild(getEmptyOption());
 
-        select.value = defaultValue?.index ?? "null";
+		populateSelectWithApiObjects(select, this.possibleObjects);
 
-        return select;
-    }
+		select.value = defaultValue?.index ?? 'null';
 
-    /**
-     * Creates a delete button to remove the object select element.
-     * @returns The button element that, when clicked, will remove this element from the DOM.
-     */
-    getDeleteButton(): HTMLButtonElement {
-        const button = document.createElement('button');
+		return select;
+	}
 
-        button.textContent = "Remove";
-        button.onclick = () => { this.remove() };
+	/**
+	 * Creates a delete button to remove the object select element.
+	 * @returns The button element that, when clicked, will remove this element from the DOM.
+	 */
+	getDeleteButton(): HTMLButtonElement {
+		const button = document.createElement('button');
 
-        return button;
-    }
+		button.textContent = 'Remove';
+		button.onclick = () => {
+			this.remove();
+		};
 
-    /**
-     * Gets the value of the selected object.
-     * @returns An ApiObjectInfo object containing the index and name of the selected object.
-     */
-    getValue(): BaseResource {
-        const data: BaseResource = {
-            index: this.select.value,
-            name: this.select.options[this.select.selectedIndex].text,
-            resourceType: "",
-            isHomebrew: false
-        }
+		return button;
+	}
 
-        return data;
-    }
+	/**
+	 * Gets the value of the selected object.
+	 * @returns An ApiObjectInfo object containing the index and name of the selected object.
+	 */
+	getValue(): BaseResource {
+		const data: BaseResource = {
+			index: this.select.value,
+			name: this.select.options[this.select.selectedIndex].text,
+			resourceType: '',
+			isHomebrew: false,
+		};
+
+		return data;
+	}
 }
 
 customElements.define('object-select', ObjectSelect);

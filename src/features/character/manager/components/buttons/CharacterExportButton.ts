@@ -3,34 +3,37 @@
  * Extends HTMLButtonElement.
  */
 export class CharacterExportButton extends HTMLButtonElement {
-    characterId: string;
-    
-    constructor(characterId: string) {
-        super();
-        
-        // Set the button type and label.
-        this.characterId = characterId;
-        this.type = 'button';
-        this.textContent = "Export";
+	characterId: string;
 
-        // Bind click event to handle export button click.
-        this.onclick = () => this.handleClick();
-    }
-    
-    /**
-     * Handles the click event. Dispatches a custom event that the export dialog listens for.
-     */
-    handleClick(): void {
-        
-        // Fire an event that signals the Character Export Dialog should be shown.
-        document.dispatchEvent(new CustomEvent("characterExportButtonClicked", {
-            detail: { 
-                characterId: this.characterId 
-            },
-            bubbles: true
-        }));
-    }
+	constructor(characterId: string) {
+		super();
+
+		// Set the button type and label.
+		this.characterId = characterId;
+		this.type = 'button';
+		this.textContent = 'Export';
+
+		// Bind click event to handle export button click.
+		this.onclick = () => this.handleClick();
+	}
+
+	/**
+	 * Handles the click event. Dispatches a custom event that the export dialog listens for.
+	 */
+	handleClick(): void {
+		// Fire an event that signals the Character Export Dialog should be shown.
+		document.dispatchEvent(
+			new CustomEvent('characterExportButtonClicked', {
+				detail: {
+					characterId: this.characterId,
+				},
+				bubbles: true,
+			}),
+		);
+	}
 }
 
 // Define the custom element, specifying that it extends a 'button' element.
-customElements.define('character-export-button', CharacterExportButton, { extends: 'button' });
+customElements.define('character-export-button', CharacterExportButton, {
+	extends: 'button',
+});

@@ -1,5 +1,5 @@
-import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
-import { homebrewRepository } from "../../../../../wiring/dependencies.js";
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
  * Custom HTML element for displaying the Homebrew Import Dialog.
@@ -9,194 +9,216 @@ import { homebrewRepository } from "../../../../../wiring/dependencies.js";
  * The file's contents can be previewed, and clicking the import button replaces the current PC data and reloads the page.
  */
 export class HomebrewImportDialog extends HTMLDialogElement {
-    dialogContent: HTMLDivElement;
-    heading: HTMLHeadingElement;
-    firstParagraph: HTMLParagraphElement;
-    secondParagraph: HTMLParagraphElement;
-    thirdParagraph: HTMLParagraphElement;
-    importButtonAndLabel: HTMLDivElement;
-    importButton: HTMLButtonElement;
-    fileInput: HTMLInputElement;
-    previewLabel: HTMLLabelElement;
-    previewTextarea: HTMLTextAreaElement;
-    closeButton: HTMLButtonElement;
-    _updateHandler?: () => void;
-    _importHandlingUpdateHandler?: () => void;
-    
-    constructor() {
-        super();
+	dialogContent: HTMLDivElement;
+	heading: HTMLHeadingElement;
+	firstParagraph: HTMLParagraphElement;
+	secondParagraph: HTMLParagraphElement;
+	thirdParagraph: HTMLParagraphElement;
+	importButtonAndLabel: HTMLDivElement;
+	importButton: HTMLButtonElement;
+	fileInput: HTMLInputElement;
+	previewLabel: HTMLLabelElement;
+	previewTextarea: HTMLTextAreaElement;
+	closeButton: HTMLButtonElement;
+	_updateHandler?: () => void;
+	_importHandlingUpdateHandler?: () => void;
 
-        // Container for dialog content for styling.
-        this.dialogContent = document.createElement('div');
-        this.dialogContent.classList.add("dialog-content");
+	constructor() {
+		super();
 
-        // Create dialog heading.
-        this.heading = document.createElement('h2');
-        this.heading.textContent = "Import Custom Object";
+		// Container for dialog content for styling.
+		this.dialogContent = document.createElement('div');
+		this.dialogContent.classList.add('dialog-content');
 
-        // Create description paragraphs.
-        this.firstParagraph = document.createElement('p');
-        this.firstParagraph.textContent = "Use this window to import a new homebrew object to use on this page. Only the data provided by an export should be used while importing. Using anything else may result in invalid data.";
+		// Create dialog heading.
+		this.heading = document.createElement('h2');
+		this.heading.textContent = 'Import Custom Object';
 
-        this.secondParagraph = document.createElement('p');
-        this.secondParagraph.textContent = "If you try to import an object for which an ID already exists, you will be prompted to make a choice on which version to keep.";
+		// Create description paragraphs.
+		this.firstParagraph = document.createElement('p');
+		this.firstParagraph.textContent =
+			'Use this window to import a new homebrew object to use on this page. Only the data provided by an export should be used while importing. Using anything else may result in invalid data.';
 
-        this.thirdParagraph = document.createElement('p');
-        this.thirdParagraph.textContent = "Select a JSON file below, then press the Import button to import the data.";
+		this.secondParagraph = document.createElement('p');
+		this.secondParagraph.textContent =
+			'If you try to import an object for which an ID already exists, you will be prompted to make a choice on which version to keep.';
 
-        // Container for import button, file input, and preview label.
-        this.importButtonAndLabel = document.createElement('div');
+		this.thirdParagraph = document.createElement('p');
+		this.thirdParagraph.textContent =
+			'Select a JSON file below, then press the Import button to import the data.';
 
-        // Import button.
-        this.importButton = document.createElement('button');
-        this.importButton.textContent = "Import";
-        this.importButton.type = 'button';
-        this.importButton.classList.add('import');
-        this.importButton.disabled = true;
-        this.importButton.onclick = () => this.handleImportButtonClick();
+		// Container for import button, file input, and preview label.
+		this.importButtonAndLabel = document.createElement('div');
 
-        // File input for selecting a JSON file.
-        this.fileInput = document.createElement('input');
-        this.fileInput.type = "file";
-        this.fileInput.classList.add("load");
-        this.fileInput.onchange = (event) => this.handleFileInputChange(event);
+		// Import button.
+		this.importButton = document.createElement('button');
+		this.importButton.textContent = 'Import';
+		this.importButton.type = 'button';
+		this.importButton.classList.add('import');
+		this.importButton.disabled = true;
+		this.importButton.onclick = () => this.handleImportButtonClick();
 
-        // Preview label.
-        this.previewLabel = document.createElement('label');
-        this.previewLabel.textContent = "Preview";
-        this.previewLabel.classList.add("import-preview");
+		// File input for selecting a JSON file.
+		this.fileInput = document.createElement('input');
+		this.fileInput.type = 'file';
+		this.fileInput.classList.add('load');
+		this.fileInput.onchange = (event) => this.handleFileInputChange(event);
 
-        // Preview textarea to display JSON data; editing is disabled.
-        this.previewTextarea = document.createElement('textarea');
-        this.previewTextarea.disabled = true;
+		// Preview label.
+		this.previewLabel = document.createElement('label');
+		this.previewLabel.textContent = 'Preview';
+		this.previewLabel.classList.add('import-preview');
 
-        // Close button for the dialog.
-        this.closeButton = document.createElement('button');
-        this.closeButton.textContent = "Close";
-        this.closeButton.type = 'button';
-        this.closeButton.classList.add('close');
-        this.closeButton.onclick = () => this.handleCloseButtonClick();
+		// Preview textarea to display JSON data; editing is disabled.
+		this.previewTextarea = document.createElement('textarea');
+		this.previewTextarea.disabled = true;
 
-        // Assemble button, file input, and preview label.
-        this.importButtonAndLabel.appendChild(this.importButton);
-        this.importButtonAndLabel.appendChild(this.fileInput);
-        this.importButtonAndLabel.appendChild(this.previewLabel);
+		// Close button for the dialog.
+		this.closeButton = document.createElement('button');
+		this.closeButton.textContent = 'Close';
+		this.closeButton.type = 'button';
+		this.closeButton.classList.add('close');
+		this.closeButton.onclick = () => this.handleCloseButtonClick();
 
-        // Add all elements to the dialog content.
-        this.dialogContent.appendChild(this.heading);
-        this.dialogContent.appendChild(this.firstParagraph);
-        this.dialogContent.appendChild(this.secondParagraph);
-        this.dialogContent.appendChild(this.thirdParagraph);
-        this.dialogContent.appendChild(this.importButtonAndLabel);
-        this.dialogContent.appendChild(this.previewTextarea);
-        this.dialogContent.appendChild(this.closeButton);
+		// Assemble button, file input, and preview label.
+		this.importButtonAndLabel.appendChild(this.importButton);
+		this.importButtonAndLabel.appendChild(this.fileInput);
+		this.importButtonAndLabel.appendChild(this.previewLabel);
 
-        // Append the content to the dialog.
-        this.appendChild(this.dialogContent);        
-    }
+		// Add all elements to the dialog content.
+		this.dialogContent.appendChild(this.heading);
+		this.dialogContent.appendChild(this.firstParagraph);
+		this.dialogContent.appendChild(this.secondParagraph);
+		this.dialogContent.appendChild(this.thirdParagraph);
+		this.dialogContent.appendChild(this.importButtonAndLabel);
+		this.dialogContent.appendChild(this.previewTextarea);
+		this.dialogContent.appendChild(this.closeButton);
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Listens for the "homebrewImportButtonClicked" event to show the dialog.
-     */
-    connectedCallback(): void {
-        this._updateHandler = () => this.showDialog();
-        document.addEventListener("homebrewImportButtonClicked", this._updateHandler);
+		// Append the content to the dialog.
+		this.appendChild(this.dialogContent);
+	}
 
-        this._importHandlingUpdateHandler = () => this.hideDialog();
-        document.addEventListener("homebrewImportCancelled", this._importHandlingUpdateHandler);
-        document.addEventListener("homebrewImported", this._importHandlingUpdateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes the event listener.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("homebrewImportButtonClicked", this._updateHandler!);
-        document.removeEventListener("homebrewImportCancelled", this._updateHandler!);
-        document.removeEventListener("homebrewImported", this._updateHandler!);
-    }
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Listens for the "homebrewImportButtonClicked" event to show the dialog.
+	 */
+	connectedCallback(): void {
+		this._updateHandler = () => this.showDialog();
+		document.addEventListener(
+			'homebrewImportButtonClicked',
+			this._updateHandler,
+		);
 
-    /**
-     * Displays the dialog and resets any previous file selections or preview.
-     */
-    showDialog(): void {
-        this.showModal();
+		this._importHandlingUpdateHandler = () => this.hideDialog();
+		document.addEventListener(
+			'homebrewImportCancelled',
+			this._importHandlingUpdateHandler,
+		);
+		document.addEventListener(
+			'homebrewImported',
+			this._importHandlingUpdateHandler,
+		);
+	}
 
-        // Clear previous input and disable the import button.
-        this.fileInput.value = "";
-        this.previewTextarea.value = "";
-        this.importButton.disabled = true;
-    }
-  
-    /**
-     * Handles file input change events.
-     * Reads the selected file as JSON, displays a preview, and enables the import button if valid.
-     * @param event The file input change event.
-     */
-    handleFileInputChange(event: Event) {
-        const reader = new FileReader();
-        
-        const target = event.target as HTMLInputElement;
-        const file = target.files![0];
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes the event listener.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener(
+			'homebrewImportButtonClicked',
+			this._updateHandler!,
+		);
+		document.removeEventListener(
+			'homebrewImportCancelled',
+			this._updateHandler!,
+		);
+		document.removeEventListener('homebrewImported', this._updateHandler!);
+	}
 
-        reader.readAsText(file);
-        reader.onload = (readerEvent) => {
-            try {
+	/**
+	 * Displays the dialog and resets any previous file selections or preview.
+	 */
+	showDialog(): void {
+		this.showModal();
 
-                // Try parsing the JSON data.
-                var homebrewObject = JSON.parse(readerEvent.target!.result!.toString());
+		// Clear previous input and disable the import button.
+		this.fileInput.value = '';
+		this.previewTextarea.value = '';
+		this.importButton.disabled = true;
+	}
 
-                // Display the JSON preview.
-                this.previewTextarea.value = JSON.stringify(homebrewObject, null, 2);
-                this.importButton.removeAttribute("disabled");
-            }
-            catch {
-                // On parse error, inform the user.
-                this.previewTextarea.value = "Could not load file. Make sure you selected the .json file provided by the export.";
-                this.importButton.setAttribute("disabled", "disabled");
-            }
-        }
-    }
-  
-    /**
-     * Handles the import button click. 
-     * Adds the imported data to the PC bank, closes the dialog, and updates the UI.
-     */
-    handleImportButtonClick(): void {
+	/**
+	 * Handles file input change events.
+	 * Reads the selected file as JSON, displays a preview, and enables the import button if valid.
+	 * @param event The file input change event.
+	 */
+	handleFileInputChange(event: Event) {
+		const reader = new FileReader();
 
-        // Create a new Homebrew from the JSON data.
-        const homebrewBankEntry = JSON.parse(this.previewTextarea.value) as BaseResource;
-        const existingHomebrewResource = homebrewRepository.get(homebrewBankEntry.index);
+		const target = event.target as HTMLInputElement;
+		const file = target.files![0];
 
-        if (!existingHomebrewResource) {
+		reader.readAsText(file);
+		reader.onload = (readerEvent) => {
+			try {
+				// Try parsing the JSON data.
+				var homebrewObject = JSON.parse(readerEvent.target!.result!.toString());
 
-            // Add to the bank.
-            homebrewRepository.save(homebrewBankEntry.index, homebrewBankEntry);
+				// Display the JSON preview.
+				this.previewTextarea.value = JSON.stringify(homebrewObject, null, 2);
+				this.importButton.removeAttribute('disabled');
+			} catch {
+				// On parse error, inform the user.
+				this.previewTextarea.value =
+					'Could not load file. Make sure you selected the .json file provided by the export.';
+				this.importButton.setAttribute('disabled', 'disabled');
+			}
+		};
+	}
 
-            document.dispatchEvent(new Event("homebrewImported"));
-        }
-        else {
-            document.dispatchEvent(new CustomEvent("homebrewImportIdAlreadyExists", {
-                detail: {
-                    homebrewBankEntry: homebrewBankEntry
-                },
-                bubbles: true
-            }));
-        }
-    }
-  
-    /**
-     * Closes the dialog.
-     */
-    handleCloseButtonClick(): void {
-        this.hideDialog();
-    }
+	/**
+	 * Handles the import button click.
+	 * Adds the imported data to the PC bank, closes the dialog, and updates the UI.
+	 */
+	handleImportButtonClick(): void {
+		// Create a new Homebrew from the JSON data.
+		const homebrewBankEntry = JSON.parse(
+			this.previewTextarea.value,
+		) as BaseResource;
+		const existingHomebrewResource = homebrewRepository.get(
+			homebrewBankEntry.index,
+		);
 
-    hideDialog(): void {
-        this.close();
-    }
+		if (!existingHomebrewResource) {
+			// Add to the bank.
+			homebrewRepository.save(homebrewBankEntry.index, homebrewBankEntry);
+
+			document.dispatchEvent(new Event('homebrewImported'));
+		} else {
+			document.dispatchEvent(
+				new CustomEvent('homebrewImportIdAlreadyExists', {
+					detail: {
+						homebrewBankEntry: homebrewBankEntry,
+					},
+					bubbles: true,
+				}),
+			);
+		}
+	}
+
+	/**
+	 * Closes the dialog.
+	 */
+	handleCloseButtonClick(): void {
+		this.hideDialog();
+	}
+
+	hideDialog(): void {
+		this.close();
+	}
 }
 
-customElements.define('homebrew-object-import-dialog', HomebrewImportDialog, { extends: 'dialog' });
+customElements.define('homebrew-object-import-dialog', HomebrewImportDialog, {
+	extends: 'dialog',
+});

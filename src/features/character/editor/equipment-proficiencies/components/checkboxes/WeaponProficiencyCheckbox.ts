@@ -1,58 +1,67 @@
-import { globals } from "../../../../../../store/load-globals.js";
-import { Weapon } from "../../../../../../types/domain/resources/Weapon.js";
+import { globals } from '../../../../../../store/load-globals.js';
+import { Weapon } from '../../../../../../types/domain/resources/Weapon.js';
 
 /**
  * Custom checkbox element representing a weapon proficiency toggle.
  * Extends the built-in HTMLInputElement.
  *
- * This checkbox's state is determined by whether the PC is proficient in the given weapon. 
+ * This checkbox's state is determined by whether the PC is proficient in the given weapon.
  * Clicking the checkbox will update the PC's proficiency and notify any listeners via a custom event.
  */
 export class WeaponProficiencyCheckbox extends HTMLInputElement {
-    weapon: Weapon;
+	weapon: Weapon;
 
-    /**
-     * Create a WeaponProficiencyCheckbox.
-     * @param weapon A Weapon object representing the weapon to display.
-     */
-    constructor(weapon: Weapon) {
-        super();
+	/**
+	 * Create a WeaponProficiencyCheckbox.
+	 * @param weapon A Weapon object representing the weapon to display.
+	 */
+	constructor(weapon: Weapon) {
+		super();
 
-        this.weapon = weapon;
-        
-        // Set the checkbox type.
-        this.type = "checkbox";
+		this.weapon = weapon;
 
-        // Determine initial state from the active PC's proficiencies.
-        this.checked = globals.activePlayerCharacter.isProficientInWeapon(this.weapon.index);
+		// Set the checkbox type.
+		this.type = 'checkbox';
 
-        // Bind the change handler to update weapon proficiency.
-        this.onclick = () => this.handleChange();
-    }
-  
-    /**
-     * Event handler for checkbox state changes.
-     *
-     * Updates the active player character's weapon proficiency based on checkbox state and dispatches a custom event.
-     */
-    handleChange(): void {
+		// Determine initial state from the active PC's proficiencies.
+		this.checked = globals.activePlayerCharacter.isProficientInWeapon(
+			this.weapon.index,
+		);
 
-        // Update proficiencies.
-        if (this.checked) {
-            globals.activePlayerCharacter.addProficiencyInWeapon(this.weapon.index);
-        } else {
-            globals.activePlayerCharacter.removeProficiencyInWeapon(this.weapon.index);
-        }
+		// Bind the change handler to update weapon proficiency.
+		this.onclick = () => this.handleChange();
+	}
 
-        // Dispatch a custom event to signal the change in weapon proficiency.
-        document.dispatchEvent(new CustomEvent("weaponProficiencyChanged", {
-            detail: { 
-                weapon: this.weapon.index 
-            },
-            bubbles: true
-        }));
-    }
+	/**
+	 * Event handler for checkbox state changes.
+	 *
+	 * Updates the active player character's weapon proficiency based on checkbox state and dispatches a custom event.
+	 */
+	handleChange(): void {
+		// Update proficiencies.
+		if (this.checked) {
+			globals.activePlayerCharacter.addProficiencyInWeapon(this.weapon.index);
+		} else {
+			globals.activePlayerCharacter.removeProficiencyInWeapon(
+				this.weapon.index,
+			);
+		}
+
+		// Dispatch a custom event to signal the change in weapon proficiency.
+		document.dispatchEvent(
+			new CustomEvent('weaponProficiencyChanged', {
+				detail: {
+					weapon: this.weapon.index,
+				},
+				bubbles: true,
+			}),
+		);
+	}
 }
 
 // Define the custom element, extending the built-in "input" element.
-customElements.define("weapon-proficiency-checkbox", WeaponProficiencyCheckbox, { extends: 'input' });
+customElements.define(
+	'weapon-proficiency-checkbox',
+	WeaponProficiencyCheckbox,
+	{ extends: 'input' },
+);

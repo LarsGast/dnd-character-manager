@@ -1,5 +1,5 @@
-import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
-import { homebrewRepository } from "../../../../../wiring/dependencies.js";
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 import { getTextInputSection } from '../../services/FormElementsBuilder.js';
 
 /**
@@ -8,77 +8,86 @@ import { getTextInputSection } from '../../services/FormElementsBuilder.js';
  * Inherit from this class to create specific homebrew object forms.
  */
 export class HomebrewBaseForm extends HTMLFormElement {
-    
-    /**
-     * Creates an instance of HomebrewBaseForm.
-     * @param homebrewObject 
-     */
-    constructor(homebrewObject: BaseResource) {
-        super();
+	/**
+	 * Creates an instance of HomebrewBaseForm.
+	 * @param homebrewObject
+	 */
+	constructor(homebrewObject: BaseResource) {
+		super();
 
-        // "Name" is the only required field for all homebrew objects.
-        this.appendChild(getTextInputSection("Name", "name", homebrewObject.name, true, "Name of the homebrew object."));    
-    }
+		// "Name" is the only required field for all homebrew objects.
+		this.appendChild(
+			getTextInputSection(
+				'Name',
+				'name',
+				homebrewObject.name,
+				true,
+				'Name of the homebrew object.',
+			),
+		);
+	}
 
-    /**
-     * Called when the form is connected to the DOM.
-     */
-    connectedCallback(): void {
-        this.addEventListener("submit", this.handleSubmitAsync.bind(this));
+	/**
+	 * Called when the form is connected to the DOM.
+	 */
+	connectedCallback(): void {
+		this.addEventListener('submit', this.handleSubmitAsync.bind(this));
 
-        // Add the save button on the bottom of the form.
-        this.appendChild(this.getSaveButton());
-    }
+		// Add the save button on the bottom of the form.
+		this.appendChild(this.getSaveButton());
+	}
 
-    /**
-     * Handles the form submission.
-     * Prevents the default form submission behavior, collects the form data, updates the active homebrew entry, saves the homebrew bank, and reloads the page.
-     * Override this method in subclasses to add additional functionality.
-     * @param event 
-     */
-    async handleSubmitAsync(event: Event): Promise<void> {
-        event.preventDefault();
+	/**
+	 * Handles the form submission.
+	 * Prevents the default form submission behavior, collects the form data, updates the active homebrew entry, saves the homebrew bank, and reloads the page.
+	 * Override this method in subclasses to add additional functionality.
+	 * @param event
+	 */
+	async handleSubmitAsync(event: Event): Promise<void> {
+		event.preventDefault();
 
-        const data = await this.getFormDataAsync();
+		const data = await this.getFormDataAsync();
 
-        homebrewRepository.save(data.index, data);
+		homebrewRepository.save(data.index, data);
 
-        window.location.reload();
-    }
+		window.location.reload();
+	}
 
-    /**
-     * Collects the form data and returns it as an ApiObjectInfo instance.
-     * Override this method in subclasses to add additional fields.
-     * @returns Homebrew object data collected from the form.
-     */
-    async getFormDataAsync(): Promise<BaseResource> {
-        const formData = new FormData(this);
+	/**
+	 * Collects the form data and returns it as an ApiObjectInfo instance.
+	 * Override this method in subclasses to add additional fields.
+	 * @returns Homebrew object data collected from the form.
+	 */
+	async getFormDataAsync(): Promise<BaseResource> {
+		const formData = new FormData(this);
 
-        // Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id')!;
-        const oldResource = homebrewRepository.get(id)!;
+		// Initialize a new ApiObjectInfo instance with the current homebrew object to keep the UUID the same.
+		const params = new URLSearchParams(window.location.search);
+		const id = params.get('id')!;
+		const oldResource = homebrewRepository.get(id)!;
 
-        return Promise.resolve({
-            index: oldResource.index,
-            name: formData.get("name")!.toString(),
-            resourceType: oldResource.resourceType,
-            isHomebrew: true
-        });
-    }
+		return Promise.resolve({
+			index: oldResource.index,
+			name: formData.get('name')!.toString(),
+			resourceType: oldResource.resourceType,
+			isHomebrew: true,
+		});
+	}
 
-    /**
-     * Creates and returns a save button element.
-     * @returns Save button element.
-     */
-    getSaveButton(): HTMLButtonElement {
-        const button = document.createElement('button');
+	/**
+	 * Creates and returns a save button element.
+	 * @returns Save button element.
+	 */
+	getSaveButton(): HTMLButtonElement {
+		const button = document.createElement('button');
 
-        button.type = 'submit';
-        button.textContent = 'Save';
+		button.type = 'submit';
+		button.textContent = 'Save';
 
-        return button;
-    }
+		return button;
+	}
 }
 
-customElements.define('homebrew-object-base-form', HomebrewBaseForm, { extends: 'form' });
+customElements.define('homebrew-object-base-form', HomebrewBaseForm, {
+	extends: 'form',
+});

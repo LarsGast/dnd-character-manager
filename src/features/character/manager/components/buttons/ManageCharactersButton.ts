@@ -3,24 +3,25 @@
  * Extends HTMLButtonElement.
  */
 export class ManageCharactersButton extends HTMLButtonElement {
-    
-    constructor() {
-        super();
-        
-        // Set type and text.
-        this.type = 'button';
-        this.textContent = "Manage characters";
+	constructor() {
+		super();
 
-        // Bind click event to trigger the reset dialog.
-        this.onclick = () => this.handleClick();
-    }
-    
-    /**
-     * Handles the button click and dispatches a "manageCharactersButtonClicked" event.
-     */
-    handleClick(): void {
-        document.dispatchEvent(new Event('manageCharactersButtonClicked'));
-    }
+		// Set type and text.
+		this.type = 'button';
+		this.textContent = 'Manage characters';
+
+		// Bind click event to trigger the reset dialog.
+		this.onclick = () => this.handleClick();
+	}
+
+	/**
+	 * Handles the button click and dispatches a "manageCharactersButtonClicked" event.
+	 */
+	handleClick(): void {
+		document.dispatchEvent(new Event('manageCharactersButtonClicked'));
+	}
 }
 
-customElements.define('manage-characters-button', ManageCharactersButton, { extends: 'button' });
+customElements.define('manage-characters-button', ManageCharactersButton, {
+	extends: 'button',
+});

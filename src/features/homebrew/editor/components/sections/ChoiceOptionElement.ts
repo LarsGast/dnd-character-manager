@@ -1,84 +1,89 @@
-import { Option } from "../../../../../types/domain/helpers/Choice.js";
-import { BaseResource } from "../../../../../types/domain/wrappers/BaseResource.js";
-import { ResourceList } from "../../../../../types/domain/wrappers/ResourceList.js";
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
+import { Option } from '../../../../../types/domain/helpers/Choice.js';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import {
+	getEmptyOption,
+	populateSelectWithApiObjects,
+} from '../../../../../utils/util.js';
 
 /**
  * Custom element for selecting a choice option.
  * It allows the user to select an object from a list of possible objects.
  */
 export class ChoiceOptionElement extends HTMLElement {
-    possibleObjects: ResourceList;
-    defaultValue?: BaseResource;
-    select: HTMLSelectElement;
-    
-    /**
-     * Creates an instance of ChoiceOptionElement.
-     * @param possibleObjects The list of possible objects to select from
-     * @param defaultValue The default value to set in the select element
-     */
-    constructor(possibleObjects: ResourceList, defaultValue?: BaseResource) {
-        super();
-        
-        this.possibleObjects = possibleObjects;
-        this.defaultValue = defaultValue;
-        
-        this.select = this.getItemSelect();
+	possibleObjects: ResourceList;
+	defaultValue?: BaseResource;
+	select: HTMLSelectElement;
 
-        this.appendChild(this.select);
-        this.appendChild(this.getDeleteButton());
-    }
+	/**
+	 * Creates an instance of ChoiceOptionElement.
+	 * @param possibleObjects The list of possible objects to select from
+	 * @param defaultValue The default value to set in the select element
+	 */
+	constructor(possibleObjects: ResourceList, defaultValue?: BaseResource) {
+		super();
 
-    /**
-     * Gets the select element for choosing an object.
-     * It populates the select options with the provided possible objects.
-     * @returns The select element with options for each possible object.
-     */
-    getItemSelect(): HTMLSelectElement {
-        const select = document.createElement('select');
+		this.possibleObjects = possibleObjects;
+		this.defaultValue = defaultValue;
 
-        select.appendChild(getEmptyOption());
+		this.select = this.getItemSelect();
 
-        populateSelectWithApiObjects(select, this.possibleObjects);
+		this.appendChild(this.select);
+		this.appendChild(this.getDeleteButton());
+	}
 
-        select.value = this.defaultValue?.index ?? "null";
+	/**
+	 * Gets the select element for choosing an object.
+	 * It populates the select options with the provided possible objects.
+	 * @returns The select element with options for each possible object.
+	 */
+	getItemSelect(): HTMLSelectElement {
+		const select = document.createElement('select');
 
-        return select;
-    }
+		select.appendChild(getEmptyOption());
 
-    /**
-     * Creates a delete button to remove the choice option element.
-     * @returns The button element that, when clicked, will remove this element from the DOM.
-     */
-    getDeleteButton(): HTMLButtonElement {
-        const button = document.createElement('button');
+		populateSelectWithApiObjects(select, this.possibleObjects);
 
-        button.textContent = "Remove";
-        button.onclick = () => { this.remove() };
+		select.value = this.defaultValue?.index ?? 'null';
 
-        return button;
-    }
+		return select;
+	}
 
-    /**
-     * Gets the value of the choice option element.
-     * @returns The constructed Option object containing the selected index and name.
-     */
-    getValue(): Option {
-        const item: BaseResource = {
-            index: this.select.value,
-            name: this.select.options[this.select.selectedIndex].text,
-            url: undefined,
-            resourceType: "",
-            isHomebrew: false
-        }
+	/**
+	 * Creates a delete button to remove the choice option element.
+	 * @returns The button element that, when clicked, will remove this element from the DOM.
+	 */
+	getDeleteButton(): HTMLButtonElement {
+		const button = document.createElement('button');
 
-        const option: Option = {
-            option_type: "reference",
-            item: item
-        }
+		button.textContent = 'Remove';
+		button.onclick = () => {
+			this.remove();
+		};
 
-        return option;
-    }
+		return button;
+	}
+
+	/**
+	 * Gets the value of the choice option element.
+	 * @returns The constructed Option object containing the selected index and name.
+	 */
+	getValue(): Option {
+		const item: BaseResource = {
+			index: this.select.value,
+			name: this.select.options[this.select.selectedIndex].text,
+			url: undefined,
+			resourceType: '',
+			isHomebrew: false,
+		};
+
+		const option: Option = {
+			option_type: 'reference',
+			item: item,
+		};
+
+		return option;
+	}
 }
 
 customElements.define('choice-option-element', ChoiceOptionElement);

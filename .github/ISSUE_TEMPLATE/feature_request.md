@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: "[feature] short description"
+title: '[feature] short description'
 labels: enhancement
 assignees: ''
 ---
@@ -19,5 +19,6 @@ If possible, include sketches, links or examples.
 If you have ideas on how this could be implemented, include them here (files to change, APIs to add).
 
 **Acceptance criteria**
+
 - [ ] Criteria 1
 - [ ] Criteria 2

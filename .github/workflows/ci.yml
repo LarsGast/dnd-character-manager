@@ -16,7 +16,7 @@ on:
   pull_request:
     branches: main
     types: [opened, synchronize, reopened, ready_for_review]
-    paths: 
+    paths:
       - src/**
       - .github/workflows/ci.yml
       - tsconfig.json
@@ -33,7 +33,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-
       # Checkout
       - name: Checkout code
         uses: actions/checkout@v5
@@ -65,7 +64,6 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-
       # Checkout
       - name: Checkout code
         uses: actions/checkout@v5

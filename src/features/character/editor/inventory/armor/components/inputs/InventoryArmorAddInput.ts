@@ -1,6 +1,12 @@
-import { getEmptyOption, getSelectOption } from "../../../../../../../utils/util.js";
-import { globals } from "../../../../../../../store/load-globals.js";
-import { armorRepository, equipmentCategoryRepository } from "../../../../../../../wiring/dependencies.js";
+import {
+	getEmptyOption,
+	getSelectOption,
+} from '../../../../../../../utils/util.js';
+import { globals } from '../../../../../../../store/load-globals.js';
+import {
+	armorRepository,
+	equipmentCategoryRepository,
+} from '../../../../../../../wiring/dependencies.js';
 
 /**
  * Custom element for adding armor to the inventory.
@@ -12,96 +18,105 @@ import { armorRepository, equipmentCategoryRepository } from "../../../../../../
  * Clicking the button fetches the armor details and updates the active PC's inventory, then dispatches an "inventoryArmorAdded" event.
  */
 export class InventoryArmorAddInput extends HTMLElement {
-    armorSelect: HTMLSelectElement;
-    addArmorButton: HTMLButtonElement;
+	armorSelect: HTMLSelectElement;
+	addArmorButton: HTMLButtonElement;
 
-    constructor() {
-        super();
-        
-        // Create the select element for choosing armor.
-        this.armorSelect = document.createElement('select');
-        
-        // Create the "Add armor" button.
-        // Initially disabled until a valid option is selected.
-        this.addArmorButton = document.createElement('button');
-        this.addArmorButton.type = "button";
-        this.addArmorButton.textContent = "Add armor";
-        this.addArmorButton.disabled = true;
+	constructor() {
+		super();
 
-        // Append the select dropdown and button to the custom element.
-        this.appendChild(this.armorSelect);
-        this.appendChild(this.addArmorButton);
+		// Create the select element for choosing armor.
+		this.armorSelect = document.createElement('select');
 
-        // Bind event handlers.
-        this.armorSelect.onchange = () => this.handleWeaponSelectChange();
-        this.addArmorButton.onclick = () => this.addWeapon();
-    }
+		// Create the "Add armor" button.
+		// Initially disabled until a valid option is selected.
+		this.addArmorButton = document.createElement('button');
+		this.addArmorButton.type = 'button';
+		this.addArmorButton.textContent = 'Add armor';
+		this.addArmorButton.disabled = true;
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Loads the armor options grouped by category and appends them to the select element.
-     */
-    async connectedCallback(): Promise<void> {
+		// Append the select dropdown and button to the custom element.
+		this.appendChild(this.armorSelect);
+		this.appendChild(this.addArmorButton);
 
-        // Start with an empty option.
-        this.armorSelect.appendChild(getEmptyOption());
+		// Bind event handlers.
+		this.armorSelect.onchange = () => this.handleWeaponSelectChange();
+		this.addArmorButton.onclick = () => this.addWeapon();
+	}
 
-        // Append groups of armor options by type.
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Light", "light-armor"));
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Medium", "medium-armor"));
-        this.armorSelect.appendChild(await this.getSelectOptionGroup("Heavy", "heavy-armor"));
-    }
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Loads the armor options grouped by category and appends them to the select element.
+	 */
+	async connectedCallback(): Promise<void> {
+		// Start with an empty option.
+		this.armorSelect.appendChild(getEmptyOption());
 
-    /**
-     * Creates an optgroup element populated with armor options.
-     * @param optgroupLabel The label for the option group (e.g., "Light", "Medium", "Heavy").
-     * @param equipmentCategoryIndex The index of the equipment category to load.
-     * @returns A promise resolving to the populated optgroup element.
-     */
-    async getSelectOptionGroup(optgroupLabel: string, equipmentCategoryIndex: string): Promise<HTMLOptGroupElement> {
+		// Append groups of armor options by type.
+		this.armorSelect.appendChild(
+			await this.getSelectOptionGroup('Light', 'light-armor'),
+		);
+		this.armorSelect.appendChild(
+			await this.getSelectOptionGroup('Medium', 'medium-armor'),
+		);
+		this.armorSelect.appendChild(
+			await this.getSelectOptionGroup('Heavy', 'heavy-armor'),
+		);
+	}
 
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = optgroupLabel;
-    
-        // Get equipment data for this category.
-        const results = (await equipmentCategoryRepository.getAsync(equipmentCategoryIndex))!;
-    
-        // For each equipment entry, create an option element.
-        results.equipment.forEach(equipment => {
-            optgroup.appendChild(getSelectOption(equipment.name, equipment.index));
-        });
-    
-        return optgroup;
-    }
+	/**
+	 * Creates an optgroup element populated with armor options.
+	 * @param optgroupLabel The label for the option group (e.g., "Light", "Medium", "Heavy").
+	 * @param equipmentCategoryIndex The index of the equipment category to load.
+	 * @returns A promise resolving to the populated optgroup element.
+	 */
+	async getSelectOptionGroup(
+		optgroupLabel: string,
+		equipmentCategoryIndex: string,
+	): Promise<HTMLOptGroupElement> {
+		const optgroup = document.createElement('optgroup');
+		optgroup.label = optgroupLabel;
 
-    /**
-     * Handles changes in the select element.
-     * If a valid armor is selected, enables the "Add armor" button.
-     */
-    handleWeaponSelectChange(): void {
-        if (this.armorSelect.value) {
-            this.addArmorButton.disabled = false;
-        }
-    }
+		// Get equipment data for this category.
+		const results = (await equipmentCategoryRepository.getAsync(
+			equipmentCategoryIndex,
+		))!;
 
-    /**
-     * Fetches the selected armor, adds it to the global inventory, dispatches an "inventoryArmorAdded" event, and resets the select.
-     */
-    async addWeapon(): Promise<void> {
-        const armorIndex = this.armorSelect.value;
-        const armor = (await armorRepository.getAsync(armorIndex))!;
+		// For each equipment entry, create an option element.
+		results.equipment.forEach((equipment) => {
+			optgroup.appendChild(getSelectOption(equipment.name, equipment.index));
+		});
 
-        // Add the armor to the active player's inventory.
-        globals.activePlayerCharacter.addArmorToInventory(armor.index);
+		return optgroup;
+	}
 
-        // Notify listeners that armor has been added.
-        document.dispatchEvent(new Event("inventoryArmorAdded"));
+	/**
+	 * Handles changes in the select element.
+	 * If a valid armor is selected, enables the "Add armor" button.
+	 */
+	handleWeaponSelectChange(): void {
+		if (this.armorSelect.value) {
+			this.addArmorButton.disabled = false;
+		}
+	}
 
-        // Reset the select dropdown and disable the button.
-        this.armorSelect.value = "null";
-        this.addArmorButton.disabled = true;
-    }
+	/**
+	 * Fetches the selected armor, adds it to the global inventory, dispatches an "inventoryArmorAdded" event, and resets the select.
+	 */
+	async addWeapon(): Promise<void> {
+		const armorIndex = this.armorSelect.value;
+		const armor = (await armorRepository.getAsync(armorIndex))!;
+
+		// Add the armor to the active player's inventory.
+		globals.activePlayerCharacter.addArmorToInventory(armor.index);
+
+		// Notify listeners that armor has been added.
+		document.dispatchEvent(new Event('inventoryArmorAdded'));
+
+		// Reset the select dropdown and disable the button.
+		this.armorSelect.value = 'null';
+		this.addArmorButton.disabled = true;
+	}
 }
 
 // Register the custom element.
-customElements.define("inventory-armor-add-input", InventoryArmorAddInput);
+customElements.define('inventory-armor-add-input', InventoryArmorAddInput);

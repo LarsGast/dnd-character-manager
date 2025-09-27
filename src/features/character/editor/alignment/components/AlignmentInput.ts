@@ -1,6 +1,9 @@
-import { getEmptyOption, populateSelectWithApiObjects } from "../../../../../utils/util.js";
-import { globals } from "../../../../../store/load-globals.js";
-import { alignmentRepository } from "../../../../../wiring/dependencies.js";
+import {
+	getEmptyOption,
+	populateSelectWithApiObjects,
+} from '../../../../../utils/util.js';
+import { globals } from '../../../../../store/load-globals.js';
+import { alignmentRepository } from '../../../../../wiring/dependencies.js';
 
 /**
  * Custom select element for choosing an alignment.
@@ -10,41 +13,39 @@ import { alignmentRepository } from "../../../../../wiring/dependencies.js";
  * Changes are reflected by updating the global state and dispatching an "alignmentUpdated" event.
  */
 export class AlignmentInput extends HTMLSelectElement {
-    
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        // Bind the change event to update the active player's alignment.
-        this.onchange = () => this.handleChange();
-    }
+		// Bind the change event to update the active player's alignment.
+		this.onchange = () => this.handleChange();
+	}
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Asynchronously loads all alignments and populates the select options.
-     */
-    async connectedCallback(): Promise<void> {
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Asynchronously loads all alignments and populates the select options.
+	 */
+	async connectedCallback(): Promise<void> {
+		// Retrieve all alignments.
+		const allAlignments = await alignmentRepository.getAllAsync();
 
-        // Retrieve all alignments.
-        const allAlignments = await alignmentRepository.getAllAsync();
+		// Add a blank option first.
+		this.appendChild(getEmptyOption());
 
-        // Add a blank option first.
-        this.appendChild(getEmptyOption());
+		// For each alignment, create and add a select option.
+		populateSelectWithApiObjects(this, allAlignments);
 
-        // For each alignment, create and add a select option.
-        populateSelectWithApiObjects(this, allAlignments);
+		// Set the select value to the active PC's current alignment.
+		this.value = globals.activePlayerCharacter.alignment ?? 'null';
+	}
 
-        // Set the select value to the active PC's current alignment.
-        this.value = globals.activePlayerCharacter.alignment ?? "null";
-    }
-
-    /**
-     * Handles changes in the select input.
-     * Updates the active PC's alignment and dispatches an "alignmentUpdated" event.
-     */
-    handleChange(): void {
-        globals.activePlayerCharacter.setProperty('alignment', this.value);
-        document.dispatchEvent(new Event("alignmentUpdated"));
-    }
+	/**
+	 * Handles changes in the select input.
+	 * Updates the active PC's alignment and dispatches an "alignmentUpdated" event.
+	 */
+	handleChange(): void {
+		globals.activePlayerCharacter.setProperty('alignment', this.value);
+		document.dispatchEvent(new Event('alignmentUpdated'));
+	}
 }
 
 // Define the custom element with the "select" extension.

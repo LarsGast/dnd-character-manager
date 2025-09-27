@@ -9,11 +9,22 @@ import { getEmptyOption, getSelectOption } from '../../../../utils/util.js';
  * @param isRequired Whether the input is required.
  * @returns Section containing the label and input element.
  */
-export function getTextInputSection(labelText: string, id: string, defaultValue: string, isRequired: boolean, tooltip?: string): HTMLElement {
+export function getTextInputSection(
+	labelText: string,
+	id: string,
+	defaultValue: string,
+	isRequired: boolean,
+	tooltip?: string,
+): HTMLElement {
+	const label = getTextInputWithLabel(
+		labelText,
+		id,
+		defaultValue,
+		isRequired,
+		tooltip,
+	);
 
-    const label = getTextInputWithLabel(labelText, id, defaultValue, isRequired, tooltip);
-
-    return getSection(label);
+	return getSection(label);
 }
 
 /**
@@ -25,13 +36,28 @@ export function getTextInputSection(labelText: string, id: string, defaultValue:
  * @param isRequired Whether the input is required.
  * @param min Minimum value for the input.
  * @param max Maximum value for the input.
- * @returns 
+ * @returns
  */
-export function getNumberInputSection(labelText: string, id: string, defaultValue: number, isRequired: boolean, tooltip?: string, min?: number, max?: number): HTMLElement {
+export function getNumberInputSection(
+	labelText: string,
+	id: string,
+	defaultValue: number,
+	isRequired: boolean,
+	tooltip?: string,
+	min?: number,
+	max?: number,
+): HTMLElement {
+	const label = getNumberInputWithLabel(
+		labelText,
+		id,
+		defaultValue,
+		isRequired,
+		tooltip,
+		min,
+		max,
+	);
 
-    const label = getNumberInputWithLabel(labelText, id, defaultValue, isRequired, tooltip, min, max);
-
-    return getSection(label);
+	return getSection(label);
 }
 
 /**
@@ -43,21 +69,26 @@ export function getNumberInputSection(labelText: string, id: string, defaultValu
  * @param isRequired Whether the input is required.
  * @returns Label element containing the input.
  */
-export function getTextInputWithLabel(labelText: string, id: string, defaultValue: string, isRequired: boolean, tooltip?: string): HTMLLabelElement {
+export function getTextInputWithLabel(
+	labelText: string,
+	id: string,
+	defaultValue: string,
+	isRequired: boolean,
+	tooltip?: string,
+): HTMLLabelElement {
+	// Label.
+	const label = getLabel(labelText, id, isRequired);
 
-    // Label.
-    const label = getLabel(labelText, id, isRequired);
+	// Input.
+	const input = getInput(id, defaultValue, false, isRequired);
+	label.appendChild(input);
 
-    // Input.
-    const input = getInput(id, defaultValue, false, isRequired);
-    label.appendChild(input);
+	// Tooltip.
+	if (tooltip) {
+		label.appendChild(getTooltipSpan(tooltip));
+	}
 
-    // Tooltip.
-    if (tooltip) {
-        label.appendChild(getTooltipSpan(tooltip));
-    }
-
-    return label;
+	return label;
 }
 
 /**
@@ -69,23 +100,37 @@ export function getTextInputWithLabel(labelText: string, id: string, defaultValu
  * @param isRequired Whether the input is required.
  * @param min Minimum value for the input.
  * @param max Maximum value for the input.
- * @returns 
+ * @returns
  */
-export function getNumberInputWithLabel(labelText: string, id: string, defaultValue: number, isRequired: boolean, tooltip?: string, min?: number, max?: number): HTMLLabelElement {
+export function getNumberInputWithLabel(
+	labelText: string,
+	id: string,
+	defaultValue: number,
+	isRequired: boolean,
+	tooltip?: string,
+	min?: number,
+	max?: number,
+): HTMLLabelElement {
+	// Label.
+	const label = getLabel(labelText, id, isRequired);
 
-    // Label.
-    const label = getLabel(labelText, id, isRequired);
+	// Input.
+	const input = getInput(
+		id,
+		defaultValue.toString(),
+		true,
+		isRequired,
+		min,
+		max,
+	);
+	label.appendChild(input);
 
-    // Input.
-    const input = getInput(id, defaultValue.toString(), true, isRequired, min, max);
-    label.appendChild(input);
+	// Tooltip.
+	if (tooltip) {
+		label.appendChild(getTooltipSpan(tooltip));
+	}
 
-    // Tooltip.
-    if (tooltip) {
-        label.appendChild(getTooltipSpan(tooltip));
-    }
-
-    return label;
+	return label;
 }
 
 /**
@@ -97,21 +142,26 @@ export function getNumberInputWithLabel(labelText: string, id: string, defaultVa
  * @param isRequired Whether the input is required.
  * @returns Section containing the label and textarea element.
  */
-export function getTextareaSection(labelText: string, id: string, defaultValue: string | string[], isRequired: boolean, tooltip?: string): HTMLElement {
+export function getTextareaSection(
+	labelText: string,
+	id: string,
+	defaultValue: string | string[],
+	isRequired: boolean,
+	tooltip?: string,
+): HTMLElement {
+	// Label.
+	const label = getLabel(labelText, id, isRequired);
 
-    // Label.
-    const label = getLabel(labelText, id, isRequired);
+	// Textarea.
+	const textArea = getTextarea(id, defaultValue, isRequired);
+	label.appendChild(textArea);
 
-    // Textarea.
-    const textArea = getTextarea(id, defaultValue, isRequired);
-    label.appendChild(textArea);
+	// Tooltip.
+	if (tooltip) {
+		label.appendChild(getTooltipSpan(tooltip));
+	}
 
-    // Tooltip.
-    if (tooltip) {
-        label.appendChild(getTooltipSpan(tooltip));
-    }
-
-    return getSection(label);
+	return getSection(label);
 }
 
 /**
@@ -124,33 +174,39 @@ export function getTextareaSection(labelText: string, id: string, defaultValue: 
  * @param isRequired Whether the input is required.
  * @returns Section containing the label and select element.
  */
-export function getSelectSection(labelText: string, id: string, defaultValue: string, options: string[], isRequired: boolean, tooltip?: string): HTMLElement {
+export function getSelectSection(
+	labelText: string,
+	id: string,
+	defaultValue: string,
+	options: string[],
+	isRequired: boolean,
+	tooltip?: string,
+): HTMLElement {
+	// Label.
+	const label = getLabel(labelText, id, isRequired);
 
-    // Label.
-    const label = getLabel(labelText, id, isRequired);
+	// Select.
+	const select = document.createElement('select');
+	select.id = `homebrew-object-${id}`;
+	select.name = id;
+	select.required = isRequired;
 
-    // Select.
-    const select = document.createElement('select');
-    select.id = `homebrew-object-${id}`;
-    select.name = id;
-    select.required = isRequired;
+	select.appendChild(getEmptyOption('-- Select an option --', ''));
 
-    select.appendChild(getEmptyOption("-- Select an option --", ""));
+	for (const option of options) {
+		select.appendChild(getSelectOption(option));
+	}
 
-    for (const option of options) {
-        select.appendChild(getSelectOption(option));
-    }
+	select.value = defaultValue ?? '';
 
-    select.value = defaultValue ?? "";
+	label.appendChild(select);
 
-    label.appendChild(select);
+	// Tooltip.
+	if (tooltip) {
+		label.appendChild(getTooltipSpan(tooltip));
+	}
 
-    // Tooltip.
-    if (tooltip) {
-        label.appendChild(getTooltipSpan(tooltip));
-    }
-
-    return getSection(label);
+	return getSection(label);
 }
 
 /**
@@ -160,12 +216,16 @@ export function getSelectSection(labelText: string, id: string, defaultValue: st
  * @param isRequired Whether the input is required.
  * @returns Label element.
  */
-function getLabel(labelText: string, id: string, isRequired: boolean): HTMLLabelElement {
-    const label = document.createElement('label');
-    label.textContent = labelText + (isRequired ? ' *' : '');
-    label.htmlFor = `homebrew-object-${id}`;
+function getLabel(
+	labelText: string,
+	id: string,
+	isRequired: boolean,
+): HTMLLabelElement {
+	const label = document.createElement('label');
+	label.textContent = labelText + (isRequired ? ' *' : '');
+	label.htmlFor = `homebrew-object-${id}`;
 
-    return label;
+	return label;
 }
 
 /**
@@ -174,11 +234,11 @@ function getLabel(labelText: string, id: string, isRequired: boolean): HTMLLabel
  * @returns Tooltip span element.
  */
 export function getTooltipSpan(tooltip: string): HTMLSpanElement {
-    const tooltipSpan = document.createElement('span');
-    tooltipSpan.className = 'icon question';
-    tooltipSpan.title = tooltip;
+	const tooltipSpan = document.createElement('span');
+	tooltipSpan.className = 'icon question';
+	tooltipSpan.title = tooltip;
 
-    return tooltipSpan;
+	return tooltipSpan;
 }
 
 /**
@@ -187,11 +247,10 @@ export function getTooltipSpan(tooltip: string): HTMLSpanElement {
  * @returns Section element containing the label.
  */
 function getSection(label: HTMLLabelElement): HTMLElement {
+	const section = document.createElement('section');
+	section.appendChild(label);
 
-    const section = document.createElement('section');
-    section.appendChild(label);
-
-    return section;
+	return section;
 }
 
 /**
@@ -204,21 +263,28 @@ function getSection(label: HTMLLabelElement): HTMLElement {
  * @param max Maximum value for the input (if number input).
  * @returns Input element.
  */
-function getInput(id: string, defaultValue: string, isNumberInput: boolean, isRequired: boolean, min?: number, max?: number): HTMLInputElement {
-    const input = document.createElement('input');
+function getInput(
+	id: string,
+	defaultValue: string,
+	isNumberInput: boolean,
+	isRequired: boolean,
+	min?: number,
+	max?: number,
+): HTMLInputElement {
+	const input = document.createElement('input');
 
-    input.id = `homebrew-object-${id}`;
-    input.name = id;
-    input.value = defaultValue ?? '';
-    input.required = isRequired;
+	input.id = `homebrew-object-${id}`;
+	input.name = id;
+	input.value = defaultValue ?? '';
+	input.required = isRequired;
 
-    if (isNumberInput) {
-        input.type = 'number';
-        input.min = min?.toString() ?? "";
-        input.max = max?.toString() ?? "";
-    }
+	if (isNumberInput) {
+		input.type = 'number';
+		input.min = min?.toString() ?? '';
+		input.max = max?.toString() ?? '';
+	}
 
-    return input;
+	return input;
 }
 /**
  * Creates and returns a textarea element for the form.
@@ -227,18 +293,21 @@ function getInput(id: string, defaultValue: string, isNumberInput: boolean, isRe
  * @param isRequired Whether the textarea is required.
  * @returns textarea element.
  */
-function getTextarea(id: string, defaultValue: string | string[], isRequired: boolean): HTMLTextAreaElement {
+function getTextarea(
+	id: string,
+	defaultValue: string | string[],
+	isRequired: boolean,
+): HTMLTextAreaElement {
+	if (Array.isArray(defaultValue)) {
+		defaultValue = defaultValue.join('\n');
+	}
 
-    if (Array.isArray(defaultValue)) {
-        defaultValue = defaultValue.join('\n');
-    }
+	const textArea = document.createElement('textarea');
 
-    const textArea = document.createElement('textarea');
+	textArea.id = `homebrew-object-${id}`;
+	textArea.name = id;
+	textArea.value = defaultValue ?? '';
+	textArea.required = isRequired;
 
-    textArea.id = `homebrew-object-${id}`;
-    textArea.name = id;
-    textArea.value = defaultValue ?? '';
-    textArea.required = isRequired;
-
-    return textArea;
+	return textArea;
 }

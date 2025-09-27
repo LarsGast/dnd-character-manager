@@ -1,2 +1,2 @@
-import "./ClassFeaturesDisplay.js";
-import "./ClassesFeaturesDisplay.js";
+import './ClassFeaturesDisplay.js';
+import './ClassesFeaturesDisplay.js';

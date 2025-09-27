@@ -1,6 +1,6 @@
-import { InventoryWeaponRow } from "../rows/InventoryWeaponRow.js";
-import { globals } from "../../../../../../../store/load-globals.js";
-import { weaponRepository } from "../../../../../../../wiring/dependencies.js";
+import { InventoryWeaponRow } from '../rows/InventoryWeaponRow.js';
+import { globals } from '../../../../../../../store/load-globals.js';
+import { weaponRepository } from '../../../../../../../wiring/dependencies.js';
 
 /**
  * Custom element that displays a table of inventory weapons.
@@ -12,123 +12,131 @@ import { weaponRepository } from "../../../../../../../wiring/dependencies.js";
  * The table listens for "inventoryWeaponAdded" and "inventoryWeaponDeleted" events to refresh its content.
  */
 export class InventoryWeaponTable extends HTMLElement {
-    tableHead: HTMLTableSectionElement;
-    tableBody: HTMLTableSectionElement;
-    table: HTMLTableElement;
-    _updateHandler?: (event: any) => Promise<void>;
+	tableHead: HTMLTableSectionElement;
+	tableBody: HTMLTableSectionElement;
+	table: HTMLTableElement;
+	_updateHandler?: (event: any) => Promise<void>;
 
-    constructor() {
-        super();
+	constructor() {
+		super();
 
-        // Create the table header.
-        this.tableHead = document.createElement('thead');
-        const tr = document.createElement('tr');
-        
-        const nameHead = document.createElement('th');
-        nameHead.id = "weapon_name";
-        nameHead.textContent = "Name";
-        
-        const abilityHead = document.createElement('th');
-        abilityHead.id = "weapon_ability";
-        abilityHead.textContent = "Ability";
-        
-        const attackBonusHead = document.createElement('th');
-        attackBonusHead.id = "weapon_attack-bonus";
-        attackBonusHead.textContent = "Attack bonus";
-        
-        const damageHead = document.createElement('th');
-        damageHead.id = "weapon_damage";
-        damageHead.textContent = "Damage";
-        
-        const damageTypeHead = document.createElement('th');
-        damageTypeHead.id = "weapon_damage-type";
-        damageTypeHead.textContent = "Damage type";
-        
-        const rangeHead = document.createElement('th');
-        rangeHead.id = "weapon_range";
-        rangeHead.textContent = "Range";
-        
-        const weightHead = document.createElement('th');
-        weightHead.id = "weapon_weight";
-        weightHead.textContent = "Weight";
-        
-        const buttonsHead = document.createElement('th');
-        buttonsHead.id = "weapon_buttons";
-        buttonsHead.textContent = "Buttons";
+		// Create the table header.
+		this.tableHead = document.createElement('thead');
+		const tr = document.createElement('tr');
 
-        // Append header cells to the header row.
-        tr.appendChild(nameHead);
-        tr.appendChild(abilityHead);
-        tr.appendChild(attackBonusHead);
-        tr.appendChild(damageHead);
-        tr.appendChild(damageTypeHead);
-        tr.appendChild(rangeHead);
-        tr.appendChild(weightHead);
-        tr.appendChild(buttonsHead);
+		const nameHead = document.createElement('th');
+		nameHead.id = 'weapon_name';
+		nameHead.textContent = 'Name';
 
-        this.tableHead.appendChild(tr);
+		const abilityHead = document.createElement('th');
+		abilityHead.id = 'weapon_ability';
+		abilityHead.textContent = 'Ability';
 
-        // Create the table body.
-        this.tableBody = document.createElement('tbody');
+		const attackBonusHead = document.createElement('th');
+		attackBonusHead.id = 'weapon_attack-bonus';
+		attackBonusHead.textContent = 'Attack bonus';
 
-        // Create the table and add the header and body.
-        this.table = document.createElement('table');
-        this.table.appendChild(this.tableHead);
-        this.table.appendChild(this.tableBody);
+		const damageHead = document.createElement('th');
+		damageHead.id = 'weapon_damage';
+		damageHead.textContent = 'Damage';
 
-        // Append the table to this element.
-        this.appendChild(this.table);
-    }
+		const damageTypeHead = document.createElement('th');
+		damageTypeHead.id = 'weapon_damage-type';
+		damageTypeHead.textContent = 'Damage type';
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Updates the table display immediately and registers event listeners for weapon inventory updates.
-     */
-    connectedCallback(): void {
-        this.updateDisplay();
+		const rangeHead = document.createElement('th');
+		rangeHead.id = 'weapon_range';
+		rangeHead.textContent = 'Range';
 
-        this._updateHandler = (event) => this.updateDisplay(event);
-        document.addEventListener("inventoryWeaponAdded", this._updateHandler);
-        document.addEventListener("inventoryWeaponDeleted", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes event listeners to avoid memory leaks.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("inventoryWeaponAdded", this._updateHandler!);
-        document.removeEventListener("inventoryWeaponDeleted", this._updateHandler!);
-    }
+		const weightHead = document.createElement('th');
+		weightHead.id = 'weapon_weight';
+		weightHead.textContent = 'Weight';
 
-    /**
-     * Updates the table body by repopulating it with the current inventory weapons.
-     * @param event An optional event that triggers the update.
-     */
-    async updateDisplay(event?: CustomEvent): Promise<void> {
-        if (this.shouldUpdateDisplay(event)) {
-            const tableBody = this.table.querySelector('tbody')!;
-            tableBody.replaceChildren();
+		const buttonsHead = document.createElement('th');
+		buttonsHead.id = 'weapon_buttons';
+		buttonsHead.textContent = 'Buttons';
 
-            // Create a row for each weapon currently in the global inventory.
-            for (const inventoryWeapon of globals.activePlayerCharacter.inventoryWeapons) {
-                const weapon = (await weaponRepository.getAsync((inventoryWeapon as any).index))!;
-                tableBody.appendChild(new InventoryWeaponRow(weapon));
-            }
-        }
-    }
+		// Append header cells to the header row.
+		tr.appendChild(nameHead);
+		tr.appendChild(abilityHead);
+		tr.appendChild(attackBonusHead);
+		tr.appendChild(damageHead);
+		tr.appendChild(damageTypeHead);
+		tr.appendChild(rangeHead);
+		tr.appendChild(weightHead);
+		tr.appendChild(buttonsHead);
 
-    /**
-     * Determines whether the table should be updated based on the triggering event.
-     * @param event The event to evaluate.
-     * @returns True if the table should be refreshed; otherwise false.
-     */
-    shouldUpdateDisplay(event?: CustomEvent): boolean {
-        return !event ||
-            event.type === "inventoryWeaponAdded" ||
-            event.type === "inventoryWeaponDeleted";
-    }
+		this.tableHead.appendChild(tr);
+
+		// Create the table body.
+		this.tableBody = document.createElement('tbody');
+
+		// Create the table and add the header and body.
+		this.table = document.createElement('table');
+		this.table.appendChild(this.tableHead);
+		this.table.appendChild(this.tableBody);
+
+		// Append the table to this element.
+		this.appendChild(this.table);
+	}
+
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Updates the table display immediately and registers event listeners for weapon inventory updates.
+	 */
+	connectedCallback(): void {
+		this.updateDisplay();
+
+		this._updateHandler = (event) => this.updateDisplay(event);
+		document.addEventListener('inventoryWeaponAdded', this._updateHandler);
+		document.addEventListener('inventoryWeaponDeleted', this._updateHandler);
+	}
+
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes event listeners to avoid memory leaks.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener('inventoryWeaponAdded', this._updateHandler!);
+		document.removeEventListener(
+			'inventoryWeaponDeleted',
+			this._updateHandler!,
+		);
+	}
+
+	/**
+	 * Updates the table body by repopulating it with the current inventory weapons.
+	 * @param event An optional event that triggers the update.
+	 */
+	async updateDisplay(event?: CustomEvent): Promise<void> {
+		if (this.shouldUpdateDisplay(event)) {
+			const tableBody = this.table.querySelector('tbody')!;
+			tableBody.replaceChildren();
+
+			// Create a row for each weapon currently in the global inventory.
+			for (const inventoryWeapon of globals.activePlayerCharacter
+				.inventoryWeapons) {
+				const weapon = (await weaponRepository.getAsync(
+					(inventoryWeapon as any).index,
+				))!;
+				tableBody.appendChild(new InventoryWeaponRow(weapon));
+			}
+		}
+	}
+
+	/**
+	 * Determines whether the table should be updated based on the triggering event.
+	 * @param event The event to evaluate.
+	 * @returns True if the table should be refreshed; otherwise false.
+	 */
+	shouldUpdateDisplay(event?: CustomEvent): boolean {
+		return (
+			!event ||
+			event.type === 'inventoryWeaponAdded' ||
+			event.type === 'inventoryWeaponDeleted'
+		);
+	}
 }
 
 // Register the custom element.
-customElements.define("inventory-weapon-table", InventoryWeaponTable);
+customElements.define('inventory-weapon-table', InventoryWeaponTable);

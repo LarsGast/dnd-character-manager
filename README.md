@@ -41,26 +41,28 @@ While I am striving to bring the best experience to everyone who wants to use th
 ## Key features
 
 - Local-first storage (localStorage), data stays in the user's browser.
-    - Insures privacy and offers offline support.
+  - Insures privacy and offers offline support.
 - Fast lookups: skill modifiers, saves, passive stats, spell lists, and item searches optimized for in-session usage.
 - Homebrew support: add custom races, classes, items, spells, and more.
-    - You can also use this feature to insert official DnD content that you already own legally. 
-    - NOTE: we do not endorse sharing official DnD content not in the SRD with others.
+  - You can also use this feature to insert official DnD content that you already own legally.
+  - NOTE: we do not endorse sharing official DnD content not in the SRD with others.
 - Export / Import JSON: easy backups and device transfer.
-    - Your characters are YOUR characters. Use this feature to stay in control.
+  - Your characters are YOUR characters. Use this feature to stay in control.
 
 ## Privacy & security
+
 - By default all data is stored locally in the browser ([localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)).
-    - This prevents anyone (even us) to access your data.
+  - This prevents anyone (even us) to access your data.
 - You can export all data that is stored on the page.
-    - Save backups, move data between browsers / devices, do whatever you want with it.
+  - Save backups, move data between browsers / devices, do whatever you want with it.
 
 ## Contributing
+
 If you have questions, concerns, or would like to contribute to this project, there are several ways to get involved:
 
 - **Open an Issue**: If you encounter a bug, have a feature request, or want to discuss improvements, please [open an issue](https://github.com/LarsGast/dnd-character-manager/issues).
 - **Start a Discussion**: You can also initiate a discussion in the [Discussions section](https://github.com/LarsGast/dnd-character-manager/discussions) of this repository to share ideas or seek help.
 - **Fork and Contribute**: If you'd like to make changes or enhancements to the project, fork the repository and submit a pull request with your proposed changes.
-    - Please read [the guidelines for contributing to this project](./docs/CONTRIBUTING.md) for more information and to ensure your changes find their way to main smoothly.
+  - Please read [the guidelines for contributing to this project](./docs/CONTRIBUTING.md) for more information and to ensure your changes find their way to main smoothly.
 
 Your contributions and feedback are highly valued and essential to the improvement of this project. Thank you for your support!

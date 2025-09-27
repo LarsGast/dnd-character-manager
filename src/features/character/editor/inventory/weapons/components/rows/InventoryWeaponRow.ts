@@ -1,8 +1,8 @@
-import { InventoryWeaponAttackBonusCell } from "../cells/InventoryWeaponAttackBonusCell.js";
-import { InventoryWeaponAbilityCell } from "../cells/InventoryWeaponAbilityCell.js";
-import { InventoryDamageCell } from "../cells/InventoryWeaponDamageCell.js";
-import { InventoryWeaponButtonsCell } from "../cells/InventoryWeaponButtonsCell.js";
-import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
+import { InventoryWeaponAttackBonusCell } from '../cells/InventoryWeaponAttackBonusCell.js';
+import { InventoryWeaponAbilityCell } from '../cells/InventoryWeaponAbilityCell.js';
+import { InventoryDamageCell } from '../cells/InventoryWeaponDamageCell.js';
+import { InventoryWeaponButtonsCell } from '../cells/InventoryWeaponButtonsCell.js';
+import { Weapon } from '../../../../../../../types/domain/resources/Weapon.js';
 
 /**
  * Custom table row element that represents a weapon entry in the inventory.
@@ -11,79 +11,90 @@ import { Weapon } from "../../../../../../../types/domain/resources/Weapon.js";
  * This row assembles various cells for the weapon's name, ability, attack bonus, damage, damage type, range, weight, and action buttons.
  */
 export class InventoryWeaponRow extends HTMLTableRowElement {
-    weapon: Weapon;
-    nameCell?: HTMLTableCellElement;
-    abilityCell?: InventoryWeaponAbilityCell;
-    attackBonusCell?: InventoryWeaponAttackBonusCell;
-    damageCell?: InventoryDamageCell;
-    damageTypeCell?: HTMLTableCellElement;
-    rangeCell?: HTMLTableCellElement;
-    weightCell?: HTMLTableCellElement;
-    buttonsCell?: InventoryWeaponButtonsCell;
+	weapon: Weapon;
+	nameCell?: HTMLTableCellElement;
+	abilityCell?: InventoryWeaponAbilityCell;
+	attackBonusCell?: InventoryWeaponAttackBonusCell;
+	damageCell?: InventoryDamageCell;
+	damageTypeCell?: HTMLTableCellElement;
+	rangeCell?: HTMLTableCellElement;
+	weightCell?: HTMLTableCellElement;
+	buttonsCell?: InventoryWeaponButtonsCell;
 
-    /**
-     * Creates an instance of InventoryWeaponRow.
-     * @param weapon The weapon object to display.
-     */
-    constructor(weapon: Weapon) {
-        super();
+	/**
+	 * Creates an instance of InventoryWeaponRow.
+	 * @param weapon The weapon object to display.
+	 */
+	constructor(weapon: Weapon) {
+		super();
 
-        this.weapon = weapon;
-    }
-    
-    /**
-     * Called when the element is connected to the DOM.
-     * Creates and appends table cells with weapon details.
-     */
-    connectedCallback(): void {
-        
-        // Create a cell for the weapon name.
-        this.nameCell = document.createElement('td');
-        this.nameCell.headers = 'weapon_name';
-        this.nameCell.textContent = this.weapon.name;
+		this.weapon = weapon;
+	}
 
-        // Create a cell for the ability (or select for multiple).
-        this.abilityCell = new InventoryWeaponAbilityCell(this.weapon, this.rowIndex - 1);
-        this.abilityCell.headers = 'weapon_ability';
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Creates and appends table cells with weapon details.
+	 */
+	connectedCallback(): void {
+		// Create a cell for the weapon name.
+		this.nameCell = document.createElement('td');
+		this.nameCell.headers = 'weapon_name';
+		this.nameCell.textContent = this.weapon.name;
 
-        // Create a cell for the calculated attack bonus.
-        this.attackBonusCell = new InventoryWeaponAttackBonusCell(this.weapon, this.rowIndex - 1);
-        this.attackBonusCell.headers = 'weapon_attack-bonus';
+		// Create a cell for the ability (or select for multiple).
+		this.abilityCell = new InventoryWeaponAbilityCell(
+			this.weapon,
+			this.rowIndex - 1,
+		);
+		this.abilityCell.headers = 'weapon_ability';
 
-        // Create a cell for damage (dice and bonus).
-        this.damageCell = new InventoryDamageCell(this.weapon, this.rowIndex - 1);
-        this.damageCell.headers = 'weapon_damage';
+		// Create a cell for the calculated attack bonus.
+		this.attackBonusCell = new InventoryWeaponAttackBonusCell(
+			this.weapon,
+			this.rowIndex - 1,
+		);
+		this.attackBonusCell.headers = 'weapon_attack-bonus';
 
-        // Create a cell for the weapon's damage type.
-        this.damageTypeCell = document.createElement('td');
-        this.damageTypeCell.headers = 'weapon_damage-type';
-        this.damageTypeCell.textContent = this.weapon.damage?.damage_type.name ?? "";
+		// Create a cell for damage (dice and bonus).
+		this.damageCell = new InventoryDamageCell(this.weapon, this.rowIndex - 1);
+		this.damageCell.headers = 'weapon_damage';
 
-        // Create a cell for the range value.
-        this.rangeCell = document.createElement('td');
-        this.rangeCell.headers = 'weapon_range';
-        this.rangeCell.textContent = this.weapon.range.normal.toString();
+		// Create a cell for the weapon's damage type.
+		this.damageTypeCell = document.createElement('td');
+		this.damageTypeCell.headers = 'weapon_damage-type';
+		this.damageTypeCell.textContent =
+			this.weapon.damage?.damage_type.name ?? '';
 
-        // Create a cell for the weight.
-        this.weightCell = document.createElement('td');
-        this.weightCell.headers = 'weapon_weight';
-        this.weightCell.textContent = this.weapon.weight.toString();
+		// Create a cell for the range value.
+		this.rangeCell = document.createElement('td');
+		this.rangeCell.headers = 'weapon_range';
+		this.rangeCell.textContent = this.weapon.range.normal.toString();
 
-        // Create a cell for action buttons (e.g., delete).
-        this.buttonsCell = new InventoryWeaponButtonsCell(this.weapon, this.rowIndex - 1);
-        this.buttonsCell.headers = 'weapon_buttons';
+		// Create a cell for the weight.
+		this.weightCell = document.createElement('td');
+		this.weightCell.headers = 'weapon_weight';
+		this.weightCell.textContent = this.weapon.weight.toString();
 
-        // Append all cells to the row.
-        this.appendChild(this.nameCell);
-        this.appendChild(this.abilityCell);
-        this.appendChild(this.attackBonusCell);
-        this.appendChild(this.damageCell);
-        this.appendChild(this.damageTypeCell);
-        this.appendChild(this.rangeCell);
-        this.appendChild(this.weightCell);
-        this.appendChild(this.buttonsCell);
-    }
+		// Create a cell for action buttons (e.g., delete).
+		this.buttonsCell = new InventoryWeaponButtonsCell(
+			this.weapon,
+			this.rowIndex - 1,
+		);
+		this.buttonsCell.headers = 'weapon_buttons';
+
+		// Append all cells to the row.
+		this.appendChild(this.nameCell);
+		this.appendChild(this.abilityCell);
+		this.appendChild(this.attackBonusCell);
+		this.appendChild(this.damageCell);
+		this.appendChild(this.damageTypeCell);
+		this.appendChild(this.rangeCell);
+		this.appendChild(this.weightCell);
+		this.appendChild(this.buttonsCell);
+	}
 }
 
 // Register the custom element.
-customElements.define("inventory-weapon-row", InventoryWeaponRow, { extends: 'tr' });
+customElements.define('inventory-weapon-row', InventoryWeaponRow, {
+	extends: 'tr',
+});

@@ -1,5 +1,5 @@
-import { globals } from "../../../../../store/load-globals.js";
-import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
+import { globals } from '../../../../../store/load-globals.js';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
 
 /**
  * Custom HTML element for displaying the Character Export Dialog.
@@ -9,138 +9,148 @@ import { PlayerCharacter } from "../../../../../types/PlayerCharacter.js";
  * It listens for the "characterExportButtonClicked" event to open the dialog.
  */
 export class CharacterExportDialog extends HTMLDialogElement {
-    dialogContent: HTMLDivElement;
-    heading: HTMLHeadingElement;
-    firstParagraph: HTMLParagraphElement;
-    secondParagraph: HTMLParagraphElement;
-    exportButtonAndLabel: HTMLDivElement;
-    exportButton: HTMLButtonElement;
-    previewLabel: HTMLLabelElement;
-    previewTextarea: HTMLTextAreaElement;
-    closeButton: HTMLButtonElement;
-    _updateHandler?: (event: any) => void;
-    playerCharacter?: PlayerCharacter;
-    
-    constructor() {
-        super();
+	dialogContent: HTMLDivElement;
+	heading: HTMLHeadingElement;
+	firstParagraph: HTMLParagraphElement;
+	secondParagraph: HTMLParagraphElement;
+	exportButtonAndLabel: HTMLDivElement;
+	exportButton: HTMLButtonElement;
+	previewLabel: HTMLLabelElement;
+	previewTextarea: HTMLTextAreaElement;
+	closeButton: HTMLButtonElement;
+	_updateHandler?: (event: any) => void;
+	playerCharacter?: PlayerCharacter;
 
-        // Container div for styling the content of the dialog.
-        this.dialogContent = document.createElement('div');
-        this.dialogContent.classList.add("dialog-content");
+	constructor() {
+		super();
 
-        // Create a heading for the dialog.
-        this.heading = document.createElement('h2');
-        this.heading.textContent = "Export PC";
+		// Container div for styling the content of the dialog.
+		this.dialogContent = document.createElement('div');
+		this.dialogContent.classList.add('dialog-content');
 
-        // Create paragraphs explaining the export process.
-        this.firstParagraph = document.createElement('p');
-        this.firstParagraph.textContent = "Use this window to download all information needed to build the PC Builder page. You can use this feature to save backups, move characters between devices, and more.";
-        this.secondParagraph = document.createElement('p');
-        this.secondParagraph.textContent = "Use the Import button to import the information into the page using the resulting JSON file from this export.";
+		// Create a heading for the dialog.
+		this.heading = document.createElement('h2');
+		this.heading.textContent = 'Export PC';
 
-        // Create a wrapper for the export button and preview label.
-        this.exportButtonAndLabel = document.createElement('div');
+		// Create paragraphs explaining the export process.
+		this.firstParagraph = document.createElement('p');
+		this.firstParagraph.textContent =
+			'Use this window to download all information needed to build the PC Builder page. You can use this feature to save backups, move characters between devices, and more.';
+		this.secondParagraph = document.createElement('p');
+		this.secondParagraph.textContent =
+			'Use the Import button to import the information into the page using the resulting JSON file from this export.';
 
-        // Create the export (download) button.
-        this.exportButton = document.createElement('button');
-        this.exportButton.textContent = "Download";
-        this.exportButton.type = 'button';
-        this.exportButton.classList.add('download');
-        this.exportButton.onclick = () => this.handleExportButtonClick();
+		// Create a wrapper for the export button and preview label.
+		this.exportButtonAndLabel = document.createElement('div');
 
-        // Create a label for the preview section.
-        this.previewLabel = document.createElement('label');
-        this.previewLabel.textContent = "Preview";
-        this.previewLabel.classList.add("export-preview");
+		// Create the export (download) button.
+		this.exportButton = document.createElement('button');
+		this.exportButton.textContent = 'Download';
+		this.exportButton.type = 'button';
+		this.exportButton.classList.add('download');
+		this.exportButton.onclick = () => this.handleExportButtonClick();
 
-        // Create a textarea to display the JSON export; editing is disabled.
-        this.previewTextarea = document.createElement('textarea');
-        this.previewTextarea.disabled = true;
+		// Create a label for the preview section.
+		this.previewLabel = document.createElement('label');
+		this.previewLabel.textContent = 'Preview';
+		this.previewLabel.classList.add('export-preview');
 
-        // Create a close button for the dialog.
-        this.closeButton = document.createElement('button');
-        this.closeButton.textContent = "Close";
-        this.closeButton.type = 'button';
-        this.closeButton.classList.add('close');
-        this.closeButton.onclick = () => this.handleCloseButtonClick();
+		// Create a textarea to display the JSON export; editing is disabled.
+		this.previewTextarea = document.createElement('textarea');
+		this.previewTextarea.disabled = true;
 
-        // Append the export button and label to their container.
-        this.exportButtonAndLabel.appendChild(this.exportButton);
-        this.exportButtonAndLabel.appendChild(this.previewLabel);
+		// Create a close button for the dialog.
+		this.closeButton = document.createElement('button');
+		this.closeButton.textContent = 'Close';
+		this.closeButton.type = 'button';
+		this.closeButton.classList.add('close');
+		this.closeButton.onclick = () => this.handleCloseButtonClick();
 
-        // Assemble dialog content.
-        this.dialogContent.appendChild(this.heading);
-        this.dialogContent.appendChild(this.firstParagraph);
-        this.dialogContent.appendChild(this.secondParagraph);
-        this.dialogContent.appendChild(this.exportButtonAndLabel);
-        this.dialogContent.appendChild(this.previewTextarea);
-        this.dialogContent.appendChild(this.closeButton);
+		// Append the export button and label to their container.
+		this.exportButtonAndLabel.appendChild(this.exportButton);
+		this.exportButtonAndLabel.appendChild(this.previewLabel);
 
-        // Append the content to the dialog.
-        this.appendChild(this.dialogContent);        
-    }
+		// Assemble dialog content.
+		this.dialogContent.appendChild(this.heading);
+		this.dialogContent.appendChild(this.firstParagraph);
+		this.dialogContent.appendChild(this.secondParagraph);
+		this.dialogContent.appendChild(this.exportButtonAndLabel);
+		this.dialogContent.appendChild(this.previewTextarea);
+		this.dialogContent.appendChild(this.closeButton);
 
-    /**
-     * Called when the element is connected to the DOM.
-     * Registers an event listener for "characterExportButtonClicked".
-     */
-    connectedCallback(): void {
-        this._updateHandler = (event) => this.showDialog(event);
-        document.addEventListener("characterExportButtonClicked", this._updateHandler);
-    }
-    
-    /**
-     * Called when the element is disconnected from the DOM.
-     * Removes the event listener.
-     */
-    disconnectedCallback(): void {
-        document.removeEventListener("characterExportButtonClicked", this._updateHandler!);
-    }
+		// Append the content to the dialog.
+		this.appendChild(this.dialogContent);
+	}
 
-    /**
-     * Opens the dialog and populates the preview textarea with the character data as JSON.
-     * @param event
-     */
-    showDialog(event: CustomEvent): void {
+	/**
+	 * Called when the element is connected to the DOM.
+	 * Registers an event listener for "characterExportButtonClicked".
+	 */
+	connectedCallback(): void {
+		this._updateHandler = (event) => this.showDialog(event);
+		document.addEventListener(
+			'characterExportButtonClicked',
+			this._updateHandler,
+		);
+	}
 
-        this.playerCharacter = globals.playerCharacterBank.getCharacterBankEntryById(event.detail.characterId)!.playerCharacter;
-        
-        // Display the current active PC as formatted JSON.
-        this.previewTextarea.value = JSON.stringify(this.playerCharacter, null, 2);
+	/**
+	 * Called when the element is disconnected from the DOM.
+	 * Removes the event listener.
+	 */
+	disconnectedCallback(): void {
+		document.removeEventListener(
+			'characterExportButtonClicked',
+			this._updateHandler!,
+		);
+	}
 
-        this.showModal();
-    }
-  
-    /**
-     * Handles the export button click by creating a downloadable JSON file.
-     */
-    handleExportButtonClick(): void {
+	/**
+	 * Opens the dialog and populates the preview textarea with the character data as JSON.
+	 * @param event
+	 */
+	showDialog(event: CustomEvent): void {
+		this.playerCharacter =
+			globals.playerCharacterBank.getCharacterBankEntryById(
+				event.detail.characterId,
+			)!.playerCharacter;
 
-        // Create a Blob from the character JSON data.
-        const blob = new Blob(
-            [JSON.stringify(this.playerCharacter, null, 2)],
-            { type: 'application/json' }
-        );
-        const url = URL.createObjectURL(blob);
+		// Display the current active PC as formatted JSON.
+		this.previewTextarea.value = JSON.stringify(this.playerCharacter, null, 2);
 
-        // You cannot provide a file as download with a <button> element alone, you need an <a> element.
-        // That's why we create an anchor tag and trigger a click here.
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${this.playerCharacter!.name}.json`;
-        a.click();
+		this.showModal();
+	}
 
-        URL.revokeObjectURL(url);
+	/**
+	 * Handles the export button click by creating a downloadable JSON file.
+	 */
+	handleExportButtonClick(): void {
+		// Create a Blob from the character JSON data.
+		const blob = new Blob([JSON.stringify(this.playerCharacter, null, 2)], {
+			type: 'application/json',
+		});
+		const url = URL.createObjectURL(blob);
 
-        this.close();
-    }
-  
-    /**
-     * Closes the dialog.
-     */
-    handleCloseButtonClick(): void {
-        this.close();
-    }
+		// You cannot provide a file as download with a <button> element alone, you need an <a> element.
+		// That's why we create an anchor tag and trigger a click here.
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${this.playerCharacter!.name}.json`;
+		a.click();
+
+		URL.revokeObjectURL(url);
+
+		this.close();
+	}
+
+	/**
+	 * Closes the dialog.
+	 */
+	handleCloseButtonClick(): void {
+		this.close();
+	}
 }
 
-customElements.define('character-export-dialog', CharacterExportDialog, { extends: 'dialog' });
+customElements.define('character-export-dialog', CharacterExportDialog, {
+	extends: 'dialog',
+});
