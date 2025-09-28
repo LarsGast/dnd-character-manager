@@ -62,7 +62,10 @@ export class SubclassForm extends HomebrewBaseForm {
 			'Class',
 			'class',
 			this.subclass.class?.index ?? '',
-			(await classRepository.getAllAsync()).results.map(({ index, name }) => ({ index, name })),
+			(await classRepository.getAllAsync()).results.map(({ index, name }) => ({
+				index,
+				name,
+			})),
 			true,
 			'Class that the subclass belongs to.',
 		);
