@@ -61,8 +61,8 @@ export class TraitRepository
 	 * @inheritdoc
 	 */
 	public async getAllTraitsByRaceAsync(raceId: string): Promise<ResourceList> {
-		const homebrewRace = this.homebrewRepository.get<RaceRecord>(raceId)!;
-		const homebrewTraits = homebrewRace.traits;
+		const homebrewRace = this.homebrewRepository.get<RaceRecord>(raceId);
+		const homebrewTraits = homebrewRace?.traits ?? [];
 
 		const endpoint = `races/${raceId}/traits`;
 		const apiClassLevels =
