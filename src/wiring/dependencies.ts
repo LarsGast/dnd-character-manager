@@ -33,6 +33,7 @@ import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMa
 import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
 import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper.js';
 import { ClassRepository } from '../repositories/ClassRepository.js';
+import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -126,7 +127,7 @@ const skillApiToDomainMapper = new SkillApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
 
-const spellApiToDomainMapper = new SkillApiToDomainMapper(
+const spellApiToDomainMapper = new SpellApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
 
