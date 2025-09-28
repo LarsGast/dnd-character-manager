@@ -43,17 +43,32 @@ function siteStartupCleanup(): void {
 	}
 
 	// v0.3.3 -> v0.4.0: rename "index" to "id" in homebrew resources.
+
+	// Recursively rename "index" to "id" in any object or array
+	function renameIndexToId(obj: any): any {
+		if (Array.isArray(obj)) {
+			return obj.map(renameIndexToId);
+		} else if (obj && typeof obj === 'object') {
+			const newObj: any = {};
+			for (const key in obj) {
+				if (Object.prototype.hasOwnProperty.call(obj, key)) {
+					const newKey = key === 'index' ? 'id' : key;
+					newObj[newKey] = renameIndexToId(obj[key]);
+				}
+			}
+			return newObj;
+		}
+		return obj;
+	}
+
 	Object.keys(localStorage).forEach((key) => {
 		if (key.startsWith('homebrew_')) {
 			const item = localStorage.getItem(key);
 			if (item) {
 				try {
 					const parsed = JSON.parse(item);
-					if (parsed && parsed.index) {
-						parsed.id = parsed.index;
-						delete parsed.index;
-						localStorage.setItem(key, JSON.stringify(parsed));
-					}
+					const updated = renameIndexToId(parsed);
+					localStorage.setItem(key, JSON.stringify(updated));
 				} catch (error) {
 					console.error(`Error parsing ${key}:`, error);
 				}
