@@ -18,4 +18,11 @@ export interface BaseResource {
 	 * Whether this resource is user-created homebrew (true) or from the official SRD (false).
 	 */
 	isHomebrew: boolean;
+
+	/**
+	 * Additional notes or comments about the resource.
+	 * Optional for homebrew resources.
+	 * Undefined for SRD resources.
+	 */
+	notes?: string;
 }

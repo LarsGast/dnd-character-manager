@@ -1,7 +1,10 @@
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
-import { getTextInputSection } from '../../services/FormElementsBuilder.js';
+import {
+	getTextareaSection,
+	getTextInputSection,
+} from '../../services/FormElementsBuilder.js';
 
 /**
  * Base class for homebrew object forms.
@@ -10,18 +13,25 @@ import { getTextInputSection } from '../../services/FormElementsBuilder.js';
  */
 export class HomebrewBaseForm extends HTMLFormElement {
 	/**
+	 * The homebrew object being edited.
+	 */
+	homebrewObject: BaseResource;
+
+	/**
 	 * Creates an instance of HomebrewBaseForm.
 	 * @param homebrewObject
 	 */
 	constructor(homebrewObject: BaseResource) {
 		super();
 
+		this.homebrewObject = homebrewObject;
+
 		// "Name" is the only required field for all homebrew objects.
 		this.appendChild(
 			getTextInputSection(
 				'Name',
 				'name',
-				homebrewObject.name,
+				this.homebrewObject.name,
 				true,
 				'Name of the homebrew object.',
 			),
@@ -34,7 +44,8 @@ export class HomebrewBaseForm extends HTMLFormElement {
 	connectedCallback(): void {
 		this.addEventListener('submit', this.handleSubmitAsync.bind(this));
 
-		// Add the save button on the bottom of the form.
+		// Add the notes section and save button on the bottom of the form.
+		this.appendChild(this.getNotesSection());
 		this.appendChild(this.getSaveButton());
 	}
 
@@ -71,7 +82,22 @@ export class HomebrewBaseForm extends HTMLFormElement {
 			id: oldResource.id,
 			name: formData.get('name')!.toString(),
 			resourceType: oldResource.resourceType,
+			notes: formData.get('notes')?.toString() ?? '',
 		});
+	}
+
+	/**
+	 * Creates and returns the notes section element.
+	 * @returns Notes section element.
+	 */
+	private getNotesSection(): HTMLElement {
+		return getTextareaSection(
+			'Additional notes',
+			'notes',
+			this.homebrewObject.notes ?? '',
+			false,
+			'Additional notes for anything not covered by other fields.',
+		);
 	}
 
 	/**
