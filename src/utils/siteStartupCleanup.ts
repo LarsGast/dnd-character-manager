@@ -3,12 +3,12 @@
  * Extend this function with additional cleanup logic as needed.
  */
 function siteStartupCleanup(): void {
-	// v0.4.0: Remove deprecated "cache" item in localStorage.
+	// v0.3.3 -> v0.4.0: Remove deprecated "cache" item in localStorage.
 	if (localStorage.getItem('cache')) {
 		localStorage.removeItem('cache');
 	}
 
-	// v0.4.0: Move homebrew data from deprecated "homebrewBank" to specific "homebrew_{ID}" keys in localStorage.
+	// v0.3.3 -> v0.4.0: Move homebrew data from deprecated "homebrewBank" to specific "homebrew_{ID}" keys in localStorage.
 	const homebrewBank = localStorage.getItem('homebrewBank');
 	if (homebrewBank) {
 		try {
@@ -42,7 +42,7 @@ function siteStartupCleanup(): void {
 		}
 	}
 
-	// v0.4.0: rename "index" to "id" in homebrew resources.
+	// v0.3.3 -> v0.4.0: rename "index" to "id" in homebrew resources.
 	Object.keys(localStorage).forEach((key) => {
 		if (key.startsWith('homebrew_')) {
 			const item = localStorage.getItem(key);
