@@ -1,4 +1,7 @@
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+import {
+	BaseResourceRecord,
+	HOMEBREW_RESOURCE_RECORD_VERSION,
+} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -65,6 +68,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	 */
 	handleClick(): void {
 		const newHomebrewResource: BaseResourceRecord = {
+			version: HOMEBREW_RESOURCE_RECORD_VERSION,
 			id: self.crypto.randomUUID(),
 			name: 'New Custom Object',
 			resourceType: this.apiCategoryName!,

@@ -1,7 +1,10 @@
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
 import { OptionRecord } from '../../../../../types/storage/helpers/ChoiceRecord.js';
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+import {
+	BaseResourceRecord,
+	HOMEBREW_RESOURCE_RECORD_VERSION,
+} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
@@ -71,6 +74,7 @@ export class ChoiceOptionElement extends HTMLElement {
 	 */
 	getValue(): OptionRecord {
 		const item: BaseResourceRecord = {
+			version: HOMEBREW_RESOURCE_RECORD_VERSION,
 			id: this.select.value,
 			name: this.select.options[this.select.selectedIndex].text,
 			resourceType: '',
