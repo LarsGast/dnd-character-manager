@@ -20,4 +20,10 @@ export interface BaseResourceRecord {
 	 * @example "classes", "races", "monsters"
 	 */
 	resourceType: string;
+
+	/**
+	 * Additional notes or comments about the resource.
+	 * User-defined. Optional.
+	 */
+	notes?: string;
 }

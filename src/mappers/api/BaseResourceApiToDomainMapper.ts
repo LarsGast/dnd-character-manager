@@ -17,6 +17,7 @@ export class BaseResourceApiToDomainMapper
 			index: source.index,
 			name: source.name,
 			isHomebrew: false,
+			notes: undefined,
 		};
 	}
 }

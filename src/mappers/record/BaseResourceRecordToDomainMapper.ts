@@ -10,6 +10,7 @@ export class BaseResourceRecordToDomainMapper
 			index: source.id,
 			name: source.name,
 			isHomebrew: true,
+			notes: source.notes,
 		};
 	}
 }
