@@ -1,4 +1,4 @@
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+import { upgradeHomebrewResource } from '../../../../../utils/resourceRecordUpgrader.js';
 import { homebrewRepository } from '../../../../../wiring/dependencies.js';
 
 /**
@@ -183,9 +183,10 @@ export class HomebrewImportDialog extends HTMLDialogElement {
 	 */
 	handleImportButtonClick(): void {
 		// Create a new Homebrew from the JSON data.
-		const baseResourceRecord = JSON.parse(
-			this.previewTextarea.value,
-		) as BaseResourceRecord;
+		const baseResourceRecordJson = JSON.parse(this.previewTextarea.value);
+
+		const baseResourceRecord = upgradeHomebrewResource(baseResourceRecordJson);
+
 		const existingHomebrewResource = homebrewRepository.get(
 			baseResourceRecord.id,
 		);

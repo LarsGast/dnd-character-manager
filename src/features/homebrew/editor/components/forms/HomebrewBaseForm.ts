@@ -79,6 +79,7 @@ export class HomebrewBaseForm extends HTMLFormElement {
 		const oldResource = homebrewRepository.get(id)!;
 
 		return Promise.resolve({
+			version: oldResource.version,
 			id: oldResource.id,
 			name: formData.get('name')!.toString(),
 			resourceType: oldResource.resourceType,
