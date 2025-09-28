@@ -7,11 +7,6 @@ export interface SubclassRecord extends BaseResourceRecord {
 	class: BaseResourceRecord;
 
 	/**
-	 * Lore-friendly flavor text for a classes respective subclass.
-	 */
-	subclass_flavor: string;
-
-	/**
 	 * Description of the resource.
 	 */
 	desc: string[];

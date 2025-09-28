@@ -12,11 +12,6 @@ export interface Subclass extends BaseResource {
 	class: BaseResource;
 
 	/**
-	 * Lore-friendly flavor text for a classes respective subclass.
-	 */
-	subclass_flavor: string;
-
-	/**
 	 * Subclass specific spells.
 	 */
 	spells: SubclassSpell[];

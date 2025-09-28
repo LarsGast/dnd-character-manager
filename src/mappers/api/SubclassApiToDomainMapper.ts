@@ -34,7 +34,6 @@ export class SubclassApiToDomainMapper
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
 			class: this.baseResourceMapper.map(source.class),
-			subclass_flavor: source.subclass_flavor,
 			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
 		};
 	}
