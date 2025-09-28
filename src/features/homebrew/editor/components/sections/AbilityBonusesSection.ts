@@ -1,6 +1,7 @@
 import { AbilityBonus } from '../../../../../types/domain/helpers/AbilityBonus.js';
 import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
 import { AbilityBonusRecord } from '../../../../../types/storage/helpers/AbilityBonusRecord.js';
+import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { abilityScoreRepository } from '../../../../../wiring/dependencies.js';
 import {
 	getNumberInputWithLabel,
@@ -95,6 +96,7 @@ export class AbilityBonusesSection extends HTMLElement {
 
 			const abilityBonus: AbilityBonusRecord = {
 				ability_score: {
+					version: HOMEBREW_RESOURCE_RECORD_VERSION,
 					id: abilityScore.index,
 					name: abilityScore.name,
 					resourceType: 'ability-scores',
