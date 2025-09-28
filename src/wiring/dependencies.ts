@@ -31,6 +31,7 @@ import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResource
 import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper.js';
 import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper.js';
 import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
+import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -148,6 +149,10 @@ const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
 	choiceRecordToDomainMapper,
 );
 
+const subclassRecordToDomainMapper = new SubclassRecordToDomainMapper(
+	baseResourceRecordToDomainMapper,
+);
+
 // --------------------
 // Repositories
 // --------------------
@@ -243,6 +248,8 @@ export const subclassRepository = new BaseResourceRepository(
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	subclassApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
+	subclassRecordToDomainMapper,
 );
 export const subraceRepository = new BaseResourceRepository(
 	'subraces',
