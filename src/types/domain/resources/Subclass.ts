@@ -24,5 +24,14 @@ export interface Subclass extends BaseResource {
 	/**
 	 * Subclass specific spells.
 	 */
-	spells: object[];
+	spells: SubclassSpell[];
+}
+
+export interface SubclassSpell {
+	prerequisites: SubClassSpellPrerequisite[];
+	spell: BaseResource;
+}
+
+export interface SubClassSpellPrerequisite extends BaseResource {
+	type: string;
 }

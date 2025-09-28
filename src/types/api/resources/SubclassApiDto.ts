@@ -24,5 +24,14 @@ export interface SubclassApiDto extends BaseResourceApiDto {
 	/**
 	 * Subclass specific spells.
 	 */
-	spells: object[];
+	spells: SubclassSpellApiDto[];
+}
+
+export interface SubclassSpellApiDto {
+	prerequisites: SubClassSpellPrerequisiteApiDto[];
+	spell: BaseResourceApiDto;
+}
+
+export interface SubClassSpellPrerequisiteApiDto extends BaseResourceApiDto {
+	type: string;
 }
