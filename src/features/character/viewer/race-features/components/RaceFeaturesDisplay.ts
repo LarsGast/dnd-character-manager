@@ -106,7 +106,7 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 		this.appendChild(this.getSectionHeading());
 
 		// Display ability bonuses.
-		this.appendChild(this.getHeading('Ability Bonuses'));
+		this.appendChild(this.getHeading('Ability bonuses'));
 		this.appendChild(this.getAbilityBonusBody());
 
 		// Display speed.
@@ -128,6 +128,12 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 		// Display languages.
 		this.appendChild(this.getHeading('Languages'));
 		this.appendChild(this.getParagraph(this.race.language_desc));
+
+		// Display additional notes.
+		if (this.race.notes) {
+			this.appendChild(this.getHeading('Additional notes'));
+			this.appendChild(this.getParagraph(this.race.notes));
+		}
 
 		// Get and display all available traits, if any.
 		const raceTraits = await traitRepository.getAllTraitsByRaceAsync(
@@ -197,6 +203,17 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 	}
 
 	/**
+	 * Creates and returns a level-5 heading element for a trait's additional notes.
+	 * @param title The title for the additional notes section.
+	 * @returns The heading element.
+	 */
+	getTraitAdditionalNotesHeading(title: string): HTMLHeadingElement {
+		const heading = document.createElement('h5');
+		heading.textContent = title;
+		return heading;
+	}
+
+	/**
 	 * Constructs a section element for race traits.
 	 * @param traits An array of trait objects.
 	 * @returns The section element containing trait headings and descriptions.
@@ -210,6 +227,12 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 			traitsSection.appendChild(this.getTraitHeading(trait.name));
 			for (const traitDesc of trait.desc) {
 				traitsSection.appendChild(this.getParagraph(traitDesc));
+			}
+			if (trait.notes) {
+				traitsSection.appendChild(
+					this.getTraitAdditionalNotesHeading('Additional notes'),
+				);
+				traitsSection.appendChild(this.getParagraph(trait.notes));
 			}
 		}
 
