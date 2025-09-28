@@ -32,6 +32,7 @@ import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDoma
 import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper.js';
 import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
 import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper.js';
+import { ClassRepository } from '../repositories/ClassRepository.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -210,12 +211,12 @@ export const backgroundRepository = new BaseResourceRepository(
 	backgroundApiToDomainMapper,
 );
 
-export const classRepository = new BaseResourceRepository(
-	'classes',
+export const classRepository = new ClassRepository(
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	classApiToDomainMapper,
+	baseResourceRecordToDomainMapper,
 );
 
 export const classLevelRepository = new ClassLevelRepository(
