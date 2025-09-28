@@ -1,9 +1,11 @@
 import {
 	homebrewRepository,
 	raceRepository,
+	subclassRepository,
 	traitRepository,
 } from '../../../wiring/dependencies.js';
 import { RaceForm } from './components/forms/RaceForm.js';
+import { SubclassForm } from './components/forms/SubclassForm.js';
 import { TraitForm } from './components/forms/TraitForm.js';
 
 // This file is used to load the homebrew form based on the active homebrew entry.
@@ -26,6 +28,10 @@ const homebrewResource = homebrewRepository.get(id)!;
 		case 'traits':
 			const trait = await traitRepository.getAsync(homebrewResource.id);
 			form = new TraitForm(trait!);
+			break;
+		case 'subclasses':
+			const subclass = await subclassRepository.getAsync(homebrewResource.id);
+			form = new SubclassForm(subclass!);
 			break;
 		default:
 			throw new Error(

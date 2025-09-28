@@ -9,7 +9,7 @@ export interface Subclass extends BaseResource {
 	/**
 	 * Class that the subclass belongs to.
 	 */
-	class: BaseResource;
+	class?: BaseResource;
 
 	/**
 	 * Subclass specific spells.

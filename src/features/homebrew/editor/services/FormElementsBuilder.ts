@@ -169,7 +169,7 @@ export function getTextareaSection(
  * @param labelText Text for the label of the select element.
  * @param id ID and name for the select element.
  * @param defaultValue Default value for the select element.
- * @param options Array of options for the select element. No support for objects, only strings.
+ * @param options Array of options for the select element. Either an array of strings or an array of objects with `id` and `name` properties.
  * @param tooltip Optional tooltip text for the select element. If provided, a tooltip icon will be added to the label.
  * @param isRequired Whether the input is required.
  * @returns Section containing the label and select element.
@@ -178,7 +178,7 @@ export function getSelectSection(
 	labelText: string,
 	id: string,
 	defaultValue: string,
-	options: string[],
+	options: string[] | { index: string; name: string }[],
 	isRequired: boolean,
 	tooltip?: string,
 ): HTMLElement {
@@ -194,7 +194,11 @@ export function getSelectSection(
 	select.appendChild(getEmptyOption('-- Select an option --', ''));
 
 	for (const option of options) {
-		select.appendChild(getSelectOption(option));
+		if (typeof option === 'string') {
+			select.appendChild(getSelectOption(option));
+		} else {
+			select.appendChild(getSelectOption(option.name, option.index));
+		}
 	}
 
 	select.value = defaultValue ?? '';
