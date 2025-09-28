@@ -103,7 +103,7 @@ export class ChoiceSection extends HTMLElement {
 		const input = document.createElement('input');
 
 		input.type = 'number';
-		input.value = this.defaultValue?.choose.toString() ?? '';
+		input.value = this.defaultValue?.choose?.toString() ?? '';
 
 		return input;
 	}
