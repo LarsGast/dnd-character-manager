@@ -62,9 +62,11 @@ const srdApiService = new SrdApiService(
 // API to Domain Mappers
 // --------------------
 const baseResourceApiToDomainMapper = new BaseResourceApiToDomainMapper();
+
 const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const choiceApiToDomainMapper = new ChoiceApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
@@ -76,54 +78,72 @@ const equipmentApiToDomainMapper = new EquipmentApiToDomainMapper(
 const abilityScoreApiToDomainMapper = new AbilityScoreApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const alignmentApiToDomainMapper = new AlignmentApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const armorApiToDomainMapper = new ArmorApiToDomainMapper(
 	equipmentApiToDomainMapper,
 );
+
 const backgroundApiToDomainMapper = new BackgroundApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
 );
+
 const classApiToDomainMapper = new ClassApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
 );
+
 const classLevelApiToDomainMapper = new ClassLevelApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const equipmentCategoryApiToDomainMapper =
 	new EquipmentCategoryApiToDomainMapper(baseResourceApiToDomainMapper);
 const featureApiToDomainMapper = new FeatureApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const languageApiToDomainMapper = new LanguageApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const proficiencyApiToDomainMapper = new ProficiencyApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const raceApiToDomainMapper = new RaceApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	abilityBonusApiToDomainMapper,
 	choiceApiToDomainMapper,
 );
+
 const skillApiToDomainMapper = new SkillApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
+const spellApiToDomainMapper = new SkillApiToDomainMapper(
+	baseResourceApiToDomainMapper,
+);
+
 const subclassApiToDomainMapper = new SubclassApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 );
+
 const subraceApiToDomainMapper = new SubraceApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	abilityBonusApiToDomainMapper,
 	choiceApiToDomainMapper,
 );
+
 const traitApiToDomainMapper = new TraitApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
 );
+
 const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	equipmentApiToDomainMapper,
@@ -165,6 +185,7 @@ export const abilityScoreRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	abilityScoreApiToDomainMapper,
 );
+
 export const alignmentRepository = new BaseResourceRepository(
 	'alignments',
 	homebrewRepository,
@@ -172,6 +193,7 @@ export const alignmentRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	alignmentApiToDomainMapper,
 );
+
 export const armorRepository = new BaseResourceRepository(
 	'equipment',
 	homebrewRepository,
@@ -179,6 +201,7 @@ export const armorRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	armorApiToDomainMapper,
 );
+
 export const backgroundRepository = new BaseResourceRepository(
 	'backgrounds',
 	homebrewRepository,
@@ -186,6 +209,7 @@ export const backgroundRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	backgroundApiToDomainMapper,
 );
+
 export const classRepository = new BaseResourceRepository(
 	'classes',
 	homebrewRepository,
@@ -193,12 +217,14 @@ export const classRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	classApiToDomainMapper,
 );
+
 export const classLevelRepository = new ClassLevelRepository(
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	classLevelApiToDomainMapper,
 );
+
 export const equipmentCategoryRepository = new BaseResourceRepository(
 	'equipment-categories',
 	homebrewRepository,
@@ -206,12 +232,14 @@ export const equipmentCategoryRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	equipmentCategoryApiToDomainMapper,
 );
+
 export const featureRepository = new FeatureRepository(
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	featureApiToDomainMapper,
 );
+
 export const languageRepository = new BaseResourceRepository(
 	'languages',
 	homebrewRepository,
@@ -219,6 +247,7 @@ export const languageRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	languageApiToDomainMapper,
 );
+
 export const proficiencyRepository = new BaseResourceRepository(
 	'proficiencies',
 	homebrewRepository,
@@ -226,6 +255,7 @@ export const proficiencyRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	proficiencyApiToDomainMapper,
 );
+
 export const raceRepository = new BaseResourceRepository(
 	'races',
 	homebrewRepository,
@@ -235,6 +265,7 @@ export const raceRepository = new BaseResourceRepository(
 	baseResourceRecordToDomainMapper,
 	raceRecordToDomainMapper,
 );
+
 export const skillRepository = new BaseResourceRepository(
 	'skills',
 	homebrewRepository,
@@ -242,6 +273,15 @@ export const skillRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	skillApiToDomainMapper,
 );
+
+export const spellRepository = new BaseResourceRepository(
+	'spells',
+	homebrewRepository,
+	srdApiService,
+	baseResourceApiToDomainMapper,
+	spellApiToDomainMapper,
+);
+
 export const subclassRepository = new BaseResourceRepository(
 	'subclasses',
 	homebrewRepository,
@@ -251,6 +291,7 @@ export const subclassRepository = new BaseResourceRepository(
 	baseResourceRecordToDomainMapper,
 	subclassRecordToDomainMapper,
 );
+
 export const subraceRepository = new BaseResourceRepository(
 	'subraces',
 	homebrewRepository,
@@ -258,6 +299,7 @@ export const subraceRepository = new BaseResourceRepository(
 	baseResourceApiToDomainMapper,
 	subraceApiToDomainMapper,
 );
+
 export const traitRepository = new TraitRepository(
 	homebrewRepository,
 	srdApiService,
@@ -266,6 +308,7 @@ export const traitRepository = new TraitRepository(
 	baseResourceRecordToDomainMapper,
 	traitRecordToDomainMapper,
 );
+
 export const weaponRepository = new BaseResourceRepository(
 	'equipment',
 	homebrewRepository,
