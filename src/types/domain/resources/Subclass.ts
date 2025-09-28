@@ -17,11 +17,6 @@ export interface Subclass extends BaseResource {
 	subclass_flavor: string;
 
 	/**
-	 * Resource url that shows the subclass level progression.
-	 */
-	subclass_levels: string;
-
-	/**
 	 * Subclass specific spells.
 	 */
 	spells: SubclassSpell[];
