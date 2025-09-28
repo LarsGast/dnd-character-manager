@@ -19,7 +19,7 @@ export interface SubclassApiDto extends BaseResourceApiDto {
 	/**
 	 * Resource url that shows the subclass level progression.
 	 */
-	subclass_levels: string[];
+	subclass_levels: string;
 
 	/**
 	 * Subclass specific spells.
