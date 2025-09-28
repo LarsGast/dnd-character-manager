@@ -44,9 +44,9 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 		return {
 			...this.baseResourceMapper.map(source),
 			speed: source.speed,
-			ability_bonuses: source.ability_bonuses?.map(
-				(ab) => this.abilityBonusMapper.map(ab) ?? [],
-			),
+			ability_bonuses:
+				source.ability_bonuses?.map((ab) => this.abilityBonusMapper.map(ab)) ??
+				[],
 			age: source.age,
 			alignment: source.alignment,
 			size: source.size,
