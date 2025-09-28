@@ -153,6 +153,14 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 			fragment.appendChild(getElementWithTextContent('p', paragraph));
 		}
 
+		if (this.subclass!.notes) {
+			fragment.appendChild(getElementWithTextContent('h5', 'Additional notes'));
+
+			fragment.appendChild(
+				getElementWithTextContent('p', this.subclass!.notes),
+			);
+		}
+
 		return fragment;
 	}
 
