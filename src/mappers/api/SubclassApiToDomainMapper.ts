@@ -40,7 +40,7 @@ export class SubclassApiToDomainMapper
 		return {
 			level: parseInt(
 				source.prerequisites
-					.find((p) => p.type == 'level')
+					.find((p) => p.type === 'level')
 					?.index.split('-')[1] ?? '0',
 				10,
 			),
