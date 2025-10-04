@@ -112,7 +112,7 @@ export class SpellLevelSection extends HTMLElement {
 			};
 
 			return {
-				spell: spellRecord!,
+				spell: spellRecord,
 				level: parseInt(input.value, 10),
 			};
 		});
