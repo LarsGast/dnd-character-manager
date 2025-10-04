@@ -9,20 +9,15 @@ export interface Subclass extends BaseResource {
 	/**
 	 * Class that the subclass belongs to.
 	 */
-	class: BaseResource;
-
-	/**
-	 * Lore-friendly flavor text for a classes respective subclass.
-	 */
-	subclass_flavor: string;
-
-	/**
-	 * Resource url that shows the subclass level progression.
-	 */
-	subclass_levels: string[];
+	class?: BaseResource;
 
 	/**
 	 * Subclass specific spells.
 	 */
-	spells: object[];
+	spells: SubclassSpell[];
+}
+
+export interface SubclassSpell {
+	level: number;
+	spell: BaseResource;
 }

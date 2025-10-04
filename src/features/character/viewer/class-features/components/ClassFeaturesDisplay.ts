@@ -146,14 +146,19 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 		const fragment = document.createDocumentFragment();
 
 		fragment.appendChild(
-			getElementWithTextContent(
-				'h4',
-				`${this.subclass!.subclass_flavor}: ${this.subclass!.name}`,
-			),
+			getElementWithTextContent('h4', `Subclass: ${this.subclass!.name}`),
 		);
 
 		for (const paragraph of this.subclass!.desc) {
 			fragment.appendChild(getElementWithTextContent('p', paragraph));
+		}
+
+		if (this.subclass!.notes) {
+			fragment.appendChild(getElementWithTextContent('h5', 'Additional notes'));
+
+			fragment.appendChild(
+				getElementWithTextContent('p', this.subclass!.notes),
+			);
 		}
 
 		return fragment;

@@ -50,6 +50,7 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 
 		fragment.appendChild(this.getTypeSelectOption('races', 'race'));
 		fragment.appendChild(this.getTypeSelectOption('traits', 'trait'));
+		fragment.appendChild(this.getTypeSelectOption('subclasses', 'subclass'));
 
 		return fragment;
 	}

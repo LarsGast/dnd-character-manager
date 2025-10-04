@@ -1,49 +1,47 @@
 import { IMapper } from '../../interfaces/IMapper.js';
 import {
-	SubclassApiDto,
-	SubclassSpellApiDto,
-} from '../../types/api/resources/SubclassApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
-import {
 	Subclass,
 	SubclassSpell,
 } from '../../types/domain/resources/Subclass.js';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+import {
+	SubclassRecord,
+	SubclassSpellRecord,
+} from '../../types/storage/resources/SubclassRecord.js';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord.js';
 
-export class SubclassApiToDomainMapper
-	implements IMapper<SubclassApiDto, Subclass>
+export class SubclassRecordToDomainMapper
+	implements IMapper<SubclassRecord, Subclass>
 {
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
 	private readonly baseResourceMapper: IMapper<
-		BaseResourceApiDto,
+		BaseResourceRecord,
 		BaseResource
 	>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		baseResourceMapper: IMapper<BaseResourceRecord, BaseResource>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 	}
 
-	public map(source: SubclassApiDto): Subclass {
+	public map(source: SubclassRecord): Subclass {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			class: this.baseResourceMapper.map(source.class),
+			class:
+				source.class === undefined
+					? undefined
+					: this.baseResourceMapper.map(source.class),
 			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
 		};
 	}
 
-	private mapSpells(source: SubclassSpellApiDto): SubclassSpell {
+	private mapSpells(source: SubclassSpellRecord): SubclassSpell {
 		return {
-			level: parseInt(
-				source.prerequisites
-					.find((p) => p.type === 'level')
-					?.index.split('-')[1] ?? '0',
-				10,
-			),
+			level: source.level,
 			spell: this.baseResourceMapper.map(source.spell),
 		};
 	}
