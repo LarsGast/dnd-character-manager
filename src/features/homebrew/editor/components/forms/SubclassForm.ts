@@ -3,7 +3,6 @@ import {
 	getTextareaSection,
 } from '../../services/FormElementsBuilder.js';
 import { HomebrewBaseForm } from './HomebrewBaseForm.js';
-import { LinkedObjectsSection } from '../sections/LinkedObjectsSection.js';
 import { Subclass } from '../../../../../types/domain/resources/Subclass.js';
 import {
 	classRepository,
@@ -11,6 +10,7 @@ import {
 } from '../../../../../wiring/dependencies.js';
 import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord.js';
 import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+import { SpellLevelSection } from '../sections/SpellLevelSection.js';
 
 /**
  * Form for editing custom homebrew Subclass objects.
@@ -18,7 +18,7 @@ import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/w
 export class SubclassForm extends HomebrewBaseForm {
 	subclass: Subclass;
 	descriptionSection?: HTMLElement;
-	spellsSection?: LinkedObjectsSection;
+	spellsSection?: SpellLevelSection;
 	classSection?: HTMLElement;
 
 	/**
@@ -71,11 +71,11 @@ export class SubclassForm extends HomebrewBaseForm {
 		);
 		fragment.appendChild(this.classSection);
 
-		this.spellsSection = new LinkedObjectsSection(
-			'Spells',
+		this.spellsSection = new SpellLevelSection(
+			'Spells at level',
 			await spellRepository.getAllAsync(),
-			this.subclass.spells?.map((s) => s.spell) ?? [],
-			'Subclass specific spells.',
+			this.subclass.spells || [],
+			'Spells granted by the subclass at specified level.',
 		);
 		fragment.appendChild(this.spellsSection);
 
@@ -108,10 +108,7 @@ export class SubclassForm extends HomebrewBaseForm {
 				).selectedOptions[0].text,
 				resourceType: 'classes',
 			},
-			spells: this.spellsSection!.getValue().map((spell) => ({
-				spell: spell,
-				prerequisites: [],
-			})),
+			spells: this.spellsSection!.getValue(),
 		};
 	}
 }

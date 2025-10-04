@@ -2,13 +2,11 @@ import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	SubclassApiDto,
 	SubclassSpellApiDto,
-	SubClassSpellPrerequisiteApiDto,
 } from '../../types/api/resources/SubclassApiDto.js';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
 import {
 	Subclass,
 	SubclassSpell,
-	SubClassSpellPrerequisite,
 } from '../../types/domain/resources/Subclass.js';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 
@@ -40,19 +38,13 @@ export class SubclassApiToDomainMapper
 
 	private mapSpells(source: SubclassSpellApiDto): SubclassSpell {
 		return {
-			prerequisites: source.prerequisites.map((p) =>
-				this.mapSpellPrerequisites(p),
+			level: parseInt(
+				source.prerequisites
+					.find((p) => p.type == 'level')
+					?.index.split('-')[1] ?? '0',
+				10,
 			),
 			spell: this.baseResourceMapper.map(source.spell),
-		};
-	}
-
-	private mapSpellPrerequisites(
-		source: SubClassSpellPrerequisiteApiDto,
-	): SubClassSpellPrerequisite {
-		return {
-			...this.baseResourceMapper.map(source),
-			type: source.type,
 		};
 	}
 }

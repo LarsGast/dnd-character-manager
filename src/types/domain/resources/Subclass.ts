@@ -18,10 +18,6 @@ export interface Subclass extends BaseResource {
 }
 
 export interface SubclassSpell {
-	prerequisites: SubClassSpellPrerequisite[];
+	level: number;
 	spell: BaseResource;
-}
-
-export interface SubClassSpellPrerequisite extends BaseResource {
-	type: string;
 }

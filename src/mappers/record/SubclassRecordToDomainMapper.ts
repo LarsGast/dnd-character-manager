@@ -2,12 +2,10 @@ import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	Subclass,
 	SubclassSpell,
-	SubClassSpellPrerequisite,
 } from '../../types/domain/resources/Subclass.js';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 import {
 	SubclassRecord,
-	SubClassSpellPrerequisiteRecord,
 	SubclassSpellRecord,
 } from '../../types/storage/resources/SubclassRecord.js';
 import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord.js';
@@ -43,19 +41,8 @@ export class SubclassRecordToDomainMapper
 
 	private mapSpells(source: SubclassSpellRecord): SubclassSpell {
 		return {
-			prerequisites: source.prerequisites.map((p) =>
-				this.mapSpellPrerequisites(p),
-			),
+			level: source.level,
 			spell: this.baseResourceMapper.map(source.spell),
-		};
-	}
-
-	private mapSpellPrerequisites(
-		source: SubClassSpellPrerequisiteRecord,
-	): SubClassSpellPrerequisite {
-		return {
-			...this.baseResourceMapper.map(source),
-			type: source.type,
 		};
 	}
 }
