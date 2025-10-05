@@ -44,6 +44,27 @@ function siteStartupCleanup(): void {
 		}
 	}
 
+	// v0.4.1 -> v0.5.0: Remove deprecated homebrew traits from localStorage.
+	const homebrewResources = Object.keys(localStorage).filter((key) =>
+		key.startsWith('homebrew_'),
+	);
+	homebrewResources.forEach((key) => {
+		const item = localStorage.getItem(key);
+		if (item) {
+			try {
+				const parsed = JSON.parse(item);
+				if (parsed && parsed.resourceType && parsed.id) {
+					if (parsed.resourceType === 'traits') {
+						// Traits should not exist standalone. Remove them.
+						localStorage.removeItem(key);
+					}
+				}
+			} catch (error) {
+				console.error(`Error parsing ${key}:`, error);
+			}
+		}
+	});
+
 	// Upgrade existing homebrew resources to the latest version.
 	upgradeHomebrewResources();
 }
