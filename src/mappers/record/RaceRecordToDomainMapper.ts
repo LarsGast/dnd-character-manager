@@ -62,10 +62,7 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 				: undefined,
 			language_desc: source.language_desc,
 			traits: source.traits?.map(this.mapTraits) ?? [],
-			subraces:
-				source.subraces?.map((subrace) =>
-					this.baseResourceMapper.map(subrace),
-				) ?? [],
+			subraces: [],
 		};
 	}
 
