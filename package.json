@@ -6,7 +6,9 @@
 		"lint-staged": "^16.2.1",
 		"prettier": "3.6.2",
 		"rimraf": "^6.0.1",
-		"typescript": "^5.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.3",
+		"vitest": "^3.2.4"
 	},
 	"scripts": {
 		"prepare": "husky",
@@ -22,7 +24,8 @@
 		"build:ts": "tsc",
 		"build:static": "cpy \"src/**/*.{html,md,css,scss,xml,svg,png,jpg,json}\" build",
 		"build:jekyll": "bundle exec jekyll build --baseurl \"/dnd-character-manager\"",
-		"build": "npm run build:ts && npm run build:static && npm run build:jekyll"
+		"build": "npm run build:ts && npm run build:static && npm run build:jekyll",
+		"test": "vitest"
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown"
