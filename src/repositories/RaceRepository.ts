@@ -1,15 +1,15 @@
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
-import { IMapper } from '../interfaces/IMapper';
-import { ISrdApiService } from '../interfaces/ISrdApiService';
-import { ITraitRepository } from '../interfaces/ITraitRepository';
-import { RaceApiDto } from '../types/api/resources/RaceApiDto';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
-import { Race } from '../types/domain/resources/Race';
-import { Trait } from '../types/domain/resources/Trait';
-import { BaseResource } from '../types/domain/wrappers/BaseResource';
-import { RaceRecord } from '../types/storage/resources/RaceRecord';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
-import { BaseResourceRepository } from './BaseResourceRepository';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
+import { IMapper } from '../interfaces/IMapper.js';
+import { ISrdApiService } from '../interfaces/ISrdApiService.js';
+import { ITraitRepository } from '../interfaces/ITraitRepository.js';
+import { RaceApiDto } from '../types/api/resources/RaceApiDto.js';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
+import { Race } from '../types/domain/resources/Race.js';
+import { Trait } from '../types/domain/resources/Trait.js';
+import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { RaceRecord } from '../types/storage/resources/RaceRecord.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { BaseResourceRepository } from './BaseResourceRepository.js';
 
 export class RaceRepository extends BaseResourceRepository<
 	Race,
