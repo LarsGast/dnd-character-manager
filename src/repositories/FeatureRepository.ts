@@ -73,4 +73,24 @@ export class FeatureRepository
 			],
 		};
 	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public async getAllFeaturesForSubclassAsync(
+		subclassId: string,
+	): Promise<ResourceList> {
+		const endpoint = `subclasses/${subclassId}/features`;
+		const apiFeatures =
+			await this.apiService.getByEndpointAsync<ResourceListApiDto>(endpoint);
+
+		return {
+			count: apiFeatures.count,
+			results: [
+				...apiFeatures.results.map((dto) =>
+					this.baseResourceApiToDomainMapper.map(dto),
+				),
+			],
+		};
+	}
 }

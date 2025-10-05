@@ -24,4 +24,11 @@ export interface IFeatureRepository extends IResourceRepository<Feature> {
 		subclassId: string,
 		level: number,
 	): Promise<ResourceList>;
+
+	/**
+	 * Get all features for the given subclass.
+	 * @param subclassId Identifier of the subclass.
+	 * @returns All features for the given subclass.
+	 */
+	getAllFeaturesForSubclassAsync(subclassId: string): Promise<ResourceList>;
 }
