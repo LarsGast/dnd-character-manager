@@ -98,7 +98,7 @@ We do ask contributors to use the [Conventional Commits](https://www.conventiona
 
 The application displays the current version in the footer of every page. The version number is stored in the `version` field in the `_config.yml` file at the root of the repository.
 
-The version is automatically updated during the deployment workflow. When a release is deployed from a git tag (e.g., `v0.4.2`), the deploy workflow automatically extracts the version from the tag and updates `_config.yml` before building the site. This ensures the displayed version always matches the deployed release without requiring manual updates.
+When creating a new release, the version in `_config.yml` MUST be updated to match the release tag version (without the 'v' prefix). For example, if releasing version `v0.4.2`, update `_config.yml` to have `version: 0.4.2`.
 
 The version display includes:
 
