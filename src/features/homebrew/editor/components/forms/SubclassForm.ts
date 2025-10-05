@@ -109,6 +109,7 @@ export class SubclassForm extends HomebrewBaseForm {
 				resourceType: 'classes',
 			},
 			spells: this.spellsSection!.getValue(),
+			features: [],
 		};
 	}
 }

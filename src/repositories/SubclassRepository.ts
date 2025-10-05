@@ -1,15 +1,15 @@
-import { IFeatureRepository } from '../interfaces/IFeatureRepository';
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
-import { IMapper } from '../interfaces/IMapper';
-import { ISrdApiService } from '../interfaces/ISrdApiService';
-import { SubclassApiDto } from '../types/api/resources/SubclassApiDto';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
-import { Feature } from '../types/domain/resources/Feature';
-import { Subclass } from '../types/domain/resources/Subclass';
-import { BaseResource } from '../types/domain/wrappers/BaseResource';
-import { SubclassRecord } from '../types/storage/resources/SubclassRecord';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
-import { BaseResourceRepository } from './BaseResourceRepository';
+import { IFeatureRepository } from '../interfaces/IFeatureRepository.js';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
+import { IMapper } from '../interfaces/IMapper.js';
+import { ISrdApiService } from '../interfaces/ISrdApiService.js';
+import { SubclassApiDto } from '../types/api/resources/SubclassApiDto.js';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
+import { Feature } from '../types/domain/resources/Feature.js';
+import { Subclass } from '../types/domain/resources/Subclass.js';
+import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { SubclassRecord } from '../types/storage/resources/SubclassRecord.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { BaseResourceRepository } from './BaseResourceRepository.js';
 
 export class SubclassRepository extends BaseResourceRepository<
 	Subclass,
@@ -28,7 +28,7 @@ export class SubclassRepository extends BaseResourceRepository<
 		featureRepository: IFeatureRepository,
 	) {
 		super(
-			'races',
+			'subclasses',
 			homebrewRepository,
 			apiService,
 			baseResourceApiToDomainMapper,

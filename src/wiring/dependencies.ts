@@ -34,6 +34,7 @@ import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordTo
 import { ClassRepository } from '../repositories/ClassRepository.js';
 import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper.js';
 import { RaceRepository } from '../repositories/RaceRepository.js';
+import { SubclassRepository } from '../repositories/SubclassRepository.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -270,14 +271,14 @@ export const spellRepository = new BaseResourceRepository(
 	spellApiToDomainMapper,
 );
 
-export const subclassRepository = new BaseResourceRepository(
-	'subclasses',
+export const subclassRepository = new SubclassRepository(
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	subclassApiToDomainMapper,
 	baseResourceRecordToDomainMapper,
 	subclassRecordToDomainMapper,
+	featureRepository,
 );
 
 export const subraceRepository = new BaseResourceRepository(

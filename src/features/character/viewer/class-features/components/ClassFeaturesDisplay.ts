@@ -1,7 +1,10 @@
 import { Choice } from '../../../../../types/domain/helpers/Choice.js';
 import { Class } from '../../../../../types/domain/resources/Class.js';
 import { Feature } from '../../../../../types/domain/resources/Feature.js';
-import { Subclass } from '../../../../../types/domain/resources/Subclass.js';
+import {
+	Subclass,
+	SubclassFeature,
+} from '../../../../../types/domain/resources/Subclass.js';
 import { getElementWithTextContent } from '../../../../../utils/util.js';
 import {
 	classRepository,
@@ -208,22 +211,16 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 			const feature = (await featureRepository.getAsync(
 				featureBaseResource.index,
 			))!;
-			fragment.appendChild(await this.getFeatureSection(feature));
+			fragment.appendChild(await this.getClassFeatureSection(feature));
 		}
 
 		// If a subclass is chosen, display the features the subclass gets for the given level.
 		if (this.subclass) {
-			const subclassLevelFeatures =
-				await featureRepository.getFeaturesBySubclassAndLevelAsync(
-					this.subclass!.index,
-					levelNumber,
-				);
-			for (const featureBaseResource of subclassLevelFeatures.results) {
-				const feature = (await featureRepository.getAsync(
-					featureBaseResource.index,
-				))!;
+			for (const feature of this.subclass.features.filter(
+				(f) => f.level === levelNumber,
+			)) {
 				fragment.appendChild(
-					await this.getFeatureSection(feature, this.subclass),
+					await this.getSubclassFeatureSection(feature, this.subclass.name),
 				);
 			}
 		}
@@ -238,19 +235,11 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 	 * @param subclass Optional subclass object.
 	 * @returns A fragment describing the feature.
 	 */
-	async getFeatureSection(
-		feature: Feature,
-		subclass?: Subclass,
-	): Promise<DocumentFragment> {
+	async getClassFeatureSection(feature: Feature): Promise<DocumentFragment> {
 		const fragment = document.createDocumentFragment();
 
 		// Add feature name as a header.
-		// If it's a subclass feature, add the name of the subclass to signify this.
-		let title = '';
-		if (subclass) {
-			title = `${subclass.name}: `;
-		}
-		title += feature.name;
+		const title = feature.name;
 		fragment.appendChild(getElementWithTextContent('h6', title));
 
 		// Add each paragraph in the feature description.
@@ -269,6 +258,30 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 				),
 			);
 		}
+
+		return fragment;
+	}
+
+	/**
+	 * Asynchronously constructs and returns a fragment for a given feature.
+	 * The section includes the feature's name, description, and any subfeature options.
+	 * @param feature The feature object.
+	 * @param subclass Optional subclass object.
+	 * @returns A fragment describing the feature.
+	 */
+	async getSubclassFeatureSection(
+		feature: SubclassFeature,
+		subclassName: string,
+	): Promise<DocumentFragment> {
+		const fragment = document.createDocumentFragment();
+
+		// Add feature name as a header.
+		// If it's a subclass feature, add the name of the subclass to signify this.
+		const title = `${subclassName}: ${feature.name}`;
+		fragment.appendChild(getElementWithTextContent('h6', title));
+
+		// Add each paragraph in the feature description.
+		fragment.appendChild(getElementWithTextContent('p', feature.description));
 
 		return fragment;
 	}
