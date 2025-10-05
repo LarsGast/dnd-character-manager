@@ -21,7 +21,6 @@ export class RaceForm extends HomebrewBaseForm {
 	traitsSection?: RaceTraitsSection;
 	languagesSection?: LinkedObjectsSection;
 	languageOptionsSection?: ChoiceSection;
-	subracesSection?: LinkedObjectsSection;
 
 	/**
 	 * Creates an instance of RaceForm.
@@ -157,7 +156,6 @@ export class RaceForm extends HomebrewBaseForm {
 			languages: this.languagesSection!.getValue(),
 			language_options: this.languageOptionsSection!.getValue(),
 			language_desc: formData.get('language_desc')!.toString(),
-			subraces: this.subracesSection!.getValue(),
 		};
 	}
 }
