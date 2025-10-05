@@ -24,7 +24,7 @@ tagline: Manage your Dungeons & Dragons characters
 description: A web application to help you create, manage, and play your Dungeons & Dragons characters.
 
 # Version
-version: 0.4.1
+version: 0.5.0
 
 # Build settings
 source: build
