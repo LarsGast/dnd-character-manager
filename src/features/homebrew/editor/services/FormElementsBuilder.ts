@@ -150,6 +150,25 @@ export function getTextareaSection(
 	tooltip?: string,
 ): HTMLElement {
 	// Label.
+	const label = getTextareaWithLabel(
+		labelText,
+		id,
+		defaultValue,
+		isRequired,
+		tooltip,
+	);
+
+	return getSection(label);
+}
+
+export function getTextareaWithLabel(
+	labelText: string,
+	id: string,
+	defaultValue: string | string[],
+	isRequired: boolean,
+	tooltip?: string,
+): HTMLLabelElement {
+	// Label.
 	const label = getLabel(labelText, id, isRequired);
 
 	// Textarea.
@@ -161,7 +180,7 @@ export function getTextareaSection(
 		label.appendChild(getTooltipSpan(tooltip));
 	}
 
-	return getSection(label);
+	return label;
 }
 
 /**

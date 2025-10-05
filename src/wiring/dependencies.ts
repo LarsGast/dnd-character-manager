@@ -30,10 +30,10 @@ import { AbilityBonusRecordToDomainMapper } from '../mappers/record/AbilityBonus
 import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResourceRecordToDomainMapper.js';
 import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper.js';
 import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper.js';
-import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
 import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper.js';
 import { ClassRepository } from '../repositories/ClassRepository.js';
 import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper.js';
+import { RaceRepository } from '../repositories/RaceRepository.js';
 
 /**
  * Dependency injection container for the entire application.
@@ -161,10 +161,6 @@ const abilityBonusRecordToDomainMapper = new AbilityBonusRecordToDomainMapper(
 const choiceRecordToDomainMapper = new ChoiceRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
 );
-const traitRecordToDomainMapper = new TraitRecordToDomainMapper(
-	baseResourceRecordToDomainMapper,
-	choiceRecordToDomainMapper,
-);
 const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
 	abilityBonusRecordToDomainMapper,
@@ -258,16 +254,6 @@ export const proficiencyRepository = new BaseResourceRepository(
 	proficiencyApiToDomainMapper,
 );
 
-export const raceRepository = new BaseResourceRepository(
-	'races',
-	homebrewRepository,
-	srdApiService,
-	baseResourceApiToDomainMapper,
-	raceApiToDomainMapper,
-	baseResourceRecordToDomainMapper,
-	raceRecordToDomainMapper,
-);
-
 export const skillRepository = new BaseResourceRepository(
 	'skills',
 	homebrewRepository,
@@ -307,8 +293,16 @@ export const traitRepository = new TraitRepository(
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	traitApiToDomainMapper,
+);
+
+export const raceRepository = new RaceRepository(
+	homebrewRepository,
+	srdApiService,
+	baseResourceApiToDomainMapper,
+	raceApiToDomainMapper,
 	baseResourceRecordToDomainMapper,
-	traitRecordToDomainMapper,
+	raceRecordToDomainMapper,
+	traitRepository,
 );
 
 export const weaponRepository = new BaseResourceRepository(

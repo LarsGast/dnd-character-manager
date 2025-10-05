@@ -1,10 +1,6 @@
 import { globals } from '../../../../../store/load-globals.js';
-import { Race } from '../../../../../types/domain/resources/Race.js';
-import { Trait } from '../../../../../types/domain/resources/Trait.js';
-import {
-	raceRepository,
-	traitRepository,
-} from '../../../../../wiring/dependencies.js';
+import { Race, RaceTrait } from '../../../../../types/domain/resources/Race.js';
+import { raceRepository } from '../../../../../wiring/dependencies.js';
 
 /**
  * Custom details element that displays the features of the selected race.
@@ -135,19 +131,8 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 			this.appendChild(this.getParagraph(this.race.notes));
 		}
 
-		// Get and display all available traits, if any.
-		const raceTraits = await traitRepository.getAllTraitsByRaceAsync(
-			this.race.index,
-		);
-		if (raceTraits.count > 0) {
-			const fullTraitObjects = await Promise.all(
-				raceTraits.results.map(
-					(raceTrait) =>
-						traitRepository.getAsync(raceTrait.index) as Promise<Trait>,
-				),
-			);
-
-			this.appendChild(this.getTraitsSection(fullTraitObjects));
+		if (this.race.traits && this.race.traits.length > 0) {
+			this.appendChild(this.getTraitsSection(this.race.traits));
 		}
 	}
 
@@ -218,22 +203,14 @@ export class RaceFeaturesDisplay extends HTMLDetailsElement {
 	 * @param traits An array of trait objects.
 	 * @returns The section element containing trait headings and descriptions.
 	 */
-	getTraitsSection(traits: Trait[]): HTMLElement {
+	getTraitsSection(traits: RaceTrait[]): HTMLElement {
 		const traitsSection = document.createElement('section');
 
 		traitsSection.appendChild(this.getHeading('Traits'));
 
 		for (const trait of traits) {
 			traitsSection.appendChild(this.getTraitHeading(trait.name));
-			for (const traitDesc of trait.desc) {
-				traitsSection.appendChild(this.getParagraph(traitDesc));
-			}
-			if (trait.notes) {
-				traitsSection.appendChild(
-					this.getTraitAdditionalNotesHeading('Additional notes'),
-				);
-				traitsSection.appendChild(this.getParagraph(trait.notes));
-			}
+			traitsSection.appendChild(this.getParagraph(trait.description));
 		}
 
 		return traitsSection;

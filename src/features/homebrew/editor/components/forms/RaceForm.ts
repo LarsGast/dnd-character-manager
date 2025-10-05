@@ -8,12 +8,9 @@ import { AbilityBonusesSection } from '../sections/AbilityBonusesSection.js';
 import { ChoiceSection } from '../sections/ChoiceSection.js';
 import { LinkedObjectsSection } from '../sections/LinkedObjectsSection.js';
 import { Race } from '../../../../../types/domain/resources/Race.js';
-import {
-	languageRepository,
-	subraceRepository,
-	traitRepository,
-} from '../../../../../wiring/dependencies.js';
+import { languageRepository } from '../../../../../wiring/dependencies.js';
 import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js';
+import { RaceTraitsSection } from '../sections/RaceTraitsSection.js';
 
 /**
  * Form for editing custom homebrew Race objects.
@@ -21,7 +18,7 @@ import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js
 export class RaceForm extends HomebrewBaseForm {
 	race: Race;
 	abilityBonusesSection?: AbilityBonusesSection;
-	traitsSection?: LinkedObjectsSection;
+	traitsSection?: RaceTraitsSection;
 	languagesSection?: LinkedObjectsSection;
 	languageOptionsSection?: ChoiceSection;
 	subracesSection?: LinkedObjectsSection;
@@ -108,14 +105,6 @@ export class RaceForm extends HomebrewBaseForm {
 			),
 		);
 
-		this.traitsSection = new LinkedObjectsSection(
-			'Traits',
-			await traitRepository.getAllAsync(),
-			this.race.traits ?? [],
-			'Racial traits that provide benefits to its members.',
-		);
-		fragment.appendChild(this.traitsSection);
-
 		this.languagesSection = new LinkedObjectsSection(
 			'Languages',
 			await languageRepository.getAllAsync(),
@@ -142,13 +131,8 @@ export class RaceForm extends HomebrewBaseForm {
 			),
 		);
 
-		this.subracesSection = new LinkedObjectsSection(
-			'Subraces',
-			await subraceRepository.getAllAsync(),
-			this.race.subraces ?? [],
-			'All possible subraces that this race includes.',
-		);
-		fragment.appendChild(this.subracesSection);
+		this.traitsSection = new RaceTraitsSection(this.race.traits ?? []);
+		fragment.appendChild(this.traitsSection);
 
 		return fragment;
 	}

@@ -1,11 +1,14 @@
 import { IMapper } from '../../interfaces/IMapper';
 import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
 import { Choice } from '../../types/domain/helpers/Choice';
-import { Race } from '../../types/domain/resources/Race';
+import { Race, RaceTrait } from '../../types/domain/resources/Race';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 import { AbilityBonusRecord } from '../../types/storage/helpers/AbilityBonusRecord';
 import { ChoiceRecord } from '../../types/storage/helpers/ChoiceRecord';
-import { RaceRecord } from '../../types/storage/resources/RaceRecord';
+import {
+	RaceRecord,
+	RaceTraitRecord,
+} from '../../types/storage/resources/RaceRecord';
 import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
@@ -58,12 +61,18 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 				? this.choiceMapper.map(source.language_options)
 				: undefined,
 			language_desc: source.language_desc,
-			traits:
-				source.traits?.map((trait) => this.baseResourceMapper.map(trait)) ?? [],
+			traits: source.traits?.map(this.mapTraits) ?? [],
 			subraces:
 				source.subraces?.map((subrace) =>
 					this.baseResourceMapper.map(subrace),
 				) ?? [],
+		};
+	}
+
+	private mapTraits(source: RaceTraitRecord): RaceTrait {
+		return {
+			name: source.name,
+			description: source.description,
 		};
 	}
 }
