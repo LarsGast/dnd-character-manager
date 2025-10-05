@@ -222,3 +222,30 @@ form {
 		resize: none;
 	}
 }
+
+/* Footer version info styling */
+.footer-version-info {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	.version-number {
+		font-size: 0.875rem;
+		color: #666;
+
+		.separator {
+			margin: 0 0.5rem;
+		}
+	}
+
+	.version-disclaimer {
+		font-size: 0.75rem;
+		color: #888;
+		font-style: italic;
+	}
+
+	.github-logo {
+		all: unset;
+		width: 1rem;
+	}
+}

@@ -2,7 +2,7 @@
 	<data class="u-url" value="{{ '/' | relative_url }}"></data>
 
 	<div class="wrapper">
-		<div style="display: flex; flex-direction: column; gap: 0.5rem">
+		<div class="footer-version-info">
 			<div>
 				<a
 					href="https://github.com/LarsGast/dnd-character-manager"
@@ -10,16 +10,16 @@
 					rel="noopener noreferrer"
 				>
 					<img
-						style="all: unset; width: 1rem"
+						class="github-logo"
 						src="{{ '/assets/icons/github-mark.svg' | relative_url }}"
 						alt="GitHub Logo"
 					/>
 					View on GitHub
 				</a>
 			</div>
-			<div style="font-size: 0.875rem; color: #666">
+			<div class="version-number">
 				<span>Version {{ site.version }}</span>
-				<span style="margin: 0 0.5rem">•</span>
+				<span class="separator">•</span>
 				<a
 					href="https://github.com/LarsGast/dnd-character-manager/releases"
 					target="_blank"
@@ -27,7 +27,7 @@
 					>Release Notes</a
 				>
 			</div>
-			<div style="font-size: 0.75rem; color: #888; font-style: italic">
+			<div class="version-disclaimer">
 				Pre-release software (v0.x.x): Breaking changes may occur.
 			</div>
 		</div>
