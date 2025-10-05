@@ -11,6 +11,7 @@ import {
 import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord.js';
 import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
 import { SpellLevelSection } from '../sections/SpellLevelSection.js';
+import { SubclassFeaturesSection } from '../sections/SubclassFeaturesSection.js';
 
 /**
  * Form for editing custom homebrew Subclass objects.
@@ -20,6 +21,7 @@ export class SubclassForm extends HomebrewBaseForm {
 	descriptionSection?: HTMLElement;
 	spellsSection?: SpellLevelSection;
 	classSection?: HTMLElement;
+	subclassFeaturesSection?: SubclassFeaturesSection;
 
 	/**
 	 * Creates an instance of SubclassForm.
@@ -79,6 +81,11 @@ export class SubclassForm extends HomebrewBaseForm {
 		);
 		fragment.appendChild(this.spellsSection);
 
+		this.subclassFeaturesSection = new SubclassFeaturesSection(
+			this.subclass.features || [],
+		);
+		fragment.appendChild(this.subclassFeaturesSection);
+
 		return fragment;
 	}
 
@@ -109,7 +116,7 @@ export class SubclassForm extends HomebrewBaseForm {
 				resourceType: 'classes',
 			},
 			spells: this.spellsSection!.getValue(),
-			features: [],
+			features: this.subclassFeaturesSection!.getValue(),
 		};
 	}
 }
