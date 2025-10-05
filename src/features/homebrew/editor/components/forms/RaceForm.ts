@@ -11,9 +11,9 @@ import { Race } from '../../../../../types/domain/resources/Race.js';
 import {
 	languageRepository,
 	subraceRepository,
-	traitRepository,
 } from '../../../../../wiring/dependencies.js';
 import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js';
+import { RaceTraitsSection } from '../sections/RaceTraitsSection.js';
 
 /**
  * Form for editing custom homebrew Race objects.
@@ -21,7 +21,7 @@ import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js
 export class RaceForm extends HomebrewBaseForm {
 	race: Race;
 	abilityBonusesSection?: AbilityBonusesSection;
-	traitsSection?: LinkedObjectsSection;
+	traitsSection?: RaceTraitsSection;
 	languagesSection?: LinkedObjectsSection;
 	languageOptionsSection?: ChoiceSection;
 	subracesSection?: LinkedObjectsSection;
@@ -134,12 +134,7 @@ export class RaceForm extends HomebrewBaseForm {
 			),
 		);
 
-		this.traitsSection = new LinkedObjectsSection(
-			'Traits',
-			await traitRepository.getAllAsync(),
-			this.race.traits ?? [],
-			'Racial traits that provide benefits to its members.',
-		);
+		this.traitsSection = new RaceTraitsSection(this.race.traits ?? []);
 		fragment.appendChild(this.traitsSection);
 
 		this.subracesSection = new LinkedObjectsSection(

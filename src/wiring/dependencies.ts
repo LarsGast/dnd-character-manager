@@ -30,7 +30,6 @@ import { AbilityBonusRecordToDomainMapper } from '../mappers/record/AbilityBonus
 import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResourceRecordToDomainMapper.js';
 import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper.js';
 import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper.js';
-import { TraitRecordToDomainMapper } from '../mappers/record/TraitRecordToDomainMapper.js';
 import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper.js';
 import { ClassRepository } from '../repositories/ClassRepository.js';
 import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper.js';
@@ -160,10 +159,6 @@ const abilityBonusRecordToDomainMapper = new AbilityBonusRecordToDomainMapper(
 );
 const choiceRecordToDomainMapper = new ChoiceRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
-);
-const traitRecordToDomainMapper = new TraitRecordToDomainMapper(
-	baseResourceRecordToDomainMapper,
-	choiceRecordToDomainMapper,
 );
 const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
@@ -307,8 +302,6 @@ export const traitRepository = new TraitRepository(
 	srdApiService,
 	baseResourceApiToDomainMapper,
 	traitApiToDomainMapper,
-	baseResourceRecordToDomainMapper,
-	traitRecordToDomainMapper,
 );
 
 export const weaponRepository = new BaseResourceRepository(

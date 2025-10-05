@@ -62,7 +62,7 @@ export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 					? undefined
 					: this.choiceMapper.map(source.language_options),
 			language_desc: source.language_desc,
-			traits: source.traits.map((trait) => this.baseResourceMapper.map(trait)),
+			traits: [], // Should be filled in later.
 			subraces: source.subraces.map((subrace) =>
 				this.baseResourceMapper.map(subrace),
 			),

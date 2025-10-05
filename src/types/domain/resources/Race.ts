@@ -51,10 +51,15 @@ export interface Race extends BaseResource {
 	/**
 	 * A list of traits the race has.
 	 */
-	traits: BaseResource[];
+	traits: RaceTrait[];
 
 	/**
 	 * A list of subraces the race has, if any.
 	 */
 	subraces: BaseResource[];
+}
+
+export interface RaceTrait {
+	name: string;
+	description: string;
 }
