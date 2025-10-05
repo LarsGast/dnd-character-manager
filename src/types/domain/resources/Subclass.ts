@@ -15,9 +15,20 @@ export interface Subclass extends BaseResource {
 	 * Subclass specific spells.
 	 */
 	spells: SubclassSpell[];
+
+	/**
+	 * Features gained at specific levels.
+	 */
+	features: SubclassFeature[];
 }
 
 export interface SubclassSpell {
 	level: number;
 	spell: BaseResource;
+}
+
+export interface SubclassFeature {
+	name: string;
+	level: number;
+	description: string;
 }

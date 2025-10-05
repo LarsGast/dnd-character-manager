@@ -15,9 +15,20 @@ export interface SubclassRecord extends BaseResourceRecord {
 	 * Subclass specific spells.
 	 */
 	spells: SubclassSpellRecord[];
+
+	/**
+	 * Features gained at specific levels.
+	 */
+	features: SubclassFeatureRecord[];
 }
 
 export interface SubclassSpellRecord {
 	level: number;
 	spell: BaseResourceRecord;
+}
+
+export interface SubclassFeatureRecord {
+	name: string;
+	level: number;
+	description: string;
 }

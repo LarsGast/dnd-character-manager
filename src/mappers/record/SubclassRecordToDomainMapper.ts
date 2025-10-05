@@ -1,10 +1,12 @@
 import { IMapper } from '../../interfaces/IMapper.js';
 import {
 	Subclass,
+	SubclassFeature,
 	SubclassSpell,
 } from '../../types/domain/resources/Subclass.js';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
 import {
+	SubclassFeatureRecord,
 	SubclassRecord,
 	SubclassSpellRecord,
 } from '../../types/storage/resources/SubclassRecord.js';
@@ -36,6 +38,7 @@ export class SubclassRecordToDomainMapper
 					? undefined
 					: this.baseResourceMapper.map(source.class),
 			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
+			features: source.features?.map(this.mapFeatures) ?? [],
 		};
 	}
 
@@ -43,6 +46,14 @@ export class SubclassRecordToDomainMapper
 		return {
 			level: source.level,
 			spell: this.baseResourceMapper.map(source.spell),
+		};
+	}
+
+	private mapFeatures(source: SubclassFeatureRecord): SubclassFeature {
+		return {
+			name: source.name,
+			level: source.level,
+			description: source.description,
 		};
 	}
 }

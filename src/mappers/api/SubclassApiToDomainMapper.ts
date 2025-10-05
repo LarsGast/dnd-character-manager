@@ -33,6 +33,7 @@ export class SubclassApiToDomainMapper
 			desc: source.desc,
 			class: this.baseResourceMapper.map(source.class),
 			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
+			features: [], // Should be filled in later
 		};
 	}
 
