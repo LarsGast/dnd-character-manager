@@ -45,6 +45,8 @@ Thanks for wanting to contribute! This document explains the process for contrib
 - Create a pull request and follow the instructions provided by the template.
 - Link issues with `Closes #<issue>` when the PR resolves an issue.
 - Ensure any automated checks pass on your branch.
+- Your PR will be reviewed and changes may be requested.
+  - For more information, see [Review & merging](#review--merging).
 - All PRs will be squashed and merged on completion.
 
 ## Code style, formatting, & linters
@@ -119,6 +121,11 @@ BREAKING CHANGE: {website}/homebrew is no longer available, use {website}/homebr
 ## Review & merging
 
 - PRs will be reviewed by maintainers and assigned reviewers automatically via CODEOWNERS.
+- GitHub Copilot will also be assigned as a reviewer automatically.
+  - Copilot can NOT approve a PR.
+  - Suggestions by Copilot MAY be applied if they are valid.
+  - If you are not sure wether a Copilot suggestion is valid, wait for a code owner to validate the suggestion and to give further instruction.
+  - PRs will ALWAYS be reviewed by an actual person.
 - Maintain a clean commit history if requested (squash or rebase).
 - Merge is done by maintainers once checks pass and approvals are satisfied.
 
