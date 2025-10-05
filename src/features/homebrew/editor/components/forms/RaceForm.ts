@@ -108,14 +108,6 @@ export class RaceForm extends HomebrewBaseForm {
 			),
 		);
 
-		this.traitsSection = new LinkedObjectsSection(
-			'Traits',
-			await traitRepository.getAllAsync(),
-			this.race.traits ?? [],
-			'Racial traits that provide benefits to its members.',
-		);
-		fragment.appendChild(this.traitsSection);
-
 		this.languagesSection = new LinkedObjectsSection(
 			'Languages',
 			await languageRepository.getAllAsync(),
@@ -141,6 +133,14 @@ export class RaceForm extends HomebrewBaseForm {
 				'Flavor description of the languages this race knows.',
 			),
 		);
+
+		this.traitsSection = new LinkedObjectsSection(
+			'Traits',
+			await traitRepository.getAllAsync(),
+			this.race.traits ?? [],
+			'Racial traits that provide benefits to its members.',
+		);
+		fragment.appendChild(this.traitsSection);
 
 		this.subracesSection = new LinkedObjectsSection(
 			'Subraces',
