@@ -222,3 +222,43 @@ form {
 		resize: none;
 	}
 }
+
+/* Version display in footer */
+.footer-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+version-display {
+	.version-info {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.875rem;
+	}
+
+	.version-link {
+		color: #828282;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.version-warning {
+		color: #f57c00;
+		cursor: help;
+		font-size: 0.875rem;
+	}
+
+	.version-loading,
+	.version-error {
+		color: #828282;
+		font-size: 0.875rem;
+		font-style: italic;
+	}
+}
