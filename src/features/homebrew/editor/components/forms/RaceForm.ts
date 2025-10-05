@@ -8,10 +8,7 @@ import { AbilityBonusesSection } from '../sections/AbilityBonusesSection.js';
 import { ChoiceSection } from '../sections/ChoiceSection.js';
 import { LinkedObjectsSection } from '../sections/LinkedObjectsSection.js';
 import { Race } from '../../../../../types/domain/resources/Race.js';
-import {
-	languageRepository,
-	subraceRepository,
-} from '../../../../../wiring/dependencies.js';
+import { languageRepository } from '../../../../../wiring/dependencies.js';
 import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js';
 import { RaceTraitsSection } from '../sections/RaceTraitsSection.js';
 
@@ -136,14 +133,6 @@ export class RaceForm extends HomebrewBaseForm {
 
 		this.traitsSection = new RaceTraitsSection(this.race.traits ?? []);
 		fragment.appendChild(this.traitsSection);
-
-		this.subracesSection = new LinkedObjectsSection(
-			'Subraces',
-			await subraceRepository.getAllAsync(),
-			this.race.subraces ?? [],
-			'All possible subraces that this race includes.',
-		);
-		fragment.appendChild(this.subracesSection);
 
 		return fragment;
 	}
