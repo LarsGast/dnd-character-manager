@@ -211,7 +211,11 @@ export class ClassFeaturesDisplay extends HTMLDetailsElement {
 			const feature = (await featureRepository.getAsync(
 				featureBaseResource.index,
 			))!;
-			fragment.appendChild(await this.getClassFeatureSection(feature));
+
+			// Exclude subclass features.
+			if (!feature.subclass) {
+				fragment.appendChild(await this.getClassFeatureSection(feature));
+			}
 		}
 
 		// If a subclass is chosen, display the features the subclass gets for the given level.
