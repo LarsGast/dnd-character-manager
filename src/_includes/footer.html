@@ -2,17 +2,34 @@
 	<data class="u-url" value="{{ '/' | relative_url }}"></data>
 
 	<div class="wrapper">
-		<a
-			href="https://github.com/LarsGast/dnd-character-manager"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			<img
-				style="all: unset; width: 1rem"
-				src="{{ '/assets/icons/github-mark.svg' | relative_url }}"
-				alt="GitHub Logo"
-			/>
-			View on GitHub
-		</a>
+		<div class="footer-version-info">
+			<div>
+				<a
+					href="https://github.com/LarsGast/dnd-character-manager"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img
+						class="github-logo"
+						src="{{ '/assets/icons/github-mark.svg' | relative_url }}"
+						alt="GitHub Logo"
+					/>
+					View on GitHub
+				</a>
+			</div>
+			<div class="version-number">
+				<span>Version {{ site.version }}</span>
+				<span class="separator">•</span>
+				<a
+					href="https://github.com/LarsGast/dnd-character-manager/releases"
+					target="_blank"
+					rel="noopener noreferrer"
+					>Release Notes</a
+				>
+			</div>
+			<div class="version-disclaimer">
+				Pre-release software (v0.x.x): Breaking changes may occur.
+			</div>
+		</div>
 	</div>
 </footer>

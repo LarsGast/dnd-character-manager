@@ -93,3 +93,15 @@ No, we do not use pre-releases at this point in time. We included the section of
 Contributors do not need to worry about versioning when contributing to the project.
 
 We do ask contributors to use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification when committing code to the repository in order to quickly know if a change is a MAJOR, MINOR, or PATCH change. You can read more about this in [CONTRIBUTING](./CONTRIBUTING.md).
+
+### How is the version displayed in the application?
+
+The application displays the current version in the footer of every page. The version number is stored in the `version` field in the `_config.yml` file at the root of the repository.
+
+When creating a new release, the version in `_config.yml` MUST be updated to match the release tag version (without the 'v' prefix). For example, if releasing version `v0.4.2`, update `_config.yml` to have `version: 0.4.2`.
+
+The version display includes:
+
+- The version number
+- A link to the GitHub releases page
+- A warning that v0.x.x releases are pre-release software where breaking changes may occur
