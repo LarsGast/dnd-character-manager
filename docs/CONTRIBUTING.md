@@ -124,7 +124,7 @@ BREAKING CHANGE: {website}/homebrew is no longer available, use {website}/homebr
 - GitHub Copilot will also be assigned as a reviewer automatically.
   - Copilot can NOT approve a PR.
   - Suggestions by Copilot MAY be applied if they are valid.
-  - If you are not sure wether a Copilot suggestion is valid, wait for a code owner to validate the suggestion and to give further instruction.
+  - If you are not sure whether a Copilot suggestion is valid, wait for a code owner to validate the suggestion and to give further instruction.
   - PRs will ALWAYS be reviewed by an actual person.
 - Maintain a clean commit history if requested (squash or rebase).
 - Merge is done by maintainers once checks pass and approvals are satisfied.
