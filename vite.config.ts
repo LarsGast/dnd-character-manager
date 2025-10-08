@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import legacy from '@vitejs/plugin-legacy';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
