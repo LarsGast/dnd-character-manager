@@ -16,10 +16,6 @@ export default defineConfig({
 		viteStaticCopy({
 			targets: [
 				{
-					src: 'assets/json/**/*',
-					dest: 'assets/json',
-				},
-				{
 					src: 'assets/icons/**/*',
 					dest: 'assets/icons',
 				},
