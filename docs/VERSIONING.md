@@ -96,9 +96,9 @@ We do ask contributors to use the [Conventional Commits](https://www.conventiona
 
 ### How is the version displayed in the application?
 
-The application displays the current version in the footer of every page. The version number is stored in the `version` field in the `_config.yml` file at the root of the repository.
+The application displays the current version in the footer of every page. The version number is stored in the `version` field in the `package.json` file at the root of the repository.
 
-When creating a new release, the version in `_config.yml` MUST be updated to match the release tag version (without the 'v' prefix). For example, if releasing version `v0.4.2`, update `_config.yml` to have `version: 0.4.2`.
+When creating a new release, the version in `package.json` MUST be updated to match the release tag version (without the 'v' prefix). For example, if releasing version `v1.2.3`, update `package.json` to have `"version": "1.2.3"`.
 
 The version display includes:
 
