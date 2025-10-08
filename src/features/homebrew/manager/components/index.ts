@@ -1,16 +1,16 @@
-import './buttons/HomebrewDeleteButton.js';
-import './buttons/HomebrewEditButton.js';
-import './buttons/HomebrewExportButton.js';
-import './buttons/HomebrewImportButton.js';
-import './buttons/ManageHomebrewButton.js';
-import './buttons/NewHomebrewButton.js';
+import './buttons/HomebrewDeleteButton';
+import './buttons/HomebrewEditButton';
+import './buttons/HomebrewExportButton';
+import './buttons/HomebrewImportButton';
+import './buttons/ManageHomebrewButton';
+import './buttons/NewHomebrewButton';
 
-import './dialogs/HomebrewDeleteDialog.js';
-import './dialogs/HomebrewExportDialog.js';
-import './dialogs/HomebrewImportDialog.js';
-import './dialogs/HomebrewImportIdAlreadyExistsDialog.js';
-import './dialogs/ManageHomebrewDialog.js';
+import './dialogs/HomebrewDeleteDialog';
+import './dialogs/HomebrewExportDialog';
+import './dialogs/HomebrewImportDialog';
+import './dialogs/HomebrewImportIdAlreadyExistsDialog';
+import './dialogs/ManageHomebrewDialog';
 
-import './selects/HomebrewTypeSelect.js';
+import './selects/HomebrewTypeSelect';
 
-import './tables/HomebrewTable.js';
+import './tables/HomebrewTable';

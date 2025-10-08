@@ -1,5 +1,5 @@
-import { globals } from '../../../../../../../store/load-globals.js';
-import { Weapon } from '../../../../../../../types/domain/resources/Weapon.js';
+import { globals } from '../../../../../../../store/load-globals';
+import { Weapon } from '../../../../../../../types/domain/resources/Weapon';
 
 /**
  * Custom table cell element that displays the calculated attack bonus for a weapon.

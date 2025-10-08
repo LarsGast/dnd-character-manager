@@ -1,9 +1,9 @@
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { getElementWithTextContent } from '../../../../../utils/util.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
-import { HomebrewDeleteButton } from '../buttons/HomebrewDeleteButton.js';
-import { HomebrewEditButton } from '../buttons/HomebrewEditButton.js';
-import { HomebrewExportButton } from '../buttons/HomebrewExportButton.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { getElementWithTextContent } from '../../../../../utils/util';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
+import { HomebrewDeleteButton } from '../buttons/HomebrewDeleteButton';
+import { HomebrewEditButton } from '../buttons/HomebrewEditButton';
+import { HomebrewExportButton } from '../buttons/HomebrewExportButton';
 
 /**
  * Custom table element for displaying homebrew objects.

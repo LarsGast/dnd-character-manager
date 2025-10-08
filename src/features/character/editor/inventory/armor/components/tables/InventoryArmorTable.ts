@@ -1,6 +1,6 @@
-import { InventoryArmorRow } from '../rows/InventoryArmorRow.js';
-import { globals } from '../../../../../../../store/load-globals.js';
-import { armorRepository } from '../../../../../../../wiring/dependencies.js';
+import { InventoryArmorRow } from '../rows/InventoryArmorRow';
+import { globals } from '../../../../../../../store/load-globals';
+import { armorRepository } from '../../../../../../../wiring/dependencies';
 
 /**
  * Custom element for displaying the inventory armor table.

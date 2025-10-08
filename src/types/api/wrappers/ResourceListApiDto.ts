@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from './BaseResourceApiDto.js';
+import { BaseResourceApiDto } from './BaseResourceApiDto';
 
 export interface ResourceListApiDto {
 	/**

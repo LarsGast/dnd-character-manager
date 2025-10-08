@@ -1,6 +1,6 @@
-import { Feature } from '../types/domain/resources/Feature.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
-import { IResourceRepository } from './IResourceRepository.js';
+import { Feature } from '../types/domain/resources/Feature';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { IResourceRepository } from './IResourceRepository';
 
 export interface IFeatureRepository extends IResourceRepository<Feature> {
 	/**

@@ -8,8 +8,8 @@ On this page, you can build your own homebrew objects. a homebrew object in this
 
 <h2 is="homebrew-object-form-heading"></h2>
 
-<script type="module" src="{{ 'store/load-globals.js' | relative_url }}"></script>
+<script type="module" src="{{ 'store/load-globals' | relative_url }}"></script>
 
-<script type="module" src="{{ 'register-components.js' | relative_url }}"></script>
+<script type="module" src="{{ 'register-components' | relative_url }}"></script>
 
-<script type="module" src="{{ 'features/homebrew/editor/load-form.js' | relative_url }}"></script>
+<script type="module" src="{{ 'features/homebrew/editor/load-form' | relative_url }}"></script>

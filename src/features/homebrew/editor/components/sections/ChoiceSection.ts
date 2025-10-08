@@ -1,12 +1,12 @@
-import { Choice } from '../../../../../types/domain/helpers/Choice.js';
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import { Choice } from '../../../../../types/domain/helpers/Choice';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
 import {
 	ChoiceRecord,
 	OptionSetRecord,
-} from '../../../../../types/storage/helpers/ChoiceRecord.js';
-import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
-import { ChoiceOptionElement } from './ChoiceOptionElement.js';
+} from '../../../../../types/storage/helpers/ChoiceRecord';
+import { getTooltipSpan } from '../../services/FormElementsBuilder';
+import { ChoiceOptionElement } from './ChoiceOptionElement';
 
 /**
  * Custom element for a choice section.

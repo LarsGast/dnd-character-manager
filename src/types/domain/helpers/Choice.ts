@@ -1,4 +1,4 @@
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { BaseResource } from '../wrappers/BaseResource';
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.

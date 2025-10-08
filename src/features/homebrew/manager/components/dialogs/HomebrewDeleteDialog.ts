@@ -1,4 +1,4 @@
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML element for displaying the Homebrew Delete Dialog.

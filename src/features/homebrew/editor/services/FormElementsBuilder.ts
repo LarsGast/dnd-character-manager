@@ -1,4 +1,4 @@
-import { getEmptyOption, getSelectOption } from '../../../../utils/util.js';
+import { getEmptyOption, getSelectOption } from '../../../../utils/util';
 
 /**
  * Creates and returns a labeled input section for the form.

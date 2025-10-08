@@ -1,9 +1,9 @@
-import { SubclassFeature } from '../../../../../types/domain/resources/Subclass.js';
+import { SubclassFeature } from '../../../../../types/domain/resources/Subclass';
 import {
 	getNumberInputWithLabel,
 	getTextareaWithLabel,
 	getTextInputWithLabel,
-} from '../../services/FormElementsBuilder.js';
+} from '../../services/FormElementsBuilder';
 
 export class SubclassFeatureSection extends HTMLElement {
 	constructor(id: number, feature?: SubclassFeature) {

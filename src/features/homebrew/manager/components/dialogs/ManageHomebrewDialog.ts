@@ -1,8 +1,8 @@
-import { getElementWithTextContent } from '../../../../../utils/util.js';
-import { HomebrewImportButton } from '../buttons/HomebrewImportButton.js';
-import { HomebrewTable } from '../tables/HomebrewTable.js';
-import { HomebrewTypeSelect } from '../selects/HomebrewTypeSelect.js';
-import { NewHomebrewButton } from '../buttons/NewHomebrewButton.js';
+import { getElementWithTextContent } from '../../../../../utils/util';
+import { HomebrewImportButton } from '../buttons/HomebrewImportButton';
+import { HomebrewTable } from '../tables/HomebrewTable';
+import { HomebrewTypeSelect } from '../selects/HomebrewTypeSelect';
+import { NewHomebrewButton } from '../buttons/NewHomebrewButton';
 
 /**
  * Custom HTML element for displaying the saved homebrew objects in storage.

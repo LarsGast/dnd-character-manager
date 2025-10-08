@@ -1,7 +1,7 @@
-import { Armor } from '../../../../../../../types/domain/resources/Armor.js';
-import { getArmorClassDisplayString } from '../../../../../../../utils/util.js';
-import { InventoryArmorButtonsCell } from '../cells/InventoryArmorButtonsCell.js';
-import { InventoryArmorEffectiveArmorClassCell } from '../cells/InventoryArmorEffectiveArmorClassCell.js';
+import { Armor } from '../../../../../../../types/domain/resources/Armor';
+import { getArmorClassDisplayString } from '../../../../../../../utils/util';
+import { InventoryArmorButtonsCell } from '../cells/InventoryArmorButtonsCell';
+import { InventoryArmorEffectiveArmorClassCell } from '../cells/InventoryArmorEffectiveArmorClassCell';
 
 /**
  * Custom table row element that displays an inventory armor entry.

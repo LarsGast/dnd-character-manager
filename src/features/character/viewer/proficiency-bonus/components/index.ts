@@ -1,1 +1,1 @@
-import './ProficiencyBonusDisplay.js';
+import './ProficiencyBonusDisplay';

@@ -1,11 +1,11 @@
-import { IClassLevelRepository } from '../interfaces/IClassLevelRepository.js';
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IMapper } from '../interfaces/IMapper.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { ClassLevelApiDto } from '../types/api/resources/ClassLevelApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { ClassLevel } from '../types/domain/resources/ClassLevel.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
+import { IClassLevelRepository } from '../interfaces/IClassLevelRepository';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IMapper } from '../interfaces/IMapper';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ClassLevelApiDto } from '../types/api/resources/ClassLevelApiDto';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { ClassLevel } from '../types/domain/resources/ClassLevel';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
 
 export class ClassLevelRepository implements IClassLevelRepository {
 	/**

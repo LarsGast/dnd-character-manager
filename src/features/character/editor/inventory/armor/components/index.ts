@@ -1,5 +1,5 @@
-import './cells/InventoryArmorButtonsCell.js';
-import './cells/InventoryArmorEffectiveArmorClassCell.js';
-import './inputs/InventoryArmorAddInput.js';
-import './rows/InventoryArmorRow.js';
-import './tables/InventoryArmorTable.js';
+import './cells/InventoryArmorButtonsCell';
+import './cells/InventoryArmorEffectiveArmorClassCell';
+import './inputs/InventoryArmorAddInput';
+import './rows/InventoryArmorRow';
+import './tables/InventoryArmorTable';

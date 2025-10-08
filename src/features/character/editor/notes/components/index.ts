@@ -1,1 +1,1 @@
-import './NotesTextarea.js';
+import './NotesTextarea';

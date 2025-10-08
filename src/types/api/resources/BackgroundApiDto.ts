@@ -1,5 +1,5 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
-import { ChoiceApiDto } from '../helpers/ChoiceApiDto.js';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
+import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
 
 export interface BackgroundApiDto extends BaseResourceApiDto {
 	/**

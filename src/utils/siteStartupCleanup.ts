@@ -1,4 +1,4 @@
-import { upgradeHomebrewResources } from './resourceRecordUpgrader.js';
+import { upgradeHomebrewResources } from './resourceRecordUpgrader';
 
 /**
  * Performs cleanup tasks on site load, such as removing deprecated localStorage items.

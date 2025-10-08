@@ -1,5 +1,5 @@
-import { globals } from '../../../../../store/load-globals.js';
-import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
+import { globals } from '../../../../../store/load-globals';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter';
 
 /**
  * Custom HTML element for displaying the Character Export Dialog.
@@ -135,7 +135,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
 		// That's why we create an anchor tag and trigger a click here.
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${this.playerCharacter!.name}.json`;
+		a.download = `${this.playerCharacter!.name}on`;
 		a.click();
 
 		URL.revokeObjectURL(url);

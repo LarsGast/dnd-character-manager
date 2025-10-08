@@ -1,5 +1,5 @@
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML element for displaying the Homebrew Export Dialog.
@@ -131,7 +131,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
 		// That's why we create an anchor tag and trigger a click here.
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${this.homebrewResource!.name}.json`;
+		a.download = `${this.homebrewResource!.name}on`;
 		a.click();
 
 		URL.revokeObjectURL(url);

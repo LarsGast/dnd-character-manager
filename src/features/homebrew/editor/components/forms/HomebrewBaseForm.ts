@@ -1,10 +1,10 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 import {
 	getTextareaSection,
 	getTextInputSection,
-} from '../../services/FormElementsBuilder.js';
+} from '../../services/FormElementsBuilder';
 
 /**
  * Base class for homebrew object forms.

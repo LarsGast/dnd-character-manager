@@ -1,14 +1,14 @@
-import { ITraitRepository } from '../interfaces/ITraitRepository.js';
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IMapper } from '../interfaces/IMapper.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { TraitApiDto } from '../types/api/resources/TraitApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Trait } from '../types/domain/resources/Trait.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
-import { BaseResourceRepository } from './BaseResourceRepository.js';
-import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto.js';
+import { ITraitRepository } from '../interfaces/ITraitRepository';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IMapper } from '../interfaces/IMapper';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { TraitApiDto } from '../types/api/resources/TraitApiDto';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { Trait } from '../types/domain/resources/Trait';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { BaseResourceRepository } from './BaseResourceRepository';
+import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
 
 export class TraitRepository
 	extends BaseResourceRepository<Trait, TraitApiDto>

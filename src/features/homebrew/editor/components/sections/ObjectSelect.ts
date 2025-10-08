@@ -1,13 +1,13 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+} from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
-} from '../../../../../utils/util.js';
+} from '../../../../../utils/util';
 
 /**
  * Custom element for selecting an object from a list of possible objects.

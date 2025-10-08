@@ -1,5 +1,5 @@
-import { skillRepository } from '../../../../../../wiring/dependencies.js';
-import { SkillDisplay } from '../display/SkillDisplay.js';
+import { skillRepository } from '../../../../../../wiring/dependencies';
+import { SkillDisplay } from '../display/SkillDisplay';
 
 /**
  * Custom unordered list element that displays all skills.

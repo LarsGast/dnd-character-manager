@@ -1,7 +1,7 @@
-import { ArmorClass } from '../types/domain/resources/Armor.js';
-import { Weapon } from '../types/domain/resources/Weapon.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
+import { ArmorClass } from '../types/domain/resources/Armor';
+import { Weapon } from '../types/domain/resources/Weapon';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
 
 /**
  * Creates an HTML element and sets its textContent property.

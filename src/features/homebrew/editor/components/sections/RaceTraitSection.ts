@@ -1,8 +1,8 @@
-import { RaceTrait } from '../../../../../types/domain/resources/Race.js';
+import { RaceTrait } from '../../../../../types/domain/resources/Race';
 import {
 	getTextareaWithLabel,
 	getTextInputWithLabel,
-} from '../../services/FormElementsBuilder.js';
+} from '../../services/FormElementsBuilder';
 
 export class RaceTraitSection extends HTMLElement {
 	constructor(id: number, trait?: RaceTrait) {

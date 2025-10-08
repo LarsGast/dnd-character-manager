@@ -1,3 +1,3 @@
-import './utils/siteStartupCleanup.js';
-import './store/load-globals.js';
-import './register-components.js';
+import './utils/siteStartupCleanup';
+import './store/load-globals';
+import './register-components';

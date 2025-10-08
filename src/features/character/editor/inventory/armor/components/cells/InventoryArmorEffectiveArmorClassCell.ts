@@ -1,6 +1,6 @@
-import { globals } from '../../../../../../../store/load-globals.js';
-import { Armor } from '../../../../../../../types/domain/resources/Armor.js';
-import { getEffectiveArmorClass } from '../../../../../../../utils/util.js';
+import { globals } from '../../../../../../../store/load-globals';
+import { Armor } from '../../../../../../../types/domain/resources/Armor';
+import { getEffectiveArmorClass } from '../../../../../../../utils/util';
 
 /**
  * Custom table cell element that displays an armor's effective armor class.

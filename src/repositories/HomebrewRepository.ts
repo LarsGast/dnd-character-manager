@@ -1,6 +1,6 @@
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IStorageService } from '../interfaces/IStorageService.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IStorageService } from '../interfaces/IStorageService';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
  * Implementation of IHomebrewRepository to store and manage homebrew resources.

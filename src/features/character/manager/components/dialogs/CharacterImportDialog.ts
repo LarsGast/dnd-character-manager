@@ -1,5 +1,5 @@
-import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
-import { globals } from '../../../../../store/load-globals.js';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter';
+import { globals } from '../../../../../store/load-globals';
 
 /**
  * Custom HTML element for displaying the Character Import Dialog.
@@ -150,7 +150,7 @@ export class CharacterImportDialog extends HTMLDialogElement {
 			} catch {
 				// On parse error, inform the user.
 				this.previewTextarea.value =
-					'Could not load file. Make sure you selected the .json file provided by the export.';
+					'Could not load file. Make sure you selected the on file provided by the export.';
 				this.importButton.setAttribute('disabled', 'disabled');
 			}
 		};

@@ -1,14 +1,11 @@
-import { IMapper } from '../../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper';
 import {
 	SubclassApiDto,
 	SubclassSpellApiDto,
-} from '../../types/api/resources/SubclassApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
-import {
-	Subclass,
-	SubclassSpell,
-} from '../../types/domain/resources/Subclass.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+} from '../../types/api/resources/SubclassApiDto';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { Subclass, SubclassSpell } from '../../types/domain/resources/Subclass';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class SubclassApiToDomainMapper
 	implements IMapper<SubclassApiDto, Subclass>

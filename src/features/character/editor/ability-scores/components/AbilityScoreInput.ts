@@ -1,4 +1,4 @@
-import { globals } from '../../../../../store/load-globals.js';
+import { globals } from '../../../../../store/load-globals';
 
 /**
  * Custom input element for editing an ability score.

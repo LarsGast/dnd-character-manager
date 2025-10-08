@@ -1,4 +1,4 @@
-import { ClassLevel } from '../types/domain/resources/ClassLevel.js';
+import { ClassLevel } from '../types/domain/resources/ClassLevel';
 
 export interface IClassLevelRepository {
 	/**

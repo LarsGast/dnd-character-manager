@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface ProficiencyApiDto extends BaseResourceApiDto {
 	/**

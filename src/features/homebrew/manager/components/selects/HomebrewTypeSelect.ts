@@ -1,4 +1,4 @@
-import { getEmptyOption, getSelectOption } from '../../../../../utils/util.js';
+import { getEmptyOption, getSelectOption } from '../../../../../utils/util';
 
 /**
  * Custom select element for choosing the type of homebrew object.

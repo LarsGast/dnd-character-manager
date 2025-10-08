@@ -1,5 +1,5 @@
-import { globals } from '../../../../../../store/load-globals.js';
-import { Skill } from '../../../../../../types/domain/resources/Skill.js';
+import { globals } from '../../../../../../store/load-globals';
+import { Skill } from '../../../../../../types/domain/resources/Skill';
 
 /**
  * Custom input element (checkbox) for toggling skill proficiency.

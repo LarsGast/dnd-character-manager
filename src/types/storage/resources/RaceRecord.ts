@@ -1,6 +1,6 @@
-import { AbilityBonusRecord } from '../helpers/AbilityBonusRecord.js';
-import { ChoiceRecord } from '../helpers/ChoiceRecord.js';
-import { BaseResourceRecord } from '../wrappers/BaseResourceRecord.js';
+import { AbilityBonusRecord } from '../helpers/AbilityBonusRecord';
+import { ChoiceRecord } from '../helpers/ChoiceRecord';
+import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
 
 export interface RaceRecord extends BaseResourceRecord {
 	/**

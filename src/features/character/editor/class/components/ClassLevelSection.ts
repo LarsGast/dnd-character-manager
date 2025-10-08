@@ -1,5 +1,5 @@
-import { globals } from '../../../../../store/load-globals.js';
-import { ClassLevelInput } from './ClassLevelInput.js';
+import { globals } from '../../../../../store/load-globals';
+import { ClassLevelInput } from './ClassLevelInput';
 
 /**
  * Custom element representing a section for managing classes and levels.

@@ -1,1 +1,1 @@
-import './RaceInput.js';
+import './RaceInput';

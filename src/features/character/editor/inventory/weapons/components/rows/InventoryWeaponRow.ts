@@ -1,8 +1,8 @@
-import { InventoryWeaponAttackBonusCell } from '../cells/InventoryWeaponAttackBonusCell.js';
-import { InventoryWeaponAbilityCell } from '../cells/InventoryWeaponAbilityCell.js';
-import { InventoryDamageCell } from '../cells/InventoryWeaponDamageCell.js';
-import { InventoryWeaponButtonsCell } from '../cells/InventoryWeaponButtonsCell.js';
-import { Weapon } from '../../../../../../../types/domain/resources/Weapon.js';
+import { InventoryWeaponAttackBonusCell } from '../cells/InventoryWeaponAttackBonusCell';
+import { InventoryWeaponAbilityCell } from '../cells/InventoryWeaponAbilityCell';
+import { InventoryDamageCell } from '../cells/InventoryWeaponDamageCell';
+import { InventoryWeaponButtonsCell } from '../cells/InventoryWeaponButtonsCell';
+import { Weapon } from '../../../../../../../types/domain/resources/Weapon';
 
 /**
  * Custom table row element that represents a weapon entry in the inventory.

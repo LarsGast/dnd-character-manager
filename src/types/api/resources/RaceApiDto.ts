@@ -1,6 +1,6 @@
-import { AbilityBonusApiDto } from '../helpers/AbilityBonusApiDto.js';
-import { ChoiceApiDto } from '../helpers/ChoiceApiDto.js';
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
+import { AbilityBonusApiDto } from '../helpers/AbilityBonusApiDto';
+import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface RaceApiDto extends BaseResourceApiDto {
 	/**

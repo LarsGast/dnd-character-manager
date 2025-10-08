@@ -2,8 +2,8 @@ import {
 	getEmptyOption,
 	getSelectOption,
 	populateSelectWithApiObjects,
-} from '../../../../../utils/util.js';
-import { classRepository } from '../../../../../wiring/dependencies.js';
+} from '../../../../../utils/util';
+import { classRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom list item element that represents a class-level input.

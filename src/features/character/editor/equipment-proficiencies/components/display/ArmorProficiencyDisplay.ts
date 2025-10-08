@@ -1,5 +1,5 @@
-import { Armor } from '../../../../../../types/domain/resources/Armor.js';
-import { ArmorProficiencyCheckbox } from '../checkboxes/ArmorProficiencyCheckbox.js';
+import { Armor } from '../../../../../../types/domain/resources/Armor';
+import { ArmorProficiencyCheckbox } from '../checkboxes/ArmorProficiencyCheckbox';
 
 /**
  * Custom list item element for displaying an armor proficiency option.

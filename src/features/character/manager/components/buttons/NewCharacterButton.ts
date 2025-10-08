@@ -1,5 +1,5 @@
-import { globals } from '../../../../../store/load-globals.js';
-import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
+import { globals } from '../../../../../store/load-globals';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter';
 
 /**
  * Custom HTML element for displaying and handling the button to add a new character.

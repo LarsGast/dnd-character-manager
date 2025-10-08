@@ -1,6 +1,6 @@
-import { globals } from '../../../../../store/load-globals.js';
-import { Race, RaceTrait } from '../../../../../types/domain/resources/Race.js';
-import { raceRepository } from '../../../../../wiring/dependencies.js';
+import { globals } from '../../../../../store/load-globals';
+import { Race, RaceTrait } from '../../../../../types/domain/resources/Race';
+import { raceRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom details element that displays the features of the selected race.

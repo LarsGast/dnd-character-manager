@@ -2,9 +2,9 @@ import {
 	homebrewRepository,
 	raceRepository,
 	subclassRepository,
-} from '../../../wiring/dependencies.js';
-import { RaceForm } from './components/forms/RaceForm.js';
-import { SubclassForm } from './components/forms/SubclassForm.js';
+} from '../../../wiring/dependencies';
+import { RaceForm } from './components/forms/RaceForm';
+import { SubclassForm } from './components/forms/SubclassForm';
 
 // This file is used to load the homebrew form based on the active homebrew entry.
 // It checks the apiCategoryName of the active homebrew entry and loads the appropriate form.

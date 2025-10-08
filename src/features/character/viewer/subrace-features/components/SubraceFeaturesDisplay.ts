@@ -1,10 +1,10 @@
-import { globals } from '../../../../../store/load-globals.js';
-import { Subrace } from '../../../../../types/domain/resources/Subrace.js';
-import { Trait } from '../../../../../types/domain/resources/Trait.js';
+import { globals } from '../../../../../store/load-globals';
+import { Subrace } from '../../../../../types/domain/resources/Subrace';
+import { Trait } from '../../../../../types/domain/resources/Trait';
 import {
 	subraceRepository,
 	traitRepository,
-} from '../../../../../wiring/dependencies.js';
+} from '../../../../../wiring/dependencies';
 
 /**
  * Custom details element that displays the features of the selected subrace.

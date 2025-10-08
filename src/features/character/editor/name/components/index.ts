@@ -1,1 +1,1 @@
-import './NameInput.js';
+import './NameInput';

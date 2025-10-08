@@ -1,4 +1,4 @@
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
  * Interface for a homebrew storage repository.

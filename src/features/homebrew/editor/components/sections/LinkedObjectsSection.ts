@@ -1,8 +1,8 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
-import { ObjectSelect } from './ObjectSelect.js';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { getTooltipSpan } from '../../services/FormElementsBuilder';
+import { ObjectSelect } from './ObjectSelect';
 
 /**
  * Custom element for a section that allows linking multiple objects.

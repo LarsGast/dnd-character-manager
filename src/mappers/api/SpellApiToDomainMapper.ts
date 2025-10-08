@@ -1,18 +1,18 @@
-import { IMapper } from '../../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper';
 import {
 	AreaOfEffectApiDto,
 	SpellApiDto,
 	SpellDamageApiDto,
 	SpellDcApiDto,
-} from '../../types/api/resources/SpellApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
+} from '../../types/api/resources/SpellApiDto';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
 import {
 	AreaOfEffect,
 	Spell,
 	SpellDamage,
 	SpellDc,
-} from '../../types/domain/resources/Spell.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+} from '../../types/domain/resources/Spell';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 	/**

@@ -2,12 +2,12 @@ import {
 	getEmptyOption,
 	getSelectOption,
 	weaponGetStandardAbility,
-} from '../../../../../../../utils/util.js';
-import { globals } from '../../../../../../../store/load-globals.js';
+} from '../../../../../../../utils/util';
+import { globals } from '../../../../../../../store/load-globals';
 import {
 	equipmentCategoryRepository,
 	weaponRepository,
-} from '../../../../../../../wiring/dependencies.js';
+} from '../../../../../../../wiring/dependencies';
 
 /**
  * Custom element that provides UI for adding a new weapon to the inventory.

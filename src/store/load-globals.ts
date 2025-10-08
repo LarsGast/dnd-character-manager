@@ -1,5 +1,5 @@
-import { PlayerCharacterBank } from './PlayerCharacterBank.js';
-import { PlayerCharacter } from '../types/PlayerCharacter.js';
+import { PlayerCharacterBank } from './PlayerCharacterBank';
+import { PlayerCharacter } from '../types/PlayerCharacter';
 
 /**
  * Global variables and application state management.

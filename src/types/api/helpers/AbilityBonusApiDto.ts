@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 /**
  * Has information about the bonuses to abilities a race can have.
