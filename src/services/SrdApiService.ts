@@ -81,7 +81,7 @@ export class SrdApiService implements ISrdApiService {
 
 		// Success.
 		if (response.ok) {
-			return await responseon();
+			return await response.json();
 		}
 
 		// Too Many Requests (HTTP 429) - rate limiting.
