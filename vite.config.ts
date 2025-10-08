@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import legacy from '@vitejs/plugin-legacy';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
@@ -25,5 +25,10 @@ export default defineConfig({
 	server: {
 		port: 4000,
 		open: true,
+	},
+	test: {
+		environment: 'node',
+		globals: true,
+		dir: './test',
 	},
 });

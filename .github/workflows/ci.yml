@@ -6,6 +6,7 @@ on:
     branches: main
     paths:
       - src/**
+      - test/**
       - .github/workflows/ci.yml
       - tsconfig.json
       - package.json
@@ -18,6 +19,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - src/**
+      - test/**
       - .github/workflows/ci.yml
       - tsconfig.json
       - package.json
@@ -51,6 +53,31 @@ jobs:
       # Build
       - name: Build the site
         run: npm run build
+
+  test:
+    # Only run for non-draft PRs or pushes to main.
+    if: github.event.pull_request.draft == false || github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # Setup
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run tests
+      - name: Run tests
+        run: npm test
 
   prettier:
     # Only run for non-draft PRs or pushes to main.

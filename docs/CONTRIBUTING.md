@@ -53,6 +53,7 @@ npm run preview
 - Keep PRs small and focused.
 - Use [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) (see [Commit messages](#commit-messages)).
 - Add unit tests where applicable.
+  - For more information, see [Tests](#tests).
 - Create a pull request and follow the instructions provided by the template.
 - Link issues with `Closes #<issue>` when the PR resolves an issue.
 - Ensure any automated checks pass on your branch.
@@ -86,8 +87,17 @@ npm run preview
 
 ## Tests
 
-- The project currently does not have any tests.
-  - Information about proper testing procedures will be added later.
+- This project uses [Vitest](https://vitest.dev/) for unit testing.
+- Test files are located in the `test/` directory and use the `.test.ts` extension.
+- To run all tests:
+  ```
+  npm test
+  ```
+- To run tests in watch mode (re-run on file changes):
+  ```
+  npm run test:watch
+  ```
+- We aim for a high coverage of tests, which is why we ask you to write new unit tests when adding new functionality.
 
 ## Commit messages
 
