@@ -135,7 +135,7 @@ export class CharacterExportDialog extends HTMLDialogElement {
 		// That's why we create an anchor tag and trigger a click here.
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${this.playerCharacter!.name}on`;
+		a.download = `${this.playerCharacter!.name}.json`;
 		a.click();
 
 		URL.revokeObjectURL(url);

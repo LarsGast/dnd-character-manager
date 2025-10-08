@@ -131,7 +131,7 @@ export class HomebrewExportDialog extends HTMLDialogElement {
 		// That's why we create an anchor tag and trigger a click here.
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${this.homebrewResource!.name}on`;
+		a.download = `${this.homebrewResource!.name}.json`;
 		a.click();
 
 		URL.revokeObjectURL(url);

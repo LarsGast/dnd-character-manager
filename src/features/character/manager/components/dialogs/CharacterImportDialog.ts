@@ -150,7 +150,7 @@ export class CharacterImportDialog extends HTMLDialogElement {
 			} catch {
 				// On parse error, inform the user.
 				this.previewTextarea.value =
-					'Could not load file. Make sure you selected the on file provided by the export.';
+					'Could not load file. Make sure you selected the JSON file provided by the export.';
 				this.importButton.setAttribute('disabled', 'disabled');
 			}
 		};
