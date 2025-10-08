@@ -315,14 +315,14 @@
 						>
 							<img
 								class="github-logo"
-								src="./assets/icons/github-mark.svg"
+								src="{{ '/assets/icons/github-mark.svg' | relative_url }}"
 								alt="GitHub Logo"
 							/>
 							View on GitHub
 						</a>
 					</div>
 					<div class="version-number">
-						<span>Version 1.0.0</span>
+						<span>Version {{ site.version }}</span>
 						<span class="separator">•</span>
 						<a
 							href="https://github.com/LarsGast/dnd-character-manager/releases"
@@ -332,10 +332,7 @@
 						>
 					</div>
 					<div class="version-disclaimer">
-						<p>
-							This website is not affiliated with, endorsed, sponsored, or
-							specifically approved by Wizards of the Coast LLC.
-						</p>
+						Pre-release software (v0.x.x): Breaking changes may occur.
 					</div>
 				</div>
 			</div>
