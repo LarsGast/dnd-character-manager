@@ -26,4 +26,9 @@ export default defineConfig({
 		port: 4000,
 		open: true,
 	},
+	test: {
+		environment: 'node',
+		globals: true,
+		root: './test',
+	},
 });
