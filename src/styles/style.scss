@@ -1,104 +1,43 @@
 /**
- * Basic styling
- * This replaces the Jekyll Minima theme with basic styles for the D&D Character Manager
+ * Main stylesheet for D&D Character Manager
+ * Imports Minima theme and adds custom styles
  */
 
-/* Reset and base styles */
-* {
-	box-sizing: border-box;
-}
+// Import the complete Minima theme using modern syntax
+@use 'minima';
 
-body {
-	font-family:
-		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	font-size: 16px;
-	line-height: 1.5;
-	color: #111;
-	background-color: #fdfdfd;
-	margin: 0;
-	padding: 0;
-}
+/* Custom overrides and extensions */
 
-/* Layout */
-.wrapper {
-	max-width: calc(800px - (30px * 2));
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: 30px;
-	padding-left: 30px;
-}
-
-/* Header */
-.site-header {
-	border-top: 5px solid #424242;
-	border-bottom: 1px solid #e8e8e8;
-	min-height: 55.95px;
-	position: relative;
-	background-color: white;
-}
-
-.site-title {
-	font-size: 26px;
-	font-weight: 300;
-	line-height: 54px;
-	letter-spacing: -1px;
-	margin-bottom: 0;
-	float: left;
-	text-decoration: none;
-	color: #424242;
-}
-
-.site-title:hover {
-	text-decoration: none;
-}
-
-/* Main content */
-.page-content {
-	padding: 30px 0;
-	flex: 1;
-}
-
-.post-title {
-	font-size: 42px;
-	letter-spacing: -1px;
-	line-height: 1;
-	margin-bottom: 30px;
-}
-
-/* Footer */
-.site-footer {
-	border-top: 1px solid #e8e8e8;
-	padding: 30px 0;
-	background-color: #f9f9f9;
-}
-
+/* Footer version info styling - extends Minima's footer */
 .footer-version-info {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 	font-size: 14px;
-}
 
-.version-number {
-	color: #828282;
-}
+	.version-number {
+		color: #828282;
 
-.separator {
-	margin: 0 8px;
-}
+		.separator {
+			margin: 0 8px;
+		}
+	}
 
-.github-logo {
-	width: 16px;
-	height: 16px;
-	margin-right: 8px;
-	vertical-align: middle;
-}
+	.version-disclaimer {
+		font-size: 12px;
+		color: #828282;
 
-.version-disclaimer p {
-	margin: 0;
-	font-size: 12px;
-	color: #828282;
+		p {
+			margin: 0;
+		}
+	}
+
+	.github-logo {
+		width: 16px;
+		height: 16px;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
 }
 
 /* DEBUG MODE - Uncomment for debugging layout issues */
