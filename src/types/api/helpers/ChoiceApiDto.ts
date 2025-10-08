@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.

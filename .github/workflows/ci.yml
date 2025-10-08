@@ -8,11 +8,11 @@ on:
       - src/**
       - .github/workflows/ci.yml
       - tsconfig.json
-      - _config.yml
       - package.json
       - package-lock.json
-      - Gemfile
-      - Gemfile.lock
+      - vite.config.ts
+      - .prettierrc
+      - .prettierignore
   pull_request:
     branches: main
     types: [opened, synchronize, reopened, ready_for_review]
@@ -20,11 +20,11 @@ on:
       - src/**
       - .github/workflows/ci.yml
       - tsconfig.json
-      - _config.yml
       - package.json
       - package-lock.json
-      - Gemfile
-      - Gemfile.lock
+      - vite.config.ts
+      - .prettierrc
+      - .prettierignore
 
 jobs:
   build:
@@ -43,12 +43,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Install Ruby and Bundler
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       # Dependencies
       - name: Install dependencies

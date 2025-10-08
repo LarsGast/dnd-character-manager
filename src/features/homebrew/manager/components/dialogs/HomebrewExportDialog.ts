@@ -1,5 +1,5 @@
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML element for displaying the Homebrew Export Dialog.

@@ -1,4 +1,4 @@
-import { PlayerCharacter } from '../types/PlayerCharacter.js';
+import { PlayerCharacter } from '../types/PlayerCharacter';
 
 /**
  * Key used for saving and loading the player character bank from localStorage.

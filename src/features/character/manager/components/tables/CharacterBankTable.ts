@@ -1,16 +1,16 @@
-import { getElementWithTextContent } from '../../../../../utils/util.js';
-import { PlayerCharacterBankEntry } from '../../../../../store/PlayerCharacterBank.js';
-import { CharacterExportButton } from '../buttons/CharacterExportButton.js';
-import { CharacterDeleteButton } from '../buttons/CharacterDeleteButton.js';
-import { CharacterSelectButton } from '../buttons/CharacterSelectButton.js';
-import { globals } from '../../../../../store/load-globals.js';
-import { PlayerCharacter } from '../../../../../types/PlayerCharacter.js';
+import { getElementWithTextContent } from '../../../../../utils/util';
+import { PlayerCharacterBankEntry } from '../../../../../store/PlayerCharacterBank';
+import { CharacterExportButton } from '../buttons/CharacterExportButton';
+import { CharacterDeleteButton } from '../buttons/CharacterDeleteButton';
+import { CharacterSelectButton } from '../buttons/CharacterSelectButton';
+import { globals } from '../../../../../store/load-globals';
+import { PlayerCharacter } from '../../../../../types/PlayerCharacter';
 import {
 	classRepository,
 	raceRepository,
 	subclassRepository,
 	subraceRepository,
-} from '../../../../../wiring/dependencies.js';
+} from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML element for displaying active and inactive characters stored in the PlayerCharacterBank.

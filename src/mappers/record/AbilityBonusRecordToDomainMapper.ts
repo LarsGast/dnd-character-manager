@@ -1,8 +1,8 @@
-import { IMapper } from '../../interfaces/IMapper.js';
-import { AbilityBonusRecord } from '../../types/storage/helpers/AbilityBonusRecord.js';
-import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus.js';
-import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { AbilityBonusRecord } from '../../types/storage/helpers/AbilityBonusRecord';
+import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class AbilityBonusRecordToDomainMapper
 	implements IMapper<AbilityBonusRecord, AbilityBonus>

@@ -1,14 +1,14 @@
-import { IFeatureRepository } from '../interfaces/IFeatureRepository.js';
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IMapper } from '../interfaces/IMapper.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { FeatureApiDto } from '../types/api/resources/FeatureApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto.js';
-import { Feature } from '../types/domain/resources/Feature.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
-import { BaseResourceRepository } from './BaseResourceRepository.js';
+import { IFeatureRepository } from '../interfaces/IFeatureRepository';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IMapper } from '../interfaces/IMapper';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { FeatureApiDto } from '../types/api/resources/FeatureApiDto';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
+import { Feature } from '../types/domain/resources/Feature';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { BaseResourceRepository } from './BaseResourceRepository';
 
 export class FeatureRepository
 	extends BaseResourceRepository<Feature, FeatureApiDto>

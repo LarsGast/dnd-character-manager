@@ -1,14 +1,14 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
-import { OptionRecord } from '../../../../../types/storage/helpers/ChoiceRecord.js';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
+import { OptionRecord } from '../../../../../types/storage/helpers/ChoiceRecord';
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
+} from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
-} from '../../../../../utils/util.js';
+} from '../../../../../utils/util';
 
 /**
  * Custom element for selecting a choice option.

@@ -1,5 +1,5 @@
-import { BaseResource } from '../wrappers/BaseResource.js';
-import { Choice } from '../helpers/Choice.js';
+import { BaseResource } from '../wrappers/BaseResource';
+import { Choice } from '../helpers/Choice';
 
 export interface Background extends BaseResource {
 	/**

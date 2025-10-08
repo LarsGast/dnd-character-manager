@@ -1,12 +1,12 @@
 import {
 	getEmptyOption,
 	getSelectOption,
-} from '../../../../../../../utils/util.js';
-import { globals } from '../../../../../../../store/load-globals.js';
+} from '../../../../../../../utils/util';
+import { globals } from '../../../../../../../store/load-globals';
 import {
 	armorRepository,
 	equipmentCategoryRepository,
-} from '../../../../../../../wiring/dependencies.js';
+} from '../../../../../../../wiring/dependencies';
 
 /**
  * Custom element for adding armor to the inventory.

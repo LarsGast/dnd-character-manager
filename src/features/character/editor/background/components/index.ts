@@ -1,1 +1,1 @@
-import './BackgroundInput.js';
+import './BackgroundInput';

@@ -1,17 +1,17 @@
 import {
 	getSelectSection,
 	getTextareaSection,
-} from '../../services/FormElementsBuilder.js';
-import { HomebrewBaseForm } from './HomebrewBaseForm.js';
-import { Subclass } from '../../../../../types/domain/resources/Subclass.js';
+} from '../../services/FormElementsBuilder';
+import { HomebrewBaseForm } from './HomebrewBaseForm';
+import { Subclass } from '../../../../../types/domain/resources/Subclass';
 import {
 	classRepository,
 	spellRepository,
-} from '../../../../../wiring/dependencies.js';
-import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord.js';
-import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { SpellLevelSection } from '../sections/SpellLevelSection.js';
-import { SubclassFeaturesSection } from '../sections/SubclassFeaturesSection.js';
+} from '../../../../../wiring/dependencies';
+import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord';
+import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { SpellLevelSection } from '../sections/SpellLevelSection';
+import { SubclassFeaturesSection } from '../sections/SubclassFeaturesSection';
 
 /**
  * Form for editing custom homebrew Subclass objects.

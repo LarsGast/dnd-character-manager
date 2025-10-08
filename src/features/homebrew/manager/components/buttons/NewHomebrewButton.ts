@@ -1,8 +1,8 @@
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+} from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML button element for creating new homebrew objects.

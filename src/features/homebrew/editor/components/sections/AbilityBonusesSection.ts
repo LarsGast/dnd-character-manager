@@ -1,12 +1,12 @@
-import { AbilityBonus } from '../../../../../types/domain/helpers/AbilityBonus.js';
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { AbilityBonusRecord } from '../../../../../types/storage/helpers/AbilityBonusRecord.js';
-import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { abilityScoreRepository } from '../../../../../wiring/dependencies.js';
+import { AbilityBonus } from '../../../../../types/domain/helpers/AbilityBonus';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { AbilityBonusRecord } from '../../../../../types/storage/helpers/AbilityBonusRecord';
+import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { abilityScoreRepository } from '../../../../../wiring/dependencies';
 import {
 	getNumberInputWithLabel,
 	getTooltipSpan,
-} from '../../services/FormElementsBuilder.js';
+} from '../../services/FormElementsBuilder';
 
 /**
  * Custom section element for displaying and editing ability bonuses.

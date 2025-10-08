@@ -1,5 +1,5 @@
-import { ICacheService } from '../interfaces/ICacheService.js';
-import { IStorageService } from '../interfaces/IStorageService.js';
+import { ICacheService } from '../interfaces/ICacheService';
+import { IStorageService } from '../interfaces/IStorageService';
 
 /**
  * Implementation of ICacheService that provides caching functionality using an underlying storage service.

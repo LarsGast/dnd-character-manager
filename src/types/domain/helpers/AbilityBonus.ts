@@ -1,4 +1,4 @@
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { BaseResource } from '../wrappers/BaseResource';
 
 /**
  * Has information about the bonuses to abilities a race can have.

@@ -1,4 +1,4 @@
-import { IStorageService } from '../interfaces/IStorageService.js';
+import { IStorageService } from '../interfaces/IStorageService';
 
 /**
  * Implementation of IStorageService to store objects in localStorage.

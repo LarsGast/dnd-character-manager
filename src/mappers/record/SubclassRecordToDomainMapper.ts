@@ -1,16 +1,16 @@
-import { IMapper } from '../../interfaces/IMapper.js';
+import { IMapper } from '../../interfaces/IMapper';
 import {
 	Subclass,
 	SubclassFeature,
 	SubclassSpell,
-} from '../../types/domain/resources/Subclass.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+} from '../../types/domain/resources/Subclass';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 import {
 	SubclassFeatureRecord,
 	SubclassRecord,
 	SubclassSpellRecord,
-} from '../../types/storage/resources/SubclassRecord.js';
-import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord.js';
+} from '../../types/storage/resources/SubclassRecord';
+import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
 
 export class SubclassRecordToDomainMapper
 	implements IMapper<SubclassRecord, Subclass>

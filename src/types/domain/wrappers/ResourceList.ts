@@ -1,4 +1,4 @@
-import { BaseResource } from './BaseResource.js';
+import { BaseResource } from './BaseResource';
 
 /**
  * Represents a collection of resources with metadata.

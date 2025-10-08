@@ -1,14 +1,14 @@
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IMapper } from '../interfaces/IMapper.js';
-import { IResourceRepository } from '../interfaces/IResourceRepository.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { ClassApiDto } from '../types/api/resources/ClassApiDto.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { Class } from '../types/domain/resources/Class.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { SubclassRecord } from '../types/storage/resources/SubclassRecord.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
-import { BaseResourceRepository } from './BaseResourceRepository.js';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IMapper } from '../interfaces/IMapper';
+import { IResourceRepository } from '../interfaces/IResourceRepository';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ClassApiDto } from '../types/api/resources/ClassApiDto';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { Class } from '../types/domain/resources/Class';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { SubclassRecord } from '../types/storage/resources/SubclassRecord';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
+import { BaseResourceRepository } from './BaseResourceRepository';
 
 export class ClassRepository
 	extends BaseResourceRepository<Class, ClassApiDto>

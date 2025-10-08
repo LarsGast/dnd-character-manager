@@ -1,5 +1,5 @@
-import { Weapon } from '../../../../../../types/domain/resources/Weapon.js';
-import { WeaponProficiencyCheckbox } from '../checkboxes/WeaponProficiencyCheckbox.js';
+import { Weapon } from '../../../../../../types/domain/resources/Weapon';
+import { WeaponProficiencyCheckbox } from '../checkboxes/WeaponProficiencyCheckbox';
 
 /**
  * Custom list item element for displaying a weapon proficiency option.

@@ -1,1 +1,1 @@
-import './SubraceInput.js';
+import './SubraceInput';

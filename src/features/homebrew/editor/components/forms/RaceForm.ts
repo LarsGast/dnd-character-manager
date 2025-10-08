@@ -2,15 +2,15 @@ import {
 	getSelectSection,
 	getTextareaSection,
 	getNumberInputSection,
-} from '../../services/FormElementsBuilder.js';
-import { HomebrewBaseForm } from './HomebrewBaseForm.js';
-import { AbilityBonusesSection } from '../sections/AbilityBonusesSection.js';
-import { ChoiceSection } from '../sections/ChoiceSection.js';
-import { LinkedObjectsSection } from '../sections/LinkedObjectsSection.js';
-import { Race } from '../../../../../types/domain/resources/Race.js';
-import { languageRepository } from '../../../../../wiring/dependencies.js';
-import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord.js';
-import { RaceTraitsSection } from '../sections/RaceTraitsSection.js';
+} from '../../services/FormElementsBuilder';
+import { HomebrewBaseForm } from './HomebrewBaseForm';
+import { AbilityBonusesSection } from '../sections/AbilityBonusesSection';
+import { ChoiceSection } from '../sections/ChoiceSection';
+import { LinkedObjectsSection } from '../sections/LinkedObjectsSection';
+import { Race } from '../../../../../types/domain/resources/Race';
+import { languageRepository } from '../../../../../wiring/dependencies';
+import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord';
+import { RaceTraitsSection } from '../sections/RaceTraitsSection';
 
 /**
  * Form for editing custom homebrew Race objects.

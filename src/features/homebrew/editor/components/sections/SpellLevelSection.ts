@@ -1,13 +1,13 @@
-import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList.js';
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource.js';
-import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
-import { SubclassSpellRecord } from '../../../../../types/storage/resources/SubclassRecord.js';
+import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
+import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { getTooltipSpan } from '../../services/FormElementsBuilder';
+import { SubclassSpellRecord } from '../../../../../types/storage/resources/SubclassRecord';
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord.js';
-import { SubclassSpell } from '../../../../../types/domain/resources/Subclass.js';
-import { getEmptyOption, getSelectOption } from '../../../../../utils/util.js';
+} from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { SubclassSpell } from '../../../../../types/domain/resources/Subclass';
+import { getEmptyOption, getSelectOption } from '../../../../../utils/util';
 
 /**
  * Custom element for a section that allows choosing spells for a subclass at certain levels.

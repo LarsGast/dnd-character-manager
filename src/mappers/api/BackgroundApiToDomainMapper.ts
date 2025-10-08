@@ -1,16 +1,16 @@
-import { IMapper } from '../../interfaces/IMapper.js';
-import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto';
 import {
 	BackgroundApiDto,
 	BackgroundFeatureApiDto,
-} from '../../types/api/resources/BackgroundApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
-import { Choice } from '../../types/domain/helpers/Choice.js';
+} from '../../types/api/resources/BackgroundApiDto';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { Choice } from '../../types/domain/helpers/Choice';
 import {
 	Background,
 	BackgroundFeature,
-} from '../../types/domain/resources/Background.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+} from '../../types/domain/resources/Background';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class BackgroundApiToDomainMapper
 	implements IMapper<BackgroundApiDto, Background>

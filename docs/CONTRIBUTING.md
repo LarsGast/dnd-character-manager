@@ -17,18 +17,29 @@ Thanks for wanting to contribute! This document explains the process for contrib
    ```
    npm install
    ```
-   ```
-   bundle install
-   ```
 4. Run the dev server:
    ```
    npm run dev
    ```
-5. Access the site at `http://localhost:4000/`
+5. Access the site at `http://localhost:4000/` (or the port shown in the terminal)
 
 > If you don't have Node set up yet, see [Downloading and installing Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-> If you don't have Bundler set up yet, see [Using Jekyll with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/).
+### Building for production
+
+To build the application for production deployment:
+
+```
+npm run build
+```
+
+This creates optimized files in the `dist/` directory.
+
+To preview the production build locally:
+
+```
+npm run preview
+```
 
 ## Filing issues
 

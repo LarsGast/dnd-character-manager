@@ -1,5 +1,5 @@
-import { upgradeHomebrewResource } from '../../../../../utils/resourceRecordUpgrader.js';
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { upgradeHomebrewResource } from '../../../../../utils/resourceRecordUpgrader';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom HTML element for displaying the Homebrew Import Dialog.
@@ -171,7 +171,7 @@ export class HomebrewImportDialog extends HTMLDialogElement {
 			} catch {
 				// On parse error, inform the user.
 				this.previewTextarea.value =
-					'Could not load file. Make sure you selected the .json file provided by the export.';
+					'Could not load file. Make sure you selected the JSON file provided by the export.';
 				this.importButton.setAttribute('disabled', 'disabled');
 			}
 		};

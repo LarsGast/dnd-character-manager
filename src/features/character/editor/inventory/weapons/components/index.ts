@@ -1,7 +1,7 @@
-import './cells/InventoryWeaponAbilityCell.js';
-import './cells/InventoryWeaponAttackBonusCell.js';
-import './cells/InventoryWeaponButtonsCell.js';
-import './cells/InventoryWeaponDamageCell.js';
-import './inputs/InventoryWeaponAddInput.js';
-import './rows/InventoryWeaponRow.js';
-import './tables/InventoryWeaponTable.js';
+import './cells/InventoryWeaponAbilityCell';
+import './cells/InventoryWeaponAttackBonusCell';
+import './cells/InventoryWeaponButtonsCell';
+import './cells/InventoryWeaponDamageCell';
+import './inputs/InventoryWeaponAddInput';
+import './rows/InventoryWeaponRow';
+import './tables/InventoryWeaponTable';

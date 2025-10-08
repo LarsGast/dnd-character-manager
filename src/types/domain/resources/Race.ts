@@ -1,6 +1,6 @@
-import { AbilityBonus } from '../helpers/AbilityBonus.js';
-import { Choice } from '../helpers/Choice.js';
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { AbilityBonus } from '../helpers/AbilityBonus';
+import { Choice } from '../helpers/Choice';
+import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Race extends BaseResource {
 	/**

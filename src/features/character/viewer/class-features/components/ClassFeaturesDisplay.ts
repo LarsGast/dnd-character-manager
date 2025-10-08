@@ -1,16 +1,16 @@
-import { Choice } from '../../../../../types/domain/helpers/Choice.js';
-import { Class } from '../../../../../types/domain/resources/Class.js';
-import { Feature } from '../../../../../types/domain/resources/Feature.js';
+import { Choice } from '../../../../../types/domain/helpers/Choice';
+import { Class } from '../../../../../types/domain/resources/Class';
+import { Feature } from '../../../../../types/domain/resources/Feature';
 import {
 	Subclass,
 	SubclassFeature,
-} from '../../../../../types/domain/resources/Subclass.js';
-import { getElementWithTextContent } from '../../../../../utils/util.js';
+} from '../../../../../types/domain/resources/Subclass';
+import { getElementWithTextContent } from '../../../../../utils/util';
 import {
 	classRepository,
 	featureRepository,
 	subclassRepository,
-} from '../../../../../wiring/dependencies.js';
+} from '../../../../../wiring/dependencies';
 
 /**
  * Custom details element that displays the features of the selected class.

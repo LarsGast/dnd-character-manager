@@ -1,5 +1,5 @@
-import './checkboxes/ArmorProficiencyCheckbox.js';
-import './checkboxes/WeaponProficiencyCheckbox.js';
-import './display/ArmorProficiencyDisplay.js';
-import './display/WeaponProficiencyDisplay.js';
-import './lists/EquipmentProficienciesList.js';
+import './checkboxes/ArmorProficiencyCheckbox';
+import './checkboxes/WeaponProficiencyCheckbox';
+import './display/ArmorProficiencyDisplay';
+import './display/WeaponProficiencyDisplay';
+import './lists/EquipmentProficienciesList';

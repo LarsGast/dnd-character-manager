@@ -1,4 +1,4 @@
-import { BaseResourceRecord } from '../wrappers/BaseResourceRecord.js';
+import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
 
 export interface SubclassRecord extends BaseResourceRecord {
 	/**

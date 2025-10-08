@@ -1,5 +1,5 @@
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
 
 /**
  * Interface for a resource repository.

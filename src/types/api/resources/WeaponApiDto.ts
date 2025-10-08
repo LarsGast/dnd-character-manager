@@ -1,5 +1,5 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
-import { EquipmentApiDto } from './EquipmentApiDto.js';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
+import { EquipmentApiDto } from './EquipmentApiDto';
 
 export interface WeaponApiDto extends EquipmentApiDto {
 	/**

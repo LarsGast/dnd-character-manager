@@ -1,6 +1,6 @@
-import { getEmptyOption, getSelectOption } from '../../../../../utils/util.js';
-import { globals } from '../../../../../store/load-globals.js';
-import { raceRepository } from '../../../../../wiring/dependencies.js';
+import { getEmptyOption, getSelectOption } from '../../../../../utils/util';
+import { globals } from '../../../../../store/load-globals';
+import { raceRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom select element for choosing a subrace.

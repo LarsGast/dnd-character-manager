@@ -1,6 +1,6 @@
-import { AbilityBonus } from '../helpers/AbilityBonus.js';
-import { BaseResource } from '../wrappers/BaseResource.js';
-import { Choice } from '../helpers/Choice.js';
+import { AbilityBonus } from '../helpers/AbilityBonus';
+import { BaseResource } from '../wrappers/BaseResource';
+import { Choice } from '../helpers/Choice';
 
 export interface Subrace extends BaseResource {
 	/**

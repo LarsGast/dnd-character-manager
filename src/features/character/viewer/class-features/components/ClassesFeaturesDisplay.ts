@@ -1,6 +1,6 @@
-import { getElementWithTextContent } from '../../../../../utils/util.js';
-import { globals } from '../../../../../store/load-globals.js';
-import { ClassFeaturesDisplay } from './ClassFeaturesDisplay.js';
+import { getElementWithTextContent } from '../../../../../utils/util';
+import { globals } from '../../../../../store/load-globals';
+import { ClassFeaturesDisplay } from './ClassFeaturesDisplay';
 
 /**
  * Custom details element that displays the features of the selected class.

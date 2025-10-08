@@ -1,4 +1,4 @@
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Alignment extends BaseResource {
 	/**

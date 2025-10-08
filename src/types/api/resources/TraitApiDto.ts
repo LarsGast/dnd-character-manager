@@ -1,5 +1,5 @@
-import { ChoiceApiDto } from '../helpers/ChoiceApiDto.js';
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto.js';
+import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface TraitApiDto extends BaseResourceApiDto {
 	/**

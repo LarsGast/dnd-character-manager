@@ -1,7 +1,7 @@
-import { RaceTrait } from '../../../../../types/domain/resources/Race.js';
-import { RaceTraitRecord } from '../../../../../types/storage/resources/RaceRecord.js';
-import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
-import { RaceTraitSection } from './RaceTraitSection.js';
+import { RaceTrait } from '../../../../../types/domain/resources/Race';
+import { RaceTraitRecord } from '../../../../../types/storage/resources/RaceRecord';
+import { getTooltipSpan } from '../../services/FormElementsBuilder';
+import { RaceTraitSection } from './RaceTraitSection';
 
 export class RaceTraitsSection extends HTMLElement {
 	private nextId = 0; // Static counter to generate unique IDs

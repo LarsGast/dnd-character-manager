@@ -1,5 +1,5 @@
-import { BaseResource } from '../wrappers/BaseResource.js';
-import { Equipment } from './Equipment.js';
+import { BaseResource } from '../wrappers/BaseResource';
+import { Equipment } from './Equipment';
 
 export interface Weapon extends Equipment {
 	/**

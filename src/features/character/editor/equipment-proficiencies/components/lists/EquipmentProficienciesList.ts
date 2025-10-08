@@ -2,9 +2,9 @@ import {
 	armorRepository,
 	equipmentCategoryRepository,
 	weaponRepository,
-} from '../../../../../../wiring/dependencies.js';
-import { ArmorProficiencyDisplay } from '../display/ArmorProficiencyDisplay.js';
-import { WeaponProficiencyDisplay } from '../display/WeaponProficiencyDisplay.js';
+} from '../../../../../../wiring/dependencies';
+import { ArmorProficiencyDisplay } from '../display/ArmorProficiencyDisplay';
+import { WeaponProficiencyDisplay } from '../display/WeaponProficiencyDisplay';
 
 /**
  * Custom unordered list element for displaying equipment proficiencies.

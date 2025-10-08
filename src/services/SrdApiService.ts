@@ -1,7 +1,7 @@
-import { ICacheService } from '../interfaces/ICacheService.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto.js';
+import { ICacheService } from '../interfaces/ICacheService';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
 
 export class SrdApiService implements ISrdApiService {
 	/**

@@ -1,4 +1,4 @@
-import { EquipmentApiDto } from './EquipmentApiDto.js';
+import { EquipmentApiDto } from './EquipmentApiDto';
 
 export interface ArmorApiDto extends EquipmentApiDto {
 	/**

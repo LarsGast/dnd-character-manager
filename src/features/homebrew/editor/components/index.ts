@@ -1,10 +1,10 @@
-import './forms/HomebrewBaseForm.js';
-import './forms/RaceForm.js';
+import './forms/HomebrewBaseForm';
+import './forms/RaceForm';
 
-import './headings/HomebrewFormHeading.js';
+import './headings/HomebrewFormHeading';
 
-import './sections/AbilityBonusesSection.js';
-import './sections/ChoiceOptionElement.js';
-import './sections/ChoiceSection.js';
-import './sections/LinkedObjectsSection.js';
-import './sections/ObjectSelect.js';
+import './sections/AbilityBonusesSection';
+import './sections/ChoiceOptionElement';
+import './sections/ChoiceSection';
+import './sections/LinkedObjectsSection';
+import './sections/ObjectSelect';

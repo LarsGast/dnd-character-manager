@@ -1,13 +1,20 @@
----
----
+/**
+ * Main stylesheet for D&D Character Manager
+ * Imports Minima theme and adds custom styles
+ */
 
-@import '{{ site.theme }}';
+// Import the complete Minima theme using modern syntax
+@use 'minima';
 
-/* DEBUG MODE */
+/* Custom overrides and extensions */
+
+/* DEBUG MODE - Uncomment for debugging layout issues */
 /* SHOULD NEVER BE ON IN PRODUCTION */
+/*
 * {
-	// border: 1px solid red !important;
+	border: 1px solid red !important;
 }
+*/
 
 // Make tables scrollable horizontally.
 .table-container {
@@ -245,7 +252,9 @@ form {
 	}
 
 	.github-logo {
-		all: unset;
-		width: 1rem;
+		width: 16px;
+		height: 16px;
+		margin-right: 8px;
+		vertical-align: middle;
 	}
 }

@@ -1,6 +1,6 @@
-import { InventoryWeaponRow } from '../rows/InventoryWeaponRow.js';
-import { globals } from '../../../../../../../store/load-globals.js';
-import { weaponRepository } from '../../../../../../../wiring/dependencies.js';
+import { InventoryWeaponRow } from '../rows/InventoryWeaponRow';
+import { globals } from '../../../../../../../store/load-globals';
+import { weaponRepository } from '../../../../../../../wiring/dependencies';
 
 /**
  * Custom element that displays a table of inventory weapons.

@@ -1,4 +1,4 @@
-import { Equipment } from './Equipment.js';
+import { Equipment } from './Equipment';
 
 export interface Armor extends Equipment {
 	/**

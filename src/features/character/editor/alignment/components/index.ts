@@ -1,1 +1,1 @@
-import './AlignmentInput.js';
+import './AlignmentInput';

@@ -1,8 +1,8 @@
-import { IMapper } from '../../interfaces/IMapper.js';
-import { FeatureApiDto } from '../../types/api/resources/FeatureApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
-import { Feature } from '../../types/domain/resources/Feature.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { FeatureApiDto } from '../../types/api/resources/FeatureApiDto';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { Feature } from '../../types/domain/resources/Feature';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class FeatureApiToDomainMapper
 	implements IMapper<FeatureApiDto, Feature>

@@ -1,4 +1,4 @@
-import { homebrewRepository } from '../../../../../wiring/dependencies.js';
+import { homebrewRepository } from '../../../../../wiring/dependencies';
 
 /**
  * Custom heading element for homebrew forms.

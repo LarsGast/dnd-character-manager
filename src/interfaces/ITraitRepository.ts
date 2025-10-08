@@ -1,6 +1,6 @@
-import { Trait } from '../types/domain/resources/Trait.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
-import { IResourceRepository } from './IResourceRepository.js';
+import { Trait } from '../types/domain/resources/Trait';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { IResourceRepository } from './IResourceRepository';
 
 export interface ITraitRepository extends IResourceRepository<Trait> {
 	/**

@@ -1,5 +1,5 @@
-import { Choice } from '../helpers/Choice.js';
-import { BaseResource } from '../wrappers/BaseResource.js';
+import { Choice } from '../helpers/Choice';
+import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Trait extends BaseResource {
 	/**

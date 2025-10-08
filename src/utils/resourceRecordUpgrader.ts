@@ -1,7 +1,7 @@
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../types/storage/wrappers/BaseResourceRecord.js';
+} from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
  * Upgrades all homebrew resources in localStorage to the latest version.

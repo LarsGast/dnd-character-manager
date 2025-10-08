@@ -1,5 +1,5 @@
-import { AbilityScoreInput } from './AbilityScoreInput.js';
-import { AbilityScoreModifierDisplay } from './AbilityScoreModifierDisplay.js';
+import { AbilityScoreInput } from './AbilityScoreInput';
+import { AbilityScoreModifierDisplay } from './AbilityScoreModifierDisplay';
 
 /**
  * Custom element for displaying an ability score along with its modifier and input control.

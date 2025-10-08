@@ -1,11 +1,11 @@
-import { IHomebrewRepository } from '../interfaces/IHomebrewRepository.js';
-import { IMapper } from '../interfaces/IMapper.js';
-import { IResourceRepository } from '../interfaces/IResourceRepository.js';
-import { ISrdApiService } from '../interfaces/ISrdApiService.js';
-import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto.js';
-import { BaseResource } from '../types/domain/wrappers/BaseResource.js';
-import { ResourceList } from '../types/domain/wrappers/ResourceList.js';
-import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord.js';
+import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
+import { IMapper } from '../interfaces/IMapper';
+import { IResourceRepository } from '../interfaces/IResourceRepository';
+import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { BaseResource } from '../types/domain/wrappers/BaseResource';
+import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
  * Base implementation of IResourceRepository.

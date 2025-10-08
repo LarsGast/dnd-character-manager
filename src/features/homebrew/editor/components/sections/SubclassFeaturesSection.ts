@@ -1,7 +1,7 @@
-import { SubclassFeature } from '../../../../../types/domain/resources/Subclass.js';
-import { SubclassFeatureRecord } from '../../../../../types/storage/resources/SubclassRecord.js';
-import { getTooltipSpan } from '../../services/FormElementsBuilder.js';
-import { SubclassFeatureSection } from './SubclassFeatureSection.js';
+import { SubclassFeature } from '../../../../../types/domain/resources/Subclass';
+import { SubclassFeatureRecord } from '../../../../../types/storage/resources/SubclassRecord';
+import { getTooltipSpan } from '../../services/FormElementsBuilder';
+import { SubclassFeatureSection } from './SubclassFeatureSection';
 
 export class SubclassFeaturesSection extends HTMLElement {
 	private nextId = 0;

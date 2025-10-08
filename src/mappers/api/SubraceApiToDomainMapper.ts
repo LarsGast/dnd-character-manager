@@ -1,12 +1,12 @@
-import { IMapper } from '../../interfaces/IMapper.js';
-import { AbilityBonusApiDto } from '../../types/api/helpers/AbilityBonusApiDto.js';
-import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto.js';
-import { SubraceApiDto } from '../../types/api/resources/SubraceApiDto.js';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto.js';
-import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus.js';
-import { Choice } from '../../types/domain/helpers/Choice.js';
-import { Subrace } from '../../types/domain/resources/Subrace.js';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource.js';
+import { IMapper } from '../../interfaces/IMapper';
+import { AbilityBonusApiDto } from '../../types/api/helpers/AbilityBonusApiDto';
+import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto';
+import { SubraceApiDto } from '../../types/api/resources/SubraceApiDto';
+import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
+import { Choice } from '../../types/domain/helpers/Choice';
+import { Subrace } from '../../types/domain/resources/Subrace';
+import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class SubraceApiToDomainMapper
 	implements IMapper<SubraceApiDto, Subrace>
