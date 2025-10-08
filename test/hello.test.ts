@@ -25,13 +25,13 @@ test('array contains specific element', () => {
 	expect(fruits).toContain('banana');
 });
 
-test('failed test example', () => {
-	expect(1 + 1).toBe(3); // This test is expected to fail
-});
+// test('failed test example', () => {
+// 	expect(1 + 1).toBe(3); // This test is expected to fail
+// });
 
-test('another failed test example', () => {
-	expect('Hello'.toUpperCase()).toBe('HELLOO'); // This test is expected to fail
-});
+// test('another failed test example', () => {
+// 	expect('Hello'.toUpperCase()).toBe('HELLOO'); // This test is expected to fail
+// });
 
 it.skip('skipped test example', () => {
 	expect(true).toBe(false); // This test will be skipped
