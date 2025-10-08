@@ -56,17 +56,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 0 # Increment this number if you need to re-download cached gems
-
       - name: Build site
         run: npm run build
-        env:
-          JEKYLL_ENV: production
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -74,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: ./dist
 
   deploy:
     environment:
