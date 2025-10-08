@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"module": "es6",
-		"target": "es2017",
-		"outDir": "./build",
+		"module": "ES2020",
+		"target": "ES2020",
+		"outDir": "./dist",
 		"strict": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
@@ -10,7 +10,14 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noUncheckedSideEffectImports": true,
-		"noEmitOnError": true
+		"noEmitOnError": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"skipLibCheck": true
 	},
 
 	"include": ["./src/**/*"]
