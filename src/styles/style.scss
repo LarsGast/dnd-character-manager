@@ -8,38 +8,6 @@
 
 /* Custom overrides and extensions */
 
-/* Footer version info styling - extends Minima's footer */
-.footer-version-info {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	font-size: 14px;
-
-	.version-number {
-		color: #828282;
-
-		.separator {
-			margin: 0 8px;
-		}
-	}
-
-	.version-disclaimer {
-		font-size: 12px;
-		color: #828282;
-
-		p {
-			margin: 0;
-		}
-	}
-
-	.github-logo {
-		width: 16px;
-		height: 16px;
-		margin-right: 8px;
-		vertical-align: middle;
-	}
-}
-
 /* DEBUG MODE - Uncomment for debugging layout issues */
 /* SHOULD NEVER BE ON IN PRODUCTION */
 /*
@@ -284,7 +252,9 @@ form {
 	}
 
 	.github-logo {
-		all: unset;
-		width: 1rem;
+		width: 16px;
+		height: 16px;
+		margin-right: 8px;
+		vertical-align: middle;
 	}
 }
