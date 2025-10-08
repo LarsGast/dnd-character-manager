@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Custom Homebrew Object</title>
+		<link rel="stylesheet" href="../styles/style.scss" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="wrapper">
+				<a class="site-title" rel="author" href="/">DnD Character Manager</a>
+			</div>
+		</header>
+
+		<main class="page-content" aria-label="Content">
+			<div class="wrapper">
+				<article class="post">
+					<header class="post-header">
+						<h1>Custom Homebrew Object</h1>
+					</header>
+
+					<div class="post-content">
+						<p>
+							On this page, you can build your own homebrew objects. a homebrew
+							object in this instance is a collection of data points that
+							describe DnD content, such as classes, magic items, spells, and
+							more. You can use this page to insert your own homebrew content as
+							you see fit. You can also use this page to insert official DnD
+							content that you own that is not in the SRD. This way, you can
+							create any character that you would normally be able to create on
+							a paper character sheet.
+						</p>
+						<h2 is="homebrew-object-form-heading"></h2>
+					</div>
+				</article>
+			</div>
+		</main>
+		<footer class="site-footer h-card">
+			<div class="wrapper">
+				<div class="footer-version-info">
+					<div>
+						<a
+							href="https://github.com/LarsGast/dnd-character-manager"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<img
+								class="github-logo"
+								src="{{ '/assets/icons/github-mark.svg' | relative_url }}"
+								alt="GitHub Logo"
+							/>
+							View on GitHub
+						</a>
+					</div>
+					<div class="version-number">
+						<span>Version {{ site.version }}</span>
+						<span class="separator">•</span>
+						<a
+							href="https://github.com/LarsGast/dnd-character-manager/releases"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Release Notes</a
+						>
+					</div>
+					<div class="version-disclaimer">
+						Pre-release software (v0.x.x): Breaking changes may occur.
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script type="module" src="./main.ts"></script>
+	</body>
+</html>
