@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ApiService } from '../../src/services/ApiService';
+import { ApiService } from '../../../src/services/ApiService';
 
 describe('callEndpointAsync', () => {
 	let fetchFn: ReturnType<typeof vi.fn>;

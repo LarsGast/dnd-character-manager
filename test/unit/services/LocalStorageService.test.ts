@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { LocalStorageService } from '../../src/services/LocalStorageService';
+import { LocalStorageService } from '../../../src/services/LocalStorageService';
 import { getMockStorage } from './testUtils/StorageTestUtils';
 
 describe('get', () => {
