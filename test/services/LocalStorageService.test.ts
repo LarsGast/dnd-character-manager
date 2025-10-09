@@ -1,16 +1,57 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { LocalStorageService } from '../../src/services/LocalStorageService';
+import { getMockStorage } from './testUtils/StorageTestUtils';
 
 describe('get', () => {
-	it.skip('should return a value for existing key', () => {
-		// TODO
+	it('should return a value for existing key', () => {
+		// Arrange
+		const key = 'testKey';
+		const value = { foo: 'bar' };
+		const localStorageMock = getMockStorage({
+			getItem: (k: string) => (k === key ? JSON.stringify(value) : null),
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.get(key);
+
+		// Assert
+		expect(result).toEqual(value);
 	});
 
-	it.skip('should return undefined for non-existing key', () => {
-		// TODO
+	it('should return undefined for non-existing key', () => {
+		// Arrange
+		const key = 'nonExistingKey';
+		const localStorageMock = getMockStorage({
+			getItem: () => null,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.get(key);
+
+		// Assert
+		expect(result).toBeUndefined();
 	});
 
-	it.skip('should map to correct type', () => {
-		// TODO
+	it('should map to correct type', () => {
+		// Arrange
+		interface TestType {
+			id: number;
+			name: string;
+		}
+		const key = 'testTypeKey';
+		const value: TestType = { id: 1, name: 'Test' };
+		const localStorageMock = getMockStorage({
+			getItem: (k: string) => (k === key ? JSON.stringify(value) : null),
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.get<TestType>(key);
+
+		// Assert
+		expect(result).toEqual(value);
 	});
 });
 
