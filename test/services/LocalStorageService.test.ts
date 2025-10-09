@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { LocalStorageService } from '../../src/services/LocalStorageService';
 import { getMockStorage } from './testUtils/StorageTestUtils';
 
@@ -56,31 +56,70 @@ describe('get', () => {
 });
 
 describe('set', () => {
-	it.skip('should store a value for a key', () => {
-		// TODO
-	});
+	it('should store a value for a key', () => {
+		// Arrange
+		const key = 'testKey';
+		const value = { foo: 'bar' };
+		const setItemMock = vi.fn();
+		const localStorageMock = getMockStorage({
+			setItem: setItemMock,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
 
-	it.skip('should overwrite an existing value for a key', () => {
-		// TODO
+		// Act
+		localStorageService.set(key, value);
+
+		// Assert
+		expect(setItemMock).toHaveBeenCalledWith(key, JSON.stringify(value));
 	});
 });
 
 describe('delete', () => {
-	it.skip('should remove a value for a key', () => {
-		// TODO
-	});
+	it('should remove a value for a key', () => {
+		// Arrange
+		const key = 'testKey';
+		const removeItemMock = vi.fn();
+		const localStorageMock = getMockStorage({
+			removeItem: removeItemMock,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
 
-	it.skip('should do nothing for a non-existing key', () => {
-		// TODO
+		// Act
+		localStorageService.delete(key);
+
+		// Assert
+		expect(removeItemMock).toHaveBeenCalledWith(key);
 	});
 });
 
 describe('getAllKeys', () => {
-	it.skip('should return an array of all keys', () => {
-		// TODO
+	it('should return an array of all keys', () => {
+		// Arrange
+		const keys = ['key1', 'key2', 'key3'];
+		const localStorageMock = getMockStorage({
+			length: keys.length,
+			key: (index: number) => keys[index] || null,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.getAllKeys();
+
+		// Assert
+		expect(result).toEqual(keys);
 	});
 
-	it.skip('should return an empty array if no keys exist', () => {
-		// TODO
+	it('should return an empty array if no keys exist', () => {
+		// Arrange
+		const localStorageMock = getMockStorage({
+			length: 0,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.getAllKeys();
+
+		// Assert
+		expect(result).toEqual([]);
 	});
 });
