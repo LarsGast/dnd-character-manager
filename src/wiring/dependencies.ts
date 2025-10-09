@@ -35,6 +35,7 @@ import { ClassRepository } from '../repositories/ClassRepository';
 import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper';
 import { RaceRepository } from '../repositories/RaceRepository';
 import { SubclassRepository } from '../repositories/SubclassRepository';
+import { ApiService } from '../services/ApiService';
 
 /**
  * Dependency injection container for the entire application.
@@ -56,10 +57,8 @@ import { SubclassRepository } from '../repositories/SubclassRepository';
 // --------------------
 const localStorageService = new LocalStorageService();
 const cacheService = new CacheService(localStorageService);
-const srdApiService = new SrdApiService(
-	cacheService,
-	globalThis.fetch.bind(globalThis),
-);
+const apiService = new ApiService(globalThis.fetch.bind(globalThis));
+const srdApiService = new SrdApiService(cacheService, apiService);
 
 // --------------------
 // API to Domain Mappers
