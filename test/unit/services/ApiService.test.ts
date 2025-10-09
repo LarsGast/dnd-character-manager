@@ -1,45 +1,41 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { ApiService } from '../../../src/services/ApiService';
+import {
+	getMockFetchResponse,
+	getMockHeaders,
+	mockUrl,
+} from './testUtils/FetchTestUtils';
 
 describe('callEndpointAsync', () => {
-	let fetchFn: ReturnType<typeof vi.fn>;
-	let apiService: ApiService;
-	const testUrl = new URL('https://example.com/api');
-
-	beforeEach(() => {
-		fetchFn = vi.fn();
-		apiService = new ApiService(fetchFn as unknown as typeof fetch);
-	});
-
 	it('should call fetch with the correct URL', async () => {
 		// Arrange
-		fetchFn.mockResolvedValue({
-			ok: true,
-			status: 200,
-			json: vi.fn().mockResolvedValue({}),
-		});
+		const mockFetch = vi.fn().mockResolvedValue(getMockFetchResponse());
+		const apiService = new ApiService(mockFetch);
+		const mockUrl = new URL('https://example.com/api/test');
 
 		// Act
-		await apiService.callEndpointAsync(testUrl);
+		await apiService.callEndpointAsync(mockUrl);
 
 		// Assert
-		expect(fetchFn).toHaveBeenCalledWith(testUrl);
+		expect(mockFetch).toHaveBeenCalledWith(mockUrl);
 	});
 
 	it('returns JSON on successful response', async () => {
 		// Arrange
-		const data = { foo: 'bar' };
-		fetchFn.mockResolvedValue({
-			ok: true,
-			status: 200,
-			json: vi.fn().mockResolvedValue(data),
-		});
+		const mockData = { foo: 'bar' };
+		const mockFetch = vi.fn().mockResolvedValue(
+			getMockFetchResponse({
+				ok: true,
+				json: vi.fn().mockResolvedValue(mockData),
+			}),
+		);
+		const apiService = new ApiService(mockFetch);
 
 		// Act
-		const result = await apiService.callEndpointAsync<typeof data>(testUrl);
+		const result = await apiService.callEndpointAsync<typeof mockData>(mockUrl);
 
 		// Assert
-		expect(result).toEqual(data);
+		expect(result).toEqual(mockData);
 	});
 
 	it('returns typed data on successful response', async () => {
@@ -48,99 +44,107 @@ describe('callEndpointAsync', () => {
 			id: number;
 			name: string;
 		}
-		const data = { id: 1, name: 'Test' };
-		fetchFn.mockResolvedValue({
-			ok: true,
-			status: 200,
-			json: vi.fn().mockResolvedValue(data),
-		});
+		const mockData = { id: 1, name: 'Test' };
+		const mockFetch = vi.fn().mockResolvedValue(
+			getMockFetchResponse({
+				ok: true,
+				json: vi.fn().mockResolvedValue(mockData),
+			}),
+		);
+		const apiService = new ApiService(mockFetch);
 
 		// Act
-		const result = await apiService.callEndpointAsync<TestData>(testUrl);
+		const result = await apiService.callEndpointAsync<TestData>(mockUrl);
 
 		// Assert
-		expect(result).toEqual(data);
+		expect(result).toEqual(mockData);
 	});
 
 	it('retries on 429 and succeeds', async () => {
 		// Arrange
-		const data = { foo: 'bar' };
-		const retryResponse = {
-			ok: false,
-			status: 429,
-			headers: {
-				get: vi.fn().mockReturnValue('0'), // retry-after header
-			},
-		};
-		const successResponse = {
-			ok: true,
-			status: 200,
-			json: vi.fn().mockResolvedValue(data),
-		};
-		fetchFn
-			.mockResolvedValueOnce(retryResponse)
-			.mockResolvedValueOnce(successResponse);
+		const mockData = { foo: 'bar' };
+		const mockFetch = vi
+			.fn()
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: false,
+					status: 429,
+					headers: getMockHeaders({ get: vi.fn().mockReturnValue('0') }), // retry-after header
+				}),
+			)
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: true,
+					status: 200,
+					json: vi.fn().mockResolvedValue(mockData),
+				}),
+			);
+		const apiService = new ApiService(mockFetch);
 
 		// Act
-		const result = await apiService.callEndpointAsync<typeof data>(testUrl);
+		const result = await apiService.callEndpointAsync<typeof mockData>(mockUrl);
 
 		// Assert
-		expect(result).toEqual(data);
-		expect(fetchFn).toHaveBeenCalledTimes(2);
+		expect(result).toEqual(mockData);
+		expect(mockFetch).toHaveBeenCalledTimes(2);
 	});
 
 	it('throws after 5 retries on 429', async () => {
 		// Arrange
-		const retryResponse = {
-			ok: false,
-			status: 429,
-			headers: {
-				get: vi.fn().mockReturnValue('0'),
-			},
-		};
-		fetchFn.mockResolvedValue(retryResponse);
+		const mockFetch = vi.fn().mockResolvedValue(
+			getMockFetchResponse({
+				ok: false,
+				status: 429,
+				headers: getMockHeaders({ get: vi.fn().mockReturnValue('0') }), // retry-after header
+			}),
+		);
+		const apiService = new ApiService(mockFetch);
 
 		// Act & Assert
-		await expect(apiService.callEndpointAsync(testUrl)).rejects.toThrow();
-		expect(fetchFn).toHaveBeenCalledTimes(6); // initial + 5 retries
+		await expect(apiService.callEndpointAsync(mockUrl)).rejects.toThrow();
+		expect(mockFetch).toHaveBeenCalledTimes(6); // initial + 5 retries
 	});
 
 	it('throws on non-OK, non-429 status', async () => {
 		// Arrange
-		fetchFn.mockResolvedValue({
-			ok: false,
-			status: 500,
-			headers: {
-				get: vi.fn(),
-			},
-		});
+		const mockFetch = vi.fn().mockResolvedValue(
+			getMockFetchResponse({
+				ok: false,
+				status: 500,
+			}),
+		);
+		const apiService = new ApiService(mockFetch);
 
 		// Act & Assert
-		await expect(apiService.callEndpointAsync(testUrl)).rejects.toThrow();
+		await expect(apiService.callEndpointAsync(mockUrl)).rejects.toThrow();
 	});
 
 	it('waits the time specified in retry-after header', async () => {
 		// Arrange
 		const retryAfterSeconds = 2;
-		const retryResponse = {
-			ok: false,
-			status: 429,
-			headers: {
-				get: vi.fn().mockReturnValue(retryAfterSeconds.toString()),
-			},
-		};
-		const successResponse = {
-			ok: true,
-			status: 200,
-			json: vi.fn(),
-		};
-		fetchFn
-			.mockResolvedValueOnce(retryResponse)
-			.mockResolvedValueOnce(successResponse);
+		const mockFetch = vi
+			.fn()
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: false,
+					status: 429,
+					headers: getMockHeaders({
+						get: vi.fn().mockReturnValue(retryAfterSeconds.toString()),
+					}), // retry-after header
+				}),
+			)
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: true,
+					status: 200,
+					json: vi.fn().mockResolvedValue({}),
+				}),
+			);
 		const sleepSpy = vi.spyOn(global, 'setTimeout');
+		const apiService = new ApiService(mockFetch);
 
 		// Act
-		await apiService.callEndpointAsync(testUrl);
+		await apiService.callEndpointAsync(mockUrl);
 
 		// Assert
 		expect(sleepSpy).toHaveBeenCalledWith(expect.any(Function), 2000);
@@ -149,23 +153,26 @@ describe('callEndpointAsync', () => {
 
 	it('waits 1 second if retry-after header is missing', async () => {
 		// Arrange
-		const retryResponse = {
-			ok: false,
-			status: 429,
-			headers: { get: vi.fn().mockReturnValue(undefined) },
-		};
-		const successResponse = {
-			ok: true,
-			status: 200,
-			json: vi.fn(),
-		};
-		fetchFn
-			.mockResolvedValueOnce(retryResponse)
-			.mockResolvedValueOnce(successResponse);
+		const mockFetch = vi
+			.fn()
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: false,
+					status: 429,
+				}),
+			)
+			.mockResolvedValueOnce(
+				getMockFetchResponse({
+					ok: true,
+					status: 200,
+					json: vi.fn().mockResolvedValue({}),
+				}),
+			);
 		const sleepSpy = vi.spyOn(global, 'setTimeout');
+		const apiService = new ApiService(mockFetch);
 
 		// Act
-		await apiService.callEndpointAsync(testUrl);
+		await apiService.callEndpointAsync(mockUrl);
 
 		// Assert
 		expect(sleepSpy).toHaveBeenCalledWith(expect.any(Function), 1000);
