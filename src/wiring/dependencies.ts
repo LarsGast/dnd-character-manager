@@ -55,7 +55,7 @@ import { ApiService } from '../services/ApiService';
 // --------------------
 // Services
 // --------------------
-const localStorageService = new LocalStorageService();
+const localStorageService = new LocalStorageService(localStorage);
 const cacheService = new CacheService(localStorageService);
 const apiService = new ApiService(globalThis.fetch.bind(globalThis));
 const srdApiService = new SrdApiService(cacheService, apiService);

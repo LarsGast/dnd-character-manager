@@ -5,10 +5,19 @@ import { IStorageService } from '../interfaces/IStorageService';
  */
 export class LocalStorageService implements IStorageService {
 	/**
+	 * The underlying Storage object (e.g., localStorage or sessionStorage).
+	 */
+	private readonly storage: Storage;
+
+	public constructor(storage: Storage) {
+		this.storage = storage;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	get<T>(key: string): T | undefined {
-		const value = localStorage.getItem(key);
+		const value = this.storage.getItem(key);
 		return value ? JSON.parse(value) : undefined;
 	}
 
@@ -16,14 +25,14 @@ export class LocalStorageService implements IStorageService {
 	 * @inheritdoc
 	 */
 	set<T>(key: string, value: T): void {
-		localStorage.setItem(key, JSON.stringify(value));
+		this.storage.setItem(key, JSON.stringify(value));
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	delete(key: string): void {
-		localStorage.removeItem(key);
+		this.storage.removeItem(key);
 	}
 
 	/**
@@ -31,8 +40,8 @@ export class LocalStorageService implements IStorageService {
 	 */
 	getAllKeys(): string[] {
 		const keys: string[] = [];
-		for (let i = 0; i < localStorage.length; i++) {
-			const key = localStorage.key(i);
+		for (let i = 0; i < this.storage.length; i++) {
+			const key = this.storage.key(i);
 			if (key) keys.push(key);
 		}
 		return keys;
