@@ -23,7 +23,8 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"test:ui": "vitest --ui"
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown"
