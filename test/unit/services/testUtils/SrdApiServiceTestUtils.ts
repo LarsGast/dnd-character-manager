@@ -1,1 +1,1 @@
-export const mockEndpoint = '';
+export const mockEndpoint = 'endpoint';

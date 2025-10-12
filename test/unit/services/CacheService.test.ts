@@ -1,4 +1,4 @@
-import { describe, expect, it, Mock, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { CacheService } from '../../../src/services/CacheService';
 import { getMockStorageService } from './testUtils/StorageServiceTestUtils';
 
