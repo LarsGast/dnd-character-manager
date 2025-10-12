@@ -57,8 +57,8 @@ import { ApiService } from '../services/ApiService';
 // --------------------
 export const localStorageService = new LocalStorageService(localStorage);
 export const cacheService = new CacheService(localStorageService);
-const apiService = new ApiService(globalThis.fetch.bind(globalThis));
-const srdApiService = new SrdApiService(cacheService, apiService);
+export const apiService = new ApiService(globalThis.fetch.bind(globalThis));
+export const srdApiService = new SrdApiService(cacheService, apiService);
 
 // --------------------
 // API to Domain Mappers
