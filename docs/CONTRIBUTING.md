@@ -98,6 +98,26 @@ npm run preview
   npm run test:watch
   ```
 - We aim for a high coverage of tests, which is why we ask you to write new unit tests when adding new functionality.
+- When writing tests, follow the guidelines below:
+  - Keep tests simple
+    - It should be clear what a test does just by reading it's name
+  - Follow the AAA pattern
+    - Arrange: Set up the necessary preconditions and inputs
+    - Act: Execute the code being tested
+    - Assert: Verify the expected outcomes
+    - Use comments to indicate which part of the test fulfills each role
+  - Use descriptive names for tests
+    - The name should describe what the test is verifying
+    - Example: `should return 404 when item is not found`
+  - Prefer `it` over `test` for defining tests
+  - Use `describe` blocks to group related tests
+  - Test file names should match the name of the file they are testing (with `.test.ts` suffix)
+  - Test file location should match the location of the file they are testing
+    - Place unit tests in the `test/unit` folder
+    - Place integration tests in the `test/integration` folder
+    - Example: unit tests for `src/services/ApiService.ts` should be placed in `test/unit/services/ApiService.test.ts`
+  - Mock all dependencies in unit tests
+  - Mock only I/O dependencies in integration tests
 
 ## Commit messages
 
