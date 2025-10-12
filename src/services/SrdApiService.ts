@@ -1,3 +1,4 @@
+import { IApiService } from '../interfaces/IApiService';
 import { ICacheService } from '../interfaces/ICacheService';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
@@ -15,18 +16,18 @@ export class SrdApiService implements ISrdApiService {
 	private readonly cacheService: ICacheService;
 
 	/**
-	 * Fetch function to use for making HTTP requests. This allows for easier testing and mocking.
+	 * The API service to use for making HTTP requests.
 	 */
-	private readonly fetchFn: typeof fetch;
+	private readonly apiService: IApiService;
 
 	/**
 	 * Constructor for SrdApiService.
 	 * @param cacheService See SrdApiService.cacheService
-	 * @param fetchFn See SrdApiService.fetchFn
+	 * @param apiService See SrdApiService.apiService
 	 */
-	public constructor(cacheService: ICacheService, fetchFn: typeof fetch) {
+	public constructor(cacheService: ICacheService, apiService: IApiService) {
 		this.cacheService = cacheService;
-		this.fetchFn = fetchFn;
+		this.apiService = apiService;
 	}
 
 	/**
@@ -42,7 +43,7 @@ export class SrdApiService implements ISrdApiService {
 			return valueFromCache;
 		}
 
-		const valueFromApi = await this.getApiDataAsync<T>(url);
+		const valueFromApi = await this.apiService.callEndpointAsync<T>(url);
 		this.cacheService.set<T>(cacheKey, valueFromApi);
 
 		return valueFromApi;
@@ -65,38 +66,5 @@ export class SrdApiService implements ISrdApiService {
 		index: string,
 	): Promise<T> {
 		return await this.getByEndpointAsync<T>(`${resource}/${index}`);
-	}
-
-	/**
-	 * Perform an API call and get the data.
-	 * @param url The URL to call.
-	 * @param retryCount Number of retries in case of rate limiting.
-	 * @returns The data from the API as the specified type.
-	 */
-	private async getApiDataAsync<T>(
-		url: URL,
-		retryCount: number = 0,
-	): Promise<T> {
-		const response = await this.fetchFn(url);
-
-		// Success.
-		if (response.ok) {
-			return await response.json();
-		}
-
-		// Too Many Requests (HTTP 429) - rate limiting.
-		if (response.status === 429) {
-			if (retryCount >= 5) {
-				throw new Error('Too many retries, giving up.');
-			}
-
-			const retryAfterMs = 1000; // The `retry-after` header is not provided by the API, so we use a fixed delay.
-			console.warn(`Rate limit hit. Retrying after ${retryAfterMs} ms...`);
-			await new Promise((resolve) => setTimeout(resolve, retryAfterMs));
-			return await this.getApiDataAsync<T>(url, retryCount + 1);
-		}
-
-		// Any other error status.
-		throw new Error(`Response status: ${response.status}`);
 	}
 }
