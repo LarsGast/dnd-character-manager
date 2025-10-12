@@ -33,10 +33,18 @@ export class ApiService implements IApiService {
 				throw new Error('Too many retries, giving up.');
 			}
 
-			const retryAfterMs =
-				parseInt(response.headers.get('retry-after') || '1', 10) * 1000;
-			console.warn(`Rate limit hit. Retrying after ${retryAfterMs} ms...`);
-			await new Promise((resolve) => setTimeout(resolve, retryAfterMs));
+			const retryAfterSeconds = parseInt(
+				response.headers.get('retry-after') || '1',
+				10,
+			);
+
+			console.warn(
+				`Rate limit hit. Retrying after ${retryAfterSeconds} seconds...`,
+			);
+			await new Promise((resolve) =>
+				setTimeout(resolve, retryAfterSeconds * 1000),
+			);
+
 			return await this.callEndpointAsync<T>(url, retryCount + 1);
 		}
 
