@@ -69,8 +69,12 @@ export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 				source.damage === undefined ? undefined : this.mapDamage(source.damage),
 			dc: source.dc === undefined ? undefined : this.mapDc(source.dc),
 			school: this.resourceReferenceMapper.map(source.school),
-			classes: source.classes.map(this.resourceReferenceMapper.map),
-			subclasses: source.subclasses.map(this.resourceReferenceMapper.map),
+			classes: source.classes.map((classObject) =>
+				this.resourceReferenceMapper.map(classObject),
+			),
+			subclasses: source.subclasses.map((subclass) =>
+				this.resourceReferenceMapper.map(subclass),
+			),
 		};
 	}
 

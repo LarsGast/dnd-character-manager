@@ -44,7 +44,9 @@ export class AbilityScoreApiToDomainMapper
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
 			full_name: source.full_name,
-			skills: source.skills.map(this.resourceReferenceMapper.map),
+			skills: source.skills.map((skill) =>
+				this.resourceReferenceMapper.map(skill),
+			),
 		};
 	}
 }
