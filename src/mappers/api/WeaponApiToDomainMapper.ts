@@ -12,16 +12,17 @@ import { ResourceReference } from '../../types/domain/helpers/ResourceReference'
 
 export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 	/**
+	 * For mapping minimal API data to an internal object.
+	 */
+	private readonly equipmentMapper: IMapper<EquipmentApiDto, Equipment>;
+
+	/**
 	 * For mapping referenced resources to ResourceReference (properties, damage type).
 	 */
 	private readonly resourceReferenceMapper: IMapper<
 		ResourceReferenceApiDto,
 		ResourceReference
 	>;
-	/**
-	 * For mapping minimal API data to an internal object.
-	 */
-	private readonly equipmentMapper: IMapper<EquipmentApiDto, Equipment>;
 
 	public constructor(
 		equipmentMapper: IMapper<EquipmentApiDto, Equipment>,
