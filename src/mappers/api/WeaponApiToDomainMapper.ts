@@ -7,16 +7,16 @@ import {
 import { EquipmentApiDto } from '../../types/api/resources/EquipmentApiDto';
 import { Damage, Range, Weapon } from '../../types/domain/resources/Weapon';
 import { Equipment } from '../../types/domain/resources/Equipment';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping referenced resources to ResourceReference (properties, damage type).
 	 */
-	private readonly baseResourceMapper: IMapper<
-		BaseResourceApiDto,
-		BaseResource
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 	/**
 	 * For mapping minimal API data to an internal object.
@@ -24,11 +24,14 @@ export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 	private readonly equipmentMapper: IMapper<EquipmentApiDto, Equipment>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		equipmentMapper: IMapper<EquipmentApiDto, Equipment>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
-		this.baseResourceMapper = baseResourceMapper;
 		this.equipmentMapper = equipmentMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	public map(source: WeaponApiDto): Weapon {
@@ -40,8 +43,8 @@ export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 			damage: this.mapDamage(source.damage),
 			range: this.mapRange(source.range)!,
 			throw_range: this.mapRange(source.throw_range),
-			properties: source.properties.map((property) =>
-				this.baseResourceMapper.map(property),
+			properties: source.properties.map((p) =>
+				this.resourceReferenceMapper.map(p),
 			),
 		};
 	}
@@ -53,7 +56,7 @@ export class WeaponApiToDomainMapper implements IMapper<WeaponApiDto, Weapon> {
 
 		return {
 			damage_dice: source.damage_dice,
-			damage_type: this.baseResourceMapper.map(source.damage_type),
+			damage_type: this.resourceReferenceMapper.map(source.damage_type),
 		};
 	}
 

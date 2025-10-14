@@ -1,29 +1,32 @@
 import { IMapper } from '../../interfaces/IMapper';
 import { AbilityBonusRecord } from '../../types/storage/helpers/AbilityBonusRecord';
 import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
-import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReferenceRecord } from '../../types/storage/helpers/ResourceReferenceRecord';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class AbilityBonusRecordToDomainMapper
 	implements IMapper<AbilityBonusRecord, AbilityBonus>
 {
 	/**
-	 * For mapping minimal storage data to a domain object.
+	 * For mapping resource reference records to domain ResourceReference objects.
 	 */
-	private readonly baseResourceMapper: IMapper<
-		BaseResourceRecord,
-		BaseResource
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceRecord,
+		ResourceReference
 	>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceRecord, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceRecord,
+			ResourceReference
+		>,
 	) {
-		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	map(source: AbilityBonusRecord): AbilityBonus {
 		return {
-			ability_score: this.baseResourceMapper.map(source.ability_score),
+			ability_score: this.resourceReferenceMapper.map(source.ability_score),
 			bonus: source.bonus,
 		};
 	}

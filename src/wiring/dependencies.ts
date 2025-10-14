@@ -18,6 +18,7 @@ import { SubclassApiToDomainMapper } from '../mappers/api/SubclassApiToDomainMap
 import { SubraceApiToDomainMapper } from '../mappers/api/SubraceApiToDomainMapper';
 import { TraitApiToDomainMapper } from '../mappers/api/TraitApiToDomainMapper';
 import { WeaponApiToDomainMapper } from '../mappers/api/WeaponApiToDomainMapper';
+import { ResourceReferenceApiToDomainMapper } from '../mappers/api/ResourceReferenceApiToDomainMapper';
 import { BaseResourceRepository } from '../repositories/BaseResourceRepository';
 import { ClassLevelRepository } from '../repositories/ClassLevelRepository';
 import { FeatureRepository } from '../repositories/FeatureRepository';
@@ -30,6 +31,7 @@ import { AbilityBonusRecordToDomainMapper } from '../mappers/record/AbilityBonus
 import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResourceRecordToDomainMapper';
 import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper';
 import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper';
+import { ResourceReferenceRecordToDomainMapper } from '../mappers/record/ResourceReferenceRecordToDomainMapper';
 import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper';
 import { ClassRepository } from '../repositories/ClassRepository';
 import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper';
@@ -65,20 +67,25 @@ export const srdApiService = new SrdApiService(cacheService, apiService);
 // --------------------
 const baseResourceApiToDomainMapper = new BaseResourceApiToDomainMapper();
 
+const resourceReferenceApiToDomainMapper =
+	new ResourceReferenceApiToDomainMapper();
+
 const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
-	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const choiceApiToDomainMapper = new ChoiceApiToDomainMapper(
-	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const equipmentApiToDomainMapper = new EquipmentApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const abilityScoreApiToDomainMapper = new AbilityScoreApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const alignmentApiToDomainMapper = new AlignmentApiToDomainMapper(
@@ -92,21 +99,29 @@ const armorApiToDomainMapper = new ArmorApiToDomainMapper(
 const backgroundApiToDomainMapper = new BackgroundApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const classApiToDomainMapper = new ClassApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const classLevelApiToDomainMapper = new ClassLevelApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const equipmentCategoryApiToDomainMapper =
-	new EquipmentCategoryApiToDomainMapper(baseResourceApiToDomainMapper);
+	new EquipmentCategoryApiToDomainMapper(
+		baseResourceApiToDomainMapper,
+		resourceReferenceApiToDomainMapper,
+	);
+
 const featureApiToDomainMapper = new FeatureApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const languageApiToDomainMapper = new LanguageApiToDomainMapper(
@@ -115,60 +130,71 @@ const languageApiToDomainMapper = new LanguageApiToDomainMapper(
 
 const proficiencyApiToDomainMapper = new ProficiencyApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const raceApiToDomainMapper = new RaceApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	abilityBonusApiToDomainMapper,
 	choiceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const skillApiToDomainMapper = new SkillApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const spellApiToDomainMapper = new SpellApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const subclassApiToDomainMapper = new SubclassApiToDomainMapper(
 	baseResourceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const subraceApiToDomainMapper = new SubraceApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	abilityBonusApiToDomainMapper,
 	choiceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const traitApiToDomainMapper = new TraitApiToDomainMapper(
 	baseResourceApiToDomainMapper,
 	choiceApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
-	baseResourceApiToDomainMapper,
 	equipmentApiToDomainMapper,
+	resourceReferenceApiToDomainMapper,
 );
 
 // --------------------
 // Record to Domain Mappers
 // --------------------
 const baseResourceRecordToDomainMapper = new BaseResourceRecordToDomainMapper();
+const resourceReferenceRecordToDomainMapper =
+	new ResourceReferenceRecordToDomainMapper();
 const abilityBonusRecordToDomainMapper = new AbilityBonusRecordToDomainMapper(
-	baseResourceRecordToDomainMapper,
+	resourceReferenceRecordToDomainMapper,
 );
 const choiceRecordToDomainMapper = new ChoiceRecordToDomainMapper(
-	baseResourceRecordToDomainMapper,
+	resourceReferenceRecordToDomainMapper,
 );
 const raceRecordToDomainMapper = new RaceRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
 	abilityBonusRecordToDomainMapper,
 	choiceRecordToDomainMapper,
+	resourceReferenceRecordToDomainMapper,
 );
 
 const subclassRecordToDomainMapper = new SubclassRecordToDomainMapper(
 	baseResourceRecordToDomainMapper,
+	resourceReferenceRecordToDomainMapper,
 );
 
 // --------------------

@@ -6,6 +6,8 @@ import {
 	SpellDcApiDto,
 } from '../../types/api/resources/SpellApiDto';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 import {
 	AreaOfEffect,
 	Spell,
@@ -16,17 +18,30 @@ import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
 	>;
 
+	/**
+	 * For mapping referenced resources to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
+	>;
+
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	/**
@@ -53,9 +68,9 @@ export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 			damage:
 				source.damage === undefined ? undefined : this.mapDamage(source.damage),
 			dc: source.dc === undefined ? undefined : this.mapDc(source.dc),
-			school: this.baseResourceMapper.map(source.school),
-			classes: source.classes.map(this.baseResourceMapper.map),
-			subclasses: source.subclasses.map(this.baseResourceMapper.map),
+			school: this.resourceReferenceMapper.map(source.school),
+			classes: source.classes.map(this.resourceReferenceMapper.map),
+			subclasses: source.subclasses.map(this.resourceReferenceMapper.map),
 		};
 	}
 
@@ -68,7 +83,7 @@ export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 
 	private mapDamage(source: SpellDamageApiDto): SpellDamage {
 		return {
-			damage_type: this.baseResourceMapper.map(source.damage_type),
+			damage_type: this.resourceReferenceMapper.map(source.damage_type),
 			damage_at_slot_level: source.damage_at_slot_level,
 			damage_at_character_level: source.damage_at_character_level,
 		};
@@ -76,7 +91,7 @@ export class SpellApiToDomainMapper implements IMapper<SpellApiDto, Spell> {
 
 	private mapDc(source: SpellDcApiDto): SpellDc {
 		return {
-			dc_type: this.baseResourceMapper.map(source.dc_type),
+			dc_type: this.resourceReferenceMapper.map(source.dc_type),
 			dc_value: source.dc_value,
 			dc_success: source.dc_success,
 		};

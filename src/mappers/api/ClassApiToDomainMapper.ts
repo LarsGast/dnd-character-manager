@@ -9,6 +9,8 @@ import {
 	StartingEquipmentApiDto,
 } from '../../types/api/resources/ClassApiDto';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 import { Choice } from '../../types/domain/helpers/Choice';
 import {
 	Class,
@@ -22,11 +24,19 @@ import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
+	>;
+
+	/**
+	 * For mapping referenced resources to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	/**
@@ -37,9 +47,14 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		choiceMapper: IMapper<ChoiceApiDto, Choice>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 		this.choiceMapper = choiceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	public map(source: ClassApiDto): Class {
@@ -60,14 +75,14 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 			proficiency_choices: source.proficiency_choices.map((proficiencyChoice) =>
 				this.choiceMapper.map(proficiencyChoice),
 			),
-			proficiencies: source.proficiencies.map((proficiency) =>
-				this.baseResourceMapper.map(proficiency),
+			proficiencies: source.proficiencies.map((p) =>
+				this.resourceReferenceMapper.map(p),
 			),
-			saving_throws: source.saving_throws.map((savingThrow) =>
-				this.baseResourceMapper.map(savingThrow),
+			saving_throws: source.saving_throws.map((s) =>
+				this.resourceReferenceMapper.map(s),
 			),
-			subclasses: source.subclasses.map((subclass) =>
-				this.baseResourceMapper.map(subclass),
+			subclasses: source.subclasses.map((s) =>
+				this.resourceReferenceMapper.map(s),
 			),
 		};
 	}
@@ -84,8 +99,8 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 				source.prerequisite_options === undefined
 					? undefined
 					: this.choiceMapper.map(source.prerequisite_options),
-			proficiencies: source.proficiencies.map((proficiency) =>
-				this.baseResourceMapper.map(proficiency),
+			proficiencies: source.proficiencies.map((p) =>
+				this.resourceReferenceMapper.map(p),
 			),
 			proficiency_choices: source.proficiency_choices?.map(
 				(proficiencyChoice) => this.choiceMapper.map(proficiencyChoice),
@@ -95,7 +110,7 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 
 	private mapPrerequisite(source: PrerequisiteApiDto): Prerequisite {
 		return {
-			ability_score: this.baseResourceMapper.map(source.ability_score),
+			ability_score: this.resourceReferenceMapper.map(source.ability_score),
 			minimum_score: source.minimum_score,
 		};
 	}
@@ -110,7 +125,7 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 		return {
 			level: source.level,
 			info: source.info.map((info) => this.mapSpellCastingInfo(info)),
-			spellcasting_ability: this.baseResourceMapper.map(
+			spellcasting_ability: this.resourceReferenceMapper.map(
 				source.spellcasting_ability,
 			),
 		};
@@ -130,7 +145,7 @@ export class ClassApiToDomainMapper implements IMapper<ClassApiDto, Class> {
 	): StartingEquipment {
 		return {
 			quantity: source.quantity,
-			equipment: this.baseResourceMapper.map(source.equipment),
+			equipment: this.resourceReferenceMapper.map(source.equipment),
 		};
 	}
 }

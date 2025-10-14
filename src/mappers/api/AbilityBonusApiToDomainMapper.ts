@@ -1,8 +1,8 @@
 import { IMapper } from '../../interfaces/IMapper';
 import { AbilityBonusApiDto } from '../../types/api/helpers/AbilityBonusApiDto';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
 import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class AbilityBonusApiToDomainMapper
 	implements IMapper<AbilityBonusApiDto, AbilityBonus>
@@ -10,15 +10,18 @@ export class AbilityBonusApiToDomainMapper
 	/**
 	 * For mapping minimal API data to an internal object.
 	 */
-	private readonly baseResourceMapper: IMapper<
-		BaseResourceApiDto,
-		BaseResource
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
-		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	/**
@@ -26,7 +29,7 @@ export class AbilityBonusApiToDomainMapper
 	 */
 	public map(source: AbilityBonusApiDto): AbilityBonus {
 		return {
-			ability_score: this.baseResourceMapper.map(source.ability_score),
+			ability_score: this.resourceReferenceMapper.map(source.ability_score),
 			bonus: source.bonus,
 		};
 	}

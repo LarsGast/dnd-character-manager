@@ -7,14 +7,24 @@ import { AbilityBonus } from '../../types/domain/helpers/AbilityBonus';
 import { Choice } from '../../types/domain/helpers/Choice';
 import { Race } from '../../types/domain/resources/Race';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
+	>;
+
+	/**
+	 * For mapping referenced resources (languages, subraces) to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	/**
@@ -34,10 +44,15 @@ export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		abilityBonusMapper: IMapper<AbilityBonusApiDto, AbilityBonus>,
 		choiceMapper: IMapper<ChoiceApiDto, Choice>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 		this.abilityBonusMapper = abilityBonusMapper;
 		this.choiceMapper = choiceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	/**
@@ -55,7 +70,7 @@ export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 			size: source.size,
 			size_description: source.size_description,
 			languages: source.languages.map((language) =>
-				this.baseResourceMapper.map(language),
+				this.resourceReferenceMapper.map(language),
 			),
 			language_options:
 				source.language_options === undefined
@@ -64,7 +79,7 @@ export class RaceApiToDomainMapper implements IMapper<RaceApiDto, Race> {
 			language_desc: source.language_desc,
 			traits: [], // Should be filled in later.
 			subraces: source.subraces.map((subrace) =>
-				this.baseResourceMapper.map(subrace),
+				this.resourceReferenceMapper.map(subrace),
 			),
 		};
 	}

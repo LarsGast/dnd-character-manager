@@ -9,7 +9,7 @@ import { Equipment } from '../../types/domain/resources/Equipment';
 
 export class ArmorApiToDomainMapper implements IMapper<ArmorApiDto, Armor> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping full equipment API data (base resource + equipment specifics).
 	 */
 	private readonly equipmentMapper: IMapper<EquipmentApiDto, Equipment>;
 

@@ -1,28 +1,31 @@
 import { IMapper } from '../../interfaces/IMapper';
 import { Choice, Option, OptionSet } from '../../types/domain/helpers/Choice';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 import {
 	ChoiceRecord,
 	OptionSetRecord,
 	OptionRecord,
 } from '../../types/storage/helpers/ChoiceRecord';
-import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from '../../types/storage/helpers/ResourceReferenceRecord';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class ChoiceRecordToDomainMapper
 	implements IMapper<ChoiceRecord, Choice>
 {
 	/**
-	 * For mapping minimal storage data to a domain object.
+	 * For mapping resource reference records to domain ResourceReference objects.
 	 */
-	private readonly baseResourceMapper: IMapper<
-		BaseResourceRecord,
-		BaseResource
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceRecord,
+		ResourceReference
 	>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceRecord, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceRecord,
+			ResourceReference
+		>,
 	) {
-		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	map(source: ChoiceRecord): Choice {
@@ -46,7 +49,9 @@ export class ChoiceRecordToDomainMapper
 	private mapOption(source: OptionRecord): Option {
 		return {
 			option_type: source.option_type,
-			item: source.item ? this.baseResourceMapper.map(source.item) : undefined,
+			item: source.item
+				? this.resourceReferenceMapper.map(source.item)
+				: undefined,
 			action_name: source.action_name,
 			count: source.count,
 			type: source.type,
@@ -55,11 +60,11 @@ export class ChoiceRecordToDomainMapper
 			string: source.string,
 			desc: source.desc,
 			alignments: source.alignments?.map((alignment) =>
-				this.baseResourceMapper.map(alignment),
+				this.resourceReferenceMapper.map(alignment),
 			),
-			of: source.of ? this.baseResourceMapper.map(source.of) : undefined,
+			of: source.of ? this.resourceReferenceMapper.map(source.of) : undefined,
 			ability_score: source.ability_score
-				? this.baseResourceMapper.map(source.ability_score)
+				? this.resourceReferenceMapper.map(source.ability_score)
 				: undefined,
 			minimum_score: source.minimum_score,
 			bonus: source.bonus,
@@ -67,7 +72,7 @@ export class ChoiceRecordToDomainMapper
 			dc: source.dc,
 			damage: source.damage,
 			damage_type: source.damage_type
-				? this.baseResourceMapper.map(source.damage_type)
+				? this.resourceReferenceMapper.map(source.damage_type)
 				: undefined,
 			damage_dice: source.damage_dice,
 			notes: source.notes,

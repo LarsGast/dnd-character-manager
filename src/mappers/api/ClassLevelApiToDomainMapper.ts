@@ -4,6 +4,8 @@ import {
 	SpellcastingApiDto,
 } from '../../types/api/resources/ClassLevelApiDto';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 import {
 	ClassLevel,
 	Spellcasting,
@@ -14,29 +16,40 @@ export class ClassLevelApiToDomainMapper
 	implements IMapper<ClassLevelApiDto, ClassLevel>
 {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
 	>;
 
+	/**
+	 * For mapping referenced resources to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
+	>;
+
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	public map(source: ClassLevelApiDto): ClassLevel {
 		return {
 			...this.baseResourceMapper.map(source),
-			class: this.baseResourceMapper.map(source.class),
+			class: this.resourceReferenceMapper.map(source.class),
 			level: source.level,
 			ability_score_bonuses: source.ability_score_bonuses,
 			prof_bonus: source.prof_bonus,
-			features: source.features.map((feature) =>
-				this.baseResourceMapper.map(feature),
-			),
+			features: source.features.map((f) => this.resourceReferenceMapper.map(f)),
 			spellcasting: this.mapSpellcasting(source.spellcasting),
 			class_specific: source.class_specific,
 		};

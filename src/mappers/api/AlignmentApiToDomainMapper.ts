@@ -8,7 +8,7 @@ export class AlignmentApiToDomainMapper
 	implements IMapper<AlignmentApiDto, Alignment>
 {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping the base API resource fields to an internal base resource object.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,

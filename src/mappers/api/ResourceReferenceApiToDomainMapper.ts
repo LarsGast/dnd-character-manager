@@ -6,7 +6,8 @@ export class ResourceReferenceApiToDomainMapper
 	implements IMapper<ResourceReferenceApiDto, ResourceReference>
 {
 	/**
-	 * @inheritdoc
+	 * Maps a minimal API resource reference (index + name) to the internal
+	 * ResourceReference domain object used for lightweight relationships.
 	 */
 	public map(source: ResourceReferenceApiDto): ResourceReference {
 		return {

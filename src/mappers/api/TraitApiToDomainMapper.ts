@@ -2,17 +2,27 @@ import { IMapper } from '../../interfaces/IMapper';
 import { ChoiceApiDto } from '../../types/api/helpers/ChoiceApiDto';
 import { TraitApiDto } from '../../types/api/resources/TraitApiDto';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 import { Choice } from '../../types/domain/helpers/Choice';
 import { Trait } from '../../types/domain/resources/Trait';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource';
 
 export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
+	>;
+
+	/**
+	 * For mapping referenced resources to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	/**
@@ -23,21 +33,24 @@ export class TraitApiToDomainMapper implements IMapper<TraitApiDto, Trait> {
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		choiceMapper: IMapper<ChoiceApiDto, Choice>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 		this.choiceMapper = choiceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	map(source: TraitApiDto): Trait {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			races: source.races.map((race) => this.baseResourceMapper.map(race)),
-			subraces: source.subraces.map((subrace) =>
-				this.baseResourceMapper.map(subrace),
-			),
-			proficiencies: source.proficiencies.map((proficiency) =>
-				this.baseResourceMapper.map(proficiency),
+			races: source.races.map((r) => this.resourceReferenceMapper.map(r)),
+			subraces: source.subraces.map((s) => this.resourceReferenceMapper.map(s)),
+			proficiencies: source.proficiencies.map((p) =>
+				this.resourceReferenceMapper.map(p),
 			),
 			proficiency_choices:
 				source.proficiency_choices === undefined
