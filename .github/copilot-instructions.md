@@ -37,6 +37,11 @@
   - `src/mappers/api/` converts API responses to domain models
   - `src/mappers/record/` converts stored localStorage records to domain models
   - All mappers implement the `IMapper<TSource, TTarget>` interface
+  - **ResourceReference Pattern:** Use `ResourceReference` (not `BaseResource`) for lightweight references to other resources
+    - Domain models use `ResourceReference` for foreign key-like relationships (e.g., `Race.languages: ResourceReference[]`)
+    - API mappers use `ResourceReferenceApiToDomainMapper` to map minimal API references
+    - Record mappers use `ResourceReferenceRecordToDomainMapper` to map stored references
+    - `ResourceReference` contains only `index` (ID) and `name` fields for performance
 - **Dependency Injection:**
   - All services, repositories, and mappers are instantiated and exported from `src/wiring/dependencies.ts` for DI and testability.
 
@@ -83,9 +88,15 @@
 
 - **Adding a new repository:** Create in `src/repositories/`, implement interface from `src/interfaces/`, register in `src/wiring/dependencies.ts`
 - **Adding API support:** Create mapper in `src/mappers/api/`, add to repository, update dependencies
+  - Use `ResourceReferenceApiToDomainMapper` for referenced resource fields (not full resource objects)
 - **Adding storage support:** Create mapper in `src/mappers/record/`, use `LocalStorageService`, update dependencies
+  - Use `ResourceReferenceRecordToDomainMapper` for referenced resource fields
 - **Adding homebrew support:** Implement in `HomebrewRepository`, use `homebrew_` prefix for storage keys
 - **Adding tests:** Create in appropriate `test/unit/` or `test/integration/` subdirectory using Vitest
+- **Working with mappers:**
+  - When mapping referenced resources (foreign keys), inject and use the appropriate ResourceReference mapper
+  - When mapping full resource objects, inject and use the appropriate BaseResource mapper
+  - Update constructor to accept both mappers when needed, and wire them in `src/wiring/dependencies.ts`
 
 ---
 
