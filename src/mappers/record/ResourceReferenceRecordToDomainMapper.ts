@@ -12,6 +12,7 @@ export class ResourceReferenceRecordToDomainMapper
 		return {
 			index: source.id,
 			name: source.name,
+			isHomebrew: true,
 		};
 	}
 }

@@ -9,4 +9,6 @@ export interface ResourceReference {
 	 * Human-readable display name of the resource.
 	 */
 	name: string;
+
+	isHomebrew: boolean;
 }

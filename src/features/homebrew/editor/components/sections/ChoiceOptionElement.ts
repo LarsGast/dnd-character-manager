@@ -1,4 +1,4 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
 import { OptionRecord } from '../../../../../types/storage/helpers/ChoiceRecord';
 import {
@@ -16,7 +16,7 @@ import {
  */
 export class ChoiceOptionElement extends HTMLElement {
 	possibleObjects: ResourceList;
-	defaultValue?: BaseResource;
+	defaultValue?: ResourceReference;
 	select: HTMLSelectElement;
 
 	/**
@@ -24,7 +24,7 @@ export class ChoiceOptionElement extends HTMLElement {
 	 * @param possibleObjects The list of possible objects to select from
 	 * @param defaultValue The default value to set in the select element
 	 */
-	constructor(possibleObjects: ResourceList, defaultValue?: BaseResource) {
+	constructor(possibleObjects: ResourceList, defaultValue?: ResourceReference) {
 		super();
 
 		this.possibleObjects = possibleObjects;

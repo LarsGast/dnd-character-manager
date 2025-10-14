@@ -9,7 +9,6 @@ import {
 	spellRepository,
 } from '../../../../../wiring/dependencies';
 import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord';
-import { HOMEBREW_RESOURCE_RECORD_VERSION } from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import { SpellLevelSection } from '../sections/SpellLevelSection';
 import { SubclassFeaturesSection } from '../sections/SubclassFeaturesSection';
 
@@ -102,7 +101,6 @@ export class SubclassForm extends HomebrewBaseForm {
 				.map((p: string) => p.trim())
 				.filter((p: string | any[]) => p.length > 0),
 			class: {
-				version: HOMEBREW_RESOURCE_RECORD_VERSION,
 				id: (
 					this.classSection!.getElementsByTagName(
 						'select',
@@ -113,7 +111,6 @@ export class SubclassForm extends HomebrewBaseForm {
 						'select',
 					)[0] as HTMLSelectElement
 				).selectedOptions[0].text,
-				resourceType: 'classes',
 			},
 			spells: this.spellsSection!.getValue(),
 			features: this.subclassFeaturesSection!.getValue(),

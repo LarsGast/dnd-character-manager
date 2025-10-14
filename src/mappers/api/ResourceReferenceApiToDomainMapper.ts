@@ -13,6 +13,7 @@ export class ResourceReferenceApiToDomainMapper
 		return {
 			index: source.index,
 			name: source.name,
+			isHomebrew: false,
 		};
 	}
 }

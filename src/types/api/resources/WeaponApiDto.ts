@@ -1,5 +1,4 @@
 import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 import { EquipmentApiDto } from './EquipmentApiDto';
 
 export interface WeaponApiDto extends EquipmentApiDto {
