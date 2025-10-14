@@ -57,7 +57,7 @@ export class SubclassApiToDomainMapper
 					?.index.split('-')[1] ?? '0',
 				10,
 			),
-			spell: this.baseResourceMapper.map(source.spell),
+			spell: this.resourceReferenceMapper.map(source.spell),
 		};
 	}
 }

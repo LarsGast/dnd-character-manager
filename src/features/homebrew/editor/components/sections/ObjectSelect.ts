@@ -1,9 +1,6 @@
 import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
-import {
-	BaseResourceRecord,
-	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from '../../../../../types/storage/helpers/ResourceReferenceRecord';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
@@ -74,12 +71,10 @@ export class ObjectSelect extends HTMLElement {
 	 * Gets the value of the selected object.
 	 * @returns An ApiObjectInfo object containing the index and name of the selected object.
 	 */
-	getValue(): BaseResourceRecord {
+	getValue(): ResourceReferenceRecord {
 		return {
-			version: HOMEBREW_RESOURCE_RECORD_VERSION,
 			id: this.select.value,
 			name: this.select.options[this.select.selectedIndex].text,
-			resourceType: '',
 		};
 	}
 }
