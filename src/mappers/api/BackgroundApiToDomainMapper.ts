@@ -5,6 +5,8 @@ import {
 	BackgroundFeatureApiDto,
 } from '../../types/api/resources/BackgroundApiDto';
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 import { Choice } from '../../types/domain/helpers/Choice';
 import {
 	Background,
@@ -16,11 +18,19 @@ export class BackgroundApiToDomainMapper
 	implements IMapper<BackgroundApiDto, Background>
 {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
+	>;
+
+	/**
+	 * For mapping referenced resources to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	/**
@@ -31,21 +41,25 @@ export class BackgroundApiToDomainMapper
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		choiceMapper: IMapper<ChoiceApiDto, Choice>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 		this.choiceMapper = choiceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	public map(source: BackgroundApiDto): Background {
 		return {
 			...this.baseResourceMapper.map(source),
-			starting_proficiencies: source.starting_proficiencies.map(
-				(startingProficiency) =>
-					this.baseResourceMapper.map(startingProficiency),
+			starting_proficiencies: source.starting_proficiencies.map((p) =>
+				this.resourceReferenceMapper.map(p),
 			),
 			language_options: this.choiceMapper.map(source.language_options),
-			starting_equipment: source.starting_equipment.map((startingEquipment) =>
-				this.baseResourceMapper.map(startingEquipment),
+			starting_equipment: source.starting_equipment.map((e) =>
+				this.resourceReferenceMapper.map(e),
 			),
 			starting_equipment_options: this.choiceMapper.map(
 				source.starting_equipment_options,

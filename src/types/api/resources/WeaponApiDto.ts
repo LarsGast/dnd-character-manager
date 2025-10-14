@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { EquipmentApiDto } from './EquipmentApiDto';
 
 export interface WeaponApiDto extends EquipmentApiDto {
@@ -37,7 +37,7 @@ export interface WeaponApiDto extends EquipmentApiDto {
 	/**
 	 * Extra properties this weapon has.
 	 */
-	properties: BaseResourceApiDto[];
+	properties: ResourceReferenceApiDto[];
 }
 
 export interface DamageApiDto {
@@ -49,7 +49,7 @@ export interface DamageApiDto {
 	/**
 	 * The type of damage that is dealt.
 	 */
-	damage_type: BaseResourceApiDto;
+	damage_type: ResourceReferenceApiDto;
 }
 
 export interface RangeApiDto {

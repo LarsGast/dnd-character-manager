@@ -1,4 +1,4 @@
-import { BaseResource } from '../wrappers/BaseResource';
+import { ResourceReference } from '../helpers/ResourceReference';
 import { Equipment } from './Equipment';
 
 export interface Weapon extends Equipment {
@@ -37,7 +37,7 @@ export interface Weapon extends Equipment {
 	/**
 	 * Extra properties this weapon has.
 	 */
-	properties: BaseResource[];
+	properties: ResourceReference[];
 }
 
 export interface Damage {
@@ -49,7 +49,7 @@ export interface Damage {
 	/**
 	 * The type of damage that is dealt.
 	 */
-	damage_type: BaseResource;
+	damage_type: ResourceReference;
 }
 
 export interface Range {

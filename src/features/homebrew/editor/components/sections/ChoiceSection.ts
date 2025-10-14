@@ -1,5 +1,5 @@
 import { Choice } from '../../../../../types/domain/helpers/Choice';
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
 import {
 	ChoiceRecord,
@@ -140,7 +140,7 @@ export class ChoiceSection extends HTMLElement {
 	 * Adds a new choice option element to the section.
 	 * @param defaultValue The default value to set in the new choice option element.
 	 */
-	addOption(defaultValue?: BaseResource) {
+	addOption(defaultValue?: ResourceReference): void {
 		this.appendChild(
 			new ChoiceOptionElement(this.possibleObjects, defaultValue),
 		);

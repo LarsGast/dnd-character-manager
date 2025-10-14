@@ -10,6 +10,8 @@ import {
 	RaceTraitRecord,
 } from '../../types/storage/resources/RaceRecord';
 import { BaseResourceRecord } from '../../types/storage/wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from '../../types/storage/helpers/ResourceReferenceRecord';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 	/**
@@ -33,14 +35,27 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 	 */
 	private readonly choiceMapper: IMapper<ChoiceRecord, Choice>;
 
+	/**
+	 * For mapping resource reference records to domain ResourceReference objects.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceRecord,
+		ResourceReference
+	>;
+
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceRecord, BaseResource>,
 		abilityBonusMapper: IMapper<AbilityBonusRecord, AbilityBonus>,
 		choiceMapper: IMapper<ChoiceRecord, Choice>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceRecord,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
 		this.abilityBonusMapper = abilityBonusMapper;
 		this.choiceMapper = choiceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	map(source: RaceRecord): Race {
@@ -55,8 +70,9 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 			size: source.size,
 			size_description: source.size_description,
 			languages:
-				source.languages?.map((lang) => this.baseResourceMapper.map(lang)) ??
-				[],
+				source.languages?.map((lang) =>
+					this.resourceReferenceMapper.map(lang),
+				) ?? [],
 			language_options: source.language_options
 				? this.choiceMapper.map(source.language_options)
 				: undefined,

@@ -1,11 +1,12 @@
 import { BaseResource } from '../wrappers/BaseResource';
 import { Choice } from '../helpers/Choice';
+import { ResourceReference } from '../helpers/ResourceReference';
 
 export interface Background extends BaseResource {
 	/**
 	 * Starting proficiencies for all new characters of this background.
 	 */
-	starting_proficiencies: BaseResource[];
+	starting_proficiencies: ResourceReference[];
 
 	/**
 	 * Choice of languages for all new characters of this background.
@@ -15,7 +16,7 @@ export interface Background extends BaseResource {
 	/**
 	 * Starting equipment for all new characters of this background.
 	 */
-	starting_equipment: BaseResource[];
+	starting_equipment: ResourceReference[];
 
 	/**
 	 * Choice of equipment for all new characters of this background.

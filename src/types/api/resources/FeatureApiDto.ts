@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface FeatureApiDto extends BaseResourceApiDto {
@@ -14,18 +15,18 @@ export interface FeatureApiDto extends BaseResourceApiDto {
 	/**
 	 * The class that this feature is a part of.
 	 */
-	class: BaseResourceApiDto;
+	class: ResourceReferenceApiDto;
 
 	/**
 	 * The subclass that this feature is a part of.
 	 */
-	subclass?: BaseResourceApiDto;
+	subclass?: ResourceReferenceApiDto;
 
 	/**
 	 * The parent feature that this feature is a part of.
 	 * undefined if this features does not have a parent.
 	 */
-	parent?: BaseResourceApiDto;
+	parent?: ResourceReferenceApiDto;
 
 	/**
 	 * The prerequisites for this feature.

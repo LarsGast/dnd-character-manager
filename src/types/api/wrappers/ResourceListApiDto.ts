@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from './BaseResourceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 
 export interface ResourceListApiDto {
 	/**
@@ -11,5 +11,5 @@ export interface ResourceListApiDto {
 	 * Information about the each resource.
 	 * Not the full resource, but includes the index, name, and url to the resource.
 	 */
-	results: BaseResourceApiDto[];
+	results: ResourceReferenceApiDto[];
 }

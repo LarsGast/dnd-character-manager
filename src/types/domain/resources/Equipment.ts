@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Equipment extends BaseResource {
@@ -14,7 +15,7 @@ export interface Equipment extends BaseResource {
 	/**
 	 * The Equipment Category that this equipment belongs to.
 	 */
-	equipment_category: BaseResource;
+	equipment_category: ResourceReference;
 
 	/**
 	 * The cost of the piece of equipment.

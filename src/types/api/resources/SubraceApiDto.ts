@@ -1,6 +1,7 @@
 import { AbilityBonusApiDto } from '../helpers/AbilityBonusApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 
 export interface SubraceApiDto extends BaseResourceApiDto {
 	/**
@@ -11,7 +12,7 @@ export interface SubraceApiDto extends BaseResourceApiDto {
 	/**
 	 * The race that the subrace is a part of.
 	 */
-	race: BaseResourceApiDto;
+	race: ResourceReferenceApiDto;
 
 	/**
 	 * Bonuses to abilities this subrace gives.
@@ -21,12 +22,12 @@ export interface SubraceApiDto extends BaseResourceApiDto {
 	/**
 	 * A list of proficiencies the subrace starts with.
 	 */
-	starting_proficiencies: BaseResourceApiDto[];
+	starting_proficiencies: ResourceReferenceApiDto[];
 
 	/**
 	 * List of languages the subrace always learns.
 	 */
-	languages: BaseResourceApiDto[];
+	languages: ResourceReferenceApiDto[];
 
 	/**
 	 * If applicable, a choice in languages that the player can make choosing this subrace.
@@ -36,5 +37,5 @@ export interface SubraceApiDto extends BaseResourceApiDto {
 	/**
 	 * A list of traits the subrace has.
 	 */
-	racial_traits: BaseResourceApiDto[];
+	racial_traits: ResourceReferenceApiDto[];
 }

@@ -1,4 +1,4 @@
-import { BaseResource } from './BaseResource';
+import { ResourceReference } from '../helpers/ResourceReference';
 
 /**
  * Represents a collection of resources with metadata.
@@ -15,5 +15,5 @@ export interface ResourceList {
 	 * Array of base resource objects containing summary information.
 	 * These are not full resource objects, but include the essential properties (index, name, url) needed to identify and fetch the complete resource.
 	 */
-	results: BaseResource[];
+	results: ResourceReference[];
 }

@@ -1,5 +1,6 @@
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 
 export interface ClassApiDto extends BaseResourceApiDto {
 	/**
@@ -45,17 +46,17 @@ export interface ClassApiDto extends BaseResourceApiDto {
 	/**
 	 * List of starting proficiencies for all new characters of this class.
 	 */
-	proficiencies: BaseResourceApiDto[];
+	proficiencies: ResourceReferenceApiDto[];
 
 	/**
 	 * Saving throws the class is proficient in.
 	 */
-	saving_throws: BaseResourceApiDto[];
+	saving_throws: ResourceReferenceApiDto[];
 
 	/**
 	 * List of all possible subclasses this class can specialize in.
 	 */
-	subclasses: BaseResourceApiDto[];
+	subclasses: ResourceReferenceApiDto[];
 }
 
 export interface MultiClassingApiDto {
@@ -72,7 +73,7 @@ export interface MultiClassingApiDto {
 	/**
 	 * List of proficiencies available when multi-classing.
 	 */
-	proficiencies: BaseResourceApiDto[];
+	proficiencies: ResourceReferenceApiDto[];
 
 	/**
 	 * List of choices of proficiencies that are given when multi-classing.
@@ -84,7 +85,7 @@ export interface PrerequisiteApiDto {
 	/**
 	 * The ability score that must have a minimum score to multi-class.
 	 */
-	ability_score: BaseResourceApiDto;
+	ability_score: ResourceReferenceApiDto;
 
 	/**
 	 * Minimum score to meet the prerequisite.
@@ -106,7 +107,7 @@ export interface SpellCastingApiDto {
 	/**
 	 * Reference to the AbilityScore used for spellcasting by the class.
 	 */
-	spellcasting_ability: BaseResourceApiDto;
+	spellcasting_ability: ResourceReferenceApiDto;
 }
 
 export interface SpellCastingInfoApiDto {
@@ -123,5 +124,5 @@ export interface StartingEquipmentApiDto {
 	/**
 	 * Information about the equipment.
 	 */
-	equipment: BaseResourceApiDto;
+	equipment: ResourceReferenceApiDto;
 }

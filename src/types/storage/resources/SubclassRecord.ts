@@ -1,10 +1,11 @@
+import { ResourceReferenceRecord } from '../helpers/ResourceReferenceRecord';
 import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
 
 export interface SubclassRecord extends BaseResourceRecord {
 	/**
 	 * Class that the subclass belongs to.
 	 */
-	class: BaseResourceRecord;
+	class: ResourceReferenceRecord;
 
 	/**
 	 * Description of the resource.
@@ -24,7 +25,7 @@ export interface SubclassRecord extends BaseResourceRecord {
 
 export interface SubclassSpellRecord {
 	level: number;
-	spell: BaseResourceRecord;
+	spell: ResourceReferenceRecord;
 }
 
 export interface SubclassFeatureRecord {

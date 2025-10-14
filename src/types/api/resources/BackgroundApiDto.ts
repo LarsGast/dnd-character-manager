@@ -1,11 +1,12 @@
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 
 export interface BackgroundApiDto extends BaseResourceApiDto {
 	/**
 	 * Starting proficiencies for all new characters of this background.
 	 */
-	starting_proficiencies: BaseResourceApiDto[];
+	starting_proficiencies: ResourceReferenceApiDto[];
 
 	/**
 	 * Choice of languages for all new characters of this background.
@@ -15,7 +16,7 @@ export interface BackgroundApiDto extends BaseResourceApiDto {
 	/**
 	 * Starting equipment for all new characters of this background.
 	 */
-	starting_equipment: BaseResourceApiDto[];
+	starting_equipment: ResourceReferenceApiDto[];
 
 	/**
 	 * Choice of equipment for all new characters of this background.

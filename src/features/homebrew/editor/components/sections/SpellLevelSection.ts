@@ -1,13 +1,10 @@
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
 import { getTooltipSpan } from '../../services/FormElementsBuilder';
 import { SubclassSpellRecord } from '../../../../../types/storage/resources/SubclassRecord';
-import {
-	BaseResourceRecord,
-	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import { SubclassSpell } from '../../../../../types/domain/resources/Subclass';
 import { getEmptyOption, getSelectOption } from '../../../../../utils/util';
+import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
+import { ResourceReferenceRecord } from '../../../../../types/storage/helpers/ResourceReferenceRecord';
 
 /**
  * Custom element for a section that allows choosing spells for a subclass at certain levels.
@@ -56,7 +53,7 @@ export class SpellLevelSection extends HTMLElement {
 		return button;
 	}
 
-	addSpellLevelRow(selectedSpell?: BaseResource, level?: number): void {
+	addSpellLevelRow(selectedSpell?: ResourceReference, level?: number): void {
 		const row = document.createElement('div');
 
 		// Spell select
@@ -103,12 +100,9 @@ export class SpellLevelSection extends HTMLElement {
 			const spell = this.allSpells.results.find(
 				(s) => s.index === select.value,
 			);
-			const spellRecord: BaseResourceRecord = {
+			const spellRecord: ResourceReferenceRecord = {
 				id: spell!.index,
 				name: spell!.name,
-				version: HOMEBREW_RESOURCE_RECORD_VERSION,
-				resourceType: 'spells',
-				notes: spell!.notes,
 			};
 
 			return {

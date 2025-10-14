@@ -1,4 +1,4 @@
-import { BaseResource } from '../wrappers/BaseResource';
+import { ResourceReference } from './ResourceReference';
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
@@ -101,7 +101,7 @@ export interface Option {
 	/**
 	 * Reference to the object in the API of the actual choice.
 	 */
-	item?: BaseResource;
+	item?: ResourceReference;
 
 	/**
 	 * The name of the action, according to its `name` attribute.
@@ -141,17 +141,17 @@ export interface Option {
 	/**
 	 *  A list of alignments of those who might follow the ideal.
 	 */
-	alignments?: BaseResource[];
+	alignments?: ResourceReference[];
 
 	/**
 	 * Thing being referenced.
 	 */
-	of?: BaseResource;
+	of?: ResourceReference;
 
 	/**
 	 * Ability score being referenced.
 	 */
-	ability_score?: BaseResource;
+	ability_score?: ResourceReference;
 
 	/**
 	 * The minimum score required to satisfy the prerequisite.
@@ -181,7 +181,7 @@ export interface Option {
 	/**
 	 * Reference to type of damage.
 	 */
-	damage_type?: BaseResource;
+	damage_type?: ResourceReference;
 
 	/**
 	 * Damage expressed in dice (e.g. "13d6").

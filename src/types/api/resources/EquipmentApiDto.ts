@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface EquipmentApiDto extends BaseResourceApiDto {
@@ -14,7 +15,7 @@ export interface EquipmentApiDto extends BaseResourceApiDto {
 	/**
 	 * The Equipment Category that this equipment belongs to.
 	 */
-	equipment_category: BaseResourceApiDto;
+	equipment_category: ResourceReferenceApiDto;
 
 	/**
 	 * The cost of the piece of equipment.

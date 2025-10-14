@@ -1,5 +1,6 @@
 import { AbilityBonusRecord } from '../helpers/AbilityBonusRecord';
 import { ChoiceRecord } from '../helpers/ChoiceRecord';
+import { ResourceReferenceRecord } from '../helpers/ResourceReferenceRecord';
 import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
 
 export interface RaceRecord extends BaseResourceRecord {
@@ -36,7 +37,7 @@ export interface RaceRecord extends BaseResourceRecord {
 	/**
 	 * Starting languages for all new characters of this race.
 	 */
-	languages: BaseResourceRecord[];
+	languages: ResourceReferenceRecord[];
 
 	/**
 	 * Starting language options for all new characters of this race.

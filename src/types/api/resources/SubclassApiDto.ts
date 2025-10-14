@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface SubclassApiDto extends BaseResourceApiDto {
@@ -9,7 +10,7 @@ export interface SubclassApiDto extends BaseResourceApiDto {
 	/**
 	 * Class that the subclass belongs to.
 	 */
-	class: BaseResourceApiDto;
+	class: ResourceReferenceApiDto;
 
 	/**
 	 * Lore-friendly flavor text for a classes respective subclass.
@@ -29,7 +30,7 @@ export interface SubclassApiDto extends BaseResourceApiDto {
 
 export interface SubclassSpellApiDto {
 	prerequisites: SubClassSpellPrerequisiteApiDto[];
-	spell: BaseResourceApiDto;
+	spell: ResourceReferenceApiDto;
 }
 
 export interface SubClassSpellPrerequisiteApiDto extends BaseResourceApiDto {

@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Proficiency extends BaseResource {
@@ -9,14 +10,14 @@ export interface Proficiency extends BaseResource {
 	/**
 	 * Classes that start with this proficiency.
 	 */
-	classes: BaseResource[];
+	classes: ResourceReference[];
 	/**
 	 * Races that start with this proficiency.
 	 */
-	races: BaseResource[];
+	races: ResourceReference[];
 
 	/**
 	 * Reference to the full description of the related resource.
 	 */
-	reference: BaseResource;
+	reference: ResourceReference;
 }

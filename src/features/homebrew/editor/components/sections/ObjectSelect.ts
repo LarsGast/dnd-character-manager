@@ -1,9 +1,6 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
-import {
-	BaseResourceRecord,
-	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from '../../../../../types/storage/helpers/ResourceReferenceRecord';
 import {
 	getEmptyOption,
 	populateSelectWithApiObjects,
@@ -23,7 +20,10 @@ export class ObjectSelect extends HTMLElement {
 	 * @param possibleObjects The list of possible objects to select from
 	 * @param selectedObject The object that is currently selected, if any.
 	 */
-	constructor(possibleObjects: ResourceList, selectedObject?: BaseResource) {
+	constructor(
+		possibleObjects: ResourceList,
+		selectedObject?: ResourceReference,
+	) {
 		super();
 
 		this.possibleObjects = possibleObjects;
@@ -40,7 +40,7 @@ export class ObjectSelect extends HTMLElement {
 	 * @param defaultValue The default value to set in the select
 	 * @returns The select element with options for each possible object.
 	 */
-	getSelect(defaultValue?: BaseResource): HTMLSelectElement {
+	getSelect(defaultValue?: ResourceReference): HTMLSelectElement {
 		const select = document.createElement('select');
 
 		select.appendChild(getEmptyOption());
@@ -71,12 +71,10 @@ export class ObjectSelect extends HTMLElement {
 	 * Gets the value of the selected object.
 	 * @returns An ApiObjectInfo object containing the index and name of the selected object.
 	 */
-	getValue(): BaseResourceRecord {
+	getValue(): ResourceReferenceRecord {
 		return {
-			version: HOMEBREW_RESOURCE_RECORD_VERSION,
 			id: this.select.value,
 			name: this.select.options[this.select.selectedIndex].text,
-			resourceType: '',
 		};
 	}
 }

@@ -1,4 +1,4 @@
-import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from './ResourceReferenceRecord';
 
 /**
  * Has information about the bonuses to abilities a race can have.
@@ -7,7 +7,7 @@ export interface AbilityBonusRecord {
 	/**
 	 * Ability score that the bonus gets applied to.
 	 */
-	ability_score: BaseResourceRecord;
+	ability_score: ResourceReferenceRecord;
 
 	/**
 	 * The height of the bonus.

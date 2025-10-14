@@ -6,29 +6,44 @@ import {
 import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
 import { Subclass, SubclassSpell } from '../../types/domain/resources/Subclass';
 import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 export class SubclassApiToDomainMapper
 	implements IMapper<SubclassApiDto, Subclass>
 {
 	/**
-	 * For mapping minimal API data to an internal object.
+	 * For mapping base resource fields.
 	 */
 	private readonly baseResourceMapper: IMapper<
 		BaseResourceApiDto,
 		BaseResource
 	>;
 
+	/**
+	 * For mapping referenced resources (class, spell) to ResourceReference.
+	 */
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
+	>;
+
 	public constructor(
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
 		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	public map(source: SubclassApiDto): Subclass {
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			class: this.baseResourceMapper.map(source.class),
+			class: this.resourceReferenceMapper.map(source.class),
 			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
 			features: [], // Should be filled in later
 		};
@@ -42,7 +57,7 @@ export class SubclassApiToDomainMapper
 					?.index.split('-')[1] ?? '0',
 				10,
 			),
-			spell: this.baseResourceMapper.map(source.spell),
+			spell: this.resourceReferenceMapper.map(source.spell),
 		};
 	}
 }

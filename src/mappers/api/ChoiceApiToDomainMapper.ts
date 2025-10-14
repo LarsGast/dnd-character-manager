@@ -4,9 +4,9 @@ import {
 	OptionApiDto,
 	OptionSetApiDto,
 } from '../../types/api/helpers/ChoiceApiDto';
-import { BaseResourceApiDto } from '../../types/api/wrappers/BaseResourceApiDto';
 import { Choice, Option, OptionSet } from '../../types/domain/helpers/Choice';
-import { BaseResource } from '../../types/domain/wrappers/BaseResource';
+import { ResourceReferenceApiDto } from '../../types/api/helpers/ResourceReferenceApiDto';
+import { ResourceReference } from '../../types/domain/helpers/ResourceReference';
 
 /**
  * Maps choice API DTOs to domain model choices.
@@ -14,17 +14,20 @@ import { BaseResource } from '../../types/domain/wrappers/BaseResource';
  */
 export class ChoiceApiToDomainMapper implements IMapper<ChoiceApiDto, Choice> {
 	/**
-	 * Mapper for converting base resource API DTOs to domain objects.
+	 * Mapper for converting minimal resource references to domain references.
 	 */
-	private readonly baseResourceMapper: IMapper<
-		BaseResourceApiDto,
-		BaseResource
+	private readonly resourceReferenceMapper: IMapper<
+		ResourceReferenceApiDto,
+		ResourceReference
 	>;
 
 	public constructor(
-		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
+		resourceReferenceMapper: IMapper<
+			ResourceReferenceApiDto,
+			ResourceReference
+		>,
 	) {
-		this.baseResourceMapper = baseResourceMapper;
+		this.resourceReferenceMapper = resourceReferenceMapper;
 	}
 
 	/**
@@ -67,7 +70,7 @@ export class ChoiceApiToDomainMapper implements IMapper<ChoiceApiDto, Choice> {
 			item:
 				source.item === undefined
 					? undefined
-					: this.baseResourceMapper.map(source.item),
+					: this.resourceReferenceMapper.map(source.item),
 			action_name: source.action_name,
 			count: source.count,
 			type: source.type,
@@ -82,16 +85,16 @@ export class ChoiceApiToDomainMapper implements IMapper<ChoiceApiDto, Choice> {
 				source.alignments === undefined
 					? undefined
 					: source.alignments.map((alignment) =>
-							this.baseResourceMapper.map(alignment),
+							this.resourceReferenceMapper.map(alignment),
 						),
 			of:
 				source.of === undefined
 					? undefined
-					: this.baseResourceMapper.map(source.of),
+					: this.resourceReferenceMapper.map(source.of),
 			ability_score:
 				source.ability_score === undefined
 					? undefined
-					: this.baseResourceMapper.map(source.ability_score),
+					: this.resourceReferenceMapper.map(source.ability_score),
 			minimum_score: source.minimum_score,
 			bonus: source.bonus,
 			name: source.name,
@@ -100,7 +103,7 @@ export class ChoiceApiToDomainMapper implements IMapper<ChoiceApiDto, Choice> {
 			damage_type:
 				source.damage_type === undefined
 					? undefined
-					: this.baseResourceMapper.map(source.damage_type),
+					: this.resourceReferenceMapper.map(source.damage_type),
 			damage_dice: source.damage_dice,
 			notes: source.notes,
 		};

@@ -1,6 +1,6 @@
-import { BaseResource } from '../../../../../types/domain/wrappers/BaseResource';
+import { ResourceReference } from '../../../../../types/domain/helpers/ResourceReference';
 import { ResourceList } from '../../../../../types/domain/wrappers/ResourceList';
-import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from '../../../../../types/storage/helpers/ResourceReferenceRecord';
 import { getTooltipSpan } from '../../services/FormElementsBuilder';
 import { ObjectSelect } from './ObjectSelect';
 
@@ -20,7 +20,7 @@ export class LinkedObjectsSection extends HTMLElement {
 	constructor(
 		label: string,
 		possibleObjects: ResourceList,
-		selectedObjects: BaseResource[],
+		selectedObjects: ResourceReference[],
 		tooltip: string,
 	) {
 		super();
@@ -71,7 +71,7 @@ export class LinkedObjectsSection extends HTMLElement {
 	 * Adds a new ObjectSelect element to the section.
 	 * @param selectedObject Optional default value for the new ObjectSelect
 	 */
-	addObjectSelect(selectedObject?: BaseResource): void {
+	addObjectSelect(selectedObject?: ResourceReference): void {
 		this.appendChild(new ObjectSelect(this.possibleObjects, selectedObject));
 	}
 
@@ -79,7 +79,7 @@ export class LinkedObjectsSection extends HTMLElement {
 	 * Gets the form data from the linked objects section.
 	 * @returns An array of ApiObjectInfo objects containing the selected values.
 	 */
-	getValue(): BaseResourceRecord[] {
+	getValue(): ResourceReferenceRecord[] {
 		const objectSelects: ObjectSelect[] = Array.from(
 			this.querySelectorAll('object-select'),
 		);

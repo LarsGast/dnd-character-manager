@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface ClassLevelApiDto extends BaseResourceApiDto {
@@ -19,7 +20,7 @@ export interface ClassLevelApiDto extends BaseResourceApiDto {
 	/**
 	 * Features automatically gained at this level.
 	 */
-	features: BaseResourceApiDto[];
+	features: ResourceReferenceApiDto[];
 
 	/**
 	 * Summary of spells known at this level
@@ -34,7 +35,7 @@ export interface ClassLevelApiDto extends BaseResourceApiDto {
 	/**
 	 * The class this object belongs to.
 	 */
-	class: BaseResourceApiDto;
+	class: ResourceReferenceApiDto;
 }
 
 export interface SpellcastingApiDto {
