@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface ProficiencyApiDto extends BaseResourceApiDto {
@@ -9,14 +10,14 @@ export interface ProficiencyApiDto extends BaseResourceApiDto {
 	/**
 	 * Classes that start with this proficiency.
 	 */
-	classes: BaseResourceApiDto[];
+	classes: ResourceReferenceApiDto[];
 	/**
 	 * Races that start with this proficiency.
 	 */
-	races: BaseResourceApiDto[];
+	races: ResourceReferenceApiDto[];
 
 	/**
 	 * Reference to the full description of the related resource.
 	 */
-	reference: BaseResourceApiDto;
+	reference: ResourceReferenceApiDto;
 }

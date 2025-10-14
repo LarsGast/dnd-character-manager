@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Subclass extends BaseResource {
@@ -9,7 +10,7 @@ export interface Subclass extends BaseResource {
 	/**
 	 * Class that the subclass belongs to.
 	 */
-	class?: BaseResource;
+	class?: ResourceReference;
 
 	/**
 	 * Subclass specific spells.
@@ -24,7 +25,7 @@ export interface Subclass extends BaseResource {
 
 export interface SubclassSpell {
 	level: number;
-	spell: BaseResource;
+	spell: ResourceReference;
 }
 
 export interface SubclassFeature {

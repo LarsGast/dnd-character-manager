@@ -1,4 +1,4 @@
-import { BaseResourceRecord } from '../wrappers/BaseResourceRecord';
+import { ResourceReferenceRecord } from './ResourceReferenceRecord';
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
@@ -101,7 +101,7 @@ export interface OptionRecord {
 	/**
 	 * Reference to the object in the API of the actual choice.
 	 */
-	item?: BaseResourceRecord;
+	item?: ResourceReferenceRecord;
 
 	/**
 	 * The name of the action, according to its `name` attribute.
@@ -141,17 +141,17 @@ export interface OptionRecord {
 	/**
 	 *  A list of alignments of those who might follow the ideal.
 	 */
-	alignments?: BaseResourceRecord[];
+	alignments?: ResourceReferenceRecord[];
 
 	/**
 	 * Thing being referenced.
 	 */
-	of?: BaseResourceRecord;
+	of?: ResourceReferenceRecord;
 
 	/**
 	 * Ability score being referenced.
 	 */
-	ability_score?: BaseResourceRecord;
+	ability_score?: ResourceReferenceRecord;
 
 	/**
 	 * The minimum score required to satisfy the prerequisite.
@@ -181,7 +181,7 @@ export interface OptionRecord {
 	/**
 	 * Reference to type of damage.
 	 */
-	damage_type?: BaseResourceRecord;
+	damage_type?: ResourceReferenceRecord;
 
 	/**
 	 * Damage expressed in dice (e.g. "13d6").

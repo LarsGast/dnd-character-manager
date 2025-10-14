@@ -1,5 +1,6 @@
 import { AbilityBonus } from '../helpers/AbilityBonus';
 import { Choice } from '../helpers/Choice';
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Race extends BaseResource {
@@ -36,7 +37,7 @@ export interface Race extends BaseResource {
 	/**
 	 * Starting languages for all new characters of this race.
 	 */
-	languages: BaseResource[];
+	languages: ResourceReference[];
 
 	/**
 	 * Starting language options for all new characters of this race.
@@ -56,7 +57,7 @@ export interface Race extends BaseResource {
 	/**
 	 * A list of subraces the race has, if any.
 	 */
-	subraces: BaseResource[];
+	subraces: ResourceReference[];
 }
 
 export interface RaceTrait {

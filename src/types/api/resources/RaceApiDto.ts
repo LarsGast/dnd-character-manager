@@ -1,5 +1,6 @@
 import { AbilityBonusApiDto } from '../helpers/AbilityBonusApiDto';
 import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface RaceApiDto extends BaseResourceApiDto {
@@ -36,7 +37,7 @@ export interface RaceApiDto extends BaseResourceApiDto {
 	/**
 	 * Starting languages for all new characters of this race.
 	 */
-	languages: BaseResourceApiDto[];
+	languages: ResourceReferenceApiDto[];
 
 	/**
 	 * Starting language options for all new characters of this race.
@@ -51,10 +52,10 @@ export interface RaceApiDto extends BaseResourceApiDto {
 	/**
 	 * A list of traits the race has.
 	 */
-	traits: BaseResourceApiDto[];
+	traits: ResourceReferenceApiDto[];
 
 	/**
 	 * A list of subraces the race has, if any.
 	 */
-	subraces: BaseResourceApiDto[];
+	subraces: ResourceReferenceApiDto[];
 }

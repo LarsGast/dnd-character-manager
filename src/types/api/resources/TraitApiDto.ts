@@ -1,4 +1,5 @@
 import { ChoiceApiDto } from '../helpers/ChoiceApiDto';
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface TraitApiDto extends BaseResourceApiDto {
@@ -11,17 +12,17 @@ export interface TraitApiDto extends BaseResourceApiDto {
 	/**
 	 * List of races that get this trait.
 	 */
-	races: BaseResourceApiDto[];
+	races: ResourceReferenceApiDto[];
 
 	/**
 	 * List of subraces that get this trait.
 	 */
-	subraces: BaseResourceApiDto[];
+	subraces: ResourceReferenceApiDto[];
 
 	/**
 	 * List of proficiencies that this trait provides.
 	 */
-	proficiencies: BaseResourceApiDto[];
+	proficiencies: ResourceReferenceApiDto[];
 
 	/**
 	 * If applicable, a choice in proficiencies that the player can make when getting this trait.

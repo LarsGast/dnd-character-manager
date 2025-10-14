@@ -1,10 +1,11 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface ClassLevel extends BaseResource {
 	/**
 	 * The class this resource belongs to.
 	 */
-	class: BaseResource;
+	class: ResourceReference;
 
 	/**
 	 * The number value for the current level object.
@@ -24,7 +25,7 @@ export interface ClassLevel extends BaseResource {
 	/**
 	 * Features automatically gained at this level.
 	 */
-	features: BaseResource[];
+	features: ResourceReference[];
 
 	/**
 	 * Summary of spells known at this level

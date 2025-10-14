@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Feature extends BaseResource {
@@ -14,18 +15,18 @@ export interface Feature extends BaseResource {
 	/**
 	 * The class that this feature is a part of.
 	 */
-	class: BaseResource;
+	class: ResourceReference;
 
 	/**
 	 * The subclass that this feature is a part of.
 	 */
-	subclass?: BaseResource;
+	subclass?: ResourceReference;
 
 	/**
 	 * The parent feature that this feature is a part of.
 	 * undefined if this features does not have a parent.
 	 */
-	parent?: BaseResource;
+	parent?: ResourceReference;
 
 	/**
 	 * The prerequisites for this feature.

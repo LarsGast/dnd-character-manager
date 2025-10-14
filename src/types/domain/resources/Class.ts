@@ -1,5 +1,6 @@
 import { BaseResource } from '../wrappers/BaseResource';
 import { Choice } from '../helpers/Choice';
+import { ResourceReference } from '../helpers/ResourceReference';
 
 export interface Class extends BaseResource {
 	/**
@@ -45,17 +46,17 @@ export interface Class extends BaseResource {
 	/**
 	 * List of starting proficiencies for all new characters of this class.
 	 */
-	proficiencies: BaseResource[];
+	proficiencies: ResourceReference[];
 
 	/**
 	 * Saving throws the class is proficient in.
 	 */
-	saving_throws: BaseResource[];
+	saving_throws: ResourceReference[];
 
 	/**
 	 * List of all possible subclasses this class can specialize in.
 	 */
-	subclasses: BaseResource[];
+	subclasses: ResourceReference[];
 }
 
 export interface MultiClassing {
@@ -72,7 +73,7 @@ export interface MultiClassing {
 	/**
 	 * List of proficiencies available when multi-classing.
 	 */
-	proficiencies: BaseResource[];
+	proficiencies: ResourceReference[];
 
 	/**
 	 * List of choices of proficiencies that are given when multi-classing.
@@ -84,7 +85,7 @@ export interface Prerequisite {
 	/**
 	 * The ability score that must have a minimum score to multi-class.
 	 */
-	ability_score: BaseResource;
+	ability_score: ResourceReference;
 
 	/**
 	 * Minimum score to meet the prerequisite.
@@ -106,7 +107,7 @@ export interface SpellCasting {
 	/**
 	 * Reference to the AbilityScore used for spellcasting by the class.
 	 */
-	spellcasting_ability: BaseResource;
+	spellcasting_ability: ResourceReference;
 }
 
 export interface SpellCastingInfo {
@@ -123,5 +124,5 @@ export interface StartingEquipment {
 	/**
 	 * Information about the equipment.
 	 */
-	equipment: BaseResource;
+	equipment: ResourceReference;
 }

@@ -1,4 +1,4 @@
-import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
+import { ResourceReferenceApiDto } from './ResourceReferenceApiDto';
 
 /**
  * Object for storing information about a choice the player is given when gaining a new feature.
@@ -101,7 +101,7 @@ export interface OptionApiDto {
 	/**
 	 * Reference to the object in the API of the actual choice.
 	 */
-	item?: BaseResourceApiDto;
+	item?: ResourceReferenceApiDto;
 
 	/**
 	 * The name of the action, according to its `name` attribute.
@@ -141,17 +141,17 @@ export interface OptionApiDto {
 	/**
 	 *  A list of alignments of those who might follow the ideal.
 	 */
-	alignments?: BaseResourceApiDto[];
+	alignments?: ResourceReferenceApiDto[];
 
 	/**
 	 * Thing being referenced.
 	 */
-	of?: BaseResourceApiDto;
+	of?: ResourceReferenceApiDto;
 
 	/**
 	 * Ability score being referenced.
 	 */
-	ability_score?: BaseResourceApiDto;
+	ability_score?: ResourceReferenceApiDto;
 
 	/**
 	 * The minimum score required to satisfy the prerequisite.
@@ -181,7 +181,7 @@ export interface OptionApiDto {
 	/**
 	 * Reference to type of damage.
 	 */
-	damage_type?: BaseResourceApiDto;
+	damage_type?: ResourceReferenceApiDto;
 
 	/**
 	 * Damage expressed in dice (e.g. "13d6").

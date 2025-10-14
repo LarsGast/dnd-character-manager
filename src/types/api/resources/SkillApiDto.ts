@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface SkillApiDto extends BaseResourceApiDto {
@@ -9,5 +10,5 @@ export interface SkillApiDto extends BaseResourceApiDto {
 	/**
 	 * The ability score that the skill is typically used as.
 	 */
-	ability_score: BaseResourceApiDto;
+	ability_score: ResourceReferenceApiDto;
 }

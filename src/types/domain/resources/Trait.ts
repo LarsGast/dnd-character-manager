@@ -1,4 +1,5 @@
 import { Choice } from '../helpers/Choice';
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Trait extends BaseResource {
@@ -11,17 +12,17 @@ export interface Trait extends BaseResource {
 	/**
 	 * List of races that get this trait.
 	 */
-	races: BaseResource[];
+	races: ResourceReference[];
 
 	/**
 	 * List of subraces that get this trait.
 	 */
-	subraces: BaseResource[];
+	subraces: ResourceReference[];
 
 	/**
 	 * List of proficiencies that this trait provides.
 	 */
-	proficiencies: BaseResource[];
+	proficiencies: ResourceReference[];
 
 	/**
 	 * If applicable, a choice in proficiencies that the player can make when getting this trait.

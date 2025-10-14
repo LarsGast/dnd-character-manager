@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Skill extends BaseResource {
@@ -9,5 +10,5 @@ export interface Skill extends BaseResource {
 	/**
 	 * The ability score that the skill is typically used as.
 	 */
-	ability_score: BaseResource;
+	ability_score: ResourceReference;
 }

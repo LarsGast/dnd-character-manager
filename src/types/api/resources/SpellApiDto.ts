@@ -1,3 +1,4 @@
+import { ResourceReferenceApiDto } from '../helpers/ResourceReferenceApiDto';
 import { BaseResourceApiDto } from '../wrappers/BaseResourceApiDto';
 
 export interface SpellApiDto extends BaseResourceApiDto {
@@ -62,17 +63,17 @@ export interface SpellApiDto extends BaseResourceApiDto {
 
 	dc?: SpellDcApiDto;
 
-	school: BaseResourceApiDto;
+	school: ResourceReferenceApiDto;
 
 	/**
 	 * List of classes that are able to learn the spell.
 	 */
-	classes: BaseResourceApiDto[];
+	classes: ResourceReferenceApiDto[];
 
 	/**
 	 * List of subclasses that have access to the spell.
 	 */
-	subclasses: BaseResourceApiDto[];
+	subclasses: ResourceReferenceApiDto[];
 }
 
 export interface AreaOfEffectApiDto {
@@ -81,7 +82,7 @@ export interface AreaOfEffectApiDto {
 }
 
 export interface SpellDamageApiDto {
-	damage_type: BaseResourceApiDto;
+	damage_type: ResourceReferenceApiDto;
 	damage_at_slot_level?: { [key: string]: string };
 	damage_at_character_level?: { [key: string]: string };
 }
@@ -94,7 +95,7 @@ export interface SpellDamageAtCharacterLevelApiDto {
 }
 
 export interface SpellDcApiDto {
-	dc_type: BaseResourceApiDto;
+	dc_type: ResourceReferenceApiDto;
 	dc_value: number;
 	dc_success: 'none' | 'half' | 'other';
 }

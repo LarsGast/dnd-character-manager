@@ -1,3 +1,4 @@
+import { ResourceReference } from '../helpers/ResourceReference';
 import { BaseResource } from '../wrappers/BaseResource';
 
 export interface Spell extends BaseResource {
@@ -62,17 +63,17 @@ export interface Spell extends BaseResource {
 
 	dc?: SpellDc;
 
-	school: BaseResource;
+	school: ResourceReference;
 
 	/**
 	 * List of classes that are able to learn the spell.
 	 */
-	classes: BaseResource[];
+	classes: ResourceReference[];
 
 	/**
 	 * List of subclasses that have access to the spell.
 	 */
-	subclasses: BaseResource[];
+	subclasses: ResourceReference[];
 }
 
 export interface AreaOfEffect {
@@ -81,7 +82,7 @@ export interface AreaOfEffect {
 }
 
 export interface SpellDamage {
-	damage_type: BaseResource;
+	damage_type: ResourceReference;
 	damage_at_slot_level?: { [key: string]: string };
 	damage_at_character_level?: { [key: string]: string };
 }
@@ -94,7 +95,7 @@ export interface SpellDamageAtCharacterLevel {
 }
 
 export interface SpellDc {
-	dc_type: BaseResource;
+	dc_type: ResourceReference;
 	dc_value: number;
 	dc_success: 'none' | 'half' | 'other';
 }
