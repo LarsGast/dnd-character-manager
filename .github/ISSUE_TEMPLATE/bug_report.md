@@ -23,7 +23,6 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots or console logs.
 
 **Environment (please complete the following information):**
-
 - OS: (e.g. macOS 14, Windows 11)
 - Browser: (e.g. Chrome 123, Firefox 124)
 - Node: (e.g. 18.x)
