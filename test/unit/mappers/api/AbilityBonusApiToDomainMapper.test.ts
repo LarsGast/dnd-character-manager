@@ -4,11 +4,11 @@ import {
 	getMockAbilityBonusApiDto,
 	getMockResourceReferenceApiDto,
 } from './testUtils/ApiTypeTestUtils';
-import { getMockResourceReferenceApiToDomainMapper } from './testUtils/ResourceReferenceTestUtils';
+import { getMockMapper } from './testUtils/MapperTestUtils';
 
 it('should map all non-reference properties from API to domain correctly', () => {
 	// Arrange
-	const resourceReferenceMapper = getMockResourceReferenceApiToDomainMapper();
+	const resourceReferenceMapper = getMockMapper();
 	const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
 		resourceReferenceMapper,
 	);
@@ -26,7 +26,7 @@ it('should map all non-reference properties from API to domain correctly', () =>
 
 it('should map all reference properties from API to domain correctly', () => {
 	// Arrange
-	const resourceReferenceMapper = getMockResourceReferenceApiToDomainMapper();
+	const resourceReferenceMapper = getMockMapper();
 	const abilityBonusApiToDomainMapper = new AbilityBonusApiToDomainMapper(
 		resourceReferenceMapper,
 	);
