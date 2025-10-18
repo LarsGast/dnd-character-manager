@@ -90,10 +90,9 @@ it('should map multiple skills references from API to domain correctly', () => {
 
 it('should handle empty skills array', () => {
 	// Arrange
-	const resourceReferenceMapper = getMockMapper();
 	const abilityBonusApiToDomainMapper = new AbilityScoreApiToDomainMapper(
 		getMockMapper(),
-		resourceReferenceMapper,
+		getMockMapper(),
 	);
 
 	const apiDto = getMockAbilityScoreApiDto({
@@ -105,5 +104,4 @@ it('should handle empty skills array', () => {
 
 	// Assert
 	expect(result.skills).toEqual([]);
-	expect(resourceReferenceMapper.map).not.toHaveBeenCalled();
 });

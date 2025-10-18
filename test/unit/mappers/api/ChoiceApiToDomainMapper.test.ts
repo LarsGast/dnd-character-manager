@@ -32,6 +32,7 @@ it('should map option set properties correctly', () => {
 	const optionSet = getMockOptionSetApiDto({
 		option_set_type: 'options_array',
 		resource_list_url: '/api/proficiencies',
+		equipment_category: 'Armor',
 	});
 	const apiDto = getMockChoiceApiDto({
 		from: optionSet,
@@ -43,6 +44,7 @@ it('should map option set properties correctly', () => {
 	// Assert
 	expect(result.from.option_set_type).toBe('options_array');
 	expect(result.from.resource_list_url).toBe('/api/proficiencies');
+	expect(result.from.equipment_category).toBe('Armor');
 });
 
 it('should map options array when present', () => {

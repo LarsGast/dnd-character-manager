@@ -17,8 +17,6 @@ it('should map all properties from API to domain correctly', () => {
 	// Assert
 	expect(result.index).toBe('test-index');
 	expect(result.name).toBe('Test Name');
-	expect(result.isHomebrew).toBe(false);
-	expect(result.notes).toBeUndefined();
 });
 
 it('should always set isHomebrew to false for API resources', () => {

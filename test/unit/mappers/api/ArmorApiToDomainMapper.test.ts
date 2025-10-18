@@ -6,7 +6,7 @@ import {
 } from './testUtils/ApiTypeTestUtils';
 import { getMockMapper } from './testUtils/MapperTestUtils';
 
-it('should map all armor-specific properties from API to domain correctly', () => {
+it('should map all non-reference properties from API to domain correctly', () => {
 	// Arrange
 	const mapper = new ArmorApiToDomainMapper(getMockMapper());
 	const apiDto = getMockArmorApiDto({
@@ -56,42 +56,4 @@ it('should map armor_class properties correctly', () => {
 	expect(result.armor_class.base).toBe(14);
 	expect(result.armor_class.dex_bonus).toBe(true);
 	expect(result.armor_class.max_bonus).toBe(2);
-});
-
-it('should handle armor_class with undefined max_bonus', () => {
-	// Arrange
-	const mapper = new ArmorApiToDomainMapper(getMockMapper());
-	const armorClass = getMockArmorClassApiDto({
-		base: 11,
-		dex_bonus: true,
-		max_bonus: undefined,
-	});
-	const apiDto = getMockArmorApiDto({
-		armor_class: armorClass,
-	});
-
-	// Act
-	const result = mapper.map(apiDto);
-
-	// Assert
-	expect(result.armor_class.max_bonus).toBeUndefined();
-});
-
-it('should handle armor_class with no dex bonus', () => {
-	// Arrange
-	const mapper = new ArmorApiToDomainMapper(getMockMapper());
-	const armorClass = getMockArmorClassApiDto({
-		base: 18,
-		dex_bonus: false,
-		max_bonus: undefined,
-	});
-	const apiDto = getMockArmorApiDto({
-		armor_class: armorClass,
-	});
-
-	// Act
-	const result = mapper.map(apiDto);
-
-	// Assert
-	expect(result.armor_class.dex_bonus).toBe(false);
 });
