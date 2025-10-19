@@ -31,7 +31,6 @@ export default defineConfig({
 		globals: true,
 		dir: './test',
 		coverage: {
-			reporter: ['text', 'html', 'lcov', 'json-summary'],
 			reportsDirectory: '../test/coverage',
 			thresholds: {
 				// Global values
