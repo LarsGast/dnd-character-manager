@@ -48,17 +48,16 @@ export default defineConfig({
 					statements: 100,
 				},
 			},
+			include: ['**/*.ts'],
 			// Files and folders to exclude from coverage
 			// Over time we should aim to reduce this list
 			exclude: [
-				'assets/**',
 				'features/**',
 				'homebrew/**',
 				'interfaces/**',
 				'mappers/**',
 				'repositories/**',
 				'store/**',
-				'styles/**',
 				'types/**',
 				'utils/**',
 				'wiring/**',
