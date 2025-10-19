@@ -27,8 +27,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "vitest run",
-		"test:watch": "vitest",
-		"test:ui": "vitest --ui"
+		"test:watch": "vitest --ui --coverage.enabled=true"
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown"
