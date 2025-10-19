@@ -30,5 +30,8 @@ export default defineConfig({
 		environment: 'node',
 		globals: true,
 		dir: './test',
+		coverage: {
+			reportsDirectory: '../test/coverage',
+		},
 	},
 });
