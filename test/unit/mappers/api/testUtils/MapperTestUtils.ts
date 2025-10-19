@@ -3,6 +3,6 @@ import { IMapper } from '../../../../../src/interfaces/IMapper';
 
 export function getMockMapper(partial?: Partial<IMapper<any, any>>) {
 	return {
-		map: partial?.map ?? vi.fn(),
+		map: partial?.map ?? vi.fn((a) => a),
 	};
 }

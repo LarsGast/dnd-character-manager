@@ -145,3 +145,40 @@ it('should map spell reference in subclass spells', () => {
 	// Assert
 	expect(resourceReferenceMapper.map).toHaveBeenCalledWith(spellRef);
 });
+
+it('should handle undefined spells array', () => {
+	// Arrange
+	const mapper = new SubclassApiToDomainMapper(
+		getMockMapper(),
+		getMockMapper(),
+	);
+	const apiDto = getMockSubclassApiDto();
+	apiDto.spells = undefined;
+
+	// Act
+	const result = mapper.map(apiDto);
+
+	// Assert
+	expect(result.spells).toEqual([]);
+});
+
+it('should handle empty prerequisites in subclass spell', () => {
+	// Arrange
+	const mapper = new SubclassApiToDomainMapper(
+		getMockMapper(),
+		getMockMapper(),
+	);
+	const spell = getMockSubclassSpellApiDto({
+		prerequisites: [],
+	});
+	const apiDto = getMockSubclassApiDto({
+		spells: [spell],
+	});
+
+	// Act
+	const result = mapper.map(apiDto);
+
+	// Assert
+	expect(result.spells).toHaveLength(1);
+	expect(result.spells[0].level).toBe(0);
+});

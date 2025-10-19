@@ -7,6 +7,10 @@ import {
 	getMockResourceReferenceApiDto,
 } from './testUtils/ApiTypeTestUtils';
 import { getMockMapper } from './testUtils/MapperTestUtils';
+import {
+	OptionApiDto,
+	OptionSetApiDto,
+} from '../../../../src/types/api/helpers/ChoiceApiDto';
 
 it('should map all non-reference properties from API to domain correctly', () => {
 	// Arrange
@@ -87,6 +91,26 @@ it('should handle empty options array in option set', () => {
 	expect(result.from.options).toEqual([]);
 });
 
+it('should handle undefined options array in option set', () => {
+	// Arrange
+	const mapper = new ChoiceApiToDomainMapper(getMockMapper());
+	const mockFrom: OptionSetApiDto = {
+		option_set_type: 'options_array',
+		resource_list_url: '/api/proficiencies',
+		equipment_category: 'Armor',
+		options: undefined,
+	};
+	const apiDto = getMockChoiceApiDto({
+		from: mockFrom,
+	});
+
+	// Act
+	const result = mapper.map(apiDto);
+
+	// Assert
+	expect(result.from.options).toBeUndefined();
+});
+
 it('should map option item reference when present', () => {
 	// Arrange
 	const resourceReferenceMapper = getMockMapper();
@@ -105,6 +129,44 @@ it('should map option item reference when present', () => {
 
 	// Assert
 	expect(resourceReferenceMapper.map).toHaveBeenCalledWith(item);
+});
+
+it('should handle undefined item in option', () => {
+	// Arrange
+	const resourceReferenceMapper = getMockMapper();
+	const mapper = new ChoiceApiToDomainMapper(resourceReferenceMapper);
+	const option: OptionApiDto = {
+		option_type: 'reference',
+		item: undefined,
+	};
+	const from = getMockOptionSetApiDto({ options: [option] });
+	const apiDto = getMockChoiceApiDto({
+		from: from,
+	});
+
+	// Act
+	const result = mapper.map(apiDto);
+
+	// Assert
+	expect(result.from.options![0].item).toBeUndefined();
+	console.log('----------------option----------------');
+	console.log(option);
+	console.log('----------------from----------------');
+	console.log(from);
+	console.log('----------------apiDto----------------');
+	console.log(apiDto);
+	console.log('----------------apiDto.from----------------');
+	console.log(apiDto.from);
+	console.log('----------------result----------------');
+	console.log(result);
+	console.log('----------------result.from----------------');
+	console.log(result.from);
+	console.log('----------------result.from.options----------------');
+	console.log(result.from.options);
+	console.log('----------------result.from.options![0]----------------');
+	console.log(result.from.options![0]);
+	console.log('----------------result.from.options![0].item----------------');
+	console.log(result.from.options![0].item);
 });
 
 it('should map nested options (items array) recursively', () => {

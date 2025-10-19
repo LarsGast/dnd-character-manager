@@ -11,6 +11,7 @@ import {
 	getMockStartingEquipmentApiDto,
 } from './testUtils/ApiTypeTestUtils';
 import { getMockMapper } from './testUtils/MapperTestUtils';
+import { MultiClassingApiDto } from '../../../../src/types/api/resources/ClassApiDto';
 
 it('should map all non-reference properties from API to domain correctly', () => {
 	// Arrange
@@ -200,6 +201,52 @@ it('should map multi_classing with prerequisites correctly', () => {
 	expect(result.multi_classing.prerequisites).toHaveLength(1);
 	expect(result.multi_classing.prerequisites[0].minimum_score).toBe(13);
 	expect(resourceReferenceMapper.map).toHaveBeenCalledWith(abilityScore);
+});
+
+it('should map prerequisite_options in multi_classing when present', () => {
+	// Arrange
+	const choiceMapper = getMockMapper();
+	const mapper = new ClassApiToDomainMapper(
+		getMockMapper(),
+		choiceMapper,
+		getMockMapper(),
+	);
+	const prerequisiteOptions = getMockChoiceApiDto();
+	const multiClassing = getMockMultiClassingApiDto({
+		prerequisite_options: prerequisiteOptions,
+	});
+	const apiDto = getMockClassApiDto({
+		multi_classing: multiClassing,
+	});
+
+	// Act
+	mapper.map(apiDto);
+
+	// Assert
+	expect(choiceMapper.map).toHaveBeenCalledWith(prerequisiteOptions);
+});
+
+it('should map proficiency_choices in multi_classing when present', () => {
+	// Arrange
+	const choiceMapper = getMockMapper();
+	const mapper = new ClassApiToDomainMapper(
+		getMockMapper(),
+		choiceMapper,
+		getMockMapper(),
+	);
+	const proficiencyChoice = getMockChoiceApiDto();
+	const multiClassing = getMockMultiClassingApiDto({
+		proficiency_choices: [proficiencyChoice],
+	});
+	const apiDto = getMockClassApiDto({
+		multi_classing: multiClassing,
+	});
+
+	// Act
+	mapper.map(apiDto);
+
+	// Assert
+	expect(choiceMapper.map).toHaveBeenCalledWith(proficiencyChoice);
 });
 
 it('should handle undefined spellcasting', () => {
