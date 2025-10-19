@@ -10,7 +10,7 @@
 ## Technology Stack
 
 - **Frontend:** TypeScript + HTML + SCSS, bundled with Vite
-- **Testing:** Vitest with jsdom for unit and integration tests
+- **Testing:** Vitest with jsdom for unit and integration tests; coverage via v8
 - **Storage:** Browser localStorage (no backend/database)
 - **API:** D&D 5e SRD API for official content
 - **Formatting:** Prettier with automated pre-commit hooks via Husky
@@ -50,10 +50,22 @@
 - **Install dependencies:** `npm install` (Node.js packages)
 - **Dev Server:** `npm run dev` (TypeScript compilation + Vite dev server)
 - **Build:** `npm run build` (TypeScript compilation + Vite production build)
-- **Testing:** `npm test` (run all tests), `npm run test:watch` (watch mode), `npm run test:ui` (UI mode)
+- **Testing:**
+  - `npm test` (run all tests)
+  - `npm run test:watch` (watch mode with Vitest UI; coverage overlay enabled)
+  - `npm run test:coverage` (generate coverage reports)
 - **Type Checking:** `npm run check` (TypeScript type checking without emitting)
 - **Format:** `npm run format:write` (Prettier; pre-commit hook auto-formats staged files)
 - **Clean:** `npm run clean` (removes build artifacts)
+
+### Test coverage
+
+- Coverage reports are written to `test/coverage/` (HTML, lcov) and uploaded as a CI artifact.
+- Thresholds enforced by Vitest in CI:
+  - Global: lines 80%, functions 80%, branches 75%, statements 80% (per-file enforcement enabled)
+  - Services (`./services/**/*.ts`): 100% lines/functions/branches/statements
+- Includes: `**/*.ts`
+- Excludes files that are not being tested yet.
 
 ## Project Conventions & Patterns
 
