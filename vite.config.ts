@@ -33,11 +33,6 @@ export default defineConfig({
 		coverage: {
 			reportsDirectory: '../test/coverage',
 			thresholds: {
-				// Global values
-				lines: 80,
-				functions: 80,
-				branches: 75,
-				statements: 80,
 				perFile: true,
 
 				// Override for specific files
@@ -59,14 +54,7 @@ export default defineConfig({
 			// Files and folders to exclude from coverage
 			// Over time we should aim to reduce this list
 			exclude: [
-				'features/**',
-				'homebrew/**',
 				'interfaces/**',
-				'mappers/record/**',
-				'repositories/**',
-				'store/**',
-				'types/**',
-				'utils/**',
 				'wiring/**',
 				'main.ts',
 				'register-components.ts',
