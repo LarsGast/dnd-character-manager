@@ -30,5 +30,40 @@ export default defineConfig({
 		environment: 'node',
 		globals: true,
 		dir: './test',
+		coverage: {
+			reportsDirectory: '../test/coverage',
+			thresholds: {
+				// Global values
+				lines: 80,
+				functions: 80,
+				branches: 75,
+				statements: 80,
+				perFile: true,
+
+				// Override for specific files
+				'./services/**/*.ts': {
+					lines: 100,
+					functions: 100,
+					branches: 100,
+					statements: 100,
+				},
+			},
+			include: ['**/*.ts'],
+			// Files and folders to exclude from coverage
+			// Over time we should aim to reduce this list
+			exclude: [
+				'features/**',
+				'homebrew/**',
+				'interfaces/**',
+				'mappers/**',
+				'repositories/**',
+				'store/**',
+				'types/**',
+				'utils/**',
+				'wiring/**',
+				'main.ts',
+				'register-components.ts',
+			],
+		},
 	},
 });

@@ -93,11 +93,15 @@ npm run preview
   ```
   npm test
   ```
-- To run tests in watch mode (re-run on file changes):
+- To run tests in watch mode with Vitest UI (re-run on file changes):
   ```
   npm run test:watch
   ```
-- We aim for a high coverage of tests, which is why we ask you to write new unit tests when adding new functionality.
+- To generate a coverage report locally (HTML + lcov under `test/coverage/`):
+  ```
+  npm run test:coverage
+  ```
+- We aim for a high coverage of tests, which is why we ask you to write new unit tests when adding new functionality. CI enforces global thresholds and might require higher coverage for specific files.
 - When writing tests, follow the guidelines below:
   - Keep tests simple
     - It should be clear what a test does just by reading it's name
