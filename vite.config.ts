@@ -47,6 +47,13 @@ export default defineConfig({
 					branches: 100,
 					statements: 100,
 				},
+
+				'./mappers/api/**/*.ts': {
+					lines: 100,
+					functions: 100,
+					branches: 100,
+					statements: 100,
+				},
 			},
 			include: ['**/*.ts'],
 			// Files and folders to exclude from coverage
@@ -55,7 +62,7 @@ export default defineConfig({
 				'features/**',
 				'homebrew/**',
 				'interfaces/**',
-				'mappers/**',
+				'mappers/record/**',
 				'repositories/**',
 				'store/**',
 				'types/**',
