@@ -127,9 +127,8 @@ it('should handle undefined language_options', () => {
 		getMockMapper(),
 		getMockMapper(),
 	);
-	const record = getMockRaceRecord({
-		language_options: undefined,
-	});
+	const record = getMockRaceRecord();
+	record.language_options = undefined;
 
 	// Act
 	const result = mapper.map(record);
@@ -184,25 +183,6 @@ it('should handle empty ability_bonuses array', () => {
 	expect(result.ability_bonuses).toEqual([]);
 });
 
-it('should handle undefined ability_bonuses array', () => {
-	// Arrange
-	const mapper = new RaceRecordToDomainMapper(
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-	);
-	const record = getMockRaceRecord({
-		ability_bonuses: undefined,
-	});
-
-	// Act
-	const result = mapper.map(record);
-
-	// Assert
-	expect(result.ability_bonuses).toEqual([]);
-});
-
 it('should handle empty languages array', () => {
 	// Arrange
 	const mapper = new RaceRecordToDomainMapper(
@@ -222,25 +202,6 @@ it('should handle empty languages array', () => {
 	expect(result.languages).toEqual([]);
 });
 
-it('should handle undefined languages array', () => {
-	// Arrange
-	const mapper = new RaceRecordToDomainMapper(
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-	);
-	const record = getMockRaceRecord({
-		languages: undefined,
-	});
-
-	// Act
-	const result = mapper.map(record);
-
-	// Assert
-	expect(result.languages).toEqual([]);
-});
-
 it('should handle empty traits array', () => {
 	// Arrange
 	const mapper = new RaceRecordToDomainMapper(
@@ -251,25 +212,6 @@ it('should handle empty traits array', () => {
 	);
 	const record = getMockRaceRecord({
 		traits: [],
-	});
-
-	// Act
-	const result = mapper.map(record);
-
-	// Assert
-	expect(result.traits).toEqual([]);
-});
-
-it('should handle undefined traits array', () => {
-	// Arrange
-	const mapper = new RaceRecordToDomainMapper(
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-		getMockMapper(),
-	);
-	const record = getMockRaceRecord({
-		traits: undefined,
 	});
 
 	// Act

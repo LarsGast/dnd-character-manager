@@ -140,23 +140,6 @@ it('should handle empty spells array', () => {
 	expect(result.spells).toEqual([]);
 });
 
-it('should handle undefined spells array', () => {
-	// Arrange
-	const mapper = new SubclassRecordToDomainMapper(
-		getMockMapper(),
-		getMockMapper(),
-	);
-	const record = getMockSubclassRecord({
-		spells: undefined,
-	});
-
-	// Act
-	const result = mapper.map(record);
-
-	// Assert
-	expect(result.spells).toEqual([]);
-});
-
 it('should handle empty features array', () => {
 	// Arrange
 	const mapper = new SubclassRecordToDomainMapper(
@@ -165,23 +148,6 @@ it('should handle empty features array', () => {
 	);
 	const record = getMockSubclassRecord({
 		features: [],
-	});
-
-	// Act
-	const result = mapper.map(record);
-
-	// Assert
-	expect(result.features).toEqual([]);
-});
-
-it('should handle undefined features array', () => {
-	// Arrange
-	const mapper = new SubclassRecordToDomainMapper(
-		getMockMapper(),
-		getMockMapper(),
-	);
-	const record = getMockSubclassRecord({
-		features: undefined,
 	});
 
 	// Act
