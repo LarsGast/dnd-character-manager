@@ -62,22 +62,21 @@ export class RaceRecordToDomainMapper implements IMapper<RaceRecord, Race> {
 		return {
 			...this.baseResourceMapper.map(source),
 			speed: source.speed,
-			ability_bonuses:
-				source.ability_bonuses?.map((ab) => this.abilityBonusMapper.map(ab)) ??
-				[],
+			ability_bonuses: source.ability_bonuses.map((ab) =>
+				this.abilityBonusMapper.map(ab),
+			),
 			age: source.age,
 			alignment: source.alignment,
 			size: source.size,
 			size_description: source.size_description,
-			languages:
-				source.languages?.map((lang) =>
-					this.resourceReferenceMapper.map(lang),
-				) ?? [],
+			languages: source.languages.map((lang) =>
+				this.resourceReferenceMapper.map(lang),
+			),
 			language_options: source.language_options
 				? this.choiceMapper.map(source.language_options)
 				: undefined,
 			language_desc: source.language_desc,
-			traits: source.traits?.map(this.mapTraits) ?? [],
+			traits: source.traits.map((trait) => this.mapTraits(trait)),
 			subraces: [],
 		};
 	}
