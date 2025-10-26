@@ -37,17 +37,11 @@ export default defineConfig({
 
 				// Override for specific files
 				'./services/**/*.ts': {
-					lines: 100,
-					functions: 100,
-					branches: 100,
-					statements: 100,
+					'100': true,
 				},
 
-				'./mappers/api/**/*.ts': {
-					lines: 100,
-					functions: 100,
-					branches: 100,
-					statements: 100,
+				'./mappers/**/*.ts': {
+					'100': true,
 				},
 			},
 			include: ['**/*.ts'],
