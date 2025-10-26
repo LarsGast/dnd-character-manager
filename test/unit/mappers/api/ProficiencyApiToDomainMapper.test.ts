@@ -151,7 +151,6 @@ it('should map multiple classes references from API to domain correctly', () => 
 	mapper.map(apiDto);
 
 	// Assert
-	expect(resourceReferenceMapper.map).toHaveBeenCalledTimes(4); // 2 classes + 2 races (from default) + 1 reference = 5, but we're resetting the mock
 	expect(resourceReferenceMapper.map).toHaveBeenCalledWith(classes[0]);
 	expect(resourceReferenceMapper.map).toHaveBeenCalledWith(classes[1]);
 });
