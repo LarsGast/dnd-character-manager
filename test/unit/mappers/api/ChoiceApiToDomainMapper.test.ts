@@ -149,24 +149,6 @@ it('should handle undefined item in option', () => {
 
 	// Assert
 	expect(result.from.options![0].item).toBeUndefined();
-	console.log('----------------option----------------');
-	console.log(option);
-	console.log('----------------from----------------');
-	console.log(from);
-	console.log('----------------apiDto----------------');
-	console.log(apiDto);
-	console.log('----------------apiDto.from----------------');
-	console.log(apiDto.from);
-	console.log('----------------result----------------');
-	console.log(result);
-	console.log('----------------result.from----------------');
-	console.log(result.from);
-	console.log('----------------result.from.options----------------');
-	console.log(result.from.options);
-	console.log('----------------result.from.options![0]----------------');
-	console.log(result.from.options![0]);
-	console.log('----------------result.from.options![0].item----------------');
-	console.log(result.from.options![0].item);
 });
 
 it('should map nested options (items array) recursively', () => {
