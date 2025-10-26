@@ -48,12 +48,9 @@ export class SubclassRecordToDomainMapper
 		return {
 			...this.baseResourceMapper.map(source),
 			desc: source.desc,
-			class:
-				source.class === undefined
-					? undefined
-					: this.resourceReferenceMapper.map(source.class),
-			spells: source.spells?.map((spell) => this.mapSpells(spell)) ?? [],
-			features: source.features?.map(this.mapFeatures) ?? [],
+			class: this.resourceReferenceMapper.map(source.class),
+			spells: source.spells.map((spell) => this.mapSpells(spell)),
+			features: source.features.map(this.mapFeatures),
 		};
 	}
 
