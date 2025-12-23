@@ -1,3 +1,5 @@
+import { ResourceTypeRecord } from '../helpers/ResourceTypeRecord';
+
 /**
  * Current version number for homebrew resource records.
  * Increment this number whenever the BaseResourceRecord interface has breaking changes.
@@ -29,9 +31,9 @@ export interface BaseResourceRecord {
 
 	/**
 	 * Type of the resource indicating its category.
-	 * @example "classes", "races", "monsters"
+	 * @example classes, races, monsters
 	 */
-	resourceType: string;
+	resourceType: ResourceTypeRecord;
 
 	/**
 	 * Additional notes or comments about the resource.

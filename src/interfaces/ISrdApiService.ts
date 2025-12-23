@@ -1,3 +1,4 @@
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
 
@@ -14,19 +15,21 @@ export interface ISrdApiService {
 
 	/**
 	 * Fetch a list of resources of a given type.
-	 * @param resource The resource type (e.g., "spells", "monsters").
+	 * @param resourceType The resource type (e.g., spells, monsters).
 	 * @return A ResourceList containing the resources of the specified type.
 	 */
-	getResourceListAsync(resource: string): Promise<ResourceListApiDto>;
+	getResourceListAsync(
+		resourceType: ResourceTypeApiDto,
+	): Promise<ResourceListApiDto>;
 
 	/**
 	 * Fetch a specific resource by its type and index.
-	 * @param resource The resource type (e.g., "spells", "monsters").
+	 * @param resourceType The resource type (e.g., spells, monsters).
 	 * @param index The index identifier of the specific resource.
 	 * @return The resource object.
 	 */
 	getByIndexAsync<T extends BaseResourceApiDto>(
-		resource: string,
+		resourceType: ResourceTypeApiDto,
 		index: string,
 	): Promise<T>;
 }

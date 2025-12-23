@@ -2,12 +2,15 @@ import { IFeatureRepository } from '../interfaces/IFeatureRepository';
 import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IMapper } from '../interfaces/IMapper';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { FeatureApiDto } from '../types/api/resources/FeatureApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
+import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { Feature } from '../types/domain/resources/Feature';
 import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRepository } from './BaseResourceRepository';
 
 export class FeatureRepository
@@ -18,13 +21,20 @@ export class FeatureRepository
 	 * @inheritdoc
 	 */
 	public constructor(
+		resourceTypeDomainToApiMapper: IMapper<ResourceType, ResourceTypeApiDto>,
+		resourceTypeDomainToStorageMapper: IMapper<
+			ResourceType,
+			ResourceTypeRecord
+		>,
 		homebrewRepository: IHomebrewRepository,
 		apiService: ISrdApiService,
 		baseResourceMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		featureMapper: IMapper<FeatureApiDto, Feature>,
 	) {
 		super(
-			'features',
+			ResourceType.Feature,
+			resourceTypeDomainToApiMapper,
+			resourceTypeDomainToStorageMapper,
 			homebrewRepository,
 			apiService,
 			baseResourceMapper,

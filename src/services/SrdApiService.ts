@@ -1,6 +1,7 @@
 import { IApiService } from '../interfaces/IApiService';
 import { ICacheService } from '../interfaces/ICacheService';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
 
@@ -24,6 +25,7 @@ export class SrdApiService implements ISrdApiService {
 	 * Constructor for SrdApiService.
 	 * @param cacheService See SrdApiService.cacheService
 	 * @param apiService See SrdApiService.apiService
+	 * @param resourceTypeMapper See SrdApiService.resourceTypeMapper
 	 */
 	public constructor(cacheService: ICacheService, apiService: IApiService) {
 		this.cacheService = cacheService;
@@ -53,18 +55,18 @@ export class SrdApiService implements ISrdApiService {
 	 * @inheritdoc
 	 */
 	public async getResourceListAsync(
-		resource: string,
+		resourceType: ResourceTypeApiDto,
 	): Promise<ResourceListApiDto> {
-		return await this.getByEndpointAsync<ResourceListApiDto>(resource);
+		return await this.getByEndpointAsync<ResourceListApiDto>(resourceType);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	public async getByIndexAsync<T extends BaseResourceApiDto>(
-		resource: string,
+		resourceType: ResourceTypeApiDto,
 		index: string,
 	): Promise<T> {
-		return await this.getByEndpointAsync<T>(`${resource}/${index}`);
+		return await this.getByEndpointAsync<T>(`${resourceType}/${index}`);
 	}
 }

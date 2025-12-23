@@ -1,3 +1,4 @@
+import { ResourceTypeRecord } from '../../../types/storage/helpers/ResourceTypeRecord';
 import {
 	homebrewRepository,
 	raceRepository,
@@ -19,11 +20,11 @@ const homebrewResource = homebrewRepository.get(id)!;
 (async () => {
 	let form;
 	switch (homebrewResource.resourceType) {
-		case 'races':
+		case ResourceTypeRecord.Race:
 			const race = await raceRepository.getAsync(homebrewResource.id);
 			form = new RaceForm(race!);
 			break;
-		case 'subclasses':
+		case ResourceTypeRecord.Subclass:
 			const subclass = await subclassRepository.getAsync(homebrewResource.id);
 			form = new SubclassForm(subclass!);
 			break;

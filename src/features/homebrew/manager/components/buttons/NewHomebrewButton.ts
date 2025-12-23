@@ -1,3 +1,4 @@
+import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
@@ -18,7 +19,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	/**
 	 * The API category name for the type of homebrew object being created.
 	 */
-	apiCategoryName?: string;
+	resourceType?: ResourceTypeRecord;
 
 	constructor() {
 		super();
@@ -58,7 +59,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	 * @param event The custom event containing the selected API category information.
 	 */
 	updateButtonData(event: CustomEvent): void {
-		this.apiCategoryName = event.detail.apiCategoryName;
+		this.resourceType = event.detail.resourceType;
 		this.disabled = false;
 	}
 
@@ -71,7 +72,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
 			version: HOMEBREW_RESOURCE_RECORD_VERSION,
 			id: self.crypto.randomUUID(),
 			name: 'New Custom Object',
-			resourceType: this.apiCategoryName!,
+			resourceType: this.resourceType!,
 		};
 
 		homebrewRepository.save(newHomebrewResource.id, newHomebrewResource);

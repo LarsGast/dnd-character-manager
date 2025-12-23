@@ -2,9 +2,12 @@ import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IMapper } from '../interfaces/IMapper';
 import { IResourceRepository } from '../interfaces/IResourceRepository';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
@@ -22,7 +25,17 @@ export class BaseResourceRepository<
 	 * Type of resource the repository should look for.
 	 * Pass this into the constructor of a specific implementation.
 	 */
-	protected readonly resource: string;
+	protected readonly resource: ResourceType;
+
+	protected readonly resourceTypeDomainToApiMapper: IMapper<
+		ResourceType,
+		ResourceTypeApiDto
+	>;
+
+	protected readonly resourceTypeDomainToStorageMapper: IMapper<
+		ResourceType,
+		ResourceTypeRecord
+	>;
 
 	/**
 	 * Homebrew repository for fetching homebrew resources.
@@ -63,7 +76,12 @@ export class BaseResourceRepository<
 	protected readonly resourceStorageToDomainMapper?: IMapper<TStorage, TDomain>;
 
 	public constructor(
-		resource: string,
+		resource: ResourceType,
+		resourceTypeDomainToApiMapper: IMapper<ResourceType, ResourceTypeApiDto>,
+		resourceTypeDomainToStorageMapper: IMapper<
+			ResourceType,
+			ResourceTypeRecord
+		>,
 		homebrewRepository: IHomebrewRepository,
 		apiService: ISrdApiService,
 		baseResourceApiToDomainMapper: IMapper<BaseResourceApiDto, BaseResource>,
@@ -72,6 +90,8 @@ export class BaseResourceRepository<
 		resourceStorageMapper?: IMapper<TStorage, TDomain>,
 	) {
 		this.resource = resource;
+		this.resourceTypeDomainToApiMapper = resourceTypeDomainToApiMapper;
+		this.resourceTypeDomainToStorageMapper = resourceTypeDomainToStorageMapper;
 		this.homebrewRepository = homebrewRepository;
 		this.apiService = apiService;
 		this.baseResourceApiToDomainMapper = baseResourceApiToDomainMapper;
@@ -94,7 +114,7 @@ export class BaseResourceRepository<
 
 		// No homebrew value? Try the API.
 		const valueFromApi = await this.apiService.getByIndexAsync<TApi>(
-			this.resource,
+			this.resourceTypeDomainToApiMapper.map(this.resource),
 			id,
 		);
 		if (valueFromApi !== undefined) {
@@ -111,10 +131,10 @@ export class BaseResourceRepository<
 	public async getAllAsync(): Promise<ResourceList> {
 		// Since we want to get ALL resources, we'll add the homebrew and SRD resources together.
 		const homebrewValues = this.homebrewRepository.getAllByResourceType(
-			this.resource,
+			this.resourceTypeDomainToStorageMapper.map(this.resource),
 		);
 		const valueFromApi = await this.apiService.getResourceListAsync(
-			this.resource,
+			this.resourceTypeDomainToApiMapper.map(this.resource),
 		);
 
 		return {

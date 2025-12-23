@@ -1,3 +1,4 @@
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
@@ -33,8 +34,10 @@ export interface IHomebrewRepository {
 
 	/**
 	 * Get all homebrew resources from the repository by resource type
-	 * @param resourceType Resource to get all homebrew resources from (e.g. "classes", "races", "spells").
+	 * @param resourceType Resource to get all homebrew resources from (e.g. classes, races, spells).
 	 * @returns All homebrew resources of given resource type.
 	 */
-	getAllByResourceType<T extends BaseResourceRecord>(resourceType: string): T[];
+	getAllByResourceType<T extends BaseResourceRecord>(
+		resourceType: ResourceTypeRecord,
+	): T[];
 }
