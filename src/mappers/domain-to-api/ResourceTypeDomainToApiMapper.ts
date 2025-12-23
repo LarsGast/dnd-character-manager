@@ -17,14 +17,10 @@ export class ResourceTypeDomainToApiMapper
 				return ResourceTypeApiDto.AbilityScore;
 			case ResourceType.Alignment:
 				return ResourceTypeApiDto.Alignment;
-			case ResourceType.Armor:
-				return ResourceTypeApiDto.Armor;
 			case ResourceType.Background:
 				return ResourceTypeApiDto.Background;
 			case ResourceType.Class:
 				return ResourceTypeApiDto.Class;
-			case ResourceType.ClassLevel:
-				return ResourceTypeApiDto.ClassLevel;
 			case ResourceType.Equipment:
 				return ResourceTypeApiDto.Equipment;
 			case ResourceType.EquipmentCategory:
@@ -47,8 +43,10 @@ export class ResourceTypeDomainToApiMapper
 				return ResourceTypeApiDto.Subrace;
 			case ResourceType.Trait:
 				return ResourceTypeApiDto.Trait;
-			case ResourceType.Weapon:
-				return ResourceTypeApiDto.Weapon;
+			default:
+				throw new Error(
+					`No mapping defined for ResourceType ${source} to ResourceTypeRecord.`,
+				);
 		}
 	}
 }

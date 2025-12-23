@@ -57,7 +57,9 @@ export class SrdApiService implements ISrdApiService {
 	public async getResourceListAsync(
 		resourceType: ResourceTypeApiDto,
 	): Promise<ResourceListApiDto> {
-		return await this.getByEndpointAsync<ResourceListApiDto>(resourceType);
+		return await this.getByEndpointAsync<ResourceListApiDto>(
+			this.getResourceTypePath(resourceType),
+		);
 	}
 
 	/**
@@ -67,6 +69,43 @@ export class SrdApiService implements ISrdApiService {
 		resourceType: ResourceTypeApiDto,
 		index: string,
 	): Promise<T> {
-		return await this.getByEndpointAsync<T>(`${resourceType}/${index}`);
+		return await this.getByEndpointAsync<T>(
+			`${this.getResourceTypePath(resourceType)}/${index}`,
+		);
+	}
+
+	private getResourceTypePath(resourceType: ResourceTypeApiDto): string {
+		switch (resourceType) {
+			case ResourceTypeApiDto.AbilityScore:
+				return 'ability-scores';
+			case ResourceTypeApiDto.Alignment:
+				return 'alignments';
+			case ResourceTypeApiDto.Background:
+				return 'backgrounds';
+			case ResourceTypeApiDto.Class:
+				return 'classes';
+			case ResourceTypeApiDto.Equipment:
+				return 'equipment';
+			case ResourceTypeApiDto.EquipmentCategory:
+				return 'equipment-categories';
+			case ResourceTypeApiDto.Feature:
+				return 'features';
+			case ResourceTypeApiDto.Language:
+				return 'languages';
+			case ResourceTypeApiDto.Proficiency:
+				return 'proficiencies';
+			case ResourceTypeApiDto.Race:
+				return 'races';
+			case ResourceTypeApiDto.Skill:
+				return 'skills';
+			case ResourceTypeApiDto.Spell:
+				return 'spells';
+			case ResourceTypeApiDto.Subclass:
+				return 'subclasses';
+			case ResourceTypeApiDto.Subrace:
+				return 'subraces';
+			case ResourceTypeApiDto.Trait:
+				return 'traits';
+		}
 	}
 }

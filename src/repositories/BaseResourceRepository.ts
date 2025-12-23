@@ -1,3 +1,4 @@
+import { get } from 'http';
 import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IMapper } from '../interfaces/IMapper';
 import { IResourceRepository } from '../interfaces/IResourceRepository';
@@ -7,6 +8,7 @@ import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { Result } from '../types/helpers/Result';
 import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
@@ -130,9 +132,15 @@ export class BaseResourceRepository<
 	 */
 	public async getAllAsync(): Promise<ResourceList> {
 		// Since we want to get ALL resources, we'll add the homebrew and SRD resources together.
-		const homebrewValues = this.homebrewRepository.getAllByResourceType(
-			this.resourceTypeDomainToStorageMapper.map(this.resource),
+		const getResourceTypeRecordResult = this.tryGetResourceTypeRecord(
+			this.resource,
 		);
+		const homebrewValues = getResourceTypeRecordResult.getIsSuccess()
+			? this.homebrewRepository.getAllByResourceType(
+					getResourceTypeRecordResult.getValueOrThrow(),
+				)
+			: [];
+
 		const valueFromApi = await this.apiService.getResourceListAsync(
 			this.resourceTypeDomainToApiMapper.map(this.resource),
 		);
@@ -148,5 +156,18 @@ export class BaseResourceRepository<
 				),
 			],
 		};
+	}
+
+	private tryGetResourceTypeRecord(
+		resourceType: ResourceType,
+	): Result<ResourceTypeRecord> {
+		try {
+			const value = this.resourceTypeDomainToStorageMapper.map(resourceType);
+			return Result.ok(value);
+		} catch (error) {
+			return Result.fail(
+				error instanceof Error ? error : new Error(String(error)),
+			);
+		}
 	}
 }
