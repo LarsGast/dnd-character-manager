@@ -1,5 +1,6 @@
 import { IApiService } from '../interfaces/IApiService';
 import { ICacheService } from '../interfaces/ICacheService';
+import { IResourceTypeApiDtoTranscriber } from '../interfaces/IResourceTypeApiDtoTranscriber';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
 import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
@@ -22,14 +23,24 @@ export class SrdApiService implements ISrdApiService {
 	private readonly apiService: IApiService;
 
 	/**
+	 * The transcriber for ResourceTypeApiDto to API paths.
+	 */
+	private readonly resourceTypeApiDtoTranscriber: IResourceTypeApiDtoTranscriber;
+
+	/**
 	 * Constructor for SrdApiService.
 	 * @param cacheService See SrdApiService.cacheService
 	 * @param apiService See SrdApiService.apiService
-	 * @param resourceTypeMapper See SrdApiService.resourceTypeMapper
+	 * @param resourceTypeApiDtoTranscriber See SrdApiService.resourceTypeApiDtoTranscriber
 	 */
-	public constructor(cacheService: ICacheService, apiService: IApiService) {
+	public constructor(
+		cacheService: ICacheService,
+		apiService: IApiService,
+		resourceTypeApiDtoTranscriber: IResourceTypeApiDtoTranscriber,
+	) {
 		this.cacheService = cacheService;
 		this.apiService = apiService;
+		this.resourceTypeApiDtoTranscriber = resourceTypeApiDtoTranscriber;
 	}
 
 	/**
@@ -58,7 +69,7 @@ export class SrdApiService implements ISrdApiService {
 		resourceType: ResourceTypeApiDto,
 	): Promise<ResourceListApiDto> {
 		return await this.getByEndpointAsync<ResourceListApiDto>(
-			this.getResourceTypePath(resourceType),
+			this.resourceTypeApiDtoTranscriber.transcribeToApiPath(resourceType),
 		);
 	}
 
@@ -70,42 +81,7 @@ export class SrdApiService implements ISrdApiService {
 		index: string,
 	): Promise<T> {
 		return await this.getByEndpointAsync<T>(
-			`${this.getResourceTypePath(resourceType)}/${index}`,
+			`${this.resourceTypeApiDtoTranscriber.transcribeToApiPath(resourceType)}/${index}`,
 		);
-	}
-
-	private getResourceTypePath(resourceType: ResourceTypeApiDto): string {
-		switch (resourceType) {
-			case ResourceTypeApiDto.AbilityScore:
-				return 'ability-scores';
-			case ResourceTypeApiDto.Alignment:
-				return 'alignments';
-			case ResourceTypeApiDto.Background:
-				return 'backgrounds';
-			case ResourceTypeApiDto.Class:
-				return 'classes';
-			case ResourceTypeApiDto.Equipment:
-				return 'equipment';
-			case ResourceTypeApiDto.EquipmentCategory:
-				return 'equipment-categories';
-			case ResourceTypeApiDto.Feature:
-				return 'features';
-			case ResourceTypeApiDto.Language:
-				return 'languages';
-			case ResourceTypeApiDto.Proficiency:
-				return 'proficiencies';
-			case ResourceTypeApiDto.Race:
-				return 'races';
-			case ResourceTypeApiDto.Skill:
-				return 'skills';
-			case ResourceTypeApiDto.Spell:
-				return 'spells';
-			case ResourceTypeApiDto.Subclass:
-				return 'subclasses';
-			case ResourceTypeApiDto.Subrace:
-				return 'subraces';
-			case ResourceTypeApiDto.Trait:
-				return 'traits';
-		}
 	}
 }

@@ -42,6 +42,7 @@ import { ResourceTypeDomainToRecordMapper } from '../mappers/domain-to-record/Re
 import { ResourceTypeDomainToApiMapper } from '../mappers/domain-to-api/ResourceTypeDomainToApiMapper';
 import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { ResourceTypeRecordTranscriber } from '../transcribers/ResourceTypeRecordTranscriber';
+import { ResourceTypeApiDtoTranscriber } from '../transcribers/ResourceTypeApiDtoTranscriber';
 
 /**
  * Dependency injection container for the entire application.
@@ -57,14 +58,6 @@ import { ResourceTypeRecordTranscriber } from '../transcribers/ResourceTypeRecor
  * 2. Ensure dependencies are wired in the correct order (dependencies before dependents)
  * 3. Export them if they should be used directly by other parts of the application
  */
-
-// --------------------
-// Services
-// --------------------
-export const localStorageService = new LocalStorageService(localStorage);
-export const cacheService = new CacheService(localStorageService);
-export const apiService = new ApiService(globalThis.fetch.bind(globalThis));
-export const srdApiService = new SrdApiService(cacheService, apiService);
 
 // --------------------
 // API to Domain Mappers
@@ -216,6 +209,20 @@ const resourceTypeDomainToRecordMapper = new ResourceTypeDomainToRecordMapper();
 // --------------------
 export const resourceTypeRecordTranscriber =
 	new ResourceTypeRecordTranscriber();
+
+const resourceTypeApiDtoTranscriber = new ResourceTypeApiDtoTranscriber();
+
+// --------------------
+// Services
+// --------------------
+export const localStorageService = new LocalStorageService(localStorage);
+export const cacheService = new CacheService(localStorageService);
+export const apiService = new ApiService(globalThis.fetch.bind(globalThis));
+export const srdApiService = new SrdApiService(
+	cacheService,
+	apiService,
+	resourceTypeApiDtoTranscriber,
+);
 
 // --------------------
 // Repositories
