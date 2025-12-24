@@ -1,4 +1,3 @@
-import { get } from 'http';
 import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IMapper } from '../interfaces/IMapper';
 import { IResourceRepository } from '../interfaces/IResourceRepository';
@@ -20,14 +19,14 @@ import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord
 export class BaseResourceRepository<
 	TDomain extends BaseResource,
 	TApi extends BaseResourceApiDto,
-	TStorage extends BaseResourceRecord = BaseResourceRecord,
+	TStorage extends BaseResourceRecord,
 > implements IResourceRepository<TDomain>
 {
 	/**
 	 * Type of resource the repository should look for.
 	 * Pass this into the constructor of a specific implementation.
 	 */
-	protected readonly resource: ResourceType;
+	protected readonly resourceType: ResourceType;
 
 	protected readonly resourceTypeDomainToApiMapper: IMapper<
 		ResourceType,
@@ -91,7 +90,7 @@ export class BaseResourceRepository<
 		baseResourceStorageMapper?: IMapper<BaseResourceRecord, BaseResource>,
 		resourceStorageMapper?: IMapper<TStorage, TDomain>,
 	) {
-		this.resource = resource;
+		this.resourceType = resource;
 		this.resourceTypeDomainToApiMapper = resourceTypeDomainToApiMapper;
 		this.resourceTypeDomainToStorageMapper = resourceTypeDomainToStorageMapper;
 		this.homebrewRepository = homebrewRepository;
@@ -116,7 +115,7 @@ export class BaseResourceRepository<
 
 		// No homebrew value? Try the API.
 		const valueFromApi = await this.apiService.getByIndexAsync<TApi>(
-			this.resourceTypeDomainToApiMapper.map(this.resource),
+			this.resourceTypeDomainToApiMapper.map(this.resourceType),
 			id,
 		);
 		if (valueFromApi !== undefined) {
@@ -132,8 +131,8 @@ export class BaseResourceRepository<
 	 */
 	public async getAllAsync(): Promise<ResourceList> {
 		// Since we want to get ALL resources, we'll add the homebrew and SRD resources together.
-		const getResourceTypeRecordResult = this.tryGetResourceTypeRecord(
-			this.resource,
+		const getResourceTypeRecordResult = Result.tryPerform(() =>
+			this.resourceTypeDomainToStorageMapper.map(this.resourceType),
 		);
 		const homebrewValues = getResourceTypeRecordResult.getIsSuccess()
 			? this.homebrewRepository.getAllByResourceType(
@@ -142,7 +141,7 @@ export class BaseResourceRepository<
 			: [];
 
 		const valueFromApi = await this.apiService.getResourceListAsync(
-			this.resourceTypeDomainToApiMapper.map(this.resource),
+			this.resourceTypeDomainToApiMapper.map(this.resourceType),
 		);
 
 		return {
@@ -156,18 +155,5 @@ export class BaseResourceRepository<
 				),
 			],
 		};
-	}
-
-	private tryGetResourceTypeRecord(
-		resourceType: ResourceType,
-	): Result<ResourceTypeRecord> {
-		try {
-			const value = this.resourceTypeDomainToStorageMapper.map(resourceType);
-			return Result.ok(value);
-		} catch (error) {
-			return Result.fail(
-				error instanceof Error ? error : new Error(String(error)),
-			);
-		}
 	}
 }

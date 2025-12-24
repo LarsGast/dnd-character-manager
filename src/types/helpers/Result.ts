@@ -16,6 +16,23 @@ export class Result<T> {
 	}
 
 	/**
+	 * Try to perform an action that may throw an error.
+	 * If no error is thrown, a successful Result is returned.
+	 * If an error is thrown, the error is caught and a failed Result is returned.
+	 * @param action The action to perform.
+	 * @returns A Result object representing the outcome of the action.
+	 */
+	public static tryPerform<T>(action: () => T): Result<T> {
+		try {
+			return Result.ok(action());
+		} catch (error) {
+			return Result.fail(
+				error instanceof Error ? error : new Error(String(error)),
+			);
+		}
+	}
+
+	/**
 	 * Create a successful result.
 	 */
 	public static ok<T>(value: T): Result<T> {
