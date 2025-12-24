@@ -42,6 +42,10 @@
     - API mappers use `ResourceReferenceApiToDomainMapper` to map minimal API references
     - Record mappers use `ResourceReferenceRecordToDomainMapper` to map stored references
     - `ResourceReference` contains only `index` (ID) and `name` fields for performance
+- **Resource Type Enums:**
+  - `ResourceTypeApiDto` (`src/types/api/helpers/ResourceTypeApiDto.ts`) - Represents resource types for API communication
+  - `ResourceType` (`src/types/domain/helpers/ResourceType.ts`) - Canonical domain resource type enum used throughout the application
+  - `ResourceTypeRecord` (`src/types/storage/helpers/ResourceTypeRecord.ts`) - Represents resource types for localStorage persistence
 - **Transcribers:**
   - `src/transcribers/` contains transcriber classes that convert enum values to their string representations
   - `ResourceTypeApiDtoTranscriber` maps `ResourceTypeApiDto` enum values to API endpoint paths (e.g., `Spell` → `spells`)
@@ -78,10 +82,10 @@
 - **Persistence:** Use `LocalStorageService` for all new persistent features (except `PlayerCharacterBank`).
 - **Homebrew Precedence:** Always check homebrew data before SRD/API data in repositories.
 - **Import/Export:** All import/export is JSON-based. Example: serialize a `PlayerCharacter` to JSON for export.
-- **Dependency Injection:** Register all new services, repositories, and mappers in `src/wiring/dependencies.ts`.
+- **Dependency Injection:** Register all new services, repositories, mappers, and transcribers in `src/wiring/dependencies.ts`.
 - **Testing:** Write tests in `test/unit/` or `test/integration/` using Vitest. Use descriptive test names.
 - **Interfaces:** Define contracts in `src/interfaces/` and implement them in services/repositories.
-- **Error Handling:** Prefer explicit error handling over throwing exceptions in business logic.
+- **Error Handling:** Use `Result<T>` type for operations that are expected to fail. Prefer explicit error handling over throwing exceptions in business logic.
 - **Caching:** Use `CacheService` for API responses to improve performance and reduce network calls.
 - **No authentication:** All data is local to the browser; do not add user auth.
 - **Commit messages:** Use Conventional Commits format (e.g., `feat:`, `fix:`, `docs:`, `test:`).
@@ -89,6 +93,10 @@
 ## Key Files/Directories
 
 - `src/types/PlayerCharacter.ts` — main character model
+- `src/types/helpers/Result.ts` — result type for explicit error handling
+- `src/types/api/helpers/ResourceTypeApiDto.ts` — API resource type enum
+- `src/types/domain/helpers/ResourceType.ts` — canonical domain resource type enum
+- `src/types/storage/helpers/ResourceTypeRecord.ts` — storage resource type enum
 - `src/store/PlayerCharacterBank.ts` — manages all characters
 - `src/services/LocalStorageService.ts` — storage abstraction
 - `src/repositories/` — resource repositories
@@ -96,6 +104,8 @@
 - `src/features/character/` — character management components
 - `src/features/homebrew/` — homebrew content management
 - `src/mappers/api-to-domain/` — API response to domain model mappers
+- `src/mappers/domain-to-api/` — domain model to API dto mappers
+- `src/mappers/domain-to-record/` — domain model to storage record mappers
 - `src/mappers/record-to-domain/` — localStorage record to domain model mappers
 - `src/transcribers/` — enum value to string representations
 - `src/interfaces/` — contracts and type definitions
