@@ -41,6 +41,7 @@ import { ApiService } from '../services/ApiService';
 import { ResourceTypeDomainToRecordMapper } from '../mappers/domain-to-record/ResourceTypeDomainToRecordMapper';
 import { ResourceTypeDomainToApiMapper } from '../mappers/domain-to-api/ResourceTypeDomainToApiMapper';
 import { ResourceType } from '../types/domain/helpers/ResourceType';
+import { ResourceTypeRecordTranscriber } from '../transcribers/ResourceTypeRecordTranscriber';
 
 /**
  * Dependency injection container for the entire application.
@@ -209,6 +210,12 @@ const subclassRecordToDomainMapper = new SubclassRecordToDomainMapper(
 // Domain to Record Mappers
 // --------------------
 const resourceTypeDomainToRecordMapper = new ResourceTypeDomainToRecordMapper();
+
+// --------------------
+// Transcribers
+// --------------------
+export const resourceTypeRecordTranscriber =
+	new ResourceTypeRecordTranscriber();
 
 // --------------------
 // Repositories
