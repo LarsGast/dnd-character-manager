@@ -1,3 +1,4 @@
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import {
 	BaseResourceRecord,
 	HOMEBREW_RESOURCE_RECORD_VERSION,
@@ -40,6 +41,12 @@ export function upgradeHomebrewResource(resource: any): BaseResourceRecord {
 		resource = renameIndexToId(resource);
 	}
 
+	// v1 -> v2: refactor resourceType property to be an enum value instead of a string.
+	if (resource.version === 1) {
+		resource.version = 2;
+		updateResourceTypeToEnum(resource);
+	}
+
 	return resource;
 }
 
@@ -62,4 +69,22 @@ function renameIndexToId(obj: any): any {
 		return newObj;
 	}
 	return obj;
+}
+
+/**
+ * Updates the resourceType property t be an enum (used to be string).
+ * E.g., "races" -> ResourceTypeRecord.Race.
+ * @param resource The resource object to update.
+ */
+function updateResourceTypeToEnum(resource: any): void {
+	switch (resource.resourceType) {
+		case 'races':
+			resource.resourceType = ResourceTypeRecord.Race;
+			break;
+		case 'subclasses':
+			resource.resourceType = ResourceTypeRecord.Subclass;
+			break;
+		default:
+			throw new Error(`Unknown resourceType: ${resource.resourceType}`);
+	}
 }

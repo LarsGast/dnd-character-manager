@@ -4,7 +4,7 @@ import { ResourceTypeRecord } from '../helpers/ResourceTypeRecord';
  * Current version number for homebrew resource records.
  * Increment this number whenever the BaseResourceRecord interface has breaking changes.
  */
-export const HOMEBREW_RESOURCE_RECORD_VERSION = 1;
+export const HOMEBREW_RESOURCE_RECORD_VERSION = 2;
 
 /**
  * Base interface for all D&D 5e homebrew resource records.
