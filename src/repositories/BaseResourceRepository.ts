@@ -31,11 +31,17 @@ export class BaseResourceRepository<
 	 */
 	protected readonly resourceType: ResourceType;
 
+	/**
+	 * A mapper for mapping resource types from domain to API enum.
+	 */
 	protected readonly resourceTypeDomainToApiMapper: IMapper<
 		ResourceType,
 		ResourceTypeApiDto
 	>;
 
+	/**
+	 * A mapper for mapping resource types from domain to storage enum.
+	 */
 	protected readonly resourceTypeDomainToStorageMapper: IMapper<
 		ResourceType,
 		ResourceTypeRecord
@@ -134,12 +140,15 @@ export class BaseResourceRepository<
 	 */
 	public async getAllAsync(): Promise<ResourceList> {
 		// Since we want to get ALL resources, we'll add the homebrew and SRD resources together.
-		const getResourceTypeRecordResult = Result.tryPerform(() =>
+		const mapToResourceTypeRecordResult = Result.tryPerform(() =>
 			this.resourceTypeDomainToStorageMapper.map(this.resourceType),
 		);
-		const homebrewValues = getResourceTypeRecordResult.getIsSuccess()
+
+		// If the mapping failed, we just don't have homebrew support for this resource.
+		// In that case, we just return an empty array for homebrew values.
+		const homebrewValues = mapToResourceTypeRecordResult.getIsSuccess()
 			? this.homebrewRepository.getAllByResourceType(
-					getResourceTypeRecordResult.getValueOrThrow(),
+					mapToResourceTypeRecordResult.getValueOrThrow(),
 				)
 			: [];
 

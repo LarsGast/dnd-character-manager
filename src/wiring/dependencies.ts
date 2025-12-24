@@ -171,7 +171,7 @@ const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
 );
 
 // --------------------
-// Domain to Mappers
+// Domain to API Mappers
 // --------------------
 const resourceTypeDomainToApiMapper = new ResourceTypeDomainToApiMapper();
 
