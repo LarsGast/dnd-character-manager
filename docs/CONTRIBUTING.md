@@ -163,6 +163,40 @@ refactor(homebrew)!: move homebrew page to new URL
 BREAKING CHANGE: {website}/homebrew is no longer available, use {website}/homebrew-editor instead.
 ```
 
+## Code organization
+
+This project follows a domain-driven architecture with clear separation of concerns. Understanding the codebase organization will help you know where to add new code:
+
+### Core directories
+
+- **`src/types/`** - Domain models, API DTOs, and storage records
+  - `domain/` - Core domain entities (canonical models)
+  - `api/` - API data transfer objects
+  - `storage/` - Storage record types
+- **`src/mappers/`** - Convert data between different representations
+  - `api-to-domain/` - API responses → domain models
+  - `domain-to-api/` - Domain models → API DTOs
+  - `domain-to-record/` - Domain models → storage records
+  - `record-to-domain/` - Storage records → domain models
+- **`src/transcribers/`** - Convert enum values to string representations
+- **`src/repositories/`** - Data access layer (fetches from API/storage, returns domain models)
+- **`src/services/`** - Business logic and external integrations
+- **`src/interfaces/`** - TypeScript interfaces defining contracts
+- **`src/wiring/dependencies.ts`** - Dependency injection container
+- **`src/features/`** - UI components organized by feature
+
+### Key patterns
+
+- **Dependency Injection**: All services, repositories, mappers, and transcribers are wired in `src/wiring/dependencies.ts`
+- **Result Pattern**: Use `Result<T>` (`src/utils/Result.ts`) for operations where failure might be expected instead of catching exceptions
+- **Repository Pattern**: Data access is abstracted through repositories returning domain models
+
+### Adding new functionality
+
+- **New resource type**: Add mapper classes, update repositories, register in `dependencies.ts`
+- **New service**: Create interface in `src/interfaces/`, implement in `src/services/`, wire in `dependencies.ts`
+- **New repository**: Extend `BaseResourceRepository` or create custom, wire in `dependencies.ts`
+
 ## Review & merging
 
 - PRs will be reviewed by maintainers and assigned reviewers automatically via CODEOWNERS.
