@@ -1,7 +1,9 @@
-import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import { getElementWithTextContent } from '../../../../../utils/util';
-import { homebrewRepository } from '../../../../../wiring/dependencies';
+import {
+	homebrewRepository,
+	resourceTypeRecordTranscriber,
+} from '../../../../../wiring/dependencies';
 import { HomebrewDeleteButton } from '../buttons/HomebrewDeleteButton';
 import { HomebrewEditButton } from '../buttons/HomebrewEditButton';
 import { HomebrewExportButton } from '../buttons/HomebrewExportButton';
@@ -113,7 +115,7 @@ export class HomebrewTable extends HTMLTableElement {
 		row.appendChild(
 			getElementWithTextContent(
 				'td',
-				this.getResourceTypeDisplayName(resource.resourceType),
+				resourceTypeRecordTranscriber.transcribeToString(resource.resourceType),
 			),
 		);
 
@@ -134,15 +136,6 @@ export class HomebrewTable extends HTMLTableElement {
 		td.appendChild(new HomebrewDeleteButton(resource.id));
 
 		return td;
-	}
-
-	private getResourceTypeDisplayName(resourceType: ResourceTypeRecord): string {
-		switch (resourceType) {
-			case ResourceTypeRecord.Race:
-				return 'Race';
-			case ResourceTypeRecord.Subclass:
-				return 'Subclass';
-		}
 	}
 }
 
