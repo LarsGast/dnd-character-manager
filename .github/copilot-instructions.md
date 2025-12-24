@@ -93,7 +93,6 @@
 ## Key Files/Directories
 
 - `src/types/PlayerCharacter.ts` — main character model
-- `src/types/helpers/Result.ts` — result type for explicit error handling
 - `src/types/api/helpers/ResourceTypeApiDto.ts` — API resource type enum
 - `src/types/domain/helpers/ResourceType.ts` — canonical domain resource type enum
 - `src/types/storage/helpers/ResourceTypeRecord.ts` — storage resource type enum
@@ -109,6 +108,7 @@
 - `src/mappers/record-to-domain/` — localStorage record to domain model mappers
 - `src/transcribers/` — enum value to string representations
 - `src/interfaces/` — contracts and type definitions
+- `src/utils/Result.ts` — result type for explicit error handling
 - `test/unit/` — unit tests
 - `test/integration/` — integration tests
 

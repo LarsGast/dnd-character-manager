@@ -5,8 +5,19 @@
  * @template T The type of value on success
  */
 export class Result<T> {
+	/**
+	 * Indicates whether the operation was successful.
+	 */
 	private success: boolean;
+
+	/**
+	 * The value of the operation if successful.
+	 */
 	private value?: T;
+
+	/**
+	 * The error if the operation failed.
+	 */
 	private error?: Error | string;
 
 	private constructor(success: boolean, value?: T, error?: Error | string) {
@@ -46,6 +57,10 @@ export class Result<T> {
 		return new Result<T>(false, undefined, error);
 	}
 
+	/**
+	 * Check if the result is successful.
+	 * @returns True if successful, false if failed.
+	 */
 	public getIsSuccess(): boolean {
 		return this.success;
 	}

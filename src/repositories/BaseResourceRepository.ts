@@ -7,7 +7,7 @@ import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
-import { Result } from '../types/helpers/Result';
+import { Result } from '../utils/Result';
 import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
