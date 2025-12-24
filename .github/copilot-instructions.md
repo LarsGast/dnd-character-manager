@@ -42,8 +42,13 @@
     - API mappers use `ResourceReferenceApiToDomainMapper` to map minimal API references
     - Record mappers use `ResourceReferenceRecordToDomainMapper` to map stored references
     - `ResourceReference` contains only `index` (ID) and `name` fields for performance
+- **Transcribers:**
+  - `src/transcribers/` contains transcriber classes that convert enum values to their string representations
+  - `ResourceTypeApiDtoTranscriber` maps `ResourceTypeApiDto` enum values to API endpoint paths (e.g., `Spell` → `spells`)
+  - `ResourceTypeRecordTranscriber` maps `ResourceTypeRecord` enum values to human-readable strings (e.g., `Spell` → `Spell`)
+  - Use transcribers to centralize enum-to-string mappings, making the codebase more maintainable and testable
 - **Dependency Injection:**
-  - All services, repositories, and mappers are instantiated and exported from `src/wiring/dependencies.ts` for DI and testability.
+  - All services, repositories, mappers, and transcribers are instantiated and exported from `src/wiring/dependencies.ts` for DI and testability.
 
 ## Developer Workflows
 
@@ -92,6 +97,7 @@
 - `src/features/homebrew/` — homebrew content management
 - `src/mappers/api-to-domain/` — API response to domain model mappers
 - `src/mappers/record-to-domain/` — localStorage record to domain model mappers
+- `src/transcribers/` — enum value to string representations
 - `src/interfaces/` — contracts and type definitions
 - `test/unit/` — unit tests
 - `test/integration/` — integration tests
@@ -109,6 +115,12 @@
   - When mapping referenced resources (foreign keys), inject and use the appropriate ResourceReference mapper
   - When mapping full resource objects, inject and use the appropriate BaseResource mapper
   - Update constructor to accept both mappers when needed, and wire them in `src/wiring/dependencies.ts`
+- **Working with transcribers:**
+  - Create in `src/transcribers/` to centralize enum-to-string mappings
+  - Define interface in `src/interfaces/` (e.g., `IResourceTypeApiDtoTranscriber`)
+  - Implement the interface in the transcriber class
+  - Inject and wire in `src/wiring/dependencies.ts`
+  - Use transcribers in services and repositories to avoid hardcoding enum mappings
 
 ---
 
