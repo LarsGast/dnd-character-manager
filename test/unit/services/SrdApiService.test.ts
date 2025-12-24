@@ -3,8 +3,8 @@ import { getMockApiService } from './testUtils/ApiServiceTestUtils';
 import { getMockCacheService } from './testUtils/CacheServiceTestUtils';
 import { SrdApiService } from '../../../src/services/SrdApiService';
 import { mockEndpoint } from './testUtils/SrdApiServiceTestUtils';
-import { ResourceType } from '../../../src/types/domain/helpers/ResourceType';
 import { ResourceTypeApiDto } from '../../../src/types/api/helpers/ResourceTypeApiDto';
+import { getMockResourceTypeApiDtoTranscriber } from './testUtils/TranscriberTestUtils';
 
 describe('getByEndpointAsync', () => {
 	it('should return cached value when present', async () => {
@@ -16,7 +16,12 @@ describe('getByEndpointAsync', () => {
 			get: <T>() => mockCachedValue as T,
 		});
 		const apiService = getMockApiService();
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 
 		// Act
 		const result = await srdApiService.getByEndpointAsync(mockEndpoint);
@@ -34,7 +39,12 @@ describe('getByEndpointAsync', () => {
 		const apiService = getMockApiService({
 			callEndpointAsync: async <T>() => mockApiValue as T,
 		});
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 
 		// Act
 		const result = await srdApiService.getByEndpointAsync(mockEndpoint);
@@ -56,7 +66,12 @@ describe('getByEndpointAsync', () => {
 		const apiService = getMockApiService({
 			callEndpointAsync: async <T>() => mockApiValue as T,
 		});
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 
 		// Act
 		await srdApiService.getByEndpointAsync(mockEndpoint);
@@ -74,7 +89,12 @@ describe('getByEndpointAsync', () => {
 			set: cacheSetMockFunction,
 		});
 		const apiService = getMockApiService();
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 		const mockEndpoint = 'spells/fireball';
 
 		// Act
@@ -94,7 +114,12 @@ describe('getByEndpointAsync', () => {
 		const apiService = getMockApiService({
 			callEndpointAsync: apiCallMockFunction,
 		});
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 		const mockEndpoint = 'spells/fireball';
 		const expectedUrl = new URL(
 			'https://www.dnd5eapi.co/api/2014/spells/fireball',
@@ -118,7 +143,12 @@ describe('getByEndpointAsync', () => {
 				throw new Error('API call failed');
 			},
 		});
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber();
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 		const mockEndpoint = 'spells/fireball';
 
 		// Act
@@ -136,10 +166,20 @@ describe('getByEndpointAsync', () => {
 describe('getResourceListAsync', () => {
 	it('should fetch a resource using the resource endpoint', async () => {
 		// Arrange
+		const mockResourceTypePath = 'spells';
 		const mockResourceType = ResourceTypeApiDto.Spell;
 		const cacheService = getMockCacheService();
 		const apiService = getMockApiService();
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber({
+			transcribeToApiPath: () => {
+				return mockResourceTypePath;
+			},
+		});
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 		const mockGetByEndpointAsync = vi.fn();
 		srdApiService.getByEndpointAsync = mockGetByEndpointAsync;
 
@@ -154,11 +194,21 @@ describe('getResourceListAsync', () => {
 describe('getByIndexAsync', () => {
 	it('should fetch a resource using the `${resource}/${index}` endpoint', async () => {
 		// Arrange
-		const mockResourceType = ResourceTypeApiDto.Spell;
+		const mockResourceTypePath = 'spells';
 		const mockIndex = 'fireball';
+		const mockResourceType = ResourceTypeApiDto.Spell;
 		const cacheService = getMockCacheService();
 		const apiService = getMockApiService();
-		const srdApiService = new SrdApiService(cacheService, apiService);
+		const transcriberService = getMockResourceTypeApiDtoTranscriber({
+			transcribeToApiPath: () => {
+				return mockResourceTypePath;
+			},
+		});
+		const srdApiService = new SrdApiService(
+			cacheService,
+			apiService,
+			transcriberService,
+		);
 		const mockGetByEndpointAsync = vi.fn();
 		srdApiService.getByEndpointAsync = mockGetByEndpointAsync;
 
