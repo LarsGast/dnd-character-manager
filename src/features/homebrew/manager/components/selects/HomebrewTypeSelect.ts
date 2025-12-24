@@ -1,11 +1,13 @@
+import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
 import { getEmptyOption, getSelectOption } from '../../../../../utils/util';
+import { resourceTypeRecordTranscriber } from '../../../../../wiring/dependencies';
 
 /**
  * Custom select element for choosing the type of homebrew object.
  * This select will be used in the homebrew creation form to select the type of object (
  */
 export class HomebrewTypeSelect extends HTMLSelectElement {
-	constructor() {
+	public constructor() {
 		super();
 
 		this.appendChild(this.getAllOptions());
@@ -16,11 +18,11 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 	 * Handles the change event of the select element.
 	 * Dispatches a custom event to notify that the type has changed.
 	 */
-	handleChange(): void {
+	private handleChange(): void {
 		document.dispatchEvent(
 			new CustomEvent('customElementTypeChanged', {
 				detail: {
-					apiCategoryName: this.value,
+					resourceTypeId: this.value,
 				},
 				bubbles: true,
 			}),
@@ -32,7 +34,7 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 	 * This includes an empty option and options for each API category.
 	 * @returns A fragment containing all the options.
 	 */
-	getAllOptions(): DocumentFragment {
+	private getAllOptions(): DocumentFragment {
 		const fragment = document.createDocumentFragment();
 
 		fragment.appendChild(getEmptyOption('-- Select a type --'));
@@ -45,26 +47,31 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 	 * Creates the options for each API category.
 	 * @returns A fragment containing the options for each API category.
 	 */
-	getTypeSelectOptions(): DocumentFragment {
+	private getTypeSelectOptions(): DocumentFragment {
 		const fragment = document.createDocumentFragment();
 
-		fragment.appendChild(this.getTypeSelectOption('races', 'race'));
-		fragment.appendChild(this.getTypeSelectOption('subclasses', 'subclass'));
+		const resourceTypes = this.getAllResourceTypes();
+		for (const resourceType of resourceTypes) {
+			const resourceTypeSingularName =
+				resourceTypeRecordTranscriber.transcribeToString(resourceType);
+
+			// Example option: <option value="0">Race</option>
+			fragment.appendChild(
+				getSelectOption(resourceTypeSingularName, resourceType.toString()),
+			);
+		}
 
 		return fragment;
 	}
 
 	/**
-	 * Creates a select option for a given resource type.
-	 * @param resourceType The resource type to create the option for.
-	 * @param resourceTypeSingularName Singular name of the resource type.
-	 * @returns The created option element.
+	 * Retrieves all resource types defined in ResourceTypeRecord.
+	 * @returns An array of resource type strings.
 	 */
-	getTypeSelectOption(
-		resourceType: string,
-		resourceTypeSingularName: string,
-	): HTMLOptionElement {
-		return getSelectOption(resourceTypeSingularName, resourceType);
+	private getAllResourceTypes(): ResourceTypeRecord[] {
+		return Object.values(ResourceTypeRecord).filter(
+			(value) => typeof value === 'number',
+		) as ResourceTypeRecord[];
 	}
 }
 

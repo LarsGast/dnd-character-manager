@@ -59,7 +59,9 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	 * @param event The custom event containing the selected API category information.
 	 */
 	updateButtonData(event: CustomEvent): void {
-		this.resourceType = event.detail.resourceType;
+		// The ID is the number representation of the ResourceTypeRecord enum.
+		const resourceTypeId = Number(event.detail.resourceTypeId);
+		this.resourceType = resourceTypeId as ResourceTypeRecord;
 		this.disabled = false;
 	}
 
