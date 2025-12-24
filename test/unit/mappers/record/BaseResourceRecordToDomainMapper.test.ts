@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { BaseResourceRecordToDomainMapper } from '../../../../src/mappers/record/BaseResourceRecordToDomainMapper';
+import { BaseResourceRecordToDomainMapper } from '../../../../src/mappers/record-to-domain/BaseResourceRecordToDomainMapper';
 import { getMockBaseResourceRecord } from './testUtils/RecordTypeTestUtils';
 
 it('should map all properties from record to domain correctly', () => {

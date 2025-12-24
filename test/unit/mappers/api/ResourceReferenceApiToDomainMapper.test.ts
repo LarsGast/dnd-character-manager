@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { ResourceReferenceApiToDomainMapper } from '../../../../src/mappers/api/ResourceReferenceApiToDomainMapper';
+import { ResourceReferenceApiToDomainMapper } from '../../../../src/mappers/api-to-domain/ResourceReferenceApiToDomainMapper';
 import { getMockResourceReferenceApiDto } from './testUtils/ApiTypeTestUtils';
 
 it('should map all properties from API to domain correctly', () => {

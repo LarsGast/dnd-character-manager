@@ -1,4 +1,4 @@
-import { AbilityBonusRecordToDomainMapper } from '../../../../src/mappers/record/AbilityBonusRecordToDomainMapper';
+import { AbilityBonusRecordToDomainMapper } from '../../../../src/mappers/record-to-domain/AbilityBonusRecordToDomainMapper';
 import { it, expect } from 'vitest';
 import {
 	getMockAbilityBonusRecord,

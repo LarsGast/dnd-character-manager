@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { EquipmentCategoryApiToDomainMapper } from '../../../../src/mappers/api/EquipmentCategoryApiToDomainMapper';
+import { EquipmentCategoryApiToDomainMapper } from '../../../../src/mappers/api-to-domain/EquipmentCategoryApiToDomainMapper';
 import {
 	getMockEquipmentCategoryApiDto,
 	getMockResourceReferenceApiDto,

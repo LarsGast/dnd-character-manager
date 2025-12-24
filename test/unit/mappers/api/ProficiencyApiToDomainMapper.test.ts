@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { ProficiencyApiToDomainMapper } from '../../../../src/mappers/api/ProficiencyApiToDomainMapper';
+import { ProficiencyApiToDomainMapper } from '../../../../src/mappers/api-to-domain/ProficiencyApiToDomainMapper';
 import {
 	getMockProficiencyApiDto,
 	getMockResourceReferenceApiDto,

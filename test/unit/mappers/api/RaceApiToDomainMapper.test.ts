@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { RaceApiToDomainMapper } from '../../../../src/mappers/api/RaceApiToDomainMapper';
+import { RaceApiToDomainMapper } from '../../../../src/mappers/api-to-domain/RaceApiToDomainMapper';
 import {
 	getMockRaceApiDto,
 	getMockResourceReferenceApiDto,

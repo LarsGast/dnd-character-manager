@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { LanguageApiToDomainMapper } from '../../../../src/mappers/api/LanguageApiToDomainMapper';
+import { LanguageApiToDomainMapper } from '../../../../src/mappers/api-to-domain/LanguageApiToDomainMapper';
 import { getMockLanguageApiDto } from './testUtils/ApiTypeTestUtils';
 import { getMockMapper } from './testUtils/MapperTestUtils';
 

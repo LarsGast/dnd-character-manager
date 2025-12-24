@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { BackgroundApiToDomainMapper } from '../../../../src/mappers/api/BackgroundApiToDomainMapper';
+import { BackgroundApiToDomainMapper } from '../../../../src/mappers/api-to-domain/BackgroundApiToDomainMapper';
 import {
 	getMockBackgroundApiDto,
 	getMockResourceReferenceApiDto,

@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { SubclassRecordToDomainMapper } from '../../../../src/mappers/record/SubclassRecordToDomainMapper';
+import { SubclassRecordToDomainMapper } from '../../../../src/mappers/record-to-domain/SubclassRecordToDomainMapper';
 import {
 	getMockSubclassRecord,
 	getMockResourceReferenceRecord,

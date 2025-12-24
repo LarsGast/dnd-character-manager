@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { SpellApiToDomainMapper } from '../../../../src/mappers/api/SpellApiToDomainMapper';
+import { SpellApiToDomainMapper } from '../../../../src/mappers/api-to-domain/SpellApiToDomainMapper';
 import {
 	getMockSpellApiDto,
 	getMockResourceReferenceApiDto,

@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { ChoiceApiToDomainMapper } from '../../../../src/mappers/api/ChoiceApiToDomainMapper';
+import { ChoiceApiToDomainMapper } from '../../../../src/mappers/api-to-domain/ChoiceApiToDomainMapper';
 import {
 	getMockChoiceApiDto,
 	getMockOptionSetApiDto,

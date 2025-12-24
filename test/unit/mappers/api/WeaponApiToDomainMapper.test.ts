@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { WeaponApiToDomainMapper } from '../../../../src/mappers/api/WeaponApiToDomainMapper';
+import { WeaponApiToDomainMapper } from '../../../../src/mappers/api-to-domain/WeaponApiToDomainMapper';
 import { WeaponApiDto } from '../../../../src/types/api/resources/WeaponApiDto';
 import {
 	getMockWeaponApiDto,

@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { ArmorApiToDomainMapper } from '../../../../src/mappers/api/ArmorApiToDomainMapper';
+import { ArmorApiToDomainMapper } from '../../../../src/mappers/api-to-domain/ArmorApiToDomainMapper';
 import {
 	getMockArmorApiDto,
 	getMockArmorClassApiDto,

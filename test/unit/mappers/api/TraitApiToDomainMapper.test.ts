@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { TraitApiToDomainMapper } from '../../../../src/mappers/api/TraitApiToDomainMapper';
+import { TraitApiToDomainMapper } from '../../../../src/mappers/api-to-domain/TraitApiToDomainMapper';
 import {
 	getMockTraitApiDto,
 	getMockResourceReferenceApiDto,

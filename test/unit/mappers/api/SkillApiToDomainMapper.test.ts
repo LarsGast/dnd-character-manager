@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { SkillApiToDomainMapper } from '../../../../src/mappers/api/SkillApiToDomainMapper';
+import { SkillApiToDomainMapper } from '../../../../src/mappers/api-to-domain/SkillApiToDomainMapper';
 import {
 	getMockSkillApiDto,
 	getMockResourceReferenceApiDto,

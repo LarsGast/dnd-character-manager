@@ -1,4 +1,4 @@
-import { AbilityBonusApiToDomainMapper } from '../../../../src/mappers/api/AbilityBonusApiToDomainMapper';
+import { AbilityBonusApiToDomainMapper } from '../../../../src/mappers/api-to-domain/AbilityBonusApiToDomainMapper';
 import { it, expect } from 'vitest';
 import {
 	getMockAbilityBonusApiDto,

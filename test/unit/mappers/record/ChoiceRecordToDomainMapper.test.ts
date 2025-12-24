@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { ChoiceRecordToDomainMapper } from '../../../../src/mappers/record/ChoiceRecordToDomainMapper';
+import { ChoiceRecordToDomainMapper } from '../../../../src/mappers/record-to-domain/ChoiceRecordToDomainMapper';
 import {
 	getMockChoiceRecord,
 	getMockOptionSetRecord,

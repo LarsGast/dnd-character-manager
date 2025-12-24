@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { AlignmentApiToDomainMapper } from '../../../../src/mappers/api/AlignmentApiToDomainMapper';
+import { AlignmentApiToDomainMapper } from '../../../../src/mappers/api-to-domain/AlignmentApiToDomainMapper';
 import { getMockAlignmentApiDto } from './testUtils/ApiTypeTestUtils';
 import { getMockMapper } from './testUtils/MapperTestUtils';
 

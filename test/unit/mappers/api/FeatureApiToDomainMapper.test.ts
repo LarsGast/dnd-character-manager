@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { FeatureApiToDomainMapper } from '../../../../src/mappers/api/FeatureApiToDomainMapper';
+import { FeatureApiToDomainMapper } from '../../../../src/mappers/api-to-domain/FeatureApiToDomainMapper';
 import {
 	getMockFeatureApiDto,
 	getMockResourceReferenceApiDto,

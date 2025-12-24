@@ -3,6 +3,8 @@ import { getMockApiService } from './testUtils/ApiServiceTestUtils';
 import { getMockCacheService } from './testUtils/CacheServiceTestUtils';
 import { SrdApiService } from '../../../src/services/SrdApiService';
 import { mockEndpoint } from './testUtils/SrdApiServiceTestUtils';
+import { ResourceType } from '../../../src/types/domain/helpers/ResourceType';
+import { ResourceTypeApiDto } from '../../../src/types/api/helpers/ResourceTypeApiDto';
 
 describe('getByEndpointAsync', () => {
 	it('should return cached value when present', async () => {
@@ -134,7 +136,7 @@ describe('getByEndpointAsync', () => {
 describe('getResourceListAsync', () => {
 	it('should fetch a resource using the resource endpoint', async () => {
 		// Arrange
-		const mockResource = 'spells';
+		const mockResourceType = ResourceTypeApiDto.Spell;
 		const cacheService = getMockCacheService();
 		const apiService = getMockApiService();
 		const srdApiService = new SrdApiService(cacheService, apiService);
@@ -142,7 +144,7 @@ describe('getResourceListAsync', () => {
 		srdApiService.getByEndpointAsync = mockGetByEndpointAsync;
 
 		// Act
-		await srdApiService.getResourceListAsync(mockResource);
+		await srdApiService.getResourceListAsync(mockResourceType);
 
 		// Assert
 		expect(mockGetByEndpointAsync).toHaveBeenCalledWith('spells');
@@ -152,7 +154,7 @@ describe('getResourceListAsync', () => {
 describe('getByIndexAsync', () => {
 	it('should fetch a resource using the `${resource}/${index}` endpoint', async () => {
 		// Arrange
-		const mockResource = 'spells';
+		const mockResourceType = ResourceTypeApiDto.Spell;
 		const mockIndex = 'fireball';
 		const cacheService = getMockCacheService();
 		const apiService = getMockApiService();
@@ -161,7 +163,7 @@ describe('getByIndexAsync', () => {
 		srdApiService.getByEndpointAsync = mockGetByEndpointAsync;
 
 		// Act
-		await srdApiService.getByIndexAsync(mockResource, mockIndex);
+		await srdApiService.getByIndexAsync(mockResourceType, mockIndex);
 
 		// Assert
 		expect(mockGetByEndpointAsync).toHaveBeenCalledWith('spells/fireball');

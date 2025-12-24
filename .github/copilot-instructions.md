@@ -34,8 +34,8 @@
   - `src/services/SrdApiService.ts` fetches official D&D 5e data from the public SRD API, with caching via `CacheService`.
   - All API and storage data is mapped to domain models using mappers in `src/mappers/`.
 - **Mapper Pattern:**
-  - `src/mappers/api/` converts API responses to domain models
-  - `src/mappers/record/` converts stored localStorage records to domain models
+  - `src/mappers/api-to-domain/` converts API responses to domain models
+  - `src/mappers/record-to-domain/` converts stored localStorage records to domain models
   - All mappers implement the `IMapper<TSource, TTarget>` interface
   - **ResourceReference Pattern:** Use `ResourceReference` (not `BaseResource`) for lightweight references to other resources
     - Domain models use `ResourceReference` for foreign key-like relationships (e.g., `Race.languages: ResourceReference[]`)
@@ -90,8 +90,8 @@
 - `src/wiring/dependencies.ts` — dependency injection and wiring
 - `src/features/character/` — character management components
 - `src/features/homebrew/` — homebrew content management
-- `src/mappers/api/` — API response to domain model mappers
-- `src/mappers/record/` — localStorage record to domain model mappers
+- `src/mappers/api-to-domain/` — API response to domain model mappers
+- `src/mappers/record-to-domain/` — localStorage record to domain model mappers
 - `src/interfaces/` — contracts and type definitions
 - `test/unit/` — unit tests
 - `test/integration/` — integration tests
@@ -99,9 +99,9 @@
 ## Common Development Tasks
 
 - **Adding a new repository:** Create in `src/repositories/`, implement interface from `src/interfaces/`, register in `src/wiring/dependencies.ts`
-- **Adding API support:** Create mapper in `src/mappers/api/`, add to repository, update dependencies
+- **Adding API support:** Create mapper in `src/mappers/api-to-domain/`, add to repository, update dependencies
   - Use `ResourceReferenceApiToDomainMapper` for referenced resource fields (not full resource objects)
-- **Adding storage support:** Create mapper in `src/mappers/record/`, use `LocalStorageService`, update dependencies
+- **Adding storage support:** Create mapper in `src/mappers/record-to-domain/`, use `LocalStorageService`, update dependencies
   - Use `ResourceReferenceRecordToDomainMapper` for referenced resource fields
 - **Adding homebrew support:** Implement in `HomebrewRepository`, use `homebrew_` prefix for storage keys
 - **Adding tests:** Create in appropriate `test/unit/` or `test/integration/` subdirectory using Vitest
