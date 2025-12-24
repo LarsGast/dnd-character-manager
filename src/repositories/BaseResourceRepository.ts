@@ -15,11 +15,14 @@ import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord
  * Base implementation of IResourceRepository.
  * Used as a basis for all resources.
  * Extend this class in specific resource implementations if a resource has more ways to be fetched than just "get" and "get all".
+ * @template TDomain The domain type the repository will return.
+ * @template TApi The API type the repository will fetch from the SRD API.
+ * @template TStorage The storage type the repository will fetch from homebrew storage. Defaults to BaseResourceRecord if the resource does not have homebrew support (yet).
  */
 export class BaseResourceRepository<
 	TDomain extends BaseResource,
 	TApi extends BaseResourceApiDto,
-	TStorage extends BaseResourceRecord,
+	TStorage extends BaseResourceRecord = BaseResourceRecord,
 > implements IResourceRepository<TDomain>
 {
 	/**
