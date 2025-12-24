@@ -1,5 +1,6 @@
 import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IStorageService } from '../interfaces/IStorageService';
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
@@ -62,7 +63,7 @@ export class HomebrewRepository implements IHomebrewRepository {
 	 * @inheritdoc
 	 */
 	public getAllByResourceType<T extends BaseResourceRecord>(
-		resourceType: string,
+		resourceType: ResourceTypeRecord,
 	): T[] {
 		const allResources = this.getAll();
 		return allResources.filter(

@@ -1,6 +1,8 @@
 import { IApiService } from '../interfaces/IApiService';
 import { ICacheService } from '../interfaces/ICacheService';
+import { IResourceTypeApiDtoTranscriber } from '../interfaces/IResourceTypeApiDtoTranscriber';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
 
@@ -21,13 +23,24 @@ export class SrdApiService implements ISrdApiService {
 	private readonly apiService: IApiService;
 
 	/**
+	 * The transcriber for ResourceTypeApiDto to API paths.
+	 */
+	private readonly resourceTypeApiDtoTranscriber: IResourceTypeApiDtoTranscriber;
+
+	/**
 	 * Constructor for SrdApiService.
 	 * @param cacheService See SrdApiService.cacheService
 	 * @param apiService See SrdApiService.apiService
+	 * @param resourceTypeApiDtoTranscriber See SrdApiService.resourceTypeApiDtoTranscriber
 	 */
-	public constructor(cacheService: ICacheService, apiService: IApiService) {
+	public constructor(
+		cacheService: ICacheService,
+		apiService: IApiService,
+		resourceTypeApiDtoTranscriber: IResourceTypeApiDtoTranscriber,
+	) {
 		this.cacheService = cacheService;
 		this.apiService = apiService;
+		this.resourceTypeApiDtoTranscriber = resourceTypeApiDtoTranscriber;
 	}
 
 	/**
@@ -53,18 +66,22 @@ export class SrdApiService implements ISrdApiService {
 	 * @inheritdoc
 	 */
 	public async getResourceListAsync(
-		resource: string,
+		resourceType: ResourceTypeApiDto,
 	): Promise<ResourceListApiDto> {
-		return await this.getByEndpointAsync<ResourceListApiDto>(resource);
+		return await this.getByEndpointAsync<ResourceListApiDto>(
+			this.resourceTypeApiDtoTranscriber.transcribeToApiPath(resourceType),
+		);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
 	public async getByIndexAsync<T extends BaseResourceApiDto>(
-		resource: string,
+		resourceType: ResourceTypeApiDto,
 		index: string,
 	): Promise<T> {
-		return await this.getByEndpointAsync<T>(`${resource}/${index}`);
+		return await this.getByEndpointAsync<T>(
+			`${this.resourceTypeApiDtoTranscriber.transcribeToApiPath(resourceType)}/${index}`,
+		);
 	}
 }

@@ -9,6 +9,9 @@ import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
 import { BaseResourceRepository } from './BaseResourceRepository';
 import { ResourceListApiDto } from '../types/api/wrappers/ResourceListApiDto';
+import { ResourceType } from '../types/domain/helpers/ResourceType';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 
 export class TraitRepository
 	extends BaseResourceRepository<Trait, TraitApiDto>
@@ -18,13 +21,20 @@ export class TraitRepository
 	 * @inheritdoc
 	 */
 	public constructor(
+		resourceTypeDomainToApiMapper: IMapper<ResourceType, ResourceTypeApiDto>,
+		resourceTypeDomainToStorageMapper: IMapper<
+			ResourceType,
+			ResourceTypeRecord
+		>,
 		homebrewRepository: IHomebrewRepository,
 		apiService: ISrdApiService,
 		baseResourceApiToDomainMapper: IMapper<BaseResourceApiDto, BaseResource>,
 		traitApiToDomainMapper: IMapper<TraitApiDto, Trait>,
 	) {
 		super(
-			'traits',
+			ResourceType.Trait,
+			resourceTypeDomainToApiMapper,
+			resourceTypeDomainToStorageMapper,
 			homebrewRepository,
 			apiService,
 			baseResourceApiToDomainMapper,

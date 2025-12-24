@@ -1,4 +1,7 @@
-import { homebrewRepository } from '../../../../../wiring/dependencies';
+import {
+	homebrewRepository,
+	resourceTypeRecordTranscriber,
+} from '../../../../../wiring/dependencies';
 
 /**
  * Custom heading element for homebrew forms.
@@ -13,8 +16,12 @@ export class HomebrewFormHeading extends HTMLHeadingElement {
 		const params = new URLSearchParams(window.location.search);
 		const id = params.get('id')!;
 		const homebrewObject = homebrewRepository.get(id)!;
+		const resourceTypeName =
+			resourceTypeRecordTranscriber.transcribeToHumanReadableString(
+				homebrewObject.resourceType,
+			);
 
-		this.textContent = `Custom ${homebrewObject.resourceType}`;
+		this.textContent = `Custom ${resourceTypeName}`;
 	}
 }
 

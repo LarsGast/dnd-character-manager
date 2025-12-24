@@ -1,6 +1,9 @@
 import { BaseResourceRecord } from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import { getElementWithTextContent } from '../../../../../utils/util';
-import { homebrewRepository } from '../../../../../wiring/dependencies';
+import {
+	homebrewRepository,
+	resourceTypeRecordTranscriber,
+} from '../../../../../wiring/dependencies';
 import { HomebrewDeleteButton } from '../buttons/HomebrewDeleteButton';
 import { HomebrewEditButton } from '../buttons/HomebrewEditButton';
 import { HomebrewExportButton } from '../buttons/HomebrewExportButton';
@@ -109,7 +112,14 @@ export class HomebrewTable extends HTMLTableElement {
 
 		row.appendChild(this.getButtonsColumnValue(resource));
 		row.appendChild(getElementWithTextContent('td', resource.name));
-		row.appendChild(getElementWithTextContent('td', resource.resourceType));
+		row.appendChild(
+			getElementWithTextContent(
+				'td',
+				resourceTypeRecordTranscriber.transcribeToHumanReadableString(
+					resource.resourceType,
+				),
+			),
+		);
 
 		return row;
 	}

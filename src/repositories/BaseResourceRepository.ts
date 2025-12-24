@@ -2,15 +2,22 @@ import { IHomebrewRepository } from '../interfaces/IHomebrewRepository';
 import { IMapper } from '../interfaces/IMapper';
 import { IResourceRepository } from '../interfaces/IResourceRepository';
 import { ISrdApiService } from '../interfaces/ISrdApiService';
+import { ResourceTypeApiDto } from '../types/api/helpers/ResourceTypeApiDto';
 import { BaseResourceApiDto } from '../types/api/wrappers/BaseResourceApiDto';
+import { ResourceType } from '../types/domain/helpers/ResourceType';
 import { BaseResource } from '../types/domain/wrappers/BaseResource';
 import { ResourceList } from '../types/domain/wrappers/ResourceList';
+import { Result } from '../utils/Result';
+import { ResourceTypeRecord } from '../types/storage/helpers/ResourceTypeRecord';
 import { BaseResourceRecord } from '../types/storage/wrappers/BaseResourceRecord';
 
 /**
  * Base implementation of IResourceRepository.
  * Used as a basis for all resources.
  * Extend this class in specific resource implementations if a resource has more ways to be fetched than just "get" and "get all".
+ * @template TDomain The domain type the repository will return.
+ * @template TApi The API type the repository will fetch from the SRD API.
+ * @template TStorage The storage type the repository will fetch from homebrew storage. Defaults to BaseResourceRecord if the resource does not have homebrew support (yet).
  */
 export class BaseResourceRepository<
 	TDomain extends BaseResource,
@@ -22,7 +29,23 @@ export class BaseResourceRepository<
 	 * Type of resource the repository should look for.
 	 * Pass this into the constructor of a specific implementation.
 	 */
-	protected readonly resource: string;
+	protected readonly resourceType: ResourceType;
+
+	/**
+	 * A mapper for mapping resource types from domain to API enum.
+	 */
+	protected readonly resourceTypeDomainToApiMapper: IMapper<
+		ResourceType,
+		ResourceTypeApiDto
+	>;
+
+	/**
+	 * A mapper for mapping resource types from domain to storage enum.
+	 */
+	protected readonly resourceTypeDomainToStorageMapper: IMapper<
+		ResourceType,
+		ResourceTypeRecord
+	>;
 
 	/**
 	 * Homebrew repository for fetching homebrew resources.
@@ -63,7 +86,12 @@ export class BaseResourceRepository<
 	protected readonly resourceStorageToDomainMapper?: IMapper<TStorage, TDomain>;
 
 	public constructor(
-		resource: string,
+		resource: ResourceType,
+		resourceTypeDomainToApiMapper: IMapper<ResourceType, ResourceTypeApiDto>,
+		resourceTypeDomainToStorageMapper: IMapper<
+			ResourceType,
+			ResourceTypeRecord
+		>,
 		homebrewRepository: IHomebrewRepository,
 		apiService: ISrdApiService,
 		baseResourceApiToDomainMapper: IMapper<BaseResourceApiDto, BaseResource>,
@@ -71,7 +99,9 @@ export class BaseResourceRepository<
 		baseResourceStorageMapper?: IMapper<BaseResourceRecord, BaseResource>,
 		resourceStorageMapper?: IMapper<TStorage, TDomain>,
 	) {
-		this.resource = resource;
+		this.resourceType = resource;
+		this.resourceTypeDomainToApiMapper = resourceTypeDomainToApiMapper;
+		this.resourceTypeDomainToStorageMapper = resourceTypeDomainToStorageMapper;
 		this.homebrewRepository = homebrewRepository;
 		this.apiService = apiService;
 		this.baseResourceApiToDomainMapper = baseResourceApiToDomainMapper;
@@ -94,7 +124,7 @@ export class BaseResourceRepository<
 
 		// No homebrew value? Try the API.
 		const valueFromApi = await this.apiService.getByIndexAsync<TApi>(
-			this.resource,
+			this.resourceTypeDomainToApiMapper.map(this.resourceType),
 			id,
 		);
 		if (valueFromApi !== undefined) {
@@ -110,11 +140,20 @@ export class BaseResourceRepository<
 	 */
 	public async getAllAsync(): Promise<ResourceList> {
 		// Since we want to get ALL resources, we'll add the homebrew and SRD resources together.
-		const homebrewValues = this.homebrewRepository.getAllByResourceType(
-			this.resource,
+		const mapToResourceTypeRecordResult = Result.tryPerform(() =>
+			this.resourceTypeDomainToStorageMapper.map(this.resourceType),
 		);
+
+		// If the mapping failed, we just don't have homebrew support for this resource.
+		// In that case, we just return an empty array for homebrew values.
+		const homebrewValues = mapToResourceTypeRecordResult.getIsSuccess()
+			? this.homebrewRepository.getAllByResourceType(
+					mapToResourceTypeRecordResult.getValueOrThrow(),
+				)
+			: [];
+
 		const valueFromApi = await this.apiService.getResourceListAsync(
-			this.resource,
+			this.resourceTypeDomainToApiMapper.map(this.resourceType),
 		);
 
 		return {

@@ -1,24 +1,24 @@
-import { AbilityBonusApiToDomainMapper } from '../mappers/api/AbilityBonusApiToDomainMapper';
-import { AbilityScoreApiToDomainMapper } from '../mappers/api/AbilityScoreApiToDomainMapper';
-import { AlignmentApiToDomainMapper } from '../mappers/api/AlignmentApiToDomainMapper';
-import { ArmorApiToDomainMapper } from '../mappers/api/ArmorApiToDomainMapper';
-import { BackgroundApiToDomainMapper } from '../mappers/api/BackgroundApiToDomainMapper';
-import { BaseResourceApiToDomainMapper } from '../mappers/api/BaseResourceApiToDomainMapper';
-import { ChoiceApiToDomainMapper } from '../mappers/api/ChoiceApiToDomainMapper';
-import { ClassLevelApiToDomainMapper } from '../mappers/api/ClassLevelApiToDomainMapper';
-import { ClassApiToDomainMapper } from '../mappers/api/ClassApiToDomainMapper';
-import { EquipmentCategoryApiToDomainMapper } from '../mappers/api/EquipmentCategoryApiToDomainMapper';
-import { EquipmentApiToDomainMapper } from '../mappers/api/EquipmentApiToDomainMapper';
-import { FeatureApiToDomainMapper } from '../mappers/api/FeatureApiToDomainMapper';
-import { LanguageApiToDomainMapper } from '../mappers/api/LanguageApiToDomainMapper';
-import { ProficiencyApiToDomainMapper } from '../mappers/api/ProficiencyApiToDomainMapper';
-import { RaceApiToDomainMapper } from '../mappers/api/RaceApiToDomainMapper';
-import { SkillApiToDomainMapper } from '../mappers/api/SkillApiToDomainMapper';
-import { SubclassApiToDomainMapper } from '../mappers/api/SubclassApiToDomainMapper';
-import { SubraceApiToDomainMapper } from '../mappers/api/SubraceApiToDomainMapper';
-import { TraitApiToDomainMapper } from '../mappers/api/TraitApiToDomainMapper';
-import { WeaponApiToDomainMapper } from '../mappers/api/WeaponApiToDomainMapper';
-import { ResourceReferenceApiToDomainMapper } from '../mappers/api/ResourceReferenceApiToDomainMapper';
+import { AbilityBonusApiToDomainMapper } from '../mappers/api-to-domain/AbilityBonusApiToDomainMapper';
+import { AbilityScoreApiToDomainMapper } from '../mappers/api-to-domain/AbilityScoreApiToDomainMapper';
+import { AlignmentApiToDomainMapper } from '../mappers/api-to-domain/AlignmentApiToDomainMapper';
+import { ArmorApiToDomainMapper } from '../mappers/api-to-domain/ArmorApiToDomainMapper';
+import { BackgroundApiToDomainMapper } from '../mappers/api-to-domain/BackgroundApiToDomainMapper';
+import { BaseResourceApiToDomainMapper } from '../mappers/api-to-domain/BaseResourceApiToDomainMapper';
+import { ChoiceApiToDomainMapper } from '../mappers/api-to-domain/ChoiceApiToDomainMapper';
+import { ClassLevelApiToDomainMapper } from '../mappers/api-to-domain/ClassLevelApiToDomainMapper';
+import { ClassApiToDomainMapper } from '../mappers/api-to-domain/ClassApiToDomainMapper';
+import { EquipmentCategoryApiToDomainMapper } from '../mappers/api-to-domain/EquipmentCategoryApiToDomainMapper';
+import { EquipmentApiToDomainMapper } from '../mappers/api-to-domain/EquipmentApiToDomainMapper';
+import { FeatureApiToDomainMapper } from '../mappers/api-to-domain/FeatureApiToDomainMapper';
+import { LanguageApiToDomainMapper } from '../mappers/api-to-domain/LanguageApiToDomainMapper';
+import { ProficiencyApiToDomainMapper } from '../mappers/api-to-domain/ProficiencyApiToDomainMapper';
+import { RaceApiToDomainMapper } from '../mappers/api-to-domain/RaceApiToDomainMapper';
+import { SkillApiToDomainMapper } from '../mappers/api-to-domain/SkillApiToDomainMapper';
+import { SubclassApiToDomainMapper } from '../mappers/api-to-domain/SubclassApiToDomainMapper';
+import { SubraceApiToDomainMapper } from '../mappers/api-to-domain/SubraceApiToDomainMapper';
+import { TraitApiToDomainMapper } from '../mappers/api-to-domain/TraitApiToDomainMapper';
+import { WeaponApiToDomainMapper } from '../mappers/api-to-domain/WeaponApiToDomainMapper';
+import { ResourceReferenceApiToDomainMapper } from '../mappers/api-to-domain/ResourceReferenceApiToDomainMapper';
 import { BaseResourceRepository } from '../repositories/BaseResourceRepository';
 import { ClassLevelRepository } from '../repositories/ClassLevelRepository';
 import { FeatureRepository } from '../repositories/FeatureRepository';
@@ -27,17 +27,22 @@ import { TraitRepository } from '../repositories/TraitRepository';
 import { CacheService } from '../services/CacheService';
 import { LocalStorageService } from '../services/LocalStorageService';
 import { SrdApiService } from '../services/SrdApiService';
-import { AbilityBonusRecordToDomainMapper } from '../mappers/record/AbilityBonusRecordToDomainMapper';
-import { BaseResourceRecordToDomainMapper } from '../mappers/record/BaseResourceRecordToDomainMapper';
-import { ChoiceRecordToDomainMapper } from '../mappers/record/ChoiceRecordToDomainMapper';
-import { RaceRecordToDomainMapper } from '../mappers/record/RaceRecordToDomainMapper';
-import { ResourceReferenceRecordToDomainMapper } from '../mappers/record/ResourceReferenceRecordToDomainMapper';
-import { SubclassRecordToDomainMapper } from '../mappers/record/SubclassRecordToDomainMapper';
+import { AbilityBonusRecordToDomainMapper } from '../mappers/record-to-domain/AbilityBonusRecordToDomainMapper';
+import { BaseResourceRecordToDomainMapper } from '../mappers/record-to-domain/BaseResourceRecordToDomainMapper';
+import { ChoiceRecordToDomainMapper } from '../mappers/record-to-domain/ChoiceRecordToDomainMapper';
+import { RaceRecordToDomainMapper } from '../mappers/record-to-domain/RaceRecordToDomainMapper';
+import { ResourceReferenceRecordToDomainMapper } from '../mappers/record-to-domain/ResourceReferenceRecordToDomainMapper';
+import { SubclassRecordToDomainMapper } from '../mappers/record-to-domain/SubclassRecordToDomainMapper';
 import { ClassRepository } from '../repositories/ClassRepository';
-import { SpellApiToDomainMapper } from '../mappers/api/SpellApiToDomainMapper';
+import { SpellApiToDomainMapper } from '../mappers/api-to-domain/SpellApiToDomainMapper';
 import { RaceRepository } from '../repositories/RaceRepository';
 import { SubclassRepository } from '../repositories/SubclassRepository';
 import { ApiService } from '../services/ApiService';
+import { ResourceTypeDomainToRecordMapper } from '../mappers/domain-to-record/ResourceTypeDomainToRecordMapper';
+import { ResourceTypeDomainToApiMapper } from '../mappers/domain-to-api/ResourceTypeDomainToApiMapper';
+import { ResourceType } from '../types/domain/helpers/ResourceType';
+import { ResourceTypeRecordTranscriber } from '../transcribers/ResourceTypeRecordTranscriber';
+import { ResourceTypeApiDtoTranscriber } from '../transcribers/ResourceTypeApiDtoTranscriber';
 
 /**
  * Dependency injection container for the entire application.
@@ -53,14 +58,6 @@ import { ApiService } from '../services/ApiService';
  * 2. Ensure dependencies are wired in the correct order (dependencies before dependents)
  * 3. Export them if they should be used directly by other parts of the application
  */
-
-// --------------------
-// Services
-// --------------------
-export const localStorageService = new LocalStorageService(localStorage);
-export const cacheService = new CacheService(localStorageService);
-export const apiService = new ApiService(globalThis.fetch.bind(globalThis));
-export const srdApiService = new SrdApiService(cacheService, apiService);
 
 // --------------------
 // API to Domain Mappers
@@ -174,6 +171,11 @@ const weaponApiToDomainMapper = new WeaponApiToDomainMapper(
 );
 
 // --------------------
+// Domain to API Mappers
+// --------------------
+const resourceTypeDomainToApiMapper = new ResourceTypeDomainToApiMapper();
+
+// --------------------
 // Record to Domain Mappers
 // --------------------
 const baseResourceRecordToDomainMapper = new BaseResourceRecordToDomainMapper();
@@ -198,12 +200,39 @@ const subclassRecordToDomainMapper = new SubclassRecordToDomainMapper(
 );
 
 // --------------------
+// Domain to Record Mappers
+// --------------------
+const resourceTypeDomainToRecordMapper = new ResourceTypeDomainToRecordMapper();
+
+// --------------------
+// Transcribers
+// --------------------
+export const resourceTypeRecordTranscriber =
+	new ResourceTypeRecordTranscriber();
+
+const resourceTypeApiDtoTranscriber = new ResourceTypeApiDtoTranscriber();
+
+// --------------------
+// Services
+// --------------------
+export const localStorageService = new LocalStorageService(localStorage);
+export const cacheService = new CacheService(localStorageService);
+export const apiService = new ApiService(globalThis.fetch.bind(globalThis));
+export const srdApiService = new SrdApiService(
+	cacheService,
+	apiService,
+	resourceTypeApiDtoTranscriber,
+);
+
+// --------------------
 // Repositories
 // --------------------
 export const homebrewRepository = new HomebrewRepository(localStorageService);
 
 export const abilityScoreRepository = new BaseResourceRepository(
-	'ability-scores',
+	ResourceType.AbilityScore,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -211,7 +240,9 @@ export const abilityScoreRepository = new BaseResourceRepository(
 );
 
 export const alignmentRepository = new BaseResourceRepository(
-	'alignments',
+	ResourceType.Alignment,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -219,7 +250,9 @@ export const alignmentRepository = new BaseResourceRepository(
 );
 
 export const armorRepository = new BaseResourceRepository(
-	'equipment',
+	ResourceType.Equipment,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -227,7 +260,9 @@ export const armorRepository = new BaseResourceRepository(
 );
 
 export const backgroundRepository = new BaseResourceRepository(
-	'backgrounds',
+	ResourceType.Background,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -235,6 +270,8 @@ export const backgroundRepository = new BaseResourceRepository(
 );
 
 export const classRepository = new ClassRepository(
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -250,7 +287,9 @@ export const classLevelRepository = new ClassLevelRepository(
 );
 
 export const equipmentCategoryRepository = new BaseResourceRepository(
-	'equipment-categories',
+	ResourceType.EquipmentCategory,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -258,6 +297,8 @@ export const equipmentCategoryRepository = new BaseResourceRepository(
 );
 
 export const featureRepository = new FeatureRepository(
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -265,7 +306,9 @@ export const featureRepository = new FeatureRepository(
 );
 
 export const languageRepository = new BaseResourceRepository(
-	'languages',
+	ResourceType.Language,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -273,7 +316,9 @@ export const languageRepository = new BaseResourceRepository(
 );
 
 export const proficiencyRepository = new BaseResourceRepository(
-	'proficiencies',
+	ResourceType.Proficiency,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -281,7 +326,9 @@ export const proficiencyRepository = new BaseResourceRepository(
 );
 
 export const skillRepository = new BaseResourceRepository(
-	'skills',
+	ResourceType.Skill,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -289,7 +336,9 @@ export const skillRepository = new BaseResourceRepository(
 );
 
 export const spellRepository = new BaseResourceRepository(
-	'spells',
+	ResourceType.Spell,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -297,6 +346,8 @@ export const spellRepository = new BaseResourceRepository(
 );
 
 export const subclassRepository = new SubclassRepository(
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -307,7 +358,9 @@ export const subclassRepository = new SubclassRepository(
 );
 
 export const subraceRepository = new BaseResourceRepository(
-	'subraces',
+	ResourceType.Subrace,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -315,6 +368,8 @@ export const subraceRepository = new BaseResourceRepository(
 );
 
 export const traitRepository = new TraitRepository(
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -322,6 +377,8 @@ export const traitRepository = new TraitRepository(
 );
 
 export const raceRepository = new RaceRepository(
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
@@ -332,7 +389,9 @@ export const raceRepository = new RaceRepository(
 );
 
 export const weaponRepository = new BaseResourceRepository(
-	'equipment',
+	ResourceType.Equipment,
+	resourceTypeDomainToApiMapper,
+	resourceTypeDomainToRecordMapper,
 	homebrewRepository,
 	srdApiService,
 	baseResourceApiToDomainMapper,
