@@ -45,7 +45,7 @@ export class ResourceTypeDomainToApiMapper
 				return ResourceTypeApiDto.Trait;
 			default:
 				throw new Error(
-					`No mapping defined for ResourceType ${source} to ResourceTypeRecord.`,
+					`No mapping defined for ResourceType ${source} to ResourceTypeApiDto.`,
 				);
 		}
 	}

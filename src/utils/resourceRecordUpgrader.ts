@@ -72,7 +72,7 @@ function renameIndexToId(obj: any): any {
 }
 
 /**
- * Updates the resourceType property t be an enum (used to be string).
+ * Updates the resourceType property to be an enum (used to be string).
  * E.g., "races" -> ResourceTypeRecord.Race.
  * @param resource The resource object to update.
  */
