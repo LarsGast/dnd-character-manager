@@ -53,7 +53,9 @@ export class HomebrewTypeSelect extends HTMLSelectElement {
 		const resourceTypes = this.getAllResourceTypes();
 		for (const resourceType of resourceTypes) {
 			const resourceTypeSingularName =
-				resourceTypeRecordTranscriber.transcribeToString(resourceType);
+				resourceTypeRecordTranscriber.transcribeToHumanReadableString(
+					resourceType,
+				);
 
 			// Example option: <option value="0">Race</option>
 			fragment.appendChild(

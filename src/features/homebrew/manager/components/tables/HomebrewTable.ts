@@ -115,7 +115,9 @@ export class HomebrewTable extends HTMLTableElement {
 		row.appendChild(
 			getElementWithTextContent(
 				'td',
-				resourceTypeRecordTranscriber.transcribeToString(resource.resourceType),
+				resourceTypeRecordTranscriber.transcribeToHumanReadableString(
+					resource.resourceType,
+				),
 			),
 		);
 

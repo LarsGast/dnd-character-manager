@@ -16,9 +16,10 @@ export class HomebrewFormHeading extends HTMLHeadingElement {
 		const params = new URLSearchParams(window.location.search);
 		const id = params.get('id')!;
 		const homebrewObject = homebrewRepository.get(id)!;
-		const resourceTypeName = resourceTypeRecordTranscriber.transcribeToString(
-			homebrewObject.resourceType,
-		);
+		const resourceTypeName =
+			resourceTypeRecordTranscriber.transcribeToHumanReadableString(
+				homebrewObject.resourceType,
+			);
 
 		this.textContent = `Custom ${resourceTypeName}`;
 	}
