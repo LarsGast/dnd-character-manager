@@ -1,9 +1,6 @@
 import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
-import {
-	BaseResourceRecord,
-	HOMEBREW_RESOURCE_RECORD_VERSION,
-} from '../../../../../types/storage/wrappers/BaseResourceRecord';
 import { homebrewRepository } from '../../../../../wiring/dependencies';
+import { createDefaultHomebrewRecord } from '../../../../../utils/createDefaultHomebrewRecord';
 
 /**
  * Custom HTML button element for creating new homebrew objects.
@@ -70,12 +67,7 @@ export class NewHomebrewButton extends HTMLButtonElement {
 	 * Creates a new resource with a unique ID and default properties, then dispatches an event.
 	 */
 	handleClick(): void {
-		const newHomebrewResource: BaseResourceRecord = {
-			version: HOMEBREW_RESOURCE_RECORD_VERSION,
-			id: self.crypto.randomUUID(),
-			name: 'New Custom Object',
-			resourceType: this.resourceType!,
-		};
+		const newHomebrewResource = createDefaultHomebrewRecord(this.resourceType!);
 
 		homebrewRepository.save(newHomebrewResource.id, newHomebrewResource);
 
