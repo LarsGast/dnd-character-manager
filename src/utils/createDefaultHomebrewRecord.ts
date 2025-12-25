@@ -17,7 +17,7 @@ export function createDefaultHomebrewRecord(
 ): BaseResourceRecord {
 	const baseRecord: BaseResourceRecord = {
 		version: HOMEBREW_RESOURCE_RECORD_VERSION,
-		id: globalThis.crypto.randomUUID(),
+		id: crypto.randomUUID(),
 		name: 'New Custom Object',
 		resourceType,
 	};
