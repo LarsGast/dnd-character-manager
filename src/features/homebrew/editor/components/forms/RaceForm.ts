@@ -11,6 +11,7 @@ import { Race } from '../../../../../types/domain/resources/Race';
 import { languageRepository } from '../../../../../wiring/dependencies';
 import { RaceRecord } from '../../../../../types/storage/resources/RaceRecord';
 import { RaceTraitsSection } from '../sections/RaceTraitsSection';
+import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
 
 /**
  * Form for editing custom homebrew Race objects.
@@ -30,6 +31,7 @@ export class RaceForm extends HomebrewBaseForm {
 		super(raceElement);
 
 		this.race = raceElement;
+		this.resourceType = ResourceTypeRecord.Race;
 	}
 
 	/**

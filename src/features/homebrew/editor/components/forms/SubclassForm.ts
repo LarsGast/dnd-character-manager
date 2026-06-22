@@ -11,6 +11,7 @@ import {
 import { SubclassRecord } from '../../../../../types/storage/resources/SubclassRecord';
 import { SpellLevelSection } from '../sections/SpellLevelSection';
 import { SubclassFeaturesSection } from '../sections/SubclassFeaturesSection';
+import { ResourceTypeRecord } from '../../../../../types/storage/helpers/ResourceTypeRecord';
 
 /**
  * Form for editing custom homebrew Subclass objects.
@@ -30,6 +31,7 @@ export class SubclassForm extends HomebrewBaseForm {
 		super(subclassObject);
 
 		this.subclass = subclassObject;
+		this.resourceType = ResourceTypeRecord.Subclass;
 	}
 
 	/**
