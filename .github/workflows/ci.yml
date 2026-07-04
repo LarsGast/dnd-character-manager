@@ -87,7 +87,7 @@ jobs:
           name: coverage
           path: test/coverage/
 
-  prettier:
+  format:
     # Only run for non-draft PRs or pushes to main.
     if: github.event.pull_request.draft == false || github.event_name == 'push'
 
@@ -108,6 +108,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Check Prettier formatting
-      - name: Check Prettier formatting
+      # Check formatting
+      - name: Check formatting
         run: npm run format:check
