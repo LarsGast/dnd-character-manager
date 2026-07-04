@@ -37,13 +37,13 @@ jobs:
     steps:
       # Checkout
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # Setup
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       # Dependencies
@@ -62,13 +62,13 @@ jobs:
     steps:
       # Checkout
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # Setup
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       # Dependencies
@@ -82,12 +82,12 @@ jobs:
       # Upload coverage report
       - name: Upload coverage report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: test/coverage/
 
-  prettier:
+  format:
     # Only run for non-draft PRs or pushes to main.
     if: github.event.pull_request.draft == false || github.event_name == 'push'
 
@@ -95,19 +95,19 @@ jobs:
     steps:
       # Checkout
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # Setup
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
 
       # Dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Check Prettier formatting
-      - name: Check Prettier formatting
+      # Check formatting
+      - name: Check formatting
         run: npm run format:check
