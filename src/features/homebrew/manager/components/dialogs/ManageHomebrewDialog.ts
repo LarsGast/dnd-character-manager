@@ -1,7 +1,6 @@
 import { getElementWithTextContent } from '../../../../../utils/util';
 import { HomebrewImportButton } from '../buttons/HomebrewImportButton';
 import { HomebrewTable } from '../tables/HomebrewTable';
-import { HomebrewTypeSelect } from '../selects/HomebrewTypeSelect';
 import { NewHomebrewButton } from '../buttons/NewHomebrewButton';
 
 /**
@@ -14,7 +13,6 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
 	dialogContent: HTMLDivElement;
 	heading: HTMLElement;
 	firstParagraph: HTMLElement;
-	homebrewTypeSelect: HomebrewTypeSelect;
 	createNewHomebrew: NewHomebrewButton;
 	importButton: HomebrewImportButton;
 	homebrewTableContainer: HTMLDivElement;
@@ -41,7 +39,6 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
 		);
 
 		// New homebrew button.
-		this.homebrewTypeSelect = new HomebrewTypeSelect();
 		this.createNewHomebrew = new NewHomebrewButton();
 
 		// Import button.
@@ -60,7 +57,6 @@ export class ManageHomebrewDialog extends HTMLDialogElement {
 
 		this.dialogContent.appendChild(this.heading);
 		this.dialogContent.appendChild(this.firstParagraph);
-		this.dialogContent.appendChild(this.homebrewTypeSelect);
 		this.dialogContent.appendChild(this.createNewHomebrew);
 		this.dialogContent.appendChild(this.importButton);
 		this.dialogContent.appendChild(this.homebrewTableContainer);
