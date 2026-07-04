@@ -122,4 +122,20 @@ describe('getAllKeys', () => {
 		// Assert
 		expect(result).toEqual([]);
 	});
+
+	it('should skip null keys', () => {
+		// Arrange
+		const keys = ['key1', null, 'key3'];
+		const localStorageMock = getMockStorage({
+			length: keys.length,
+			key: (index: number) => keys[index] || null,
+		});
+		const localStorageService = new LocalStorageService(localStorageMock);
+
+		// Act
+		const result = localStorageService.getAllKeys();
+
+		// Assert
+		expect(result).toEqual(['key1', 'key3']);
+	});
 });
